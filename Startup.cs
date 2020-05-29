@@ -67,7 +67,8 @@ namespace Ganges
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    // This makes the ASP.NET Core app use the external Angular CLI instance instead of launching one of its own.
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
         }
