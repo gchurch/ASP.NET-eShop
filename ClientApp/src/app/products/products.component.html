@@ -1,1 +1,22 @@
-<p>products works!</p>
+<h1 id="tableLabel">Products</h1>
+
+<p *ngIf="!products"><em>Loading...</em></p>
+
+<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="products">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Seller</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products">
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.seller }}</td>
+        </tr>
+    </tbody>
+</table>
