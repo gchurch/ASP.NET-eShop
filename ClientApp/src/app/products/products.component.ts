@@ -10,7 +10,7 @@ export class ProductsComponent implements OnInit {
   public products: Product[];
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) { 
-    http.get<Product[]>(baseUrl + 'api/product').subscribe(result => {
+    http.get<Product[]>(baseUrl + 'api/products').subscribe(result => {
       this.products = result;
     }, error => console.error(error));
   }

@@ -6,17 +6,23 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
+            <th>Title</th>
             <th>Description</th>
             <th>Seller</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Image</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let product of products">
             <td>{{ product.id }}</td>
-            <td>{{ product.name }}</td>
+            <td>{{ product.title }}</td>
             <td>{{ product.description }}</td>
             <td>{{ product.seller }}</td>
+            <td>{{ product.price | currency }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.imageUrl }}</td>
         </tr>
     </tbody>
 </table>
