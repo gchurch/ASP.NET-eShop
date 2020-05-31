@@ -21,8 +21,11 @@ export class ProductsComponent implements OnInit {
 }
 
 interface Product {
-  Id: number;
-  Name: string;
-  Description: string;
-  Seller: string;
+  id: number;
+  title: string;
+  description: string;
+  seller: string;
+  price: number;
+  quantity: number;
+  imageUrl: string;
 }
