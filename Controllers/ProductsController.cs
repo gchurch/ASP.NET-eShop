@@ -12,43 +12,16 @@ namespace Ganges.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly List<Product> products = new List<Product>() {
-            new Product()
-            {
-                Id = 1,
-                Title = "Table",
-                Description = "Glass",
-                Seller = "George",
-                Price = 100,
-                Quantity = 2,
-                ImageUrl = "table.png"
-            },
-            new Product()
-            {
-                Id = 2,
-                Title = "Chair",
-                Description = "Wooden",
-                Seller = "Kevin",
-                Price = 50,
-                Quantity = 5,
-                ImageUrl = "chair.png"
-            },
-            new Product()
-            {
-                Id = 3,
-                Title = "Computer",
-                Description = "High performance",
-                Seller = "James",
-                Price = 800,
-                Quantity = 1,
-                ImageUrl = "computer.png"
-            }
-        };
 
         [HttpGet]
         public ActionResult<IEnumerable<Product>> Get()
         {
-            return products;
+            //Retreiving the data like this should really be done in a service
+            using (var context = new GangesDbContext())
+            {
+                var products = context.Products.ToList();
+                return products;
+            }
         }
 
     }

@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ganges.Migrations
 {
-    [DbContext(typeof(ProductsContext))]
-    partial class ProductsContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(GangesDbContext))]
+    partial class GangesDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,38 @@ namespace Ganges.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Glass",
+                            ImageUrl = "table.png",
+                            Price = 100,
+                            Quantity = 2,
+                            Seller = "George",
+                            Title = "Table"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Wooden",
+                            ImageUrl = "chair.png",
+                            Price = 50,
+                            Quantity = 5,
+                            Seller = "Kevin",
+                            Title = "Chair"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "High performance",
+                            ImageUrl = "computer.png",
+                            Price = 800,
+                            Quantity = 1,
+                            Seller = "James",
+                            Title = "Computer"
+                        });
                 });
 #pragma warning restore 612, 618
         }

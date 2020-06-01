@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ganges.Migrations
 {
-    [DbContext(typeof(ProductsContext))]
-    [Migration("20200531171516_InitialCreate")]
+    [DbContext(typeof(GangesDbContext))]
+    [Migration("20200601094415_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,38 @@ namespace Ganges.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Glass",
+                            ImageUrl = "table.png",
+                            Price = 100,
+                            Quantity = 2,
+                            Seller = "George",
+                            Title = "Table"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Wooden",
+                            ImageUrl = "chair.png",
+                            Price = 50,
+                            Quantity = 5,
+                            Seller = "Kevin",
+                            Title = "Chair"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "High performance",
+                            ImageUrl = "computer.png",
+                            Price = 800,
+                            Quantity = 1,
+                            Seller = "James",
+                            Title = "Computer"
+                        });
                 });
 #pragma warning restore 612, 618
         }

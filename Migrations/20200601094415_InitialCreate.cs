@@ -23,6 +23,21 @@ namespace Ganges.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Description", "ImageUrl", "Price", "Quantity", "Seller", "Title" },
+                values: new object[] { 1, "Glass", "table.png", 100, 2, "George", "Table" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Description", "ImageUrl", "Price", "Quantity", "Seller", "Title" },
+                values: new object[] { 2, "Wooden", "chair.png", 50, 5, "Kevin", "Chair" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Description", "ImageUrl", "Price", "Quantity", "Seller", "Title" },
+                values: new object[] { 3, "High performance", "computer.png", 800, 1, "James", "Computer" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
