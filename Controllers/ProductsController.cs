@@ -14,13 +14,23 @@ namespace Ganges.Controllers
     {
 
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> Get()
+        public ActionResult<IEnumerable<Product>> GetProducts()
         {
             //Retreiving the data like this should really be done in a service
             using (var context = new GangesDbContext())
             {
                 var products = context.Products.ToList();
                 return products;
+            }
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Product> GetProduct(int id)
+        {
+            using (var context = new GangesDbContext())
+            {
+                var product = context.Products.Single(x => x.Id == id);
+                return product;
             }
         }
 
