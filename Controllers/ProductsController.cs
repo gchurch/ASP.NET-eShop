@@ -29,8 +29,19 @@ namespace Ganges.Controllers
         {
             using (var context = new GangesDbContext())
             {
-                var product = context.Products.Single(x => x.Id == id);
-                return product;
+                // SingleOrDefault returns the Product with the specified ID, or returns null if it doesn't exist.
+                var product = context.Products.SingleOrDefault(x => x.Id == id);
+
+                // If the product is found then return a 200 status code along with the product.
+                if (product != null)
+                {
+                    return Ok(product);
+                }
+                // If the product is not found then return a 404 status code.
+                else
+                {
+                    return NotFound();
+                }
             }
         }
 
