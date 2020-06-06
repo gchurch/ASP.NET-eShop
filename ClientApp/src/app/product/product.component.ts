@@ -11,13 +11,21 @@ export class ProductComponent implements OnInit {
 
   id: number;
   product: Product;
+  responseReceived: boolean = false;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') baseUrl: string) { 
     this.route.paramMap.subscribe(params => {
       this.id = +params.get('id');
-      http.get<Product>(baseUrl + 'api/products/' + this.id).subscribe(result => {
-        this.product = result;
-      }, error => console.error(error));
+      http.get<Product>(baseUrl + 'api/products/' + this.id).subscribe(
+        result => {
+          this.product = result;
+          this.responseReceived = true;
+        }, 
+        error => {
+          console.error(error);
+          this.responseReceived = true;
+        }
+      );
     });
   }
 
