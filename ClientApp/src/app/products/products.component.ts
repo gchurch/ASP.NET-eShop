@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ProductServiceService } from '../product-service.service';
 
 @Component({
   selector: 'app-products',
@@ -9,12 +9,10 @@ import { HttpClient } from '@angular/common/http';
 export class ProductsComponent implements OnInit {
   products: Product[];
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { 
-    this.baseUrl = baseUrl;
-  }
+  constructor(private productService: ProductServiceService) {}
 
   ngOnInit() {
-    this.http.get<Product[]>(this.baseUrl + 'api/products').subscribe(result => {
+    this.productService.getProducts().subscribe(result => {
       this.products = result;
     }, error => console.error(error));
   }

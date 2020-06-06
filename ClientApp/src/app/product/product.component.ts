@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProductServiceService } from '../product-service.service';
 
 @Component({
   selector: 'app-product',
@@ -9,16 +9,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductComponent implements OnInit {
 
-  id: number;
   product: Product;
   responseReceived: boolean = false;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
+  constructor(private route: ActivatedRoute, private productService: ProductServiceService) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.id = +params.get('id');
-      this.http.get<Product>(this.baseUrl + 'api/products/' + this.id).subscribe(
+      var id: number = +params.get('id');
+      this.productService.getProduct(id).subscribe(
         result => {
           this.product = result;
           this.responseReceived = true;

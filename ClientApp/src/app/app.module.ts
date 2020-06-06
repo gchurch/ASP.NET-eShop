@@ -11,6 +11,8 @@ import { CounterComponent } from './counter/counter.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './product/product.component';
 
+import { ProductServiceService } from './product-service.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,9 @@ import { ProductComponent } from './product/product.component';
       { path: 'products/:id', component: ProductComponent }
     ])
   ],
-  providers: [],
+  providers: [
+    ProductServiceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
