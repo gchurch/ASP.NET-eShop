@@ -11,7 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './product/product.component';
 
-import { ProductServiceService } from './product-service.service';
+import { ProductService } from './product.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { ProductServiceService } from './product-service.service';
     ])
   ],
   providers: [
-    ProductServiceService
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

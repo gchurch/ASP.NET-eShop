@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductServiceService } from '../product-service.service';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-product',
@@ -12,7 +12,7 @@ export class ProductComponent implements OnInit {
   product: Product;
   responseReceived: boolean = false;
 
-  constructor(private route: ActivatedRoute, private productService: ProductServiceService) {}
+  constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
