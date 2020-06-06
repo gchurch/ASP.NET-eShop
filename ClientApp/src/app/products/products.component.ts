@@ -7,15 +7,16 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  public products: Product[];
+  products: Product[];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) { 
-    http.get<Product[]>(baseUrl + 'api/products').subscribe(result => {
-      this.products = result;
-    }, error => console.error(error));
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { 
+    this.baseUrl = baseUrl;
   }
 
   ngOnInit() {
+    this.http.get<Product[]>(this.baseUrl + 'api/products').subscribe(result => {
+      this.products = result;
+    }, error => console.error(error));
   }
 
 }

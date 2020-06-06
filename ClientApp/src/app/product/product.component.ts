@@ -13,10 +13,12 @@ export class ProductComponent implements OnInit {
   product: Product;
   responseReceived: boolean = false;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') baseUrl: string) { 
+  constructor(private route: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
+
+  ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.id = +params.get('id');
-      http.get<Product>(baseUrl + 'api/products/' + this.id).subscribe(
+      this.http.get<Product>(this.baseUrl + 'api/products/' + this.id).subscribe(
         result => {
           this.product = result;
           this.responseReceived = true;
@@ -28,8 +30,6 @@ export class ProductComponent implements OnInit {
       );
     });
   }
-
-  ngOnInit() {}
 
 }
 
