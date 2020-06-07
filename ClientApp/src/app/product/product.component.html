@@ -1,13 +1,10 @@
-<p *ngIf="!responseReceived">Loading...</p>
-
-<div *ngIf="responseReceived && product">
-<p>ID: {{product.id}}</p>
-<p>Title: {{product.title}}</p>
-<p>Description: {{product.description}}</p>
-<p>Seller: {{product.seller}}</p>
-<p>Price: {{product.price | currency}}</p>
-<p>Quantity: {{product.quantity}}</p>
-<img src="assets/{{product.imageUrl}}"/>
+<!--Using *ngIf here makes sure that we only subscribe to the observable once-->
+<div *ngIf="(product$ | async) as product;">
+    <p>ID: {{ product.id }}</p>
+    <p>Title: {{product.title}}</p>
+    <p>Description: {{product.description}}</p>
+    <p>Seller: {{product.seller}}</p>
+    <p>Price: {{product.price | currency}}</p>
+    <p>Quantity: {{product.quantity}}</p>
+    <img src="assets/{{product.imageUrl}}"/>
 </div>
-
-<p *ngIf="responseReceived && !product">Product doesn't exist.</p>

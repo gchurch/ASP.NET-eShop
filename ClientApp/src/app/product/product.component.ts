@@ -9,24 +9,14 @@ import { ProductService } from '../product.service';
 })
 export class ProductComponent implements OnInit {
 
-  product: Product;
-  responseReceived: boolean = false;
+  product$;
 
   constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       var id: number = +params.get('id');
-      this.productService.getProduct(id).subscribe(
-        result => {
-          this.product = result;
-          this.responseReceived = true;
-        }, 
-        error => {
-          console.error(error);
-          this.responseReceived = true;
-        }
-      );
+      this.product$ = this.productService.getProduct(id);
     });
   }
 
