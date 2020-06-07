@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
+import { Observable } from 'rxjs';
+import { Product } from '../product';
 
 @Component({
   selector: 'app-product',
@@ -9,7 +11,7 @@ import { ProductService } from '../product.service';
 })
 export class ProductComponent implements OnInit {
 
-  product$;
+  product$: Observable<Product>;
 
   constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
@@ -20,14 +22,4 @@ export class ProductComponent implements OnInit {
     });
   }
 
-}
-
-interface Product {
-  id: number;
-  title: string;
-  description: string;
-  seller: string;
-  price: number;
-  quantity: number;
-  imageUrl: string;
 }
