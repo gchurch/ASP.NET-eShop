@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ganges.Controllers
 {
@@ -14,23 +15,23 @@ namespace Ganges.Controllers
     {
 
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
         {
             //Retreiving the data like this should really be done in a service
             using (var context = new GangesDbContext())
             {
-                var products = context.Products.ToList();
+                var products = await context.Products.ToListAsync();
                 return products;
             }
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> GetProduct(int id)
+        public async Task<ActionResult<Product>> GetProductAsync(int id)
         {
             using (var context = new GangesDbContext())
             {
                 // SingleOrDefault returns the Product with the specified ID, or returns null if it doesn't exist.
-                var product = context.Products.SingleOrDefault(x => x.Id == id);
+                var product = await context.Products.SingleOrDefaultAsync(x => x.Id == id);
 
                 // If the product is found then return a 200 status code along with the product.
                 if (product != null)
