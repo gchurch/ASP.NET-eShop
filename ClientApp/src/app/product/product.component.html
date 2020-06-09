@@ -1,7 +1,7 @@
 <!--Using *ngIf here makes sure that we only subscribe to the observable once-->
 <div *ngIf="(product$ | async) as product;">
+    <h1>{{product.title}}</h1>
     <p>ID: {{ product.id }}</p>
-    <p>Title: {{product.title}}</p>
     <p>Description: {{product.description}}</p>
     <p>Seller: {{product.seller}}</p>
     <p>Price: {{product.price | currency}}</p>
