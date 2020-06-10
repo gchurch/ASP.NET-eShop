@@ -8,6 +8,7 @@
         <p>Seller: {{product.seller}}</p>
         <p>Price: {{product.price | currency}}</p>
         <p>Quantity: {{product.quantity}}</p>
+        <button (click)="onBuyNow(product.id)">Buy Now!</button>
         <img src="assets/{{product.imageUrl}}"/>
     </div>
 </div>

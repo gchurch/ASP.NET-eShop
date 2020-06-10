@@ -35,4 +35,8 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  onBuyNow(id: number) {
+    this.productService.buyProduct(id).subscribe(output => console.log(output));
+  }
+
 }

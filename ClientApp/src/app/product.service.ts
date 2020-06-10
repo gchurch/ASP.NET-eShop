@@ -16,4 +16,8 @@ export class ProductService {
   public getProduct(id: number) {
     return this.http.get<Product>(this.baseUrl + 'api/products/' + id);
   }
+
+  public buyProduct(id: number) {
+    return this.http.post<number>(this.baseUrl + 'api/products/buy', id);
+  }
 }
