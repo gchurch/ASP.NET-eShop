@@ -33,18 +33,46 @@ namespace Ganges.Controllers
                 // SingleOrDefault returns the Product with the specified ID, or returns null if it doesn't exist.
                 var product = await context.Products.SingleOrDefaultAsync(x => x.Id == id);
 
-                // If the product is found then return a 200 status code along with the product.
-                if (product != null)
-                {
-                    return Ok(product);
-                }
                 // If the product is not found then return a 404 status code.
-                else
+                if (product == null)
                 {
                     return NotFound();
+                }
+                // If the product is found then return a 200 status code along with the product.
+                else
+                {
+                    return Ok(product);
                 }
             }
         }
 
+        [HttpPost("buy")]
+        // Here I am using the [FromBody] binding source attritube to tell the action method that the id parameter is coming
+        // from the body of the request.
+        public async Task<ActionResult> BuyProduct([FromBody]int id)
+        {
+            using (var context = new GangesDbContext())
+            {
+                // Find a product with the specified id.
+                var product = await context.Products.SingleOrDefaultAsync(x => x.Id == id);
+
+                if (product == null)
+                {
+                    // Respond withe a 404 status code.
+                    return NotFound();
+                }
+                else
+                {
+                    // Reduce the quantity of the product by 1.
+                    product.Quantity -= 1;
+
+                    // Update the database.
+                    await context.SaveChangesAsync();
+
+                    // Respond with a 200 status code.
+                    return Ok();
+                }
+            }
+        }
     }
 }
