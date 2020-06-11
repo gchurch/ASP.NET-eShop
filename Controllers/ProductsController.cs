@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Ganges.Controllers
 {
@@ -14,35 +9,30 @@ namespace Ganges.Controllers
     public class ProductsController : ControllerBase
     {
 
+        // This service really should be added to the class using dependency injection.
+        ProductService _productService = new ProductService();
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
         {
-            //Retreiving the data like this should really be done in a service
-            using (var context = new GangesDbContext())
-            {
-                var products = await context.Products.ToListAsync();
-                return products;
-            }
+            var products = await _productService.GetProductsAsync();
+            return Ok(products);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProductAsync(int id)
         {
-            using (var context = new GangesDbContext())
-            {
-                // SingleOrDefault returns the Product with the specified ID, or returns null if it doesn't exist.
-                var product = await context.Products.SingleOrDefaultAsync(x => x.Id == id);
+            var product = await _productService.GetProductAsync(id);
 
-                // If the product is not found then return a 404 status code.
-                if (product == null)
-                {
-                    return NotFound();
-                }
-                // If the product is found then return a 200 status code along with the product.
-                else
-                {
-                    return Ok(product);
-                }
+            // If the product is not found then return a 404 status code.
+            if (product == null)
+            {
+                return NotFound();
+            }
+            // If the product is found then return a 200 status code along with the product.
+            else
+            {
+                return Ok(product);
             }
         }
 
@@ -51,27 +41,17 @@ namespace Ganges.Controllers
         // from the body of the request.
         public async Task<ActionResult> BuyProduct([FromBody]int id)
         {
-            using (var context = new GangesDbContext())
+            var product = await _productService.BuyProduct(id);
+
+            if (product == null)
             {
-                // Find a product with the specified id.
-                var product = await context.Products.SingleOrDefaultAsync(x => x.Id == id);
-
-                if (product == null)
-                {
-                    // Respond withe a 404 status code.
-                    return NotFound();
-                }
-                else
-                {
-                    // Reduce the quantity of the product by 1.
-                    product.Quantity -= 1;
-
-                    // Update the database.
-                    await context.SaveChangesAsync();
-
-                    // Respond with a 200 status code.
-                    return Ok();
-                }
+                // Respond withe a 404 status code.
+                return NotFound();
+            }
+            else
+            {
+                // Respond with a 200 status code.
+                return Ok();
             }
         }
     }
