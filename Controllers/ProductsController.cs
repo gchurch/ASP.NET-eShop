@@ -9,8 +9,13 @@ namespace Ganges.Controllers
     public class ProductsController : ControllerBase
     {
 
-        // This service really should be added to the class using dependency injection.
-        ProductService _productService = new ProductService();
+        private readonly IProductService _productService;
+
+        // Adding the ProductService service using dependency injection.
+        public ProductsController(IProductService productService)
+        {
+            _productService = productService;
+        }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()

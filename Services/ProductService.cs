@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Ganges
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
