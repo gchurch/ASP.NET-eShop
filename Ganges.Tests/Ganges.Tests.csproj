@@ -17,11 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Ganges\Ganges.API.csproj" />
+    <ProjectReference Include="..\Ganges\Ganges.csproj" />
   </ItemGroup>
 
 </Project>
