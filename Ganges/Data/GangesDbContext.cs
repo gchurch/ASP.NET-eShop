@@ -7,10 +7,9 @@ namespace Ganges
     {
         public DbSet<Product> Products { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public GangesDbContext(DbContextOptions<GangesDbContext> options)
+            : base(options)
         {
-            optionsBuilder.UseSqlServer(
-                @"Server=(localdb)\mssqllocaldb;Database=Ganges;Integrated Security=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
