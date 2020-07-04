@@ -14,6 +14,7 @@ export class ProductComponent implements OnInit {
 
   // The observable for retreiving the product from the server
   product$: Observable<Product>;
+  productQuantity: number;
 
   constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
@@ -36,7 +37,10 @@ export class ProductComponent implements OnInit {
   }
 
   onBuyNow(id: number) {
-    this.productService.buyProduct(id).subscribe(output => console.log(output));
+    this.productService.buyProduct(id).subscribe(output => {
+      this.productQuantity = output
+      console.log("Updated product quantity to: " + output);
+    });
   }
 
 }

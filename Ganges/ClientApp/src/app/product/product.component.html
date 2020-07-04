@@ -7,7 +7,8 @@
         <p>Description: {{product.description}}</p>
         <p>Seller: {{product.seller}}</p>
         <p>Price: {{product.price | currency}}</p>
-        <p>Quantity: {{product.quantity}}</p>
+        <p *ngIf="!productQuantity">Quantity: {{product.quantity}}</p>
+        <p *ngIf="productQuantity">Quantity: {{productQuantity}}</p>
         <button (click)="onBuyNow(product.id)">Buy Now!</button>
         <img src="assets/{{product.imageUrl}}"/>
     </div>

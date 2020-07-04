@@ -56,7 +56,7 @@ namespace Ganges.Controllers
             else
             {
                 // Respond with a 200 status code.
-                return Ok();
+                return Ok(product.Quantity);
             }
         }
     }
