@@ -11,6 +11,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './product/product.component';
 
 import { ProductService } from './product.service';
+import { AddProductComponent } from './add-product/add-product.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ProductService } from './product.service';
     NavMenuComponent,
     HomeComponent,
     ProductsComponent,
-    ProductComponent
+    ProductComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -27,7 +29,8 @@ import { ProductService } from './product.service';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
-      { path: 'products/:id', component: ProductComponent }
+      { path: 'products/:id', component: ProductComponent },
+      { path: 'add-product', component: AddProductComponent }
     ])
   ],
   providers: [
