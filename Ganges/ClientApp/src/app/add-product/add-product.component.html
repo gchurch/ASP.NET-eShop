@@ -1,16 +1,36 @@
 <h1>Add a Product!</h1>
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
 
-    <label>
-        First Name:
-        <input type="text" formControlName="firstName">
-    </label>
+    <div>
+        Product Title:
+        <input type="text" formControlName="title">
+    </div>
+    
+    <div>
+        Description:
+        <input type="text" formControlName="description">
+    </div>
 
-    <label>
-        Last Name:
-        <input type="text" formControlName="lastName">
-    </label>
+    <div>
+        Seller:
+        <input type="text" formControlName="seller">
+    </div>
 
-    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+    <div>
+        Price:
+        <input type="text" formControlName="price">
+    </div>
+
+    <div>
+        Quantity:
+        <input type="text" formControlName="quantity">
+    </div>
+
+    <div>
+        ImageUrl:
+        <input type="text" formControlName="imageUrl">
+    </div>
+
+    <button type="submit" [disabled]="!productForm.valid">Submit</button>
 
 </form>
