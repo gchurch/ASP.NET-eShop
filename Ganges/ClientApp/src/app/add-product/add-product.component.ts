@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Product } from '../product'
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-add-product',
@@ -19,13 +20,14 @@ export class AddProductComponent implements OnInit {
     imageUrl: new FormControl(''),
   });
 
-  constructor() { }
+  // Injecting the ProductService dependency. The property for the parameter is created for us.
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    // Create a product object from the values in the form
+    // Create a product object from the values in the form.
     var product: Product = {
       id: 0,
       title: this.productForm.value.title,
@@ -35,7 +37,12 @@ export class AddProductComponent implements OnInit {
       quantity: this.productForm.value.quantity,
       imageUrl: this.productForm.value.imageUrl
     }
+    // Print the product.
     console.log(product);
+    // Send the product to the server.
+    this.productService.addProduct(product).subscribe(
+      output => console.log(output)
+    );
   }
 
 }

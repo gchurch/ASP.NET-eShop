@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -58,6 +59,14 @@ namespace Ganges.Controllers
                 // Respond with a 200 status code.
                 return Ok(product.Quantity);
             }
+        }
+
+        [HttpPost]
+        // TODO: figure out how to the the product out of the post request.
+        public ActionResult AddProduct()
+        {
+            Console.WriteLine("Add Product!");
+            return Ok();
         }
     }
 }
