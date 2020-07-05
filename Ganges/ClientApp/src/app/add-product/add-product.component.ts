@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-add-product',
@@ -8,11 +8,19 @@ import { FormControl } from '@angular/forms';
 })
 export class AddProductComponent implements OnInit {
 
-  favouriteColour = new FormControl('blue');
+  //https://angular.io/guide/reactive-forms
+  profileForm = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+  });
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    console.log(this.profileForm.value);
   }
 
 }
