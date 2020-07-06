@@ -15,8 +15,8 @@ export class AddProductComponent implements OnInit {
     title: new FormControl(''),
     description: new FormControl(''),
     seller: new FormControl(''),
-    price: new FormControl(''),
-    quantity: new FormControl(''),
+    price: new FormControl(0),
+    quantity: new FormControl(0),
     imageUrl: new FormControl(''),
   });
 
@@ -33,8 +33,8 @@ export class AddProductComponent implements OnInit {
       title: this.productForm.value.title,
       description: this.productForm.value.description,
       seller: this.productForm.value.seller,
-      price: this.productForm.value.price,
-      quantity: this.productForm.value.quantity,
+      price: parseInt(this.productForm.value.price),
+      quantity: parseInt(this.productForm.value.quantity),
       imageUrl: this.productForm.value.imageUrl
     }
     // Print the product.

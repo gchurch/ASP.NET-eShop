@@ -63,9 +63,11 @@ namespace Ganges.Controllers
 
         [HttpPost]
         // TODO: figure out how to the the product out of the post request.
-        public ActionResult AddProduct()
+        public ActionResult AddProduct([FromBody]Product product)
         {
             Console.WriteLine("Add Product!");
+            Console.WriteLine(product.Title);
+            Console.WriteLine(product.Quantity);
             return Ok();
         }
     }
