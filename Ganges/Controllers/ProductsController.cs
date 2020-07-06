@@ -47,7 +47,7 @@ namespace Ganges.Controllers
         // from the body of the request.
         public async Task<ActionResult> BuyProduct([FromBody]int id)
         {
-            var product = await _productService.BuyProduct(id);
+            var product = await _productService.BuyProductAsync(id);
 
             if (product == null)
             {
@@ -63,11 +63,14 @@ namespace Ganges.Controllers
 
         [HttpPost]
         // TODO: figure out how to the the product out of the post request.
-        public ActionResult AddProduct([FromBody]Product product)
+        public async Task<ActionResult> AddProduct([FromBody]Product product)
         {
-            Console.WriteLine("Add Product!");
-            Console.WriteLine(product.Title);
-            Console.WriteLine(product.Quantity);
+            // product.Id has to be 0 otherwise there will be an error. This is 
+            // because you are not allowed to specify an ID value. an ID value 
+            // will automatically be given to the product.
+            product.Id = 0;
+            var returnValue = await _productService.AddProductAsync(product);
+            Console.WriteLine("Product Added. Return value: " + returnValue);
             return Ok();
         }
     }

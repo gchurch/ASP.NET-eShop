@@ -27,7 +27,7 @@ namespace Ganges
             return product;
         }
 
-        public async Task<Product> BuyProduct(int id)
+        public async Task<Product> BuyProductAsync(int id)
         {
             // Find a product with the specified id.
             var product = await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
@@ -42,6 +42,13 @@ namespace Ganges
             }
 
             return product;
+        }
+
+        public async Task<int> AddProductAsync(Product product)
+        {
+            // Add the product to the database and save the changes
+            await _context.Products.AddAsync(product);
+            return await _context.SaveChangesAsync();
         }
 
     }
