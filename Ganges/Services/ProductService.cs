@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Ganges
@@ -49,6 +50,16 @@ namespace Ganges
             // Add the product to the database and save the changes
             await _context.Products.AddAsync(product);
             return await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteProductAsync(int id)
+        {
+            // This deletes the object with the given ID.
+            Product product = new Product() { Id = id };
+            _context.Products.Attach(product);
+            _context.Products.Remove(product);
+
+            await _context.SaveChangesAsync();
         }
 
     }

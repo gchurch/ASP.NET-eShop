@@ -63,7 +63,7 @@ namespace Ganges.Controllers
 
         [HttpPost]
         // TODO: Error handling
-        public async Task<ActionResult> AddProduct([FromBody]Product product)
+        public async Task<ActionResult> AddProductAsync([FromBody]Product product)
         {
             // product.Id has to be 0 otherwise there will be an error. This is 
             // because you are not allowed to specify an ID value. an ID value 
@@ -77,6 +77,15 @@ namespace Ganges.Controllers
             // in the body of the response and sets the location of the created product 
             // in the response header.
             return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+        }
+
+        [HttpDelete("{id}")]
+        // TODO: Give better status code response(s). Add error handling.
+        public async Task<ActionResult> DeleteProductAsync(int id)
+        {
+            await _productService.DeleteProductAsync(id);
+
+            return Ok();
         }
     }
 }

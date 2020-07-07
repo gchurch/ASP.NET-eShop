@@ -12,5 +12,7 @@ namespace Ganges
         public Task<Product> BuyProductAsync(int id);
 
         public Task<int> AddProductAsync(Product product);
+
+        public Task DeleteProductAsync(int id);
     }
 }
