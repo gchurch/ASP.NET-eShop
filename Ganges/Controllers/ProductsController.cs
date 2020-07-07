@@ -25,7 +25,7 @@ namespace Ganges.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetProduct")]
         public async Task<ActionResult<Product>> GetProductAsync(int id)
         {
             var product = await _productService.GetProductAsync(id);
@@ -62,16 +62,21 @@ namespace Ganges.Controllers
         }
 
         [HttpPost]
-        // TODO: figure out how to the the product out of the post request.
+        // TODO: Error handling
         public async Task<ActionResult> AddProduct([FromBody]Product product)
         {
             // product.Id has to be 0 otherwise there will be an error. This is 
             // because you are not allowed to specify an ID value. an ID value 
             // will automatically be given to the product.
             product.Id = 0;
-            var returnValue = await _productService.AddProductAsync(product);
-            Console.WriteLine("Product Added. Return value: " + returnValue);
-            return Ok();
+            
+            // Add the product to the database
+            await _productService.AddProductAsync(product);
+    
+            // Return a 201 created status code. This also sends the created product
+            // in the body of the response and sets the location of the created product 
+            // in the response header.
+            return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
         }
     }
 }
