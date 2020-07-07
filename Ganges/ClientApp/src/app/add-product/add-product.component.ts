@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product } from '../product'
 import { ProductService } from '../product.service';
 
@@ -10,20 +10,23 @@ import { ProductService } from '../product.service';
 })
 export class AddProductComponent implements OnInit {
 
-  //https://angular.io/guide/reactive-forms
-  productForm = new FormGroup({
-    title: new FormControl(''),
-    description: new FormControl(''),
-    seller: new FormControl(''),
-    price: new FormControl(0),
-    quantity: new FormControl(0),
-    imageUrl: new FormControl(''),
-  });
+  productForm:  FormGroup;
 
   // Injecting the ProductService dependency. The property for the parameter is created for us.
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
+    // https://angular.io/guide/reactive-forms
+    // https://angular.io/guide/form-validation
+    // https://angular.io/api/forms/Validators
+    this.productForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      seller: new FormControl('', Validators.required),
+      price: new FormControl(0, [Validators.required, Validators.min(0.01)]),
+      quantity: new FormControl(0, [Validators.required, Validators.min(1)]),
+      imageUrl: new FormControl('', Validators.required),
+    });
   }
 
   onSubmit() {
@@ -47,6 +50,8 @@ export class AddProductComponent implements OnInit {
         console.log("The product has been added to the database.");
       }
     );
+    // Reset the form
+    this.productForm.reset();
   }
 
 }
