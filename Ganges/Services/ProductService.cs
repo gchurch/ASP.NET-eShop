@@ -62,5 +62,21 @@ namespace Ganges
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateProductAsync(Product newProduct)
+        {
+            var product = await _context.Products.SingleOrDefaultAsync(x => x.Id == newProduct.Id);
+
+            // Updating the product. You have to update each property individually, rather
+            // than just doing 'product = newProduct;'.
+            product.Id = newProduct.Id;
+            product.Title = newProduct.Title;
+            product.Description = newProduct.Description;
+            product.Seller = newProduct.Seller;
+            product.Price = newProduct.Price;
+            product.Quantity = newProduct.Quantity;
+            product.ImageUrl = newProduct.ImageUrl;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

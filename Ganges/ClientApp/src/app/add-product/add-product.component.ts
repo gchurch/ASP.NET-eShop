@@ -41,7 +41,7 @@ export class AddProductComponent implements OnInit {
       price: parseInt(this.productForm.value.price),
       quantity: parseInt(this.productForm.value.quantity),
       imageUrl: this.productForm.value.imageUrl
-    }
+    };
     // Print the product.
     console.log(product);
     // Send the product to the server.

@@ -87,5 +87,15 @@ namespace Ganges.Controllers
 
             return Ok();
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateProductAsync(int id, [FromBody]Product product)
+        {
+            product.Id = id;
+
+            await _productService.UpdateProductAsync(product);
+
+            return Ok();
+        }
     }
 }

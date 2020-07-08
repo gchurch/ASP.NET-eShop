@@ -28,4 +28,8 @@ export class ProductService {
   public deleteProduct(id: number) {
     return this.http.delete(this.baseUrl + 'api/products/' + id);
   }
+
+  public updateProduct(product: Product) {
+    return this.http.put(this.baseUrl + 'api/products/' + product.id, product);
+  }
 }

@@ -1,15 +1,15 @@
 <!--Using *ngIf here makes sure that we only subscribe to the observable once-->
 <div *ngIf="(product$ | async) as product">
     <!--If a valid product is received that display its details.-->
-    <form *ngIf="product.id" [formGroup]="productForm">
-        <p>ID: {{ product.id }}</p>
-        <p>Title: <input type="text" formControlName="title" value="{{product.title}}" /></p>
-        <p>Description: <input type="text" formControlName="description" value="{{product.description}}" /></p>
-        <p>Seller: <input type="text" formControlName="seller" value="{{product.seller}}" /></p>
-        <p>Price: £<input type="number" formControlName="price" value="{{product.price}}" /></p>
-        <p>Quantity: <input type="number" formControlName="quantity" value="{{product.quantity}}" /></p>
-        <!--TODO: implement 'publish changes' button functionality-->
-        <button>Publish Changes</button>
+    <form *ngIf="product.id" [formGroup]="productForm" (ngSubmit)="onSubmit(product.id)">
+        <p>ID: {{product.id}}</p>
+        <p>Title: <input type="text" formControlName="title"/></p>
+        <p>Description: <input type="text" formControlName="description"/></p>
+        <p>Seller: <input type="text" formControlName="seller"/></p>
+        <p>Price: £<input type="number" formControlName="price"/></p>
+        <p>Quantity: <input type="number" formControlName="quantity"/></p>
+        <p>ImageUrl: <input type="text" formControlName="imageUrl"/></p>
+        <button type="submit" [disabled]="!productForm.valid">Update</button>
         <button (click)="onDelete(product.id)">Delete</button>
         <img src="assets/{{product.imageUrl}}"/>
     </form>
