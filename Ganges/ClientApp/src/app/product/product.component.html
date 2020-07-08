@@ -11,5 +11,6 @@
         <p *ngIf="productQuantity">Quantity: {{productQuantity}}</p>
         <button (click)="onBuyNow(product.id)">Buy Now!</button>
         <img src="assets/{{product.imageUrl}}"/>
+        <button (click)="onDelete(product.id)">Delete</button>
     </div>
 </div>

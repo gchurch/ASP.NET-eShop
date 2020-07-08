@@ -24,4 +24,8 @@ export class ProductService {
   public addProduct(product: Product) {
     return this.http.post(this.baseUrl + 'api/products', product);
   }
+
+  public deleteProduct(id: number) {
+    return this.http.delete(this.baseUrl + 'api/products/' + id);
+  }
 }

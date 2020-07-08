@@ -27,6 +27,7 @@ export class AddProductComponent implements OnInit {
       quantity: new FormControl(0, [Validators.required, Validators.min(1)]),
       imageUrl: new FormControl('', Validators.required),
     });
+    this.productForm.reset();
   }
 
   onSubmit() {

@@ -43,4 +43,11 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  onDelete(id: number) {
+    console.log("Deleting product " + id);
+    this.productService.deleteProduct(id).subscribe(output => {
+      console.log(output)
+    });
+  }
+
 }
