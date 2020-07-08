@@ -4,6 +4,7 @@ import { ProductService } from '../product.service';
 import { Observable, of } from 'rxjs';
 import { Product } from '../product';
 import { catchError } from 'rxjs/operators';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-product',
@@ -15,6 +16,8 @@ export class ProductComponent implements OnInit {
   // The observable for retreiving the product from the server
   product$: Observable<Product>;
   productQuantity: number;
+
+  productForm: FormGroup;
 
   constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
@@ -33,6 +36,14 @@ export class ProductComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       var id: number = +params.get('id');
       this.product$ = this.productService.getProduct(id).pipe(catchError(err => of(productNotFound)));
+    });
+
+    this.productForm = new FormGroup({
+      title: new FormControl(''),
+      description: new FormControl(''),
+      seller: new FormControl(''),
+      price: new FormControl(),
+      quantity: new FormControl()
     });
   }
 

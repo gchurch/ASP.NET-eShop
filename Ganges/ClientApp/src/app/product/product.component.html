@@ -1,16 +1,16 @@
 <!--Using *ngIf here makes sure that we only subscribe to the observable once-->
 <div *ngIf="(product$ | async) as product">
-    <h1>{{product.title}}</h1>
     <!--If a valid product is received that display its details.-->
-    <div *ngIf="product.id">
+    <form *ngIf="product.id" [formGroup]="productForm">
         <p>ID: {{ product.id }}</p>
-        <p>Description: {{product.description}}</p>
-        <p>Seller: {{product.seller}}</p>
-        <p>Price: {{product.price | currency}}</p>
-        <p *ngIf="!productQuantity">Quantity: {{product.quantity}}</p>
-        <p *ngIf="productQuantity">Quantity: {{productQuantity}}</p>
-        <button (click)="onBuyNow(product.id)">Buy Now!</button>
-        <img src="assets/{{product.imageUrl}}"/>
+        <p>Title: <input type="text" formControlName="title" value="{{product.title}}" /></p>
+        <p>Description: <input type="text" formControlName="description" value="{{product.description}}" /></p>
+        <p>Seller: <input type="text" formControlName="seller" value="{{product.seller}}" /></p>
+        <p>Price: £<input type="number" formControlName="price" value="{{product.price}}" /></p>
+        <p>Quantity: <input type="number" formControlName="quantity" value="{{product.quantity}}" /></p>
+        <!--TODO: implement 'publish changes' button functionality-->
+        <button>Publish Changes</button>
         <button (click)="onDelete(product.id)">Delete</button>
-    </div>
+        <img src="assets/{{product.imageUrl}}"/>
+    </form>
 </div>
