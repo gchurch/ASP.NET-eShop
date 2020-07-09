@@ -2,33 +2,27 @@
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
 
     <div>
-        Product Title:
-        <input type="text" formControlName="title">
+        <p>Title: <input type="text" formControlName="title"></p>
     </div>
     
     <div>
-        Description:
-        <input type="text" formControlName="description">
+        <p>Description: <input type="text" formControlName="description"></p>
     </div>
 
     <div>
-        Seller:
-        <input type="text" formControlName="seller">
+        <p>Seller: <input type="text" formControlName="seller"></p>
     </div>
 
     <div>
-        Price: $
-        <input type="number" formControlName="price">
+        <p>Price: £<input type="number" formControlName="price"></p>
     </div>
 
     <div>
-        Quantity: $
-        <input type="number" formControlName="quantity">
+        <p>Quantity: <input type="number" formControlName="quantity"></p>
     </div>
 
     <div>
-        ImageUrl:
-        <input type="text" formControlName="imageUrl">
+        <p>ImageUrl: <input type="text" formControlName="imageUrl"></p>
     </div>
 
     <button type="submit" [disabled]="!productForm.valid">Submit</button>
