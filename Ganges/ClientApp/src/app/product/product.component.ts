@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
 import { Observable, of } from 'rxjs';
 import { Product } from '../product';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -15,8 +15,6 @@ export class ProductComponent implements OnInit {
 
   // The observable for retreiving the product from the server
   product$: Observable<Product>;
-
-  productId: number;
 
   productQuantity: number;
 
@@ -38,23 +36,21 @@ export class ProductComponent implements OnInit {
     // Create the observable for retrieving the product from the server
     this.route.paramMap.subscribe(params => {
       var id: number = +params.get('id');
-      this.product$ = this.productService.getProduct(id).pipe(catchError(err => of(productNotFound)));
+      this.product$ = this.productService.getProduct(id)
+        .pipe(catchError(err => of(productNotFound)))
+        .pipe(tap(product => this.productForm.patchValue(product)));
     });
     
     // Create the product form. Here I am subscribing to the product observable in order to give initial values
     // to the form. I am not sure if this is good practice.
-    this.product$.subscribe(
-      output => {
-        this.productForm = new FormGroup({
-          title: new FormControl(output.title, Validators.required),
-          description: new FormControl(output.description, Validators.required),
-          seller: new FormControl(output.seller, Validators.required),
-          price: new FormControl(output.price, [Validators.required, Validators.min(0.01)]),
-          quantity: new FormControl(output.quantity, [Validators.required, Validators.min(1)]),
-          imageUrl: new FormControl(output.imageUrl, Validators.required)
-        });
-      }
-    )
+    this.productForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      seller: new FormControl('', Validators.required),
+      price: new FormControl([Validators.required, Validators.min(0.01)]),
+      quantity: new FormControl([Validators.required, Validators.min(1)]),
+      imageUrl: new FormControl('', Validators.required)
+    });
   }
 
   onBuyNow(id: number) : void {
