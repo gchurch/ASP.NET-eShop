@@ -11,6 +11,7 @@ import { ProductComponent } from './product/product.component';
 
 import { ProductService } from './product.service';
 import { AddProductComponent } from './add-product/add-product.component';
+import { BasketComponent } from './basket/basket.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AddProductComponent } from './add-product/add-product.component';
     NavMenuComponent,
     ProductsComponent,
     ProductComponent,
-    AddProductComponent
+    AddProductComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,7 +30,8 @@ import { AddProductComponent } from './add-product/add-product.component';
       { path: '', redirectTo: 'products', pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
       { path: 'products/:id', component: ProductComponent },
-      { path: 'add-product', component: AddProductComponent }
+      { path: 'add-product', component: AddProductComponent },
+      { path: 'basket', component: BasketComponent }
     ])
   ],
   providers: [
