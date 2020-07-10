@@ -21,6 +21,7 @@
             <td>{{ product.price | currency }}</td>
             <td>{{ product.quantity }}</td>
             <td><img src="assets/{{product.imageUrl}}"/></td>
+            <td><button (click)="removeFromBasket(product)">Remove</button></td>
         </tr>
     </tbody>
 </table>
