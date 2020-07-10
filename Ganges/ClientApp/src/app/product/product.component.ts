@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { Product } from '../product';
 import { catchError, tap } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { BasketService } from '../basket.service';
 
 @Component({
   selector: 'app-product',
@@ -20,7 +21,7 @@ export class ProductComponent implements OnInit {
 
   productForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService) {}
+  constructor(private route: ActivatedRoute, private productService: ProductService, private basketService: BasketService) {}
 
   ngOnInit() {
     // This product is used is the requested product does not exist.
@@ -89,6 +90,11 @@ export class ProductComponent implements OnInit {
         console.log(output);
       }
     );
+  }
+
+  addToBasket(product: Product) {
+    this.basketService.addProduct(product);
+    console.log("Product added to basket.");
   }
 
 }

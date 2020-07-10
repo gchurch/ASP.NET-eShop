@@ -1,1 +1,26 @@
 <h1>Basket</h1>
+
+<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="products;">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Seller</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products">
+            <td>{{ product.id }}</td>
+            <td><a routerLink="/products/{{product.id}}">{{ product.title }}</a></td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.seller }}</td>
+            <td>{{ product.price | currency }}</td>
+            <td>{{ product.quantity }}</td>
+            <td><img src="assets/{{product.imageUrl}}"/></td>
+        </tr>
+    </tbody>
+</table>

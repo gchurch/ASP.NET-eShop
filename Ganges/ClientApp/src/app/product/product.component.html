@@ -10,7 +10,8 @@
         <p>Quantity: <input type="number" formControlName="quantity"/></p>
         <p>ImageUrl: <input type="text" formControlName="imageUrl"/></p>
         <button type="submit" [disabled]="!productForm.valid">Update</button>
-        <button (click)="onDelete(product.id)">Delete</button>
-        <img src="assets/{{product.imageUrl}}"/>
     </form>
+    <button (click)="addToBasket(product)">Add to Basket</button>
+    <button (click)="onDelete(product.id)">Delete</button>
+    <img src="assets/{{product.imageUrl}}"/>
 </div>
