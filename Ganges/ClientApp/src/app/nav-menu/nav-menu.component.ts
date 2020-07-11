@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BasketService } from '../basket.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
   isExpanded = false;
+
+  constructor(private basketService: BasketService) { }
 
   collapse() {
     this.isExpanded = false;

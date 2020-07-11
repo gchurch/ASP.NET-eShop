@@ -25,7 +25,7 @@ export class BasketService {
   }
 
   // Create an array of products out of the basket property
-  getProducts() {
+  getProducts() : Product[] {
     var products = [];
     for(var id in this.basket) {
       if(this.basket[id]) {
@@ -36,7 +36,7 @@ export class BasketService {
   }
 
   // Decrease the product quantity if it is greater than 1. Otherwise remove the product from the basket.
-  removeProduct(product: Product) {
+  removeProduct(product: Product) : void {
     if(this.basket[product.id] && this.basket[product.id].quantity > 1) {
       this.basket[product.id].quantity--;
     }
@@ -45,11 +45,19 @@ export class BasketService {
     }
   }
 
-  calculateCost() : number {
+  getTotalCost() : number {
     var totalCost: number = 0;
     for(var id in this.basket) {
       totalCost += this.basket[id].price * this.basket[id].quantity;
     }
     return totalCost;
+  }
+
+  getNumberOfItems() : number {
+    var numberOfItems: number = 0;
+    for(var id in this.basket) {
+      numberOfItems += this.basket[id].quantity;
+    }
+    return numberOfItems;
   }
 }

@@ -11,19 +11,22 @@ export class BasketComponent implements OnInit {
 
   products: Product[]
   totalCost: number;
+  numberOfItems: number;
 
   constructor(private basketService: BasketService) { }
 
   ngOnInit() {
     this.products = this.basketService.getProducts();
-    this.totalCost = this.basketService.calculateCost();
+    this.totalCost = this.basketService.getTotalCost();
+    this.numberOfItems = this.basketService.getNumberOfItems();
   }
 
   removeFromBasket(product: Product) : void {
     console.log("Removing product '" + product.title + "' from basket.");
     this.basketService.removeProduct(product);
     this.products = this.basketService.getProducts();
-    this.totalCost = this.basketService.calculateCost();
+    this.totalCost = this.basketService.getTotalCost();
+    this.numberOfItems = this.basketService.getNumberOfItems();
   }
 
 }
