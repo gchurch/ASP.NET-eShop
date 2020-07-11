@@ -44,4 +44,12 @@ export class BasketService {
       delete this.basket[product.id];
     }
   }
+
+  calculateCost() : number {
+    var totalCost: number = 0;
+    for(var id in this.basket) {
+      totalCost += this.basket[id].price * this.basket[id].quantity;
+    }
+    return totalCost;
+  }
 }
