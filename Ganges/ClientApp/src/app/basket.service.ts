@@ -6,34 +6,42 @@ import { Product } from './product';
 })
 export class BasketService {
 
-  private products = {};
+  // The basket property is a map from product ID to product. This so that it is easy to track the quantity 
+  // of each product in the basket.
+  private basket = {};
 
   constructor() { }
 
+  // If the product is not already in the basket then add it. If the product is already in the basket then
+  // increment the quantity.
   addProduct(product: Product) : void {
-    if(!this.products[product.id]) {
+    if(!this.basket[product.id]) {
       product.quantity = 1;
-      this.products[product.id] = product;
+      this.basket[product.id] = product;
     }
     else {
-      this.products[product.id].quantity++;
+      this.basket[product.id].quantity++;
     }
   }
 
+  // Create an array of products out of the basket property
   getProducts() {
-    var productsArray = [];
-    for(var id in this.products) {
-      productsArray.push(this.products[id]);
+    var products = [];
+    for(var id in this.basket) {
+      if(this.basket[id]) {
+        products.push(this.basket[id]);
+      }
     }
-    return productsArray;
+    return products;
   }
 
+  // Decrease the product quantity if it is greater than 1. Otherwise remove the product from the basket.
   removeProduct(product: Product) {
-    if(this.products[product.id] && this.products[product.id].quantity > 1) {
-      this.products[product.id].quantity--;
+    if(this.basket[product.id] && this.basket[product.id].quantity > 1) {
+      this.basket[product.id].quantity--;
     }
     else {
-      delete this.products[product.id];
+      delete this.basket[product.id];
     }
   }
 }

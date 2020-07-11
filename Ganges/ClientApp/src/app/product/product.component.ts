@@ -93,8 +93,8 @@ export class ProductComponent implements OnInit {
   }
 
   addToBasket(product: Product) {
+    console.log("Adding product '" + product.title + "' to the basket.");
     this.basketService.addProduct(product);
-    console.log("Product added to basket.");
   }
 
 }
