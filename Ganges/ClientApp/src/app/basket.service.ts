@@ -10,7 +10,25 @@ export class BasketService {
   // of each product in the basket.
   private basket = {};
 
-  constructor() { }
+  constructor() { 
+    this.loadBasket();
+  }
+
+  // Load the basket from localStorage if one has been saved
+  loadBasket() : void {
+    var storedBasket = localStorage.getItem('basket');
+    if(storedBasket) {
+      this.basket = JSON.parse(storedBasket);
+    }
+    else {
+      this.basket = {};
+    }
+  }
+
+  // Save the basket to localStorage
+  storeBasket() : void {
+    localStorage.setItem('basket', JSON.stringify(this.basket));
+  }
 
   // If the product is not already in the basket then add it. If the product is already in the basket then
   // increment the quantity.
@@ -22,6 +40,7 @@ export class BasketService {
     else {
       this.basket[product.id].quantity++;
     }
+    this.storeBasket();
   }
 
   // Create an array of products out of the basket property
@@ -43,6 +62,7 @@ export class BasketService {
     else {
       delete this.basket[product.id];
     }
+    this.storeBasket();
   }
 
   getTotalCost() : number {
