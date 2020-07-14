@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BasketService } from '../basket.service';
 import { Product } from '../product';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-basket',
@@ -10,14 +11,15 @@ import { Product } from '../product';
 export class BasketComponent implements OnInit {
 
   products: Product[]
-  totalCost: number;
+  cost$: Subject<number>;
   numberOfItems: number;
 
   constructor(private basketService: BasketService) { }
 
   ngOnInit() {
     this.products = this.basketService.getProducts();
-    this.totalCost = this.basketService.getTotalCost();
+    this.cost$ = this.basketService.getCost();
+    this.basketService.calculateTotalCost();
     this.numberOfItems = this.basketService.getNumberOfItems();
   }
 
@@ -25,7 +27,6 @@ export class BasketComponent implements OnInit {
     console.log("Removing product '" + product.title + "' from basket.");
     this.basketService.removeProduct(product);
     this.products = this.basketService.getProducts();
-    this.totalCost = this.basketService.getTotalCost();
     this.numberOfItems = this.basketService.getNumberOfItems();
   }
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from './product';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,11 @@ export class BasketService {
   // The basket property is a map from product ID to product. This so that it is easy to track the quantity 
   // of each product in the basket.
   private basket = {};
+  private cost$ = new Subject<number>();
 
   constructor() { 
     this.loadBasket();
+    this.calculateTotalCost();
   }
 
   // Load the basket from localStorage if one has been saved
@@ -41,6 +44,7 @@ export class BasketService {
       this.basket[product.id].quantity++;
     }
     this.storeBasket();
+    this.calculateTotalCost();
   }
 
   // Create an array of products out of the basket property
@@ -63,14 +67,15 @@ export class BasketService {
       delete this.basket[product.id];
     }
     this.storeBasket();
+    this.calculateTotalCost();
   }
 
-  getTotalCost() : number {
+  calculateTotalCost() {
     var totalCost: number = 0;
     for(var id in this.basket) {
       totalCost += this.basket[id].price * this.basket[id].quantity;
     }
-    return totalCost;
+    this.cost$.next(totalCost);
   }
 
   getNumberOfItems() : number {
@@ -79,5 +84,9 @@ export class BasketService {
       numberOfItems += this.basket[id].quantity;
     }
     return numberOfItems;
+  }
+
+  getCost() : Subject<number> {
+    return this.cost$;
   }
 }
