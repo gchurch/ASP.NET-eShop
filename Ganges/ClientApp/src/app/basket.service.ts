@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from './product';
-import { Subject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,9 @@ export class BasketService {
   // The basket property is a map from product ID to product. This so that it is easy to track the quantity 
   // of each product in the basket.
   private basket = {};
-  private cost$ = new Subject<number>();
+
+  // https://rxjs-dev.firebaseapp.com/guide/subject
+  private cost$ = new ReplaySubject<number>(1);
 
   constructor() { 
     this.loadBasket();
@@ -18,10 +20,10 @@ export class BasketService {
   }
 
   // Load the basket from localStorage if one has been saved
-  loadBasket() : void {
-    var storedBasket = localStorage.getItem('basket');
-    if(storedBasket) {
-      this.basket = JSON.parse(storedBasket);
+  private loadBasket() : void {
+    var savedBasket = localStorage.getItem('basket');
+    if(savedBasket) {
+      this.basket = JSON.parse(savedBasket);
     }
     else {
       this.basket = {};
@@ -29,7 +31,7 @@ export class BasketService {
   }
 
   // Save the basket to localStorage
-  storeBasket() : void {
+  private saveBasket() : void {
     localStorage.setItem('basket', JSON.stringify(this.basket));
   }
 
@@ -43,7 +45,7 @@ export class BasketService {
     else {
       this.basket[product.id].quantity++;
     }
-    this.storeBasket();
+    this.saveBasket();
     this.calculateTotalCost();
   }
 
@@ -66,7 +68,7 @@ export class BasketService {
     else {
       delete this.basket[product.id];
     }
-    this.storeBasket();
+    this.saveBasket();
     this.calculateTotalCost();
   }
 
@@ -86,7 +88,7 @@ export class BasketService {
     return numberOfItems;
   }
 
-  getCost() : Subject<number> {
+  getCost() : ReplaySubject<number> {
     return this.cost$;
   }
 }
