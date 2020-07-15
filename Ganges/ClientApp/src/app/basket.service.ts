@@ -12,11 +12,15 @@ export class BasketService {
   private basket = {};
 
   // https://rxjs-dev.firebaseapp.com/guide/subject
+  // Here I am using subjects for the total cost of the products and the number of products in the basket.
+  // Components will need to subscribe to these to get the latest value.
   private cost$ = new ReplaySubject<number>(1);
+  private numberOfProducts$ = new ReplaySubject<number>(1);
 
   constructor() { 
     this.loadBasket();
     this.calculateTotalCost();
+    this.calculateNumberOfProducts();
   }
 
   // Load the basket from localStorage if one has been saved
@@ -47,6 +51,7 @@ export class BasketService {
     }
     this.saveBasket();
     this.calculateTotalCost();
+    this.calculateNumberOfProducts();
   }
 
   // Create an array of products out of the basket property
@@ -70,9 +75,10 @@ export class BasketService {
     }
     this.saveBasket();
     this.calculateTotalCost();
+    this.calculateNumberOfProducts();
   }
 
-  calculateTotalCost() {
+  calculateTotalCost() : void {
     var totalCost: number = 0;
     for(var id in this.basket) {
       totalCost += this.basket[id].price * this.basket[id].quantity;
@@ -80,15 +86,19 @@ export class BasketService {
     this.cost$.next(totalCost);
   }
 
-  getNumberOfItems() : number {
-    var numberOfItems: number = 0;
+  calculateNumberOfProducts() : void {
+    var numberOfProducts: number = 0;
     for(var id in this.basket) {
-      numberOfItems += this.basket[id].quantity;
+      numberOfProducts += this.basket[id].quantity;
     }
-    return numberOfItems;
+    this.numberOfProducts$.next(numberOfProducts);
   }
 
   getCost() : ReplaySubject<number> {
     return this.cost$;
+  }
+
+  getNumberOfProducts(): ReplaySubject<number> {
+    return this.numberOfProducts$;
   }
 }

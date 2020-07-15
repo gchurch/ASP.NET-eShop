@@ -1,6 +1,6 @@
 <h1>Basket</h1>
 
-<p>Total number of items in basket: {{ numberOfItems }}</p>
+<p>Total number of items in basket: {{ numberOfProducts$ | async }}</p>
 
 <table class="table table-striped" aria-labelledby="tableLabel" *ngIf="products;">
     <thead>
