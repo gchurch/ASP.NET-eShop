@@ -1,15 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BasketService } from '../basket.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent {
-  isExpanded = false;
+export class NavMenuComponent implements OnInit {
+
+  private isExpanded = false;
+  
+  private numberOfProductsInBasket$: Subject<number>;
 
   constructor(private basketService: BasketService) { }
+
+  ngOnInit() : void {
+    this.numberOfProductsInBasket$ = this.basketService.getNumberOfProducts();
+  }
 
   collapse() {
     this.isExpanded = false;
