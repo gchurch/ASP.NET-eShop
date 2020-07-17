@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ganges.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
 

@@ -14,6 +14,8 @@ import { BasketComponent } from './basket/basket.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
+import { HomeComponent } from './home/home.component';
+import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
     ProductsComponent,
     ProductComponent,
     AddProductComponent,
-    BasketComponent
+    BasketComponent,
+    HomeComponent,
+    WeatherForecastComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -31,11 +35,12 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
     ReactiveFormsModule,
     ApiAuthorizationModule,
     RouterModule.forRoot([
-      { path: '', redirectTo: 'products', pathMatch: 'full' },
+      { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
       { path: 'products/:id', component: ProductComponent },
       { path: 'add-product', component: AddProductComponent },
-      { path: 'basket', component: BasketComponent }
+      { path: 'basket', component: BasketComponent },
+      { path: 'weather-forecast', component: WeatherForecastComponent }
     ])
   ],
   providers: [
