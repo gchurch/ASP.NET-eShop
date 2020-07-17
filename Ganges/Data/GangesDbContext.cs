@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using Ganges.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Ganges
+namespace Ganges.Data
 {
     public class GangesDbContext : DbContext
     {

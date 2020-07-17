@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Ganges.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Ganges
+namespace Ganges.Services
 {
     public interface IProductService
     {
