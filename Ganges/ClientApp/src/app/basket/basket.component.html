@@ -2,7 +2,7 @@
 
 <p>Total number of items in basket: {{ numberOfProducts$ | async }}</p>
 
-<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="products;">
+<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="(products$ | async) as products;">
     <thead>
         <tr>
             <th>Id</th>
@@ -28,4 +28,4 @@
     </tbody>
 </table>
 
-<p>Total cost: {{ cost$ | async | currency }}</p>
+<p>Total cost: {{ totalCost$ | async | currency }}</p>

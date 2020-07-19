@@ -10,22 +10,21 @@ import { Subject } from 'rxjs';
 })
 export class BasketComponent implements OnInit {
 
-  private products: Product[]
-  private cost$: Subject<number>;
+  private products$: Subject<Product[]>;
+  private totalCost$: Subject<number>;
   private numberOfProducts$: Subject<number>;
 
   constructor(private basketService: BasketService) { }
 
   ngOnInit() {
-    this.products = this.basketService.getProducts();
-    this.cost$ = this.basketService.getCost();
+    this.products$ = this.basketService.getProducts();
+    this.totalCost$ = this.basketService.getTotalCost();
     this.numberOfProducts$ = this.basketService.getNumberOfProducts();
   }
 
   removeFromBasket(product: Product) : void {
     console.log("Removing product '" + product.title + "' from basket.");
     this.basketService.removeProduct(product);
-    this.products = this.basketService.getProducts();
   }
 
 }
