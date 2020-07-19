@@ -15,7 +15,6 @@ import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { HomeComponent } from './home/home.component';
-import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +25,6 @@ import { WeatherForecastComponent } from './weather-forecast/weather-forecast.co
     AddProductComponent,
     BasketComponent,
     HomeComponent,
-    WeatherForecastComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -40,7 +38,6 @@ import { WeatherForecastComponent } from './weather-forecast/weather-forecast.co
       { path: 'products/:id', component: ProductComponent },
       { path: 'add-product', component: AddProductComponent },
       { path: 'basket', component: BasketComponent },
-      { path: 'weather-forecast', component: WeatherForecastComponent }
     ])
   ],
   providers: [
