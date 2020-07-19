@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Shouldly;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 // Helpful page for unit testing: https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/testing?view=aspnetcore-3.1
@@ -14,6 +15,26 @@ namespace Ganges.UnitTests
     [TestClass]
     public class ProductsControllerTest
     {
+
+        [TestMethod]
+        public async Task GetProductsAsync_ShouldReturnOk()
+        {
+            // Arrange
+            var products = new List<Product>();
+            var productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(x => x.GetProductsAsync())
+                .ReturnsAsync(products);
+            var controller = new ProductsController(productServiceMock.Object);
+
+            // Act
+            var result = await controller.GetProductsAsync();
+
+            // Assert
+            result.ShouldBeOfType<ActionResult<IEnumerable<Product>>>();
+            result.Result.ShouldBeOfType<OkObjectResult>();
+        }
+
+
         [TestMethod]
         public async Task GetProductAsync_ReceivesExistingProductId_ShouldReturnOk()
         {
@@ -21,13 +42,7 @@ namespace Ganges.UnitTests
             var id = 1;
             var product = new Product()
             {
-                Id = id,
-                Title = "a",
-                Description = "",
-                Seller = "",
-                Price = 1,
-                Quantity = 1,
-                ImageUrl = "",
+                Id = id
             };
             var productServiceMock = new Mock<IProductService>();
             productServiceMock.Setup(x => x.GetProductAsync(id))
