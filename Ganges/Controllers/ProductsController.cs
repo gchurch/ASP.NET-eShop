@@ -27,7 +27,7 @@ namespace Ganges.Controllers
         }
 
         [HttpGet("{id}", Name="GetProduct")]
-        public async Task<ActionResult<Product>> GetProductAsync(int id)
+        public async Task<ActionResult> GetProductAsync(int id)
         {
             var product = await _productService.GetProductAsync(id);
 

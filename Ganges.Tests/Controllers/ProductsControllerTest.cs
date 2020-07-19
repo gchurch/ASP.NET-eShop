@@ -7,13 +7,15 @@ using Moq;
 using Shouldly;
 using System.Threading.Tasks;
 
+// Helpful page for unit testing: https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/testing?view=aspnetcore-3.1
+
 namespace Ganges.UnitTests
 {
     [TestClass]
     public class ProductsControllerTest
     {
         [TestMethod]
-        public void GetProductAsync_ReceivesExistingProductId_ShouldReturnOk()
+        public async Task GetProductAsync_ReceivesExistingProductId_ShouldReturnOk()
         {
             // Arrange
             var id = 1;
@@ -22,27 +24,29 @@ namespace Ganges.UnitTests
                 Id = id
             };
             var productServiceMock = new Mock<IProductService>();
-            productServiceMock.Setup(x => x.GetProductAsync(1)).Returns(Task.FromResult<Product>(product));
-            var productController = new ProductsController(productServiceMock.Object);
+            productServiceMock.Setup(x => x.GetProductAsync(id))
+                .ReturnsAsync(product);
+            var controller = new ProductsController(productServiceMock.Object);
 
             // Act
-            var result = productController.GetProductAsync(id);
+            var result = await controller.GetProductAsync(id);
 
             // Assert
             result.ShouldBeOfType<OkObjectResult>();
         }
 
         [TestMethod]
-        public void GetProductAsync_ReceivesNonExistentProductId_ShouldReturnNotFound()
+        public async Task GetProductAsync_ReceivesNonExistentProductId_ShouldReturnNotFound()
         {
             // Arrange
             var id = 0;
             var productServiceMock = new Mock<IProductService>();
-            productServiceMock.Setup(x => x.GetProductAsync(id)).Returns<Product>(null);
+            productServiceMock.Setup(x => x.GetProductAsync(id))
+                .ReturnsAsync((Product)null);
             var productController = new ProductsController(productServiceMock.Object);
 
             // Act
-            var result = productController.GetProductAsync(id);
+            var result = await productController.GetProductAsync(id);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
