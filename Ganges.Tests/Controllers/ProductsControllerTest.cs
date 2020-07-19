@@ -21,7 +21,13 @@ namespace Ganges.UnitTests
             var id = 1;
             var product = new Product()
             {
-                Id = id
+                Id = id,
+                Title = "a",
+                Description = "",
+                Seller = "",
+                Price = 1,
+                Quantity = 1,
+                ImageUrl = "",
             };
             var productServiceMock = new Mock<IProductService>();
             productServiceMock.Setup(x => x.GetProductAsync(id))
@@ -32,7 +38,8 @@ namespace Ganges.UnitTests
             var result = await controller.GetProductAsync(id);
 
             // Assert
-            result.ShouldBeOfType<OkObjectResult>();
+            result.ShouldBeOfType<ActionResult<Product>>();
+            result.Result.ShouldBeOfType<OkObjectResult>();
         }
 
         [TestMethod]
@@ -49,7 +56,8 @@ namespace Ganges.UnitTests
             var result = await productController.GetProductAsync(id);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            result.ShouldBeOfType<ActionResult<Product>>();
+            result.Result.ShouldBeOfType<NotFoundResult>();
         }
 
     }

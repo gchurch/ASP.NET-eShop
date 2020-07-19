@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ganges.Models;
 using Ganges.Services;
@@ -27,8 +28,9 @@ namespace Ganges.Controllers
         }
 
         [HttpGet("{id}", Name="GetProduct")]
-        public async Task<ActionResult> GetProductAsync(int id)
+        public async Task<ActionResult<Product>> GetProductAsync(int id)
         {
+
             var product = await _productService.GetProductAsync(id);
 
             // If the product is not found then return a 404 status code.
