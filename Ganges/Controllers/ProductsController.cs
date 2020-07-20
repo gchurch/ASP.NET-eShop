@@ -48,7 +48,7 @@ namespace Ganges.Controllers
         [HttpPost("buy")]
         // Here I am using the [FromBody] binding source attritube to tell the action method that the id parameter is coming
         // from the body of the request.
-        public async Task<ActionResult> BuyProduct([FromBody]int id)
+        public async Task<ActionResult<int>> BuyProduct([FromBody]int id)
         {
             var product = await _productService.BuyProductAsync(id);
 
@@ -66,7 +66,7 @@ namespace Ganges.Controllers
 
         [HttpPost]
         // TODO: Error handling
-        public async Task<ActionResult> AddProductAsync([FromBody]Product product)
+        public async Task<ActionResult<Product>> AddProductAsync([FromBody]Product product)
         {
             // product.Id has to be 0 otherwise there will be an error. This is 
             // because you are not allowed to specify an ID value. an ID value 

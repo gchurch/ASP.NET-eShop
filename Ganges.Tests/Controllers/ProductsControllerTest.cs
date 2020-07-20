@@ -20,18 +20,23 @@ namespace Ganges.UnitTests
         public async Task GetProductsAsync_ShouldReturnOk()
         {
             // Arrange
-            var products = new List<Product>();
+            var products = new List<Product>() {
+                new Product(),
+                new Product()
+            };
             var productServiceMock = new Mock<IProductService>();
             productServiceMock.Setup(x => x.GetProductsAsync())
                 .ReturnsAsync(products);
             var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
-            var result = await productsController.GetProductsAsync();
+            var actionResult = await productsController.GetProductsAsync();
+            var value = (actionResult.Result as OkObjectResult).Value as List<Product>;
 
             // Assert
-            result.ShouldBeOfType<ActionResult<IEnumerable<Product>>>();
-            result.Result.ShouldBeOfType<OkObjectResult>();
+            actionResult.ShouldBeOfType<ActionResult<IEnumerable<Product>>>();
+            actionResult.Result.ShouldBeOfType<OkObjectResult>();
+            value.Count.ShouldBe(2);
         }
 
 
@@ -50,11 +55,13 @@ namespace Ganges.UnitTests
             var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
-            var result = await productsController.GetProductAsync(id);
+            var actionResult = await productsController.GetProductAsync(id);
+            var value = (actionResult.Result as OkObjectResult).Value as Product;
 
             // Assert
-            result.ShouldBeOfType<ActionResult<Product>>();
-            result.Result.ShouldBeOfType<OkObjectResult>();
+            actionResult.ShouldBeOfType<ActionResult<Product>>();
+            actionResult.Result.ShouldBeOfType<OkObjectResult>();
+            value.ShouldBeOfType<Product>();
         }
 
         [TestMethod]
@@ -73,6 +80,7 @@ namespace Ganges.UnitTests
             // Assert
             result.ShouldBeOfType<ActionResult<Product>>();
             result.Result.ShouldBeOfType<NotFoundResult>();
+
         }
 
         [TestMethod]
@@ -90,10 +98,13 @@ namespace Ganges.UnitTests
             var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
-            var result = await productsController.BuyProduct(id);
+            var actionResult = await productsController.BuyProduct(id);
+            var value = (actionResult.Result as OkObjectResult).Value;
 
             // Assert
-            result.ShouldBeOfType<OkObjectResult>();
+            actionResult.ShouldBeOfType<ActionResult<int>>();
+            actionResult.Result.ShouldBeOfType<OkObjectResult>();
+            value.ShouldBeOfType<int>();
         }
 
         [TestMethod]
@@ -107,10 +118,31 @@ namespace Ganges.UnitTests
             var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
-            var result = await productsController.BuyProduct(id);
+            var actionResult = await productsController.BuyProduct(id);
 
             // Assert
-            result.ShouldBeOfType<NotFoundResult>();
+            actionResult.ShouldBeOfType<ActionResult<int>>();
+            actionResult.Result.ShouldBeOfType<NotFoundResult>();
+        }
+
+        [TestMethod]
+        public async Task AddProductAsync_RecievesProduct_ShouldReturnCreated()
+        {
+            // Arrange
+            var product = new Product();
+            var productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(x => x.AddProductAsync(product))
+                .ReturnsAsync(1);
+            var productsController = new ProductsController(productServiceMock.Object);
+
+            // Act
+            var actionResult = await productsController.AddProductAsync(product);
+            var value = (actionResult.Result as CreatedAtRouteResult).Value;
+
+            // Assert
+            actionResult.ShouldBeOfType<ActionResult<Product>>();
+            actionResult.Result.ShouldBeOfType<CreatedAtRouteResult>();
+            value.ShouldBeOfType<Product>();
         }
     }
 }
