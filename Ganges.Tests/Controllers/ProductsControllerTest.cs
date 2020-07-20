@@ -24,10 +24,10 @@ namespace Ganges.UnitTests
             var productServiceMock = new Mock<IProductService>();
             productServiceMock.Setup(x => x.GetProductsAsync())
                 .ReturnsAsync(products);
-            var controller = new ProductsController(productServiceMock.Object);
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
-            var result = await controller.GetProductsAsync();
+            var result = await productsController.GetProductsAsync();
 
             // Assert
             result.ShouldBeOfType<ActionResult<IEnumerable<Product>>>();
@@ -47,10 +47,10 @@ namespace Ganges.UnitTests
             var productServiceMock = new Mock<IProductService>();
             productServiceMock.Setup(x => x.GetProductAsync(id))
                 .ReturnsAsync(product);
-            var controller = new ProductsController(productServiceMock.Object);
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
-            var result = await controller.GetProductAsync(id);
+            var result = await productsController.GetProductAsync(id);
 
             // Assert
             result.ShouldBeOfType<ActionResult<Product>>();
@@ -65,15 +65,52 @@ namespace Ganges.UnitTests
             var productServiceMock = new Mock<IProductService>();
             productServiceMock.Setup(x => x.GetProductAsync(id))
                 .ReturnsAsync((Product)null);
-            var productController = new ProductsController(productServiceMock.Object);
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
-            var result = await productController.GetProductAsync(id);
+            var result = await productsController.GetProductAsync(id);
 
             // Assert
             result.ShouldBeOfType<ActionResult<Product>>();
             result.Result.ShouldBeOfType<NotFoundResult>();
         }
 
+        [TestMethod]
+        public async Task BuyProduct_ReceivesExistingProductId_ShouldReturnOk()
+        {
+            // Arrange
+            var id = 1;
+            var product = new Product()
+            {
+                Id = id
+            };
+            var productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(x => x.BuyProductAsync(id))
+                .ReturnsAsync(product);
+            var productsController = new ProductsController(productServiceMock.Object);
+
+            // Act
+            var result = await productsController.BuyProduct(id);
+
+            // Assert
+            result.ShouldBeOfType<OkObjectResult>();
+        }
+
+        [TestMethod]
+        public async Task BuyProduct_ReceivesNonExistentProductId_ShouldNotFound()
+        {
+            // Arrange
+            var id = 0;
+            var productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(x => x.BuyProductAsync(id))
+                .ReturnsAsync((Product)null);
+            var productsController = new ProductsController(productServiceMock.Object);
+
+            // Act
+            var result = await productsController.BuyProduct(id);
+
+            // Assert
+            result.ShouldBeOfType<NotFoundResult>();
+        }
     }
 }
