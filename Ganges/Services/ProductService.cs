@@ -1,6 +1,7 @@
 ﻿using Ganges.Data;
 using Ganges.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace Ganges.Services
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            //Retreiving the data like this should really be done in a service
+            // Retreiving the data like this should really be done in a service
             var products = await _context.Products.ToListAsync();
             return products;
         }
@@ -54,14 +55,19 @@ namespace Ganges.Services
             return await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteProductAsync(int id)
+        public async Task<bool> DeleteProductAsync(int id)
         {
-            // This deletes the object with the given ID.
-            Product product = new Product() { Id = id };
-            _context.Products.Attach(product);
-            _context.Products.Remove(product);
+            var productExisted = false;
 
-            await _context.SaveChangesAsync();
+            var product = await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
+
+            if(product != null) {
+                productExisted = true;
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
+            }
+
+            return productExisted;
         }
 
         public async Task UpdateProductAsync(Product newProduct)

@@ -83,12 +83,20 @@ namespace Ganges.Controllers
         }
 
         [HttpDelete("{id}")]
-        // TODO: Give better status code response(s). Add error handling.
+        // If the product exists and is deleted then return a 200 OK status code.
+        // If the product doesn't exist return a 404 not found status code.
         public async Task<ActionResult> DeleteProductAsync(int id)
         {
-            await _productService.DeleteProductAsync(id);
+            bool productExisted = await _productService.DeleteProductAsync(id);
 
-            return Ok();
+            if(productExisted)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPut("{id}")]
