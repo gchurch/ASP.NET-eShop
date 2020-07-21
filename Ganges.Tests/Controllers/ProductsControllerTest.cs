@@ -108,7 +108,7 @@ namespace Ganges.UnitTests
         }
 
         [TestMethod]
-        public async Task BuyProduct_ReceivesNonExistentProductId_ShouldNotFound()
+        public async Task BuyProduct_ReceivesNonExistentProductId_ShouldReturnNotFound()
         {
             // Arrange
             var id = 0;
@@ -143,6 +143,47 @@ namespace Ganges.UnitTests
             actionResult.ShouldBeOfType<ActionResult<Product>>();
             actionResult.Result.ShouldBeOfType<CreatedAtRouteResult>();
             value.ShouldBeOfType<Product>();
+        }
+
+        [TestMethod]
+        public async Task DeleteProductAsync_GivenId_ShouldReturnOk()
+        {
+            // Arrange
+            var id = 0;
+            var productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(x => x.DeleteProductAsync(id))
+                .Verifiable();
+            var productsController = new ProductsController(productServiceMock.Object);
+
+            // Act
+            var actionResult = await productsController.DeleteProductAsync(id);
+
+            // Assert
+            actionResult.ShouldBeOfType<OkResult>();
+            productServiceMock.Verify();
+            
+        }
+
+        [TestMethod]
+        public async Task UpdateProductAsync_GivenIdAndProduct_ShouldReturnOk()
+        {
+            // Arrange
+            var id = 1;
+            var product = new Product()
+            {
+                Id = id
+            };
+            var productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(x => x.UpdateProductAsync(product))
+                .Verifiable();
+            var productsController = new ProductsController(productServiceMock.Object);
+
+            // Act
+            var actionResult = await productsController.UpdateProductAsync(id, product);
+
+            // Assert
+            actionResult.ShouldBeOfType<OkResult>();
+            productServiceMock.Verify();
         }
     }
 }
