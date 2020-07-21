@@ -152,6 +152,7 @@ namespace Ganges.UnitTests
             var id = 0;
             var productServiceMock = new Mock<IProductService>();
             productServiceMock.Setup(x => x.DeleteProductAsync(id))
+                .ReturnsAsync(true)
                 .Verifiable();
             var productsController = new ProductsController(productServiceMock.Object);
 
@@ -162,6 +163,26 @@ namespace Ganges.UnitTests
             actionResult.ShouldBeOfType<OkResult>();
             productServiceMock.Verify();
             
+        }
+
+        [TestMethod]
+        public async Task DeleteProductAsync_GivenId_ShouldReturnNotFound()
+        {
+            // Arrange
+            var id = 0;
+            var productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(x => x.DeleteProductAsync(id))
+                .ReturnsAsync(false)
+                .Verifiable();
+            var productsController = new ProductsController(productServiceMock.Object);
+
+            // Act
+            var actionResult = await productsController.DeleteProductAsync(id);
+
+            // Assert
+            actionResult.ShouldBeOfType<NotFoundResult>();
+            productServiceMock.Verify();
+
         }
 
         [TestMethod]
