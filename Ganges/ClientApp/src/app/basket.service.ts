@@ -33,6 +33,7 @@ export class BasketService {
     else {
       this.products = [];
     }
+    this.products$.next(this.products);
   }
 
   // Save the basket to localStorage
