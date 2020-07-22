@@ -16,6 +16,6 @@ namespace Ganges.Services
 
         public Task<bool> DeleteProductAsync(int id);
 
-        public Task UpdateProductAsync(Product newProduct);
+        public Task<Product> UpdateProductAsync(int id, Product newProduct);
     }
 }

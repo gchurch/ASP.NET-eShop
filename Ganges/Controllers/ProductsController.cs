@@ -99,14 +99,23 @@ namespace Ganges.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateProductAsync(int id, [FromBody]Product product)
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<Product>> UpdateProductAsync(int id, [FromBody]Product product)
         {
-            product.Id = id;
 
-            await _productService.UpdateProductAsync(product);
+            Console.WriteLine("Updating product");
 
-            return Ok();
+            // updatedProduct is null a product with the supplied id doesn't exist.
+            Product updatedProduct = await _productService.UpdateProductAsync(id, product);
+
+            if (updatedProduct != null)
+            {
+                return Ok(updatedProduct);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

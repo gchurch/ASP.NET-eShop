@@ -70,21 +70,28 @@ namespace Ganges.Services
             return productExisted;
         }
 
-        public async Task UpdateProductAsync(Product newProduct)
+        public async Task<Product> UpdateProductAsync(int id, Product product)
         {
-            var product = await _context.Products.SingleOrDefaultAsync(x => x.Id == newProduct.Id);
+            product.Id = id;
 
-            // Updating the product. You have to update each property individually, rather
-            // than just doing 'product = newProduct;'.
-            product.Id = newProduct.Id;
-            product.Title = newProduct.Title;
-            product.Description = newProduct.Description;
-            product.Seller = newProduct.Seller;
-            product.Price = newProduct.Price;
-            product.Quantity = newProduct.Quantity;
-            product.ImageUrl = newProduct.ImageUrl;
+            var existingProduct = await _context.Products.SingleOrDefaultAsync(x => x.Id == product.Id);
 
-            await _context.SaveChangesAsync();
+            if (existingProduct != null)
+            {
+                // Updating the product. You have to update each property individually, rather
+                // than just doing 'product = newProduct;'.
+                existingProduct.Id = product.Id;
+                existingProduct.Title = product.Title;
+                existingProduct.Description = product.Description;
+                existingProduct.Seller = product.Seller;
+                existingProduct.Price = product.Price;
+                existingProduct.Quantity = product.Quantity;
+                existingProduct.ImageUrl = product.ImageUrl;
+
+                await _context.SaveChangesAsync();
+            }
+
+            return existingProduct;
         }
     }
 }
