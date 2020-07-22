@@ -186,24 +186,46 @@ namespace Ganges.UnitTests
         }
 
         [TestMethod]
-        public async Task UpdateProductAsync_GivenIdAndProduct_ShouldReturnOk()
+        public async Task UpdateProductAsync_GivenProductAndExistingId_ShouldReturnOk()
         {
             // Arrange
             var id = 1;
-            var product = new Product()
-            {
-                Id = id
-            };
             var productServiceMock = new Mock<IProductService>();
-            productServiceMock.Setup(x => x.UpdateProductAsync(product))
+            // UpdateProductAsync returns the updated product when the id exists
+            productServiceMock.Setup(x => x.UpdateProductAsync(id, It.IsAny<Product>()))
+                .ReturnsAsync(new Product())
                 .Verifiable();
             var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
-            var actionResult = await productsController.UpdateProductAsync(id, product);
+            var actionResult = await productsController.UpdateProductAsync(id, new Product());
+            var value = (actionResult.Result as OkObjectResult).Value;
 
             // Assert
-            actionResult.ShouldBeOfType<OkResult>();
+            actionResult.ShouldBeOfType<ActionResult<Product>>();
+            actionResult.Result.ShouldBeOfType<OkObjectResult>();
+            value.ShouldBeOfType<Product>();
+            productServiceMock.Verify();
+        }
+
+        [TestMethod]
+        public async Task UpdateProductAsync_GivenProductAndNonExistentId_ShouldReturnNotFound()
+        {
+            // Arrange
+            var id = 0;
+            var productServiceMock = new Mock<IProductService>();
+            // UpdateProductAsync returns null when the id doesn't exist.
+            productServiceMock.Setup(x => x.UpdateProductAsync(id, It.IsAny<Product>()))
+                .ReturnsAsync((Product)null)
+                .Verifiable();
+            var productsController = new ProductsController(productServiceMock.Object);
+
+            // Act
+            var actionResult = await productsController.UpdateProductAsync(id, new Product());
+
+            // Assert
+            actionResult.ShouldBeOfType<ActionResult<Product>>();
+            actionResult.Result.ShouldBeOfType<NotFoundResult>();
             productServiceMock.Verify();
         }
     }
