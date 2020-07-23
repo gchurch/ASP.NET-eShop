@@ -214,5 +214,11 @@ namespace Ganges.UnitTests
             actionResult.Result.ShouldBeOfType<NotFoundResult>();
             productServiceMock.Verify();
         }
+
+        [TestMethod]
+        public void TestTest()
+        {
+            Assert.AreEqual(1, 2);
+        }
     }
 }
