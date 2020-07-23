@@ -1,5 +1,6 @@
 # Ganges
 
+![.NET Core](https://github.com/gchurch/Ganges/workflows/.NET%20Core/badge.svg)
 
 ## Front-End
 
