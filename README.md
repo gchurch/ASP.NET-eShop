@@ -1,6 +1,6 @@
 # Ganges
 
-![.NET Core](https://github.com/gchurch/Ganges/workflows/.NET%20Core/badge.svg)
+![.NET Core](https://github.com/gchurch/Ganges/workflows/.NET%20Core/badge.svg?branch=master)
 
 ## Front-End
 
