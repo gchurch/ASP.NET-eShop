@@ -146,6 +146,25 @@ namespace Ganges.UnitTests
         }
 
         [TestMethod]
+        public async Task AddProductAsync_GivenNullProduct_ShouldReturnTypeBadRequestObjectResult()
+        {
+            // Arrange
+            var productServiceStub = new Mock<IProductService>();
+            var productsController = new ProductsController(productServiceStub.Object);
+            var nullProduct = (Product)null;
+
+            // Act
+            var actionResult = await productsController.AddProductAsync(nullProduct);
+            var value = (actionResult.Result as BadRequestObjectResult).Value;
+
+            // Assert
+            actionResult.ShouldBeOfType<ActionResult<Product>>();
+            actionResult.Result.ShouldBeOfType<BadRequestObjectResult>();
+            value.ShouldBe("The product cannot be null.");
+        }
+        
+
+        [TestMethod]
         public async Task DeleteProductAsync_GivenProductIdThatExists_ShouldReturnTypeOkResult()
         {
             // Arrange
@@ -190,7 +209,6 @@ namespace Ganges.UnitTests
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
-            // UpdateProductAsync returns the updated product when the id exists
             var productIdThatExists = 0;
             productServiceStub.Setup(ps => ps.UpdateProductAsync(productIdThatExists, It.IsAny<Product>()))
                 .ReturnsAsync(new Product())
@@ -226,6 +244,25 @@ namespace Ganges.UnitTests
             actionResult.ShouldBeOfType<ActionResult<Product>>();
             actionResult.Result.ShouldBeOfType<NotFoundResult>();
             productServiceStub.Verify();
+        }
+
+        [TestMethod]
+        public async Task UpdateProductAsync_GivenProductIdAndNullProduct_ShouldReturnTypeBadRequestObjectResult()
+        {
+            // Arrange
+            var productServiceStub = new Mock<IProductService>();
+            var productsController = new ProductsController(productServiceStub.Object);
+            var id = 0;
+            var nullProduct = (Product)null;
+
+            // Act
+            var actionResult = await productsController.UpdateProductAsync(id, nullProduct);
+            var value = (actionResult.Result as BadRequestObjectResult).Value;
+
+            // Assert
+            actionResult.ShouldBeOfType<ActionResult<Product>>();
+            actionResult.Result.ShouldBeOfType<BadRequestObjectResult>();
+            value.ShouldBe("The product cannot be null.");
         }
     }
 }

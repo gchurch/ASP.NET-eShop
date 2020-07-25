@@ -68,18 +68,25 @@ namespace Ganges.Controllers
         // TODO: Error handling
         public async Task<ActionResult<Product>> AddProductAsync([FromBody]Product product)
         {
-            // product.Id has to be 0 otherwise there will be an error. This is 
-            // because you are not allowed to specify an ID value. an ID value 
-            // will automatically be given to the product.
-            product.Id = 0;
-            
-            // Add the product to the database
-            await _productService.AddProductAsync(product);
-    
-            // Return a 201 created status code. This also sends the created product
-            // in the body of the response and sets the location of the created product 
-            // in the response header.
-            return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+            if (product != null)
+            {
+                // product.Id has to be 0 otherwise there will be an error. This is 
+                // because you are not allowed to specify an ID value. an ID value 
+                // will automatically be given to the product.
+                product.Id = 0;
+
+                // Add the product to the database
+                await _productService.AddProductAsync(product);
+
+                // Return a 201 created status code. This also sends the created product
+                // in the body of the response and sets the location of the created product 
+                // in the response header.
+                return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+            }
+            else
+            {
+                return BadRequest("The product cannot be null.");
+            }
         }
 
         [HttpDelete("{id}")]
@@ -103,18 +110,24 @@ namespace Ganges.Controllers
         public async Task<ActionResult<Product>> UpdateProductAsync(int id, [FromBody]Product product)
         {
 
-            Console.WriteLine("Updating product");
-
-            // updatedProduct is null a product with the supplied id doesn't exist.
-            Product updatedProduct = await _productService.UpdateProductAsync(id, product);
-
-            if (updatedProduct != null)
+            if (product != null)
             {
-                return Ok(updatedProduct);
+
+                // updatedProduct is null a product with the supplied id doesn't exist.
+                Product updatedProduct = await _productService.UpdateProductAsync(id, product);
+
+                if (updatedProduct != null)
+                {
+                    return Ok(updatedProduct);
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
             else
             {
-                return NotFound();
+                return BadRequest("The product cannot be null.");
             }
         }
     }
