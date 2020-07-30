@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Ganges.Models
+namespace Ganges.ApplicationCore.Entities
 {
     public class ApplicationUser : IdentityUser
     {

@@ -1,18 +1,16 @@
-﻿using Ganges.Data;
-using Ganges.Models;
+﻿using Ganges.ApplicationCore.Entities;
+using Ganges.ApplicationCore.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
-namespace Ganges.Services
+namespace Ganges.Infrastructure.Data
 {
-    public class ProductService : IProductService
+    public class ProductRepository : IProductRepository
     {
         private readonly GangesDbContext _context;
 
-        public ProductService(GangesDbContext context)
+        public ProductRepository(GangesDbContext context)
         {
             _context = context;
         }
@@ -36,7 +34,7 @@ namespace Ganges.Services
             // Find a product with the specified id.
             var product = await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
 
-            if(product != null)
+            if (product != null)
             {
                 // Reduce the quantity of the product by 1.
                 product.Quantity -= 1;
@@ -61,7 +59,8 @@ namespace Ganges.Services
 
             var product = await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
 
-            if(product != null) {
+            if (product != null)
+            {
                 productExisted = true;
                 _context.Products.Remove(product);
                 await _context.SaveChangesAsync();

@@ -1,10 +1,10 @@
-﻿using Ganges.Models;
+﻿using Ganges.ApplicationCore.Entities;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace Ganges.Data
+namespace Ganges.Infrastructure.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {

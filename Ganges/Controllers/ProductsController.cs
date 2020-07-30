@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Ganges.Models;
-using Ganges.Services;
+using Ganges.ApplicationCore.Entities;
+using Ganges.ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ganges.Controllers
+namespace Ganges.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

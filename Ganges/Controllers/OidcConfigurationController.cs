@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Ganges.Controllers
+namespace Ganges.Web.Controllers
 {
     public class OidcConfigurationController : Controller
     {

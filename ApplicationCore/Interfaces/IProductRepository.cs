@@ -1,10 +1,10 @@
-﻿using Ganges.Models;
+﻿using Ganges.ApplicationCore.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Ganges.Services
+namespace Ganges.ApplicationCore.Interfaces
 {
-    public interface IProductService
+    public interface IProductRepository
     {
         public Task<IEnumerable<Product>> GetProductsAsync();
 

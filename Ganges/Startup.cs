@@ -1,11 +1,10 @@
-using Ganges.Data;
-using Ganges.Models;
-using Ganges.Services;
+using Ganges.ApplicationCore.Entities;
+using Ganges.ApplicationCore.Interfaces;
+using Ganges.ApplicationCore.Services;
+using Ganges.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +38,7 @@ namespace Ganges
 
             // Registering the ProductService service
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IProductRepository, ProductRepository>();
 
 
             // Adding the stuff for authentication and authorization

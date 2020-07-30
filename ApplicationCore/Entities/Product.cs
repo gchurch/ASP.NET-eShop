@@ -1,4 +1,4 @@
-﻿namespace Ganges.Models
+﻿namespace Ganges.ApplicationCore.Entities
 {
     public class Product
     {
