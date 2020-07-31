@@ -36,7 +36,7 @@ namespace Ganges
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            // Registering the ProductService service
+            // Registering services and repositories
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductRepository, ProductRepository>();
 
