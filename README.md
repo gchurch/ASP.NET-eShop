@@ -10,6 +10,7 @@ An SPA E-Commerce website front-end created with Angular 9.
 ## Back-End
 
 - An ASP.NET Core back-end API.
+- A Clean Architecure is used to organize code.
 - An SQL Server used to store application data.
 - Entity Framework Core is used for data access.
 - LINQ is used to query data.
