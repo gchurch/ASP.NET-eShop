@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Ganges.Infrastructure.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Ganges.Infrastructure.Data;
 
 namespace Ganges.Tests.Services
 {
