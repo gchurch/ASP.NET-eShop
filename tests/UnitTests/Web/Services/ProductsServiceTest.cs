@@ -8,16 +8,5 @@ namespace Ganges.Tests.Services
     class ProductsServiceTest
     {
 
-        [TestMethod]
-        public async void GetProductsAsync_ShouldReturnTypeIEnumerableOfProduct()
-        {
-            // Arrange
-            var context = new Mock<GangesDbContext>();
-
-            // Act
-
-            // Assert
-        }
-
     }
 }
