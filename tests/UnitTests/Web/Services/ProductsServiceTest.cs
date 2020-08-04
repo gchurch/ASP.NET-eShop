@@ -2,10 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Ganges.Tests.Services
+namespace Ganges.UnitTests.Web.Services
 {
     [TestClass]
-    class ProductsServiceTest
+    public class ProductsServiceTest
     {
 
     }
