@@ -46,11 +46,18 @@ namespace Ganges.Infrastructure.Data
             return product;
         }
 
+        // Add the product to the database and save the changes
         public async Task<int> AddProductAsync(Product product)
         {
-            // Add the product to the database and save the changes
-            await _context.Products.AddAsync(product);
-            return await _context.SaveChangesAsync();
+            if (product != null)
+            {
+                await _context.Products.AddAsync(product);
+                return await _context.SaveChangesAsync();
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public async Task<bool> DeleteProductAsync(int id)
