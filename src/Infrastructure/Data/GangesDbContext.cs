@@ -19,32 +19,32 @@ namespace Ganges.Infrastructure.Data
                 new Product()
                 {
                     Id = 1,
-                    Title = "Table",
-                    Description = "Glass",
-                    Seller = "George",
-                    Price = 100,
+                    Title = "Toy",
+                    Description = "Plastic",
+                    Seller = "Michael",
+                    Price = 50,
                     Quantity = 2,
-                    ImageUrl = "table.png"
+                    ImageUrl = "toy.png"
                 },
                 new Product()
                 {
                     Id = 2,
-                    Title = "Chair",
-                    Description = "Wooden",
-                    Seller = "Kevin",
-                    Price = 50,
-                    Quantity = 5,
-                    ImageUrl = "chair.png"
+                    Title = "Book",
+                    Description = "Hard back",
+                    Seller = "Peter",
+                    Price = 25,
+                    Quantity = 4,
+                    ImageUrl = "book.png"
                 },
                 new Product()
                 {
                     Id = 3,
-                    Title = "Computer",
-                    Description = "High performance",
-                    Seller = "James",
-                    Price = 800,
+                    Title = "Lamp",
+                    Description = "Bright",
+                    Seller = "David",
+                    Price = 75,
                     Quantity = 1,
-                    ImageUrl = "computer.png"
+                    ImageUrl = "lamp.png"
                 }
             );
         }
