@@ -11,9 +11,6 @@ import { ProductComponent } from './product/product.component';
 import { ProductService } from './product.service';
 import { AddProductComponent } from './add-product/add-product.component';
 import { BasketComponent } from './basket/basket.component';
-import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
-import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
-import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -31,7 +28,6 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ApiAuthorizationModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
@@ -41,8 +37,7 @@ import { HomeComponent } from './home/home.component';
     ])
   ],
   providers: [
-    ProductService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
