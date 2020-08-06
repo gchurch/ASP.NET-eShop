@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Ganges.Migrations
+namespace Infrastructure.Data.Migrations
 {
-    public partial class GangesInitialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,7 @@ namespace Ganges.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Seller = table.Column<string>(nullable: true),
@@ -27,17 +27,17 @@ namespace Ganges.Migrations
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "Description", "ImageUrl", "Price", "Quantity", "Seller", "Title" },
-                values: new object[] { 1, "Glass", "table.png", 100, 2, "George", "Table" });
+                values: new object[] { 1, "Plastic", "toy.png", 50, 2, "Michael", "Toy" });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "Description", "ImageUrl", "Price", "Quantity", "Seller", "Title" },
-                values: new object[] { 2, "Wooden", "chair.png", 50, 5, "Kevin", "Chair" });
+                values: new object[] { 2, "Hard back", "book.png", 25, 4, "Peter", "Book" });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "Description", "ImageUrl", "Price", "Quantity", "Seller", "Title" },
-                values: new object[] { 3, "High performance", "computer.png", 800, 1, "James", "Computer" });
+                values: new object[] { 3, "Bright", "lamp.png", 75, 1, "David", "Lamp" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
