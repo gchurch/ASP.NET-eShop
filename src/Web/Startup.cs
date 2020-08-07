@@ -33,7 +33,7 @@ namespace Ganges
 
             // Add database connection
             services.AddDbContext<GangesDbContext>(options =>
-                options.UseSqlite(
+                options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
             // Registering services and repositories
