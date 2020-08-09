@@ -25,6 +25,8 @@ namespace FunctionalTests
             _factory = new WebApplicationFactory<Startup>();
         }
 
+        // Make sure that you have run 'npm start' in a terminal window
+        // otherwise this test will fail.
         [DataTestMethod]
         [DataRow("/")]
         [DataRow("/api/products")]

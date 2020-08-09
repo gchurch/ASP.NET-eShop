@@ -31,6 +31,7 @@ namespace Ganges.ApplicationCore.Services
 
         public async Task<int> AddProductAsync(Product product)
         {
+
             return await _productRepository.AddProductAsync(product);
         }
 

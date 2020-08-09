@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ganges.ApplicationCore.Entities;
 using Ganges.ApplicationCore.Interfaces;
@@ -44,9 +45,9 @@ namespace Ganges.Web.Controllers
             }
         }
 
-        [HttpPost("buy")]
         // Here I am using the [FromBody] binding source attribute to tell the action method that the id parameter is coming
         // from the body of the request.
+        [HttpPost("buy")]
         public async Task<ActionResult<int>> BuyProduct([FromBody]int id)
         {
             var product = await _productService.BuyProductAsync(id);
@@ -63,8 +64,8 @@ namespace Ganges.Web.Controllers
             }
         }
 
-        [HttpPost]
         // TODO: Error handling
+        [HttpPost]
         public async Task<ActionResult<Product>> AddProductAsync([FromBody]Product product)
         {
             if (product != null)
@@ -88,9 +89,9 @@ namespace Ganges.Web.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
         // If the product exists and is deleted then return a 200 OK status code.
         // If the product doesn't exist return a 404 not found status code.
+        [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProductAsync(int id)
         {
             bool productExisted = await _productService.DeleteProductAsync(id);
@@ -112,7 +113,7 @@ namespace Ganges.Web.Controllers
             if (product != null)
             {
 
-                // updatedProduct is null a product with the supplied id doesn't exist.
+                // If updatedProduct is null a product with the supplied id doesn't exist.
                 Product updatedProduct = await _productService.UpdateProductAsync(id, product);
 
                 if (updatedProduct != null)
