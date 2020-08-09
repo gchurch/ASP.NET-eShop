@@ -45,7 +45,7 @@ namespace Ganges.Web.Controllers
         }
 
         [HttpPost("buy")]
-        // Here I am using the [FromBody] binding source attritube to tell the action method that the id parameter is coming
+        // Here I am using the [FromBody] binding source attribute to tell the action method that the id parameter is coming
         // from the body of the request.
         public async Task<ActionResult<int>> BuyProduct([FromBody]int id)
         {
@@ -70,8 +70,8 @@ namespace Ganges.Web.Controllers
             if (product != null)
             {
                 // product.Id has to be 0 otherwise there will be an error. This is 
-                // because you are not allowed to specify an ID value. an ID value 
-                // will automatically be given to the product.
+                // because you are not allowed to specify an ID value when adding a product
+                // to the database. an ID value will automatically be given to the product.
                 product.Id = 0;
 
                 // Add the product to the database
@@ -108,7 +108,7 @@ namespace Ganges.Web.Controllers
         [HttpPatch("{id}")]
         public async Task<ActionResult<Product>> UpdateProductAsync(int id, [FromBody]Product product)
         {
-
+            // A null product is not acceptable
             if (product != null)
             {
 
