@@ -17,17 +17,17 @@ namespace Ganges.UnitTests.Web.Services
         public async Task GetProductsAsync_ShouldCallGetProductsAsyncInProductRepository()
         {
             // Arrange
-            var productRepositoryMock = new Mock<IProductRepository>();
-            productRepositoryMock.Setup(pr => pr.GetProductsAsync())
+            var productServiceStub = new Mock<IProductRepository>();
+            productServiceStub.Setup(pr => pr.GetProductsAsync())
                 .ReturnsAsync(new List<Product>())
                 .Verifiable();
-            var productService = new ProductService(productRepositoryMock.Object);
+            var productService = new ProductService(productServiceStub.Object);
 
             // Act
             var result = await productService.GetProductsAsync();
 
             // Assert
-            productRepositoryMock.Verify();
+            productServiceStub.Verify();
         }
 
         [TestMethod]
@@ -35,17 +35,17 @@ namespace Ganges.UnitTests.Web.Services
         {
             // Arrange
             int id = 0;
-            var productRepositoryMock = new Mock<IProductRepository>();
-            productRepositoryMock.Setup(pr => pr.GetProductAsync(It.IsAny<int>()))
+            var productServiceStub = new Mock<IProductRepository>();
+            productServiceStub.Setup(pr => pr.GetProductAsync(It.IsAny<int>()))
                 .ReturnsAsync(new Product())
                 .Verifiable();
-            var productService = new ProductService(productRepositoryMock.Object);
+            var productService = new ProductService(productServiceStub.Object);
 
             // Act
             var result = await productService.GetProductAsync(id);
 
             // Assert
-            productRepositoryMock.Verify();
+            productServiceStub.Verify();
         }
 
 
@@ -54,17 +54,17 @@ namespace Ganges.UnitTests.Web.Services
         {
             // Arrange
             int id = 0;
-            var productRepositoryMock = new Mock<IProductRepository>();
-            productRepositoryMock.Setup(pr => pr.BuyProductAsync(It.IsAny<int>()))
+            var productServiceStub = new Mock<IProductRepository>();
+            productServiceStub.Setup(pr => pr.BuyProductAsync(It.IsAny<int>()))
                 .ReturnsAsync(new Product())
                 .Verifiable();
-            var productService = new ProductService(productRepositoryMock.Object);
+            var productService = new ProductService(productServiceStub.Object);
 
             // Act
             var result = await productService.BuyProductAsync(id);
 
             // Assert
-            productRepositoryMock.Verify();
+            productServiceStub.Verify();
         }
 
         [TestMethod]
@@ -72,17 +72,17 @@ namespace Ganges.UnitTests.Web.Services
         {
             // Arrange
             var product = new Product();
-            var productRepositoryMock = new Mock<IProductRepository>();
-            productRepositoryMock.Setup(pr => pr.AddProductAsync(It.IsAny<Product>()))
+            var productServiceStub = new Mock<IProductRepository>();
+            productServiceStub.Setup(pr => pr.AddProductAsync(It.IsAny<Product>()))
                 .ReturnsAsync(1)
                 .Verifiable();
-            var productService = new ProductService(productRepositoryMock.Object);
+            var productService = new ProductService(productServiceStub.Object);
 
             // Act
             var result = await productService.AddProductAsync(product);
 
             // Assert
-            productRepositoryMock.Verify();
+            productServiceStub.Verify();
         }
 
         [TestMethod]
@@ -90,17 +90,17 @@ namespace Ganges.UnitTests.Web.Services
         {
             // Arrange
             var id = 0;
-            var productRepositoryMock = new Mock<IProductRepository>();
-            productRepositoryMock.Setup(pr => pr.DeleteProductAsync(It.IsAny<int>()))
+            var productServiceStub = new Mock<IProductRepository>();
+            productServiceStub.Setup(pr => pr.DeleteProductAsync(It.IsAny<int>()))
                 .ReturnsAsync(true)
                 .Verifiable();
-            var productService = new ProductService(productRepositoryMock.Object);
+            var productService = new ProductService(productServiceStub.Object);
 
             // Act
             var result = await productService.DeleteProductAsync(id);
 
             // Assert
-            productRepositoryMock.Verify();
+            productServiceStub.Verify();
         }
 
         [TestMethod]
@@ -109,17 +109,17 @@ namespace Ganges.UnitTests.Web.Services
             // Arrange
             var id = 0;
             var product = new Product();
-            var productRepositoryMock = new Mock<IProductRepository>();
-            productRepositoryMock.Setup(pr => pr.UpdateProductAsync(It.IsAny<int>(), It.IsAny<Product>()))
+            var productServiceStub = new Mock<IProductRepository>();
+            productServiceStub.Setup(pr => pr.UpdateProductAsync(It.IsAny<int>(), It.IsAny<Product>()))
                 .ReturnsAsync(new Product())
                 .Verifiable();
-            var productService = new ProductService(productRepositoryMock.Object);
+            var productService = new ProductService(productServiceStub.Object);
 
             // Act
             var result = await productService.UpdateProductAsync(id, product);
 
             // Assert
-            productRepositoryMock.Verify();
+            productServiceStub.Verify();
         }
 
     }
