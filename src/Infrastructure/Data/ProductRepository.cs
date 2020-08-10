@@ -76,9 +76,8 @@ namespace Ganges.Infrastructure.Data
             return productExisted;
         }
 
-        public async Task<Product> UpdateProductAsync(int id, Product product)
+        public async Task<Product> UpdateProductAsync(Product product)
         {
-            product.Id = id;
 
             var existingProduct = await _context.Products.SingleOrDefaultAsync(x => x.Id == product.Id);
 

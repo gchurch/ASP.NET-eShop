@@ -205,18 +205,18 @@ namespace Ganges.UnitTests.Web.Controllers
         }
 
         [TestMethod]
-        public async Task UpdateProductAsync_GivenProductIdThatExistsAndProduct_ShouldReturnTypeOkObjectResultAndProduct()
+        public async Task UpdateProductAsync_GivenProductWithKnownId_ShouldReturnTypeOkObjectResultAndProduct()
         {
             // Arrange
+            var productWithKnownId = new Product();
             var productServiceStub = new Mock<IProductService>();
-            var productIdThatExists = 0;
-            productServiceStub.Setup(ps => ps.UpdateProductAsync(productIdThatExists, It.IsAny<Product>()))
+            productServiceStub.Setup(ps => ps.UpdateProductAsync(It.IsAny<Product>()))
                 .ReturnsAsync(new Product())
                 .Verifiable();
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.UpdateProductAsync(productIdThatExists, new Product());
+            var actionResult = await productsController.UpdateProductAsync(productWithKnownId);
             var value = (actionResult.Result as OkObjectResult).Value;
 
             // Assert
@@ -227,18 +227,18 @@ namespace Ganges.UnitTests.Web.Controllers
         }
 
         [TestMethod]
-        public async Task UpdateProductAsync_GivenProductIdThatDoesNotExistAndProduct_ShouldReturnTypeNotFoundResult()
+        public async Task UpdateProductAsync_GivenProductWithUnknownId_ShouldReturnTypeNotFoundResult()
         {
             // Arrange
+            var productWithUnknownId = new Product();
             var productServiceStub = new Mock<IProductService>();
-            var productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.UpdateProductAsync(productIdThatDoesNotExist, It.IsAny<Product>()))
+            productServiceStub.Setup(ps => ps.UpdateProductAsync(productWithUnknownId))
                 .ReturnsAsync((Product)null)
                 .Verifiable();
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.UpdateProductAsync(productIdThatDoesNotExist, new Product());
+            var actionResult = await productsController.UpdateProductAsync(productWithUnknownId);
 
             // Assert
             actionResult.ShouldBeOfType<ActionResult<Product>>();
@@ -247,16 +247,15 @@ namespace Ganges.UnitTests.Web.Controllers
         }
 
         [TestMethod]
-        public async Task UpdateProductAsync_GivenProductIdAndNullProduct_ShouldReturnTypeBadRequestObjectResult()
+        public async Task UpdateProductAsync_GivenNullProduct_ShouldReturnTypeBadRequestObjectResult()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productsController = new ProductsController(productServiceStub.Object);
-            var id = 0;
             var nullProduct = (Product)null;
 
             // Act
-            var actionResult = await productsController.UpdateProductAsync(id, nullProduct);
+            var actionResult = await productsController.UpdateProductAsync(nullProduct);
             var value = (actionResult.Result as BadRequestObjectResult).Value;
 
             // Assert

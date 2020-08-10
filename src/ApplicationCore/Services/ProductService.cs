@@ -31,6 +31,10 @@ namespace Ganges.ApplicationCore.Services
 
         public async Task<int> AddProductAsync(Product product)
         {
+            // product.Id has to be 0 otherwise there will be an error. This is 
+            // because you are not allowed to specify an ID value when adding a product
+            // to the database. an ID value will automatically be given to the product.
+            product.Id = 0;
 
             return await _productRepository.AddProductAsync(product);
         }
@@ -40,9 +44,9 @@ namespace Ganges.ApplicationCore.Services
             return await _productRepository.DeleteProductAsync(id);
         }
 
-        public async Task<Product> UpdateProductAsync(int id, Product product)
+        public async Task<Product> UpdateProductAsync(Product product)
         {
-            return await _productRepository.UpdateProductAsync(id, product);
+            return await _productRepository.UpdateProductAsync(product);
         }
     }
 }

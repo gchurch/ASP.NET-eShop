@@ -70,11 +70,6 @@ namespace Ganges.Web.Controllers
         {
             if (product != null)
             {
-                // product.Id has to be 0 otherwise there will be an error. This is 
-                // because you are not allowed to specify an ID value when adding a product
-                // to the database. an ID value will automatically be given to the product.
-                product.Id = 0;
-
                 // Add the product to the database
                 await _productService.AddProductAsync(product);
 
@@ -106,15 +101,15 @@ namespace Ganges.Web.Controllers
             }
         }
 
-        [HttpPatch("{id}")]
-        public async Task<ActionResult<Product>> UpdateProductAsync(int id, [FromBody]Product product)
+        [HttpPut]
+        public async Task<ActionResult<Product>> UpdateProductAsync([FromBody]Product product)
         {
             // A null product is not acceptable
             if (product != null)
             {
 
                 // If updatedProduct is null a product with the supplied id doesn't exist.
-                Product updatedProduct = await _productService.UpdateProductAsync(id, product);
+                Product updatedProduct = await _productService.UpdateProductAsync(product);
 
                 if (updatedProduct != null)
                 {

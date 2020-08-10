@@ -104,19 +104,19 @@ namespace Ganges.UnitTests.Web.Services
         }
 
         [TestMethod]
-        public async Task UpdateProductAsync_GivenAProductIdAndAProduct_ShouldCallUpdateProductAsyncInProductRepository()
+        public async Task UpdateProductAsync_GivenAProduct_ShouldCallUpdateProductAsyncInProductRepository()
         {
             // Arrange
             var id = 0;
             var product = new Product();
             var productServiceStub = new Mock<IProductRepository>();
-            productServiceStub.Setup(pr => pr.UpdateProductAsync(It.IsAny<int>(), It.IsAny<Product>()))
+            productServiceStub.Setup(pr => pr.UpdateProductAsync(It.IsAny<Product>()))
                 .ReturnsAsync(new Product())
                 .Verifiable();
             var productService = new ProductService(productServiceStub.Object);
 
             // Act
-            var result = await productService.UpdateProductAsync(id, product);
+            var result = await productService.UpdateProductAsync(product);
 
             // Assert
             productServiceStub.Verify();

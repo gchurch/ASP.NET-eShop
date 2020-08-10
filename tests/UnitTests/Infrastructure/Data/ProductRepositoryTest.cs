@@ -198,37 +198,41 @@ namespace Ganges.UnitTests.Infrastructure.Data
         }
 
         [TestMethod]
-        public async Task UpdateProductAsync_GivenProductIdThatExistsAndAProduct_ShouldReturnProductWithSameId()
+        public async Task UpdateProductAsync_GivenAProductWithKnownId_ShouldReturnProductWithSameId()
         {
             using (var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
                 CreateDatabase();
                 var productRepository = new ProductRepository(context);
-                var productIdThatExists = 1;
-                var product = new Product();
+                var productWithKnownId = new Product()
+                {
+                    Id = 1
+                };
 
                 // Act
-                var result = await productRepository.UpdateProductAsync(productIdThatExists, product);
+                var result = await productRepository.UpdateProductAsync(productWithKnownId);
 
                 // Assert
-                result.Id.ShouldBe(productIdThatExists);
+                result.Id.ShouldBe(productWithKnownId.Id);
             }
         }
 
         [TestMethod]
-        public async Task UpdateProductAsync_GivenProductIdThatDoesNotExistAndAProduct_ShouldReturnNull()
+        public async Task UpdateProductAsync_GivenProductWithAnUnknownId_ShouldReturnNull()
         {
             using (var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
                 CreateDatabase();
                 var productRepository = new ProductRepository(context);
-                var productIdThatDoesNotExist = 0;
-                var product = new Product();
+                var productWithUnknownId = new Product()
+                {
+                    Id = 0
+                };
 
                 // Act
-                var result = await productRepository.UpdateProductAsync(productIdThatDoesNotExist, product);
+                var result = await productRepository.UpdateProductAsync(productWithUnknownId);
 
                 // Assert
                 result.ShouldBe(null);

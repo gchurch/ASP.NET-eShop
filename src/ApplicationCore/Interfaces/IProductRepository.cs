@@ -16,6 +16,6 @@ namespace Ganges.ApplicationCore.Interfaces
 
         public Task<bool> DeleteProductAsync(int id);
 
-        public Task<Product> UpdateProductAsync(int id, Product newProduct);
+        public Task<Product> UpdateProductAsync(Product newProduct);
     }
 }
