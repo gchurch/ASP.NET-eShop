@@ -83,7 +83,7 @@ namespace Ganges.UnitTests.Web.Controllers
         }
 
         [TestMethod]
-        public async Task BuyProduct_GivenProductIdThatExists_ShouldReturnTypeOkObjectResultWithInt()
+        public async Task BuyProductAsync_GivenProductIdThatExists_ShouldReturnTypeOkObjectResultWithInt()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -105,7 +105,7 @@ namespace Ganges.UnitTests.Web.Controllers
         }
 
         [TestMethod]
-        public async Task BuyProduct_GivenProductIdThatDoesNotExist_ShouldReturnTypeNotFoundResult()
+        public async Task BuyProductAsync_GivenProductIdThatDoesNotExist_ShouldReturnTypeNotFoundResult()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
