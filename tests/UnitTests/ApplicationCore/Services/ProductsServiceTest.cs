@@ -107,7 +107,6 @@ namespace Ganges.UnitTests.Web.Services
         public async Task UpdateProductAsync_GivenAProduct_ShouldCallUpdateProductAsyncInProductRepository()
         {
             // Arrange
-            var id = 0;
             var product = new Product();
             var productServiceStub = new Mock<IProductRepository>();
             productServiceStub.Setup(pr => pr.UpdateProductAsync(It.IsAny<Product>()))
