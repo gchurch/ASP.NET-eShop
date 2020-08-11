@@ -9,6 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System;
+using System.IO;
 
 namespace Ganges
 {
@@ -25,7 +29,20 @@ namespace Ganges
         public void ConfigureServices(IServiceCollection services)
         {
             // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Ganges API",
+                    Description = "An API built for my Ganges SPA"
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
 
             services.AddControllers();
             // In production, the Angular files will be served from this directory

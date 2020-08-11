@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ganges.Web.Controllers
 {
+    /// <summary>
+    /// The class containing the API to control the products.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
@@ -14,12 +17,19 @@ namespace Ganges.Web.Controllers
 
         private readonly IProductService _productService;
 
-        // Adding the ProductService service using dependency injection.
+        /// <summary>
+        /// Adding the ProductService service to the class using dependency injection.
+        /// </summary>
+        /// <param name="productService"></param>
         public ProductsController(IProductService productService)
         {
             _productService = productService;
         }
 
+        /// <summary>
+        /// Get all of the products.
+        /// </summary>
+        /// <returns>A list of all of the products.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
         {
@@ -27,6 +37,11 @@ namespace Ganges.Web.Controllers
             return Ok(products);
         }
 
+        /// <summary>
+        /// Get a specific product.
+        /// </summary>
+        /// <param name="id">The ID of the product</param>
+        /// <returns>The requested product.</returns>
         [HttpGet("{id}", Name="GetProduct")]
         public async Task<ActionResult<Product>> GetProductAsync(int id)
         {
@@ -45,9 +60,14 @@ namespace Ganges.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Reduce the quantity of a specific product by 1.
+        /// </summary>
+        /// <param name="id">The ID of the product.</param>
+        /// <returns>The requested product with its quantity reduced by 1.</returns>
+        [HttpPost("buy")]
         // Here I am using the [FromBody] binding source attribute to tell the action method that the id parameter is coming
         // from the body of the request.
-        [HttpPost("buy")]
         public async Task<ActionResult<int>> BuyProduct([FromBody]int id)
         {
             var product = await _productService.BuyProductAsync(id);
@@ -64,7 +84,12 @@ namespace Ganges.Web.Controllers
             }
         }
 
-        // TODO: Error handling
+        /// <summary>
+        /// Add a product to the list of products.
+        /// </summary>
+        /// <remarks>The ID supplied in the product will be ignored.</remarks>
+        /// <param name="product">The product that you want to add.</param>
+        /// <returns>The created product.</returns>
         [HttpPost]
         public async Task<ActionResult<Product>> AddProductAsync([FromBody]Product product)
         {
@@ -84,9 +109,13 @@ namespace Ganges.Web.Controllers
             }
         }
 
-        // If the product exists and is deleted then return a 200 OK status code.
-        // If the product doesn't exist return a 404 not found status code.
+        /// <summary>
+        /// Delete a specific product.
+        /// </summary>
+        /// <param name="id">The ID of the product.</param>
+        /// <returns>Ok or NotFound.</returns>
         [HttpDelete("{id}")]
+
         public async Task<ActionResult> DeleteProductAsync(int id)
         {
             bool productExisted = await _productService.DeleteProductAsync(id);
@@ -101,6 +130,12 @@ namespace Ganges.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Update a already existing product.
+        /// </summary>
+        /// <remarks>The ID of the product argument should be the ID of the product you want to update.</remarks>
+        /// <param name="product">What you want to update the product to.</param>
+        /// <returns>The updated product.</returns>
         [HttpPut]
         public async Task<ActionResult<Product>> UpdateProductAsync([FromBody]Product product)
         {
