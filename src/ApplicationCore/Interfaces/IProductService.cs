@@ -6,16 +6,16 @@ namespace Ganges.ApplicationCore.Interfaces
 {
     public interface IProductService
     {
-        public Task<IEnumerable<Product>> GetProductsAsync();
+         Task<IEnumerable<Product>> GetProductsAsync();
 
-        public Task<Product> GetProductAsync(int id);
+         Task<Product> GetProductAsync(int id);
 
-        public Task<Product> BuyProductAsync(int id);
+         Task<Product> BuyProductAsync(int id);
 
-        public Task<int> AddProductAsync(Product product);
+         Task<int> AddProductAsync(Product product);
 
-        public Task<bool> DeleteProductAsync(int id);
+         Task<bool> DeleteProductAsync(int id);
 
-        public Task<Product> UpdateProductAsync(Product newProduct);
+         Task<Product> UpdateProductAsync(Product newProduct);
     }
 }
