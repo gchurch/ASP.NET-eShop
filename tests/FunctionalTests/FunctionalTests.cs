@@ -20,11 +20,11 @@ namespace FunctionalTests
     public class FunctionalTests
     {
 
-        private WebApplicationFactory<Startup> _factory;
+        private CustomWebApplicationFactory<Startup> _factory;
 
         public FunctionalTests()
         {
-            _factory = new WebApplicationFactory<Startup>();
+            _factory = new CustomWebApplicationFactory<Startup>();
         }
 
         // Make sure that you have run 'npm start' in a terminal window
