@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Net;
 using Ganges.ApplicationCore.Entities;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
 
 namespace FunctionalTests
 {
@@ -84,6 +86,35 @@ namespace FunctionalTests
             result.Price.ShouldBe(25);
             result.Quantity.ShouldBe(4);
             result.ImageUrl.ShouldBe("book.png");
+        }
+
+        [TestMethod]
+        public async Task TestAPI_PostProduct()
+        {
+            // Arrange
+            CustomWebApplicationFactory<Startup> factory
+                = new CustomWebApplicationFactory<Startup>();
+            var client = factory.CreateClient();
+            var product = new Product()
+            {
+                Title = "Sock",
+                Description = "Red",
+                Seller = "Anthony",
+                Price = 2,
+                Quantity = 3,
+                ImageUrl = "sock.png"
+            };
+            var productString = JsonConvert.SerializeObject(product);
+            var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
+
+            // Act
+            var response = await client.PostAsync("/api/products/", stringContent);
+            var responseString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<Product>(responseString);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.Created);
+            result.Id.ShouldBe(4);
         }
 
         [TestMethod]
