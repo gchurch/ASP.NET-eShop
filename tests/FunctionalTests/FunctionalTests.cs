@@ -4,6 +4,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System.Threading.Tasks;
 using System.Net;
+using Ganges.ApplicationCore.Entities;
+using Newtonsoft.Json;
 
 namespace FunctionalTests
 {
@@ -40,7 +42,43 @@ namespace FunctionalTests
 
             // Act
             var response = await client.GetAsync(url);
-            
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public async Task TestAPI_GetProducts()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("/api/products");
+            var responseString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<Product[]>(responseString);
+
+            // Assert
+            result.Length.ShouldBe(3);
+            result[0].Id.ShouldBe(1);
+            result[0].Title.ShouldBe("Toy");
+            result[1].Id.ShouldBe(2);
+            result[1].Title.ShouldBe("Book");
+            result[2].Id.ShouldBe(3);
+            result[2].Title.ShouldBe("Lamp");
+        }
+
+        [TestMethod]
+        public async Task Test()
+        {
+            // Arrange
+            CustomWebApplicationFactory<Startup> factory
+                = new CustomWebApplicationFactory<Startup>();
+            var client = factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("/api/products");
+
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
         }
