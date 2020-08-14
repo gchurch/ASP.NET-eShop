@@ -27,10 +27,7 @@ namespace FunctionalTests
             _factory = new CustomWebApplicationFactory<Startup>();
         }
 
-        // Make sure that you have run 'npm start' in a terminal window
-        // otherwise this test will fail.
         [DataTestMethod]
-        [DataRow("/")]
         [DataRow("/api/products")]
         [DataRow("/api/products/1")]
         [DataRow("/api/products/2")]
@@ -66,6 +63,27 @@ namespace FunctionalTests
             result[1].Title.ShouldBe("Book");
             result[2].Id.ShouldBe(3);
             result[2].Title.ShouldBe("Lamp");
+        }
+
+        [TestMethod]
+        public async Task TestAPI_GetProduct()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("/api/products/2");
+            var responseString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<Product>(responseString);
+
+            // Assert
+            result.Id.ShouldBe(2);
+            result.Title.ShouldBe("Book");
+            result.Description.ShouldBe("Hard back");
+            result.Seller.ShouldBe("Peter");
+            result.Price.ShouldBe(25);
+            result.Quantity.ShouldBe(4);
+            result.ImageUrl.ShouldBe("book.png");
         }
 
         [TestMethod]
