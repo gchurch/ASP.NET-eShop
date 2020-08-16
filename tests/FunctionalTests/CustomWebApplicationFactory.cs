@@ -9,7 +9,7 @@ using Ganges.Infrastructure.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace FunctionalTests
+namespace Ganges.FunctionalTests
 {
     class CustomWebApplicationFactory<TStartup> 
         : WebApplicationFactory<TStartup> where TStartup : class
@@ -38,7 +38,10 @@ namespace FunctionalTests
                     var logger = scopedServices
                         .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 
+                    // Ensure that the database is a fresh version ready for testing
+                    db.Database.EnsureDeleted();
                     db.Database.EnsureCreated();
+                    db.SaveChanges();
                 }
             });
         }

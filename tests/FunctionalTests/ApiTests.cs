@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
 
-namespace FunctionalTests
+namespace Ganges.FunctionalTests
 {
 
     // Useful information: https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1
