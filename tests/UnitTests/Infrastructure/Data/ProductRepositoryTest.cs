@@ -17,14 +17,14 @@ namespace Ganges.UnitTests.Infrastructure.Data
         public ProductRepositoryTest()
         {
             _dbOptions = new DbContextOptionsBuilder<GangesDbContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .UseInMemoryDatabase(databaseName: "UnitTestingDatabase")
                 .Options;
         }
 
         // This method creates a fresh test database every time it is called.
         // This method should be called at the start of every unit test for the
         // ProductRepository class.
-        private void CreateDatabase()
+        private void ResetDatabase()
         {
             using (var context = new GangesDbContext(_dbOptions))
             {
@@ -40,7 +40,7 @@ namespace Ganges.UnitTests.Infrastructure.Data
             using (var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
-                CreateDatabase();
+                ResetDatabase();
                 var productRepository = new ProductRepository(context);
                 var productIdThatExists = 1;
 
@@ -58,7 +58,7 @@ namespace Ganges.UnitTests.Infrastructure.Data
             using (var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
-                CreateDatabase();
+                ResetDatabase();
                 var productRepository = new ProductRepository(context);
                 var productIdThatDoesNotExist = 4;
 
@@ -77,7 +77,7 @@ namespace Ganges.UnitTests.Infrastructure.Data
             using(var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
-                CreateDatabase();
+                ResetDatabase();
                 var productRepository = new ProductRepository(context);
 
                 // Act
@@ -94,7 +94,7 @@ namespace Ganges.UnitTests.Infrastructure.Data
             using (var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
-                CreateDatabase();
+                ResetDatabase();
                 var productRepository = new ProductRepository(context);
                 var productIdThatExists = 1;
 
@@ -112,7 +112,7 @@ namespace Ganges.UnitTests.Infrastructure.Data
             using (var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
-                CreateDatabase();
+                ResetDatabase();
                 var productRepository = new ProductRepository(context);
                 var productIdThatDoesNotExist = 0;
 
@@ -130,7 +130,7 @@ namespace Ganges.UnitTests.Infrastructure.Data
             using (var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
-                CreateDatabase();
+                ResetDatabase();
                 var productRepository = new ProductRepository(context);
                 var product = new Product();
 
@@ -149,7 +149,7 @@ namespace Ganges.UnitTests.Infrastructure.Data
             using (var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
-                CreateDatabase();
+                ResetDatabase();
                 var productRepository = new ProductRepository(context);
                 var product = (Product)null;
 
@@ -167,7 +167,7 @@ namespace Ganges.UnitTests.Infrastructure.Data
             using (var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
-                CreateDatabase();
+                ResetDatabase();
                 var productRepository = new ProductRepository(context);
                 var productIdThatExists = 1;
 
@@ -185,7 +185,7 @@ namespace Ganges.UnitTests.Infrastructure.Data
             using (var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
-                CreateDatabase();
+                ResetDatabase();
                 var productRepository = new ProductRepository(context);
                 var productIdThatDoesNotExist = 0;
 
@@ -203,7 +203,7 @@ namespace Ganges.UnitTests.Infrastructure.Data
             using (var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
-                CreateDatabase();
+                ResetDatabase();
                 var productRepository = new ProductRepository(context);
                 var productWithKnownId = new Product()
                 {
@@ -224,7 +224,7 @@ namespace Ganges.UnitTests.Infrastructure.Data
             using (var context = new GangesDbContext(_dbOptions))
             {
                 // Arrange
-                CreateDatabase();
+                ResetDatabase();
                 var productRepository = new ProductRepository(context);
                 var productWithUnknownId = new Product()
                 {

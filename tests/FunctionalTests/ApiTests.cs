@@ -16,8 +16,6 @@ namespace Ganges.FunctionalTests
 
     // These tests could also be described as end-to-end functional tests.
 
-    // TODO: improve these functional tests.
-
     [TestClass]
     public class ApiTests
     {

@@ -26,7 +26,7 @@ namespace Ganges.FunctionalTests
 
                 services.AddDbContext<GangesDbContext>(options =>
                 {
-                    options.UseInMemoryDatabase("InMemoryDbForTesting");
+                    options.UseInMemoryDatabase(databaseName: "FuctionalTestingDatabase");
                 });
 
                 var sp = services.BuildServiceProvider();
