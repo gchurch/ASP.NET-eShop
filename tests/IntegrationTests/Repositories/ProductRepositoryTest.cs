@@ -21,9 +21,9 @@ namespace Ganges.IntegrationTests.Repositories
         }
 
         [TestMethod]
-        public void ()
+        public void Test()
         {
-            Assert.AreEqual(1,1);
+            Assert.AreEqual(1, 1);
         }
     }
 }
