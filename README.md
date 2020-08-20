@@ -16,3 +16,4 @@ An SPA E-Commerce website front-end created with Angular 9.
 - LINQ is used to query data.
 - Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework.
 - End-to-end functional tests.
+- Using Swagger to document the API.
