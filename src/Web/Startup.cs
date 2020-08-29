@@ -1,8 +1,6 @@
-using Ganges.ApplicationCore.Entities;
 using Ganges.ApplicationCore.Interfaces;
 using Ganges.ApplicationCore.Services;
 using Ganges.Infrastructure.Data;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +49,7 @@ namespace Ganges
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            // Add database connection
+            // Register the database context
             services.AddDbContext<GangesDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));

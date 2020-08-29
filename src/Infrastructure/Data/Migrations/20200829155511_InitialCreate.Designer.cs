@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(GangesDbContext))]
-    [Migration("20200809110101_InitialCreate")]
+    [Migration("20200829155511_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,38 +48,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Plastic",
-                            ImageUrl = "toy.png",
-                            Price = 50,
-                            Quantity = 2,
-                            Seller = "Michael",
-                            Title = "Toy"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Hard back",
-                            ImageUrl = "book.png",
-                            Price = 25,
-                            Quantity = 4,
-                            Seller = "Peter",
-                            Title = "Book"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Bright",
-                            ImageUrl = "lamp.png",
-                            Price = 75,
-                            Quantity = 1,
-                            Seller = "David",
-                            Title = "Lamp"
-                        });
                 });
 #pragma warning restore 612, 618
         }

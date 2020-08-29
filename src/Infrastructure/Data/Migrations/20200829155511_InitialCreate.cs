@@ -23,21 +23,6 @@ namespace Infrastructure.Data.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "Id", "Description", "ImageUrl", "Price", "Quantity", "Seller", "Title" },
-                values: new object[] { 1, "Plastic", "toy.png", 50, 2, "Michael", "Toy" });
-
-            migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "Id", "Description", "ImageUrl", "Price", "Quantity", "Seller", "Title" },
-                values: new object[] { 2, "Hard back", "book.png", 25, 4, "Peter", "Book" });
-
-            migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "Id", "Description", "ImageUrl", "Price", "Quantity", "Seller", "Title" },
-                values: new object[] { 3, "Bright", "lamp.png", 75, 1, "David", "Lamp" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
