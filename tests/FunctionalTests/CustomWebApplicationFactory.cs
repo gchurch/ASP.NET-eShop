@@ -42,6 +42,15 @@ namespace Ganges.FunctionalTests
                     db.Database.EnsureDeleted();
                     db.Database.EnsureCreated();
                     db.SaveChanges();
+
+                    try
+                    {
+                        SeedData.Initialize(scopedServices);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogError(ex, "An error occured seeding the DB.");
+                    }
                 }
             });
         }
