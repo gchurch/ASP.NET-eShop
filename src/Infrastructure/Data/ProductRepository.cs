@@ -17,7 +17,6 @@ namespace Ganges.Infrastructure.Data
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            // Retreiving the data like this should really be done in a service
             return await _context.Products.ToListAsync();
         }
 
@@ -27,44 +26,16 @@ namespace Ganges.Infrastructure.Data
             return await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Product> BuyProductAsync(int id)
-        {
-            // Find a product with the specified id.
-            var product = await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
-
-            if (product != null)
-            {
-                // Reduce the quantity of the product by 1.
-                product.Quantity -= 1;
-
-                // Update the database.
-                await _context.SaveChangesAsync();
-            }
-
-            return product;
-        }
-
-        // Add the product to the database and save the changes
-        public async Task<int> AddProductAsync(Product product)
+        public async Task AddProductAsync(Product product)
         {
             await _context.Products.AddAsync(product);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteProductAsync(int id)
+        public async Task DeleteProductAsync(Product product)
         {
-            var productExisted = false;
-
-            var product = await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
-
-            if (product != null)
-            {
-                productExisted = true;
-                _context.Products.Remove(product);
-                await _context.SaveChangesAsync();
-            }
-
-            return productExisted;
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateProductAsync(Product product)

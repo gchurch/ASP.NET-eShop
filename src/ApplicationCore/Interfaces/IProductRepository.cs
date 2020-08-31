@@ -10,11 +10,9 @@ namespace Ganges.ApplicationCore.Interfaces
 
          Task<Product> GetProductAsync(int id);
 
-         Task<Product> BuyProductAsync(int id);
+         Task AddProductAsync(Product product);
 
-         Task<int> AddProductAsync(Product product);
-
-         Task<bool> DeleteProductAsync(int id);
+         Task DeleteProductAsync(Product product);
 
          Task UpdateProductAsync(Product product);
     }

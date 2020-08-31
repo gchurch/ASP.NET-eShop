@@ -26,10 +26,18 @@ namespace Ganges.ApplicationCore.Services
 
         public async Task<Product> BuyProductAsync(int id)
         {
-            return await _productRepository.BuyProductAsync(id);
+            var product = await _productRepository.GetProductAsync(id);
+
+            if(product != null)
+            {
+                product.Quantity -= 1;
+                await _productRepository.UpdateProductAsync(product);
+            }
+
+            return product;
         }
 
-        public async Task<int> AddProductAsync(Product product)
+        public async Task AddProductAsync(Product product)
         {
             if (product != null)
             {
@@ -38,17 +46,29 @@ namespace Ganges.ApplicationCore.Services
                 // to the database. an ID value will automatically be given to the product.
                 product.Id = 0;
 
-                return await _productRepository.AddProductAsync(product);
-            }
-            else
-            {
-                return 0;
+                await _productRepository.AddProductAsync(product);
             }
         }
 
+        /// <summary>
+        /// Deletes a specified product.
+        /// </summary>
+        /// <param name="id">The ID of the product to delete.</param>
+        /// <returns>
+        /// Returns true if the given product existed and has now been deleted.
+        /// Returns false if the given product does not exist.
+        /// </returns>
         public async Task<bool> DeleteProductAsync(int id)
         {
-            return await _productRepository.DeleteProductAsync(id);
+            var product = await _productRepository.GetProductAsync(id);
+
+            if(product != null)
+            {
+                await _productRepository.DeleteProductAsync(product);
+                return true;
+            }
+
+            return false;
         }
 
         public async Task<Product> UpdateProductAsync(Product product)
