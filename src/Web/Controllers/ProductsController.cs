@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ganges.Web.Controllers
 {
     /// <summary>
-    /// The class containing the API to control the products.
+    /// The class implementing the API to interact with the products.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]

@@ -18,15 +18,13 @@ namespace Ganges.Infrastructure.Data
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             // Retreiving the data like this should really be done in a service
-            var products = await _context.Products.ToListAsync();
-            return products;
+            return await _context.Products.ToListAsync();
         }
 
         public async Task<Product> GetProductAsync(int id)
         {
             // SingleOrDefault returns the Product with the specified ID, or returns null if it doesn't exist.
-            var product = await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
-            return product;
+            return await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Product> BuyProductAsync(int id)
@@ -49,15 +47,8 @@ namespace Ganges.Infrastructure.Data
         // Add the product to the database and save the changes
         public async Task<int> AddProductAsync(Product product)
         {
-            if (product != null)
-            {
-                await _context.Products.AddAsync(product);
-                return await _context.SaveChangesAsync();
-            }
-            else
-            {
-                return 0;
-            }
+            await _context.Products.AddAsync(product);
+            return await _context.SaveChangesAsync();
         }
 
         public async Task<bool> DeleteProductAsync(int id)
@@ -76,27 +67,10 @@ namespace Ganges.Infrastructure.Data
             return productExisted;
         }
 
-        public async Task<Product> UpdateProductAsync(Product product)
+        public async Task UpdateProductAsync(Product product)
         {
-
-            var existingProduct = await _context.Products.SingleOrDefaultAsync(x => x.Id == product.Id);
-
-            if (existingProduct != null)
-            {
-                // Updating the product. You have to update each property individually, rather
-                // than just doing 'product = newProduct;'.
-                existingProduct.Id = product.Id;
-                existingProduct.Title = product.Title;
-                existingProduct.Description = product.Description;
-                existingProduct.Seller = product.Seller;
-                existingProduct.Price = product.Price;
-                existingProduct.Quantity = product.Quantity;
-                existingProduct.ImageUrl = product.ImageUrl;
-
-                await _context.SaveChangesAsync();
-            }
-
-            return existingProduct;
+            _context.Entry(product).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }
