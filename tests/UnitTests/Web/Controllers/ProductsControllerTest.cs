@@ -130,7 +130,6 @@ namespace Ganges.UnitTests.Web.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             productServiceStub.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()))
-                .ReturnsAsync(1)
                 .Verifiable();
             var productsController = new ProductsController(productServiceStub.Object);
 
