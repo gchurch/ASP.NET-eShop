@@ -47,7 +47,7 @@ namespace Ganges.FunctionalTests
         }
 
         [TestMethod]
-        public async Task GettingAllProductsWithAGetRequest()
+        public async Task GettingAllProductsWithAGetRequest_ShouldReturnOkStatusCodeAndAllTheProducts()
         {
             // Arrange
             CustomWebApplicationFactory<Startup> factory
@@ -70,19 +70,21 @@ namespace Ganges.FunctionalTests
         }
 
         [TestMethod]
-        public async Task GettingAProductWithAGetRequest()
+        public async Task GettingAProductWithAGetRequest_GivenAProductIdThatExists_ShouldReturnOkStatusCodeAndTheRequestedProduct()
         {
             // Arrange
             CustomWebApplicationFactory<Startup> factory
                 = new CustomWebApplicationFactory<Startup>();
             var client = factory.CreateClient();
+            var id = 2;
 
             // Act
-            var response = await client.GetAsync("/api/products/2");
+            var response = await client.GetAsync("/api/products/" + id);
             var responseString = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<Product>(responseString);
 
             // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
             result.Id.ShouldBe(2);
             result.Title.ShouldBe("Book");
             result.Description.ShouldBe("Hard back");
@@ -93,7 +95,7 @@ namespace Ganges.FunctionalTests
         }
 
         [TestMethod]
-        public async Task AddingAProductWithAPostRequest_ShouldReturnCreatedStatusCodeAndTheCreatedProduct()
+        public async Task AddingAProductWithAPostRequest_GivenAValidProduct_ShouldReturnCreatedStatusCodeAndTheCreatedProduct()
         {
             // Arrange
             CustomWebApplicationFactory<Startup> factory
@@ -129,7 +131,7 @@ namespace Ganges.FunctionalTests
         }
 
         [TestMethod]
-        public async Task AddingAProductWithAPostRequest_ShouldEnableUsToGetTheSameProductWithAGetRequest()
+        public async Task AddingAProductWithAPostRequest_GivenAValidProduct_ShouldEnableSuccessfulGetRequest()
         {
             // Arrange
             CustomWebApplicationFactory<Startup> factory
@@ -169,7 +171,7 @@ namespace Ganges.FunctionalTests
         }
 
         [TestMethod]
-        public async Task UpdatingAProductWithAPutRequest_ShouldReturnOkStatusCodeAndTheUpdatedProduct()
+        public async Task UpdatingAProductWithAPutRequest_GivenAValidProduct_ShouldReturnOkStatusCodeAndTheUpdatedProduct()
         {
             // Arrange
             CustomWebApplicationFactory<Startup> factory
@@ -205,18 +207,24 @@ namespace Ganges.FunctionalTests
         }
 
         [TestMethod]
-        public async Task Test()
+        public async Task DeletingAProductWithADeleteRequest_GivenAProductIdThatExists_ShouldStopSuccessfulGetRequestOfThatProduct()
         {
             // Arrange
             CustomWebApplicationFactory<Startup> factory
                 = new CustomWebApplicationFactory<Startup>();
             var client = factory.CreateClient();
+            var id = 1;
+            var url = "/api/products/" + id;
 
             // Act
-            var response = await client.GetAsync("/api/products");
+            var getResponseBeforeDeletion = await client.GetAsync(url);
+            var deletionResponse = await client.DeleteAsync(url);
+            var getResponseAfterDeletion = await client.GetAsync(url);
 
             // Assert
-            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+            getResponseBeforeDeletion.StatusCode.ShouldBe(HttpStatusCode.OK);
+            deletionResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+            getResponseAfterDeletion.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
     }
 }
