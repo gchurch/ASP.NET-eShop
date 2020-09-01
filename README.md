@@ -9,7 +9,7 @@ An SPA E-Commerce website front-end created with Angular 9.
 
 ## Back-End
 
-An ASP.NET Core back-end API. Swagger is used to document the API.
+I created a back-end API with ASP.NET Core 3.1. Swagger is used to document the API.
 
 ### Database
 
