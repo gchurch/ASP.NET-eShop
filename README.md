@@ -19,7 +19,7 @@ The app contains the following API:
 | GET /api/Products/{id}    | Get a product by ID        | None         | Product           |
 | POST /api/Products        | Add a new product          | Product      | Product           |
 | PUT /api/Products         | Update an existing product | Product      | Product           |
-| Delete /api/Products/{id} | Delete a product           | None         | None              |
+| DELETE /api/Products/{id} | Delete a product           | None         | None              |
 
 
 ### Database
