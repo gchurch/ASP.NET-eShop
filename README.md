@@ -11,6 +11,17 @@ An SPA E-Commerce website front-end created with Angular 9.
 
 I created a back-end API with ASP.NET Core 3.1. Swagger is used to document the API.
 
+The app contains the following API:
+
+| API                       | Description                | Request body | Response body     |
+| ------------------------- | -------------------------- | ------------ | ----------------- |
+| GET /api/Products         | Get all products           | None         | Array of products |
+| GET /api/Products/{id}    | Get a product by ID        | None         | Product           |
+| POST /api/Products        | Add a new product          | Product      | Product           |
+| PUT /api/Products         | Update an existing product | Product      | Product           |
+| Delete /api/Products/{id} | Delete a product           | None         | None              |
+
+
 ### Database
 
 - An SQL Server used to store application data.
