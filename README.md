@@ -33,6 +33,10 @@ Swagger is used to document the API.
 
 - A Clean Architecure based on https://github.com/ardalis/CleanArchitecture is used to organize the code.
 
+The application is separated into three layers where each layer is a project. The layers are called ApplicationCore, Web and Infrastructure.
+
+<img src="https://miro.medium.com/max/2750/0*lwCWXSNctrUUYeLR.png" alt="alt text" width="60%">
+
 ### Unit Tests
 
 Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework.
