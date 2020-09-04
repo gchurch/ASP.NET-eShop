@@ -9,7 +9,7 @@ An SPA E-Commerce website front-end created with Angular 9.
 
 ## Back-End
 
-I created a back-end API with ASP.NET Core 3.1. Swagger is used to document the API.
+I created a back-end API with ASP.NET Core 3.1.
 
 The app contains the following API:
 
@@ -21,6 +21,7 @@ The app contains the following API:
 | PUT /api/Products         | Update an existing product | Product      | Product           |
 | DELETE /api/Products/{id} | Delete a product           | None         | None              |
 
+Swagger is used to document the API.
 
 ### Database
 
