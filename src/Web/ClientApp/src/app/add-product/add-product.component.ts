@@ -24,8 +24,7 @@ export class AddProductComponent implements OnInit {
       description: new FormControl('', Validators.required),
       seller: new FormControl('', Validators.required),
       price: new FormControl(0, [Validators.required, Validators.min(0.01)]),
-      quantity: new FormControl(0, [Validators.required, Validators.min(1)]),
-      imageUrl: new FormControl('', Validators.required),
+      quantity: new FormControl(0, [Validators.required, Validators.min(1)])
     });
     this.productForm.reset();
   }
@@ -40,7 +39,7 @@ export class AddProductComponent implements OnInit {
       seller: this.productForm.value.seller,
       price: parseInt(this.productForm.value.price),
       quantity: parseInt(this.productForm.value.quantity),
-      imageUrl: this.productForm.value.imageUrl
+      imageUrl: ""
     };
     // Print the product.
     console.log(product);

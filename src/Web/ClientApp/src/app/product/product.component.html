@@ -8,8 +8,7 @@
         <p>Seller: <input type="text" formControlName="seller"/></p>
         <p>Price: £<input type="number" formControlName="price"/></p>
         <p>Quantity: <input type="number" formControlName="quantity"/></p>
-        <p>ImageUrl: <input type="text" formControlName="imageUrl"/></p>
-        <button type="submit" [disabled]="!productForm.valid">Update</button>
+        <button type="submit" [disabled]="!productForm.valid || productForm.pristine">Update</button>
     </form>
     <button (click)="addToBasket(product)">Add to Basket</button>
     <button (click)="onDelete(product.id)">Delete</button>

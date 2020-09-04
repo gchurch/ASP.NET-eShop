@@ -1,9 +1,10 @@
-﻿using Ganges.Infrastructure.Data;
+﻿using Ganges.ApplicationCore.Entities;
+using Ganges.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+using Shouldly;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Ganges.IntegrationTests.Repositories
 {
@@ -16,14 +17,75 @@ namespace Ganges.IntegrationTests.Repositories
         public ProductRepositoryTest()
         {
             _dbOptions = new DbContextOptionsBuilder<GangesDbContext>()
-                .UseInMemoryDatabase(databaseName: "IntegrationTestingDatabase")
+                .UseInMemoryDatabase(databaseName: "UnitTestingDatabase")
                 .Options;
         }
 
-        [TestMethod]
-        public void Test()
+        // This method creates a fresh test database every time it is called.
+        // This method should be called at the start of every unit test for the
+        // ProductRepository class.
+        private void ResetDatabase()
         {
-            Assert.AreEqual(1, 1);
+            using (var context = new GangesDbContext(_dbOptions))
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                context.SaveChanges();
+            }
+        }
+
+        [TestMethod]
+        public async Task GetProductAsync_GivenProductIdThatExists_ShouldReturnProductWithThatId()
+        {
+            using (var context = new GangesDbContext(_dbOptions))
+            {
+                // Arrange
+                ResetDatabase();
+                var productRepository = new ProductRepository(context);
+                var productIdThatExists = 1;
+
+                // Act
+                var product = await productRepository.GetProductAsync(productIdThatExists);
+
+                // Assert
+                product.Id.ShouldBe(productIdThatExists);
+            }
+        }
+
+        [TestMethod]
+        public async Task GetProductAsync_GivenProductIdThatDoesNotExist_ShouldReturnNull()
+        {
+            using (var context = new GangesDbContext(_dbOptions))
+            {
+                // Arrange
+                ResetDatabase();
+                var productRepository = new ProductRepository(context);
+                var productIdThatDoesNotExist = 4;
+
+                // Act
+                var product = await productRepository.GetProductAsync(productIdThatDoesNotExist);
+
+                // Assert
+                product.ShouldBe(null);
+            }
+        }
+
+
+        [TestMethod]
+        public async Task GetProductsAsync_With3ProductsInTheDatabase_ShouldReturnProductCountOf3()
+        {
+            using (var context = new GangesDbContext(_dbOptions))
+            {
+                // Arrange
+                ResetDatabase();
+                var productRepository = new ProductRepository(context);
+
+                // Act
+                var products = await productRepository.GetProductsAsync() as List<Product>;
+
+                // Assert
+                products.Count.ShouldBe(3);
+            }
         }
     }
 }
