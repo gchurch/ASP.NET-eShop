@@ -9,9 +9,11 @@ An SPA E-Commerce website front-end created with Angular 9.
 
 ## Back-End
 
+### API
+
 I created a back-end API with ASP.NET Core 3.1.
 
-The app contains the following API:
+The application has the following API:
 
 | API                       | Description                | Request body | Response body     |
 | ------------------------- | -------------------------- | ------------ | ----------------- |
@@ -31,7 +33,7 @@ Swagger is used to document the API.
 
 ### Clean Architecture
 
-- A Clean Architecure based on https://github.com/ardalis/CleanArchitecture is used to organize the code.
+A Clean Architecure based on https://github.com/ardalis/CleanArchitecture is used to organize the code.
 
 The application is separated into three layers where each layer is a project. The layers are called ApplicationCore, Web and Infrastructure.
 
