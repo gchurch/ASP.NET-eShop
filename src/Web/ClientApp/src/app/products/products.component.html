@@ -1,28 +1,24 @@
-<h1 id="tableLabel">Products</h1>
+<h1>Products</h1>
 
 <p>The product data shown here is fetched from the server.</p>
 
-<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="(products$ | async) as products;">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Seller</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Image</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let product of products">
-            <td>{{ product.id }}</td>
-            <td><a routerLink="/products/{{product.id}}">{{ product.title }}</a></td>
-            <td>{{ product.description }}</td>
-            <td>{{ product.seller }}</td>
-            <td>{{ product.price | currency }}</td>
-            <td>{{ product.quantity }}</td>
-            <td><img src="assets/{{product.imageUrl}}"/></td>
-        </tr>
-    </tbody>
-</table>
+
+<div *ngIf="(products$ | async) as products;">
+
+    <ul>
+        <li *ngFor="let product of products">
+            <div>
+                <img src="assets/{{product.imageUrl}}"/>
+            </div>
+            <div>
+                <p>{{ product.id }}</p>
+                <p><a routerLink="/products/{{product.id}}">{{ product.title }}</a></p>
+                <p>{{ product.description }}</p>
+                <p>{{ product.seller }}</p>
+                <p>{{ product.price | currency }}</p>
+                <p>{{ product.quantity }}</p>
+            </div>
+        </li>
+    </ul>
+
+</div>
