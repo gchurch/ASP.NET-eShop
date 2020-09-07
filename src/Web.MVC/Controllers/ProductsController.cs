@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ganges.ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Ganges.ApplicationCore.Entities;
 
 namespace Web.MVC.Controllers
 {
