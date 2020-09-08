@@ -18,10 +18,24 @@ namespace Ganges.Web.MVC.Controllers
             _productService = productService;
         }
 
+        // GET: /Products
         public async Task<IActionResult> Index()
         {
             var products = await _productService.GetProductsAsync();
             return View(products);
+        }
+
+        // GET: /Products/Details/1
+        public async Task<IActionResult> Details(int id)
+        {
+            var product = await _productService.GetProductAsync(id);
+
+            if(product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
     }
 }
