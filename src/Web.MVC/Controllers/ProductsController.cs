@@ -6,7 +6,7 @@ using Ganges.ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Ganges.ApplicationCore.Entities;
 
-namespace Web.MVC.Controllers
+namespace Ganges.Web.MVC.Controllers
 {
     public class ProductsController : Controller
     {

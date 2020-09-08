@@ -1,6 +1,6 @@
 ﻿using Ganges.ApplicationCore.Entities;
 using Ganges.ApplicationCore.Interfaces;
-using Ganges.Web.Controllers;
+using Ganges.Web.Angular.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

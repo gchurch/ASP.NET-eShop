@@ -12,7 +12,7 @@ using System.Reflection;
 using System;
 using System.IO;
 
-namespace Ganges
+namespace Ganges.Web.Angular
 {
     public class Startup
     {

@@ -5,7 +5,7 @@ using Ganges.ApplicationCore.Entities;
 using Ganges.ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ganges.Web.Controllers
+namespace Ganges.Web.Angular.Controllers
 {
     /// <summary>
     /// The class implementing the API to interact with the products.
