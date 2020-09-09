@@ -37,5 +37,11 @@ namespace Ganges.Web.MVC.Controllers
 
             return View(product);
         }
+
+        // GET: /Products/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
