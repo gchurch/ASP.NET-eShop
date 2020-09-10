@@ -30,7 +30,7 @@ namespace Ganges.Web.MVC.Controllers
         {
             var product = await _productService.GetProductAsync(id);
 
-            if(product == null)
+            if (product == null)
             {
                 return NotFound();
             }
@@ -43,5 +43,13 @@ namespace Ganges.Web.MVC.Controllers
         {
             return View();
         }
+
+        // POST: /Products/Create
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind]Product product)
+        {
+            await _productService.AddProductAsync(product);
+            return RedirectToAction(nameof(Index));
+        } 
     }
 }
