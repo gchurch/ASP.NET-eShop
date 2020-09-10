@@ -46,10 +46,23 @@ namespace Ganges.Web.MVC.Controllers
 
         // POST: /Products/Create
         [HttpPost]
-        public async Task<IActionResult> Create([Bind]Product product)
+        public async Task<IActionResult> Create(Product product)
         {
             await _productService.AddProductAsync(product);
             return RedirectToAction(nameof(Index));
-        } 
+        }
+
+        // GET: /Products/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await _productService.GetProductAsync(id);
+
+            if(product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
     }
 }
