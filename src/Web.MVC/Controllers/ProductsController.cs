@@ -64,5 +64,21 @@ namespace Ganges.Web.MVC.Controllers
 
             return View(product);
         }
+
+        // POST: /Products/Delete/5
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var product = await _productService.GetProductAsync(id);
+
+            if(product == null)
+            {
+                return NotFound();
+            }
+            else {
+                await _productService.DeleteProductAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+        }
     }
 }

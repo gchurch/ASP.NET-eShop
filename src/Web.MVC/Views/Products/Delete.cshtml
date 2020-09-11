@@ -6,3 +6,65 @@
 
 <h1>Delete</h1>
 
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dt>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dt>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dt>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Seller)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Seller)
+        </dt>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dt>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dt>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.ImageUrl)
+        </dt>
+    </dl>
+</div>
+
+<p>Click the delete button to delete this object.</p>
+
+<form asp-action="DeleteConfirmed">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Delete" />
+</form>
