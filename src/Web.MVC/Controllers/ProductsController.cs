@@ -99,5 +99,13 @@ namespace Ganges.Web.MVC.Controllers
                 return View(product);
             }
         }
+
+        // POST: /Products/Edit/5
+        [HttpPost]
+        public async Task<IActionResult> Edit(Product product)
+        {
+            await _productService.UpdateProductAsync(product);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
