@@ -34,8 +34,10 @@ namespace Ganges.Web.MVC.Controllers
             {
                 return NotFound();
             }
-
-            return View(product);
+            else
+            {
+                return View(product);
+            }
         }
 
         // GET: /Products/Create
@@ -57,12 +59,14 @@ namespace Ganges.Web.MVC.Controllers
         {
             var product = await _productService.GetProductAsync(id);
 
-            if(product == null)
+            if (product == null)
             {
                 return NotFound();
             }
-
-            return View(product);
+            else
+            {
+                return View(product);
+            }
         }
 
         // POST: /Products/Delete/5
@@ -78,6 +82,21 @@ namespace Ganges.Web.MVC.Controllers
             else {
                 await _productService.DeleteProductAsync(id);
                 return RedirectToAction(nameof(Index));
+            }
+        }
+
+        // GET: /Products/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            var product = await _productService.GetProductAsync(id);
+
+            if(product == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return View(product);
             }
         }
     }
