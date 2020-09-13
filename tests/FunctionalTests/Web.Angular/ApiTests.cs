@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Text;
 using Ganges.Web.Angular;
 
-namespace Ganges.FunctionalTests
+namespace Ganges.FunctionalTests.Web.Angular
 {
 
     // Useful information: https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1

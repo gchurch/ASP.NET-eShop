@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 // https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
 // https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/testing?view=aspnetcore-3.1
 
-namespace Ganges.UnitTests.Web.Controllers
+namespace Ganges.UnitTests.Web.Angular.Controllers
 {
     [TestClass]
     public class ProductsControllerTest

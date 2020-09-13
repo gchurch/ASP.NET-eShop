@@ -9,7 +9,7 @@ using Shouldly;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Ganges.UnitTests.Web.Services
+namespace Ganges.UnitTests.ApplicationCore.Services
 {
     [TestClass]
     public class ProductServiceTest
