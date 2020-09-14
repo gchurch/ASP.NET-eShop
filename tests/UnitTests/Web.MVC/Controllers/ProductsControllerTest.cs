@@ -64,5 +64,19 @@ namespace Ganges.UnitTests.Web.MVC.Controllers
             // Assert
             actionResult.ShouldBeOfType<NotFoundResult>();
         }
+
+        [TestMethod]
+        public void Create_ShouldReturnTypeViewResult()
+        {
+            // Arrange
+            var productServiceStub = new Mock<IProductService>();
+            var productsController = new ProductsController(productServiceStub.Object);
+
+            // Act
+            var actionResult = productsController.Create();
+
+            // Assert
+            actionResult.ShouldBeOfType<ViewResult>();
+        }
     }
 }

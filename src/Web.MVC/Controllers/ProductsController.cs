@@ -19,6 +19,7 @@ namespace Ganges.Web.MVC.Controllers
         }
 
         // GET: /Products
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var products = await _productService.GetProductsAsync();
@@ -26,6 +27,7 @@ namespace Ganges.Web.MVC.Controllers
         }
 
         // GET: /Products/Details/1
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var product = await _productService.GetProductAsync(id);
@@ -41,20 +43,22 @@ namespace Ganges.Web.MVC.Controllers
         }
 
         // GET: /Products/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: /Products/Create
-        [HttpPost]
-        public async Task<IActionResult> Create(Product product)
+        [HttpPost, ActionName("Create")]
+        public async Task<IActionResult> CreatePost(Product product)
         {
             await _productService.AddProductAsync(product);
             return RedirectToAction(nameof(Index));
         }
 
         // GET: /Products/Delete/5
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _productService.GetProductAsync(id);
@@ -70,8 +74,8 @@ namespace Ganges.Web.MVC.Controllers
         }
 
         // POST: /Products/Delete/5
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeletePost(int id)
         {
             var product = await _productService.GetProductAsync(id);
 
@@ -86,6 +90,7 @@ namespace Ganges.Web.MVC.Controllers
         }
 
         // GET: /Products/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var product = await _productService.GetProductAsync(id);
@@ -101,8 +106,8 @@ namespace Ganges.Web.MVC.Controllers
         }
 
         // POST: /Products/Edit/5
-        [HttpPost]
-        public async Task<IActionResult> Edit(Product product)
+        [HttpPost, ActionName("Edit")]
+        public async Task<IActionResult> EditPost(Product product)
         {
             await _productService.UpdateProductAsync(product);
             return RedirectToAction(nameof(Index));
