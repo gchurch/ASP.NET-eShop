@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\ApplicationCore\ApplicationCore.csproj" />
     <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\Web.Angular\Web.Angular.csproj" />
     <ProjectReference Include="..\..\src\Web.MVC\Web.MVC.csproj" />
