@@ -18,12 +18,12 @@ namespace Ganges.FunctionalTests.Web.Angular
     // These tests could also be described as end-to-end functional tests.
 
     [TestClass]
-    public class ApiTests
+    public class Tests
     {
 
         private CustomWebApplicationFactory<Startup> _factory;
 
-        public ApiTests()
+        public Tests()
         {
             _factory = new CustomWebApplicationFactory<Startup>();
         }
@@ -33,7 +33,7 @@ namespace Ganges.FunctionalTests.Web.Angular
         [DataRow("/api/products/1")]
         [DataRow("/api/products/2")]
         [DataRow("/api/products/3")]
-        public async Task TestGetRequestsRespondWithOk(string url)
+        public async Task GetRequestsOfExistingProducts_ShouldGiveOkResponse(string url)
         {
             // Arrange
             CustomWebApplicationFactory<Startup> factory

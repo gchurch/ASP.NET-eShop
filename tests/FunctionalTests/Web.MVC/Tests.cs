@@ -22,7 +22,13 @@ namespace Ganges.FunctionalTests.Web.MVC
         [DataRow("Products/Details/1")]
         [DataRow("Products/Edit/1")]
         [DataRow("Products/Delete/1")]
-        public async Task Get_EndpointsReturnSuccess(string url)
+        [DataRow("Products/Details/2")]
+        [DataRow("Products/Edit/2")]
+        [DataRow("Products/Delete/2")]
+        [DataRow("Products/Details/3")]
+        [DataRow("Products/Edit/3")]
+        [DataRow("Products/Delete/3")]
+        public async Task GetRequestOfExistingProducts_ShouldGiveOkResponse(string url)
         {
             // Arrange
             CustomWebApplicationFactory<Startup> factory
@@ -34,7 +40,7 @@ namespace Ganges.FunctionalTests.Web.MVC
 
 
             // Assert
-            response.EnsureSuccessStatusCode();
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -61,18 +67,43 @@ namespace Ganges.FunctionalTests.Web.MVC
         }
 
         [TestMethod]
-        public async Task NotFoundTest()
+        public async Task GettingTheDetailsOfAProductWithNonExistantID_ShouldResultInNotFoundResponse()
         {
             // Arrange
             CustomWebApplicationFactory<Startup> factory
                 = new CustomWebApplicationFactory<Startup>();
             var client = factory.CreateClient();
 
+            var productId = 4;
+
             // Act
-            var getResponse = await client.GetAsync("/Products/Details/4");
+            var getResponse = await client.GetAsync("/Products/Details/" + productId);
 
             // Assert
             getResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+        }
+
+        [TestMethod]
+        public async Task DeletingAProduct_ShouldResultInANotFoundResponseWhenGettingTheProduct()
+        {
+            // Arrange
+            CustomWebApplicationFactory<Startup> factory
+                = new CustomWebApplicationFactory<Startup>();
+            var client = factory.CreateClient();
+
+            var productId = 3;
+            var productString = JsonConvert.SerializeObject(productId);
+            var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
+
+            // Act
+            var getResponseBeforeDeletion = await client.GetAsync("Products/Details/" + productId);
+            var deletionResponse = await client.PostAsync("/Products/Delete/" + productId, stringContent);
+            var getResponseAfterDeletion = await client.GetAsync("/Products/Details/" + productId);
+
+            // Assert
+            getResponseBeforeDeletion.StatusCode.ShouldBe(HttpStatusCode.OK);
+            deletionResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+            getResponseAfterDeletion.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
     }
 }

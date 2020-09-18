@@ -73,7 +73,7 @@ namespace Ganges.Web.MVC.Controllers
             }
         }
 
-        // POST: /Products/Delete/5
+        // POST: /Products/Delete
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeletePost(int id)
         {
@@ -105,7 +105,7 @@ namespace Ganges.Web.MVC.Controllers
             }
         }
 
-        // POST: /Products/Edit/5
+        // POST: /Products/Edit
         [HttpPost, ActionName("Edit")]
         public async Task<IActionResult> EditPost(Product product)
         {
