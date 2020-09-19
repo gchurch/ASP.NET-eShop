@@ -44,7 +44,7 @@ namespace Ganges.FunctionalTests.Web.MVC
         }
 
         [TestMethod]
-        public async Task PostingNewProductShouldResultInSuccessfulGetRequest()
+        public async Task CreatingANewProductWithAPostRequest_ShouldResultInSuccessfulGetRequest()
         {
             // Arrange
             CustomWebApplicationFactory<Startup> factory
@@ -58,12 +58,14 @@ namespace Ganges.FunctionalTests.Web.MVC
             var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
 
             // Act
+            var getResponseBeforeCreation = await client.GetAsync("/Products/Details/4");
             var postResponse = await client.PostAsync("/Products/Create", stringContent);
-
-            var getResponse = await client.GetAsync("/Products/Details/4");
+            var getResponseAfterCreation = await client.GetAsync("/Products/Details/4");
 
             // Assert
-            getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+            getResponseBeforeCreation.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+            postResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+            getResponseAfterCreation.StatusCode.ShouldBe(HttpStatusCode.OK);
         }
 
         [TestMethod]
@@ -105,5 +107,50 @@ namespace Ganges.FunctionalTests.Web.MVC
             deletionResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
             getResponseAfterDeletion.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
+
+        [TestMethod]
+        public async Task EditingAnExistingProductWithAPostRequest_ShouldRespondWithAnOkStatusCode()
+        {
+            // Arrange
+            CustomWebApplicationFactory<Startup> factory
+                = new CustomWebApplicationFactory<Startup>();
+            var client = factory.CreateClient();
+
+            var newProduct = new Product()
+            {
+                Id = 3,
+            };
+            var productString = JsonConvert.SerializeObject(newProduct);
+            var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
+
+            // Act
+            var getResponse = await client.PostAsync("Products/Edit/" + newProduct.Id, stringContent);
+
+            // Assert
+            getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public async Task EditingANonExistentProductWithAPostRequest_ShouldRespondWithAnOkStatusCode()
+        {
+            // Arrange
+            CustomWebApplicationFactory<Startup> factory
+                = new CustomWebApplicationFactory<Startup>();
+            var client = factory.CreateClient();
+
+            var nonExistentProduct = new Product()
+            {
+                Id = 4,
+            };
+            var productString = JsonConvert.SerializeObject(nonExistentProduct);
+            var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
+
+            // Act
+            var getResponse = await client.PostAsync("Products/Edit", stringContent);
+
+            // Assert
+            getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+        }
+
     }
 }
