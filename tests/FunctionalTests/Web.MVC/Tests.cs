@@ -131,7 +131,7 @@ namespace Ganges.FunctionalTests.Web.MVC
         }
 
         [TestMethod]
-        public async Task EditingANonExistentProductWithAPostRequest_ShouldRespondWithAnOkStatusCode()
+        public async Task EditingANonExistentProductWithAPostRequest_ShouldRespondWithANotFoundStatusCode()
         {
             // Arrange
             CustomWebApplicationFactory<Startup> factory
@@ -149,7 +149,7 @@ namespace Ganges.FunctionalTests.Web.MVC
             var getResponse = await client.PostAsync("Products/Edit", stringContent);
 
             // Assert
-            getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+            getResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
 
     }
