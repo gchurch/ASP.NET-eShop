@@ -1,5 +1,6 @@
 ﻿using Ganges.ApplicationCore.Entities;
 using Ganges.ApplicationCore.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,6 +9,7 @@ namespace Ganges.ApplicationCore.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
+        private Random rand = new Random();
 
         public ProductService(IProductRepository productRepository)
         {
@@ -45,6 +47,19 @@ namespace Ganges.ApplicationCore.Services
                 // because you are not allowed to specify an ID value when adding a product
                 // to the database. an ID value will automatically be given to the product.
                 product.Id = 0;
+                int randomNumber = rand.Next();
+                if(randomNumber % 3 == 0)
+                {
+                    product.ImageUrl = "book.png";
+                }
+                else if(randomNumber % 3 == 1)
+                {
+                    product.ImageUrl = "lamp.png";
+                }
+                else if(randomNumber % 3 == 2)
+                {
+                    product.ImageUrl = "toy.png";
+                }
 
                 await _productRepository.AddProductAsync(product);
             }
