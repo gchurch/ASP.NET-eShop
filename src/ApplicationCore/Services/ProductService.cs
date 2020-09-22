@@ -88,9 +88,16 @@ namespace Ganges.ApplicationCore.Services
 
         public async Task<Product> UpdateProductAsync(Product product)
         {
-            if (product != null)
+            var existingProduct = await GetProductAsync(product.Id);
+
+            if (product != null && existingProduct != null)
             {
-                await _productRepository.UpdateProductAsync(product);
+                existingProduct.Title = product.Title;
+                existingProduct.Description = product.Description;
+                existingProduct.Seller = product.Seller;
+                existingProduct.Price = product.Price;
+                existingProduct.Quantity = product.Quantity;
+                await _productRepository.UpdateProductAsync(existingProduct);
             }
 
             return product;

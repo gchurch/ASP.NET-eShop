@@ -109,23 +109,13 @@ namespace Ganges.Web.MVC.Controllers
         [HttpPost, ActionName("Edit")]
         public async Task<IActionResult> EditPost(Product product)
         {
-            var existingProduct = await _productService.GetProductAsync(product.Id);
+            var updatedProduct = await _productService.UpdateProductAsync(product);
 
-            if (existingProduct == null)
+            if(updatedProduct == null)
             {
                 return NotFound();
             }
-            else
-            {
-                // Update the existingProduct with the new details
-                existingProduct.Title = product.Title;
-                existingProduct.Description = product.Description;
-                existingProduct.Seller = product.Seller;
-                existingProduct.Price = product.Price;
-                existingProduct.Quantity = product.Quantity;
-                existingProduct.ImageUrl = product.ImageUrl;
-                
-                await _productService.UpdateProductAsync(existingProduct);
+            else {
                 return RedirectToAction(nameof(Index));
             }
         }
