@@ -223,8 +223,8 @@ namespace Ganges.UnitTests.Web.MVC.Controllers
             var productWithIdThatExists = new Product() {
                 Id = productIdThatExists
             };
-            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatExists))
-                .ReturnsAsync(new Product());
+            productServiceStub.Setup(ps => ps.UpdateProductAsync(productWithIdThatExists))
+                .ReturnsAsync(productWithIdThatExists);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act

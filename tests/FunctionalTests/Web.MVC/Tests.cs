@@ -140,7 +140,7 @@ namespace Ganges.FunctionalTests.Web.MVC
 
             var nonExistentProduct = new Product()
             {
-                Id = 4,
+                Id = 0,
             };
             var productString = JsonConvert.SerializeObject(nonExistentProduct);
             var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");

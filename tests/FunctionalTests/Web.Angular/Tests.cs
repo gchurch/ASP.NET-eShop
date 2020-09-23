@@ -110,7 +110,6 @@ namespace Ganges.FunctionalTests.Web.Angular
                 Seller = "Anthony",
                 Price = 2,
                 Quantity = 3,
-                ImageUrl = "sock.png"
             };
             var productString = JsonConvert.SerializeObject(product);
             var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
@@ -128,7 +127,6 @@ namespace Ganges.FunctionalTests.Web.Angular
             postResponseProduct.Seller.ShouldBe(product.Seller);
             postResponseProduct.Price.ShouldBe(product.Price);
             postResponseProduct.Quantity.ShouldBe(product.Quantity);
-            postResponseProduct.ImageUrl.ShouldBe(product.ImageUrl);
         }
 
         [TestMethod]
@@ -146,7 +144,6 @@ namespace Ganges.FunctionalTests.Web.Angular
                 Seller = "Anthony",
                 Price = 2,
                 Quantity = 3,
-                ImageUrl = "sock.png"
             };
             var productString = JsonConvert.SerializeObject(product);
             var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
@@ -168,7 +165,6 @@ namespace Ganges.FunctionalTests.Web.Angular
             getResponseProduct.Seller.ShouldBe(product.Seller);
             getResponseProduct.Price.ShouldBe(product.Price);
             getResponseProduct.Quantity.ShouldBe(product.Quantity);
-            getResponseProduct.ImageUrl.ShouldBe(product.ImageUrl);
         }
 
         [TestMethod]
@@ -186,7 +182,6 @@ namespace Ganges.FunctionalTests.Web.Angular
                 Seller = "New Seller",
                 Price = 100,
                 Quantity = 20,
-                ImageUrl = "new_image.png"
             };
             var productString = JsonConvert.SerializeObject(product);
             var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
@@ -204,7 +199,6 @@ namespace Ganges.FunctionalTests.Web.Angular
             result.Seller.ShouldBe(product.Seller);
             result.Price.ShouldBe(product.Price);
             result.Quantity.ShouldBe(product.Quantity);
-            result.ImageUrl.ShouldBe(product.ImageUrl);
         }
 
         [TestMethod]
