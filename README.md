@@ -1,6 +1,6 @@
 # Ganges
 
-I created a simple E-commerce website using ASP.NET Core 3.1. I created two different front-ends, one using Angular 9 and another using ASP.NET Core MVC. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have attempted to follow best practices when it comes to testing and software architecture.
+I created a simple E-commerce website using ASP.NET Core 3.1. I created two different front-ends, one using Angular 9 and another using ASP.NET Core MVC with Razor. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have attempted to follow best practices when it comes to testing and software architecture.
 
 ## Angular App
 
