@@ -128,6 +128,25 @@ namespace Ganges.UnitTests.ApplicationCore.Services
         }
 
         [TestMethod]
+        public async Task AddProductAsync_GivenAProduct_ShouldGiveThatProductAnIdOfZero()
+        {
+            // Arrange
+            var product = new Product()
+            {
+                Id = 25
+            };
+            var productRepositoryStub = new Mock<IProductRepository>();
+            productRepositoryStub.Setup(pr => pr.AddProductAsync(It.IsAny<Product>()));
+            var productService = new ProductService(productRepositoryStub.Object);
+
+            // Act
+            await productService.AddProductAsync(product);
+
+            // Assert
+            product.Id.ShouldBe(0);
+        }
+
+        [TestMethod]
         public async Task DeleteProductAsync_GivenAProductIdThatExists_ShouldReturnTrue()
         {
             // Arrange
