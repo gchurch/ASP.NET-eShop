@@ -7,9 +7,17 @@ a.navbar-brand {
 html {
   font-size: 14px;
 }
+#domain {
+  font-size: 11px;
+  color: orange;
+}
 @media (min-width: 768px) {
   html {
     font-size: 16px;
+  }
+  #domain {
+    font-size: 13px;
+    color: orange;
   }
 }
 
