@@ -2,3 +2,24 @@ img {
     height: auto;
     max-width: 100%;
 }
+
+div {
+    border: 1px solid black;
+}
+
+div div {
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: top;
+}
+
+div div:first-child {
+    max-width: 20%;
+    padding: 1%;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+div div:last-child {
+    vertical-align: middle;
+}
