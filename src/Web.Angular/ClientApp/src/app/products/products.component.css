@@ -5,7 +5,7 @@ ul {
 }
 
 li {
-    border-top: 1px solid grey;
+    border: 1px solid grey;
     margin: 0px;
     padding: 0px;
 }
@@ -14,6 +14,7 @@ li div {
     display: inline-block;
     border: 1px solid black;
     height: 100%;
+    vertical-align: top;
 }
 
 li div:first-child {
