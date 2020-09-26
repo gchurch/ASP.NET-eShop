@@ -5,23 +5,48 @@ ul {
 }
 
 li {
-    border: 1px solid grey;
+    border-top: 1px solid grey;
     margin: 0px;
     padding: 0px;
 }
 
 li div {
     display: inline-block;
-    border: 1px solid black;
     height: 100%;
     vertical-align: top;
+    padding: 1%;
 }
 
 li div:first-child {
-    max-width: 20%;
+    width: 20%;
+    margin-left: 4%;
+    margin-right: 4%;
 }
 
 li img {
     width: 100%;
     height: auto;
+}
+
+#productTitle a {
+    font-size: 1.5em;
+    color: black;
+}
+
+#productTitle a:hover {
+    color: orange;
+    text-decoration: none;
+}
+
+#productPrice a {
+    font-size: 1.5em;
+    color: black;
+}
+
+#productPrice a:hover {
+    text-decoration: none;
+}
+
+#productDelivery {
+    color: grey;
 }
