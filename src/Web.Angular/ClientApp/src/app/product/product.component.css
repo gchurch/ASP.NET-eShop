@@ -7,19 +7,23 @@ div {
     border: 1px solid black;
 }
 
-div div {
+div .column {
     border: 1px solid black;
     display: inline-block;
     vertical-align: top;
 }
 
-div div:first-child {
+div .column:first-child {
     max-width: 20%;
     padding: 1%;
     margin-left: 4%;
     margin-right: 4%;
 }
 
-div div:last-child {
-    vertical-align: middle;
+div .column:last-child {
+    vertical-align: bottom;
+}
+
+#editButton {
+    display: block;
 }

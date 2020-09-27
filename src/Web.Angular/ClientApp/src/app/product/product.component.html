@@ -1,20 +1,34 @@
+<button id="editButton" (click)="toggleEdit()"></button>
+
 <!--Using *ngIf here makes sure that we only subscribe to the observable once-->
 <div *ngIf="(product$ | async) as product">
-    <div><img src="assets/{{product.imageUrl}}"/></div>
-    <div>
-        <!--If a valid product is received then display its details.-->
-        <form *ngIf="product.id" [formGroup]="productForm" (ngSubmit)="onSubmit(product.id)">
+    <div class="column"><img src="assets/{{product.imageUrl}}"/></div>
+    <div class="column">
+
+        <div *ngIf="editingProduct && product.id">
+            <!--If a valid product is received then display its details.-->
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit(product.id)">
+                <p>ID: {{product.id}}</p>
+                <p>Title: <input type="text" formControlName="title"/></p>
+                <p>Description: <input type="text" formControlName="description"/></p>
+                <p>Seller: <input type="text" formControlName="seller"/></p>
+                <p>Price: £<input type="number" formControlName="price"/></p>
+                <p>Quantity: <input type="number" formControlName="quantity"/></p>
+                <button type="submit" [disabled]="!productForm.valid || productForm.pristine">Update</button>
+            </form>
+            <button (click)="onDelete(product.id)">Delete</button>
+        </div>
+
+        <div *ngIf="!editingProduct && product.id">
             <p>ID: {{product.id}}</p>
-            <p>Title: <input type="text" formControlName="title"/></p>
-            <p>Description: <input type="text" formControlName="description"/></p>
-            <p>Seller: <input type="text" formControlName="seller"/></p>
-            <p>Price: £<input type="number" formControlName="price"/></p>
-            <p>Quantity: <input type="number" formControlName="quantity"/></p>
-            <button type="submit" [disabled]="!productForm.valid || productForm.pristine">Update</button>
-        </form>
-        <button (click)="onDelete(product.id)">Delete</button>
+            <p>Title: {{product.title}}</p>
+            <p>Descripton: {{product.description}}</p>
+            <p>Seller: {{product.Seller}}</p>
+            <p>Price: £{{product.price}}</p>
+            <p>Quantity: {{product.quantity}}</p>
+        </div>
     </div>
-    <div>
+    <div class="column">
         <button (click)="addToBasket(product)">Add to Basket</button>
     </div>
 </div>

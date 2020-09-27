@@ -21,6 +21,8 @@ export class ProductComponent implements OnInit {
 
   productForm: FormGroup;
 
+  editingProduct: boolean = false;
+
   constructor(private route: ActivatedRoute, private productService: ProductService, private basketService: BasketService) {}
 
   ngOnInit() {
@@ -94,6 +96,10 @@ export class ProductComponent implements OnInit {
   addToBasket(product: Product) {
     console.log("Adding product '" + product.title + "' to the basket.");
     this.basketService.addProduct(product);
+  }
+
+  toggleEdit() {
+    this.editingProduct = !this.editingProduct;
   }
 
 }
