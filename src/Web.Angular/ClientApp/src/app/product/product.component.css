@@ -3,27 +3,64 @@ img {
     max-width: 100%;
 }
 
-div {
-    border: 1px solid black;
-}
-
 div .column {
-    border: 1px solid black;
     display: inline-block;
     vertical-align: top;
+    width: 55%;
+    padding: 1%;
 }
 
 div .column:first-child {
-    max-width: 20%;
+    width: 25%;
     padding: 1%;
-    margin-left: 4%;
-    margin-right: 4%;
+    margin: none;
 }
 
 div .column:last-child {
     vertical-align: bottom;
+    width: 20%;
 }
 
 #editButton {
     display: block;
 }
+
+#productTitle {
+    font-size: 1.5em;
+}
+
+#productPrice {
+    color: rgb(75, 75, 75);
+    font-size: 1em;
+}
+
+#productPrice span {
+    color: rgb(182, 7, 7);
+    font-size: 1.2em;
+}
+
+#productQuantity {
+    font-size: 1em;
+}
+
+#productQuantity span {
+    color: rgb(75, 75, 75);
+}
+
+#productDescription {
+    font-size: 1em;
+}
+
+#productDescription span {
+    font-weight: bold;
+}
+
+#productSeller {
+    font-size: 1em;
+}
+
+p {
+    border-bottom: 1px solid grey;
+    font-family: Arial;
+}
+

@@ -8,7 +8,6 @@
         <div *ngIf="editingProduct && product.id">
             <!--If a valid product is received then display its details.-->
             <form [formGroup]="productForm" (ngSubmit)="onSubmit(product.id)">
-                <p>ID: {{product.id}}</p>
                 <p>Title: <input type="text" formControlName="title"/></p>
                 <p>Description: <input type="text" formControlName="description"/></p>
                 <p>Seller: <input type="text" formControlName="seller"/></p>
@@ -20,12 +19,11 @@
         </div>
 
         <div *ngIf="!editingProduct && product.id">
-            <p>ID: {{product.id}}</p>
-            <p>Title: {{product.title}}</p>
-            <p>Descripton: {{product.description}}</p>
-            <p>Seller: {{product.Seller}}</p>
-            <p>Price: £{{product.price}}</p>
-            <p>Quantity: {{product.quantity}}</p>
+            <p id="productTitle">{{product.title}}</p>
+            <p id="productPrice">Price: <span>{{product.price | currency}}</span></p>
+            <p id="productQuantity">{{product.quantity}} <span>in stock</span></p>
+            <p id="productDescription"><span>About this product</span><br>{{product.description}}</p>
+            <p id="productSeller">Seller: <span>{{product.seller}}</span></p>
         </div>
     </div>
     <div class="column">
