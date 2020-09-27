@@ -33,6 +33,10 @@ div .column:last-child button:hover {
     background-color: rgb(241, 198, 2);
 }
 
+div .column:last-child button:focus {
+    outline: none;
+}
+
 #editButton {
     display: block;
 }
