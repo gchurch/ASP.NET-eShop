@@ -23,24 +23,25 @@ export class ProductComponent implements OnInit {
 
   editingProduct: boolean = false;
 
+  // This product is used is the requested product does not exist.
+  productNotFound: Product = {
+    id: 0,
+    title: "Product not found.",
+    description: "",
+    seller: "",
+    price: 0,
+    quantity: 0,
+    imageUrl: ""
+  };
+
   constructor(private route: ActivatedRoute, private productService: ProductService, private basketService: BasketService) {}
 
   ngOnInit() {
-    // This product is used is the requested product does not exist.
-    var productNotFound: Product = {
-      id: 0,
-      title: "Product not found.",
-      description: "",
-      seller: "",
-      price: 0,
-      quantity: 0,
-      imageUrl: ""
-    }
     // Create the observable for retrieving the product from the server
     this.route.paramMap.subscribe(params => {
       var id: number = +params.get('id');
       this.product$ = this.productService.getProduct(id)
-        .pipe(catchError(err => of(productNotFound)))
+        .pipe(catchError(err => of(this.productNotFound)))
         .pipe(tap(product => this.productForm.patchValue(product)));
     });
     
@@ -86,11 +87,9 @@ export class ProductComponent implements OnInit {
 
     // Send the updated product to server
     console.log("Sending updated product to the server.");
-    this.productService.updateProduct(product).subscribe(
-      output => {
-        console.log(output);
-      }
-    );
+    this.product$ = this.productService.updateProduct(product)
+        .pipe(catchError(err => of(this.productNotFound)))
+        .pipe(tap(product => this.productForm.patchValue(product)));
   }
 
   addToBasket(product: Product) {

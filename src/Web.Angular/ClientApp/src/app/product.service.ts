@@ -30,6 +30,6 @@ export class ProductService {
   }
 
   public updateProduct(product: Product) {
-    return this.http.put(this.baseUrl + 'api/products/', product);
+    return this.http.put<Product>(this.baseUrl + 'api/products/', product);
   }
 }
