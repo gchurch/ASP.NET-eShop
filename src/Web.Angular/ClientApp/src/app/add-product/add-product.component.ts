@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Product } from '../product'
 import { ProductService } from '../product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -13,7 +14,7 @@ export class AddProductComponent implements OnInit {
   productForm:  FormGroup;
 
   // Injecting the ProductService dependency. The property for the parameter is created for us.
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit() {
     // https://angular.io/guide/reactive-forms
@@ -48,10 +49,11 @@ export class AddProductComponent implements OnInit {
       output => {
         console.log(output);
         console.log("The product has been added to the database.");
+        // Reset the form
+        this.productForm.reset();
+        this.router.navigate(['/products']);
       }
     );
-    // Reset the form
-    this.productForm.reset();
   }
 
 }

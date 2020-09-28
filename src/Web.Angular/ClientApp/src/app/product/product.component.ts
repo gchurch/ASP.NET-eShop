@@ -6,6 +6,7 @@ import { Product } from '../product';
 import { catchError, tap } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BasketService } from '../basket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -34,7 +35,7 @@ export class ProductComponent implements OnInit {
     imageUrl: ""
   };
 
-  constructor(private route: ActivatedRoute, private productService: ProductService, private basketService: BasketService) {}
+  constructor(private route: ActivatedRoute, private productService: ProductService, private basketService: BasketService, private router: Router) {}
 
   ngOnInit() {
     // Create the observable for retrieving the product from the server
@@ -67,7 +68,7 @@ export class ProductComponent implements OnInit {
     console.log("Deleting product " + id);
     this.productService.deleteProduct(id).subscribe(output => {
       console.log(output);
-      window.location.href = 'products';
+      this.router.navigate(['/products']);
     });
   }
 
