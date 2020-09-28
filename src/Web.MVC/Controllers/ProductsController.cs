@@ -22,7 +22,7 @@ namespace Ganges.Web.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var products = await _productService.GetProductsAsync();
+            var products = await _productService.GetAllProductsAsync();
             return View(products);
         }
 

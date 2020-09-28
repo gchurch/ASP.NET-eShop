@@ -26,7 +26,7 @@ namespace Ganges.UnitTests.ApplicationCore.Services
             var productService = new ProductService(productRepositoryStub.Object);
 
             // Act
-            var result = await productService.GetProductsAsync();
+            var result = await productService.GetAllProductsAsync();
 
             // Assert
             productRepositoryStub.Verify();

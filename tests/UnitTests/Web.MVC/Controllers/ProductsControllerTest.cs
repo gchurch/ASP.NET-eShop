@@ -20,7 +20,7 @@ namespace Ganges.UnitTests.Web.MVC.Controllers
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
-            productServiceStub.Setup(ps => ps.GetProductsAsync())
+            productServiceStub.Setup(ps => ps.GetAllProductsAsync())
                 .ReturnsAsync(new List<Product>());
             var productsController = new ProductsController(productServiceStub.Object);
 

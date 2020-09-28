@@ -16,7 +16,7 @@ namespace Ganges.ApplicationCore.Services
             _productRepository = productRepository;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
             return await _productRepository.GetProductsAsync();
         }

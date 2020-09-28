@@ -23,7 +23,7 @@ namespace Ganges.UnitTests.Web.Angular.Controllers
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
-            productServiceStub.Setup(ps => ps.GetProductsAsync())
+            productServiceStub.Setup(ps => ps.GetAllProductsAsync())
                 .ReturnsAsync(new List<Product>())
                 .Verifiable();
             var productsController = new ProductsController(productServiceStub.Object);

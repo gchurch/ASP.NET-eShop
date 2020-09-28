@@ -33,7 +33,7 @@ namespace Ganges.Web.Angular.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
         {
-            var products = await _productService.GetProductsAsync();
+            var products = await _productService.GetAllProductsAsync();
             return Ok(products);
         }
 
