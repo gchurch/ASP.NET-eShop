@@ -15,9 +15,9 @@
                     <p>Quantity: <input type="number" formControlName="quantity"/></p>
                     <p>Description: <input type="text" formControlName="description"/></p>
                     <p>Seller: <input type="text" formControlName="seller"/></p>
-                    <button type="submit" [disabled]="!productForm.valid || productForm.pristine">Update</button>
+                    <button id="updateButton" type="submit" [disabled]="!productForm.valid">Update</button>
+                    <button id="deleteButton" (click)="onDelete(product.id)">Delete</button>
                 </form>
-                <button (click)="onDelete(product.id)">Delete</button>
             </div>
 
             <div *ngIf="!editingProduct && product.id">
@@ -27,6 +27,7 @@
                 <p id="productDescription"><span>About this product</span><br>{{product.description}}</p>
                 <p id="productSeller">Seller: <span>{{product.seller}}</span></p>
             </div>
+
         </div>
         <div class="column">
             <button (click)="addToBasket(product)">Add to Basket</button>

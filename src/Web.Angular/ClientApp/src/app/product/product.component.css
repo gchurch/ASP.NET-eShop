@@ -1,20 +1,82 @@
-img {
-    height: auto;
-    max-width: 100%;
+:host {
+    font-size: 1em;
 }
 
 div .column {
     display: inline-block;
     vertical-align: top;
-    width: 55%;
     padding: 1%;
 }
 
+/************** first column *****************/
+
 div .column:first-child {
     width: 25%;
-    padding: 1%;
     margin: none;
 }
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+/************** second column *********************/
+
+div .column:nth-child(2) {
+    width: 55%;
+}
+
+div .column:nth-child(2) button {
+    display: inline-block;
+    border: none;
+    padding: 1% 5% 1% 5%;
+    border-radius: 15px;
+}
+
+#updateButton {
+    background-color: rgb(0, 207, 0);
+    margin-right: 10%;
+}
+
+#updateButton:hover {
+    background-color: rgb(0, 175, 0);
+}
+
+#deleteButton {
+    background-color: rgb(255, 108, 108);
+}
+
+#deleteButton:hover {
+    background-color: red;
+}
+
+p {
+    border-bottom: 1px solid rgb(201, 201, 201);
+    font-family: Arial;
+}
+
+#productTitle {
+    font-size: 1.5em;
+}
+
+#productPrice {
+    color: rgb(75, 75, 75);
+}
+
+#productPrice span {
+    color: rgb(182, 7, 7);
+    font-size: 1.2em;
+}
+
+#productQuantity span {
+    color: rgb(75, 75, 75);
+}
+
+#productDescription span {
+    font-weight: bold;
+}
+
+/************* third column ************************/
 
 div .column:last-child {
     vertical-align: bottom;
@@ -22,7 +84,6 @@ div .column:last-child {
 }
 
 div .column:last-child button {
-    font-size: 1em;
     background-color: rgb(255, 208, 0);
     border: none;
     padding: 5% 25% 5% 25%;
@@ -35,48 +96,5 @@ div .column:last-child button:hover {
 
 div .column:last-child button:focus {
     outline: none;
-}
-
-#editButton {
-    display: block;
-}
-
-#productTitle {
-    font-size: 1.5em;
-}
-
-#productPrice {
-    color: rgb(75, 75, 75);
-    font-size: 1em;
-}
-
-#productPrice span {
-    color: rgb(182, 7, 7);
-    font-size: 1.2em;
-}
-
-#productQuantity {
-    font-size: 1em;
-}
-
-#productQuantity span {
-    color: rgb(75, 75, 75);
-}
-
-#productDescription {
-    font-size: 1em;
-}
-
-#productDescription span {
-    font-weight: bold;
-}
-
-#productSeller {
-    font-size: 1em;
-}
-
-p {
-    border-bottom: 1px solid rgb(201, 201, 201);
-    font-family: Arial;
 }
 
