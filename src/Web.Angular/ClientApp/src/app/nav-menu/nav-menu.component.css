@@ -9,7 +9,6 @@ html {
 }
 #domain {
   font-size: 11px;
-  color: orange;
 }
 @media (min-width: 768px) {
   html {
@@ -17,7 +16,6 @@ html {
   }
   #domain {
     font-size: 13px;
-    color: orange;
   }
 }
 
