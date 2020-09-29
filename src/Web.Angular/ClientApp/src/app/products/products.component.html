@@ -13,7 +13,7 @@
             <div>
                 <p id="productTitle"><a routerLink="/products/{{product.id}}">{{ product.title }}</a></p>
                 <p id="productSeller">Seller: {{ product.seller }}</p>
-                <p id="productPrice"><a routerLink="/products/{{product.id}}">{{ product.price | currency }}</a></p>
+                <p id="productPrice"><a routerLink="/products/{{product.id}}">£{{ product.price }}</a></p>
                 <p id="productDelivery">FREE Delivery</p>
             </div>
         </li>

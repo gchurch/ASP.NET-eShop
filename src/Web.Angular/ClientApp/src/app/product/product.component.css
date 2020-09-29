@@ -8,6 +8,18 @@ div .column {
     padding: 1%;
 }
 
+#editButton {
+    background-color:rgb(162, 162, 255);
+    border: none;
+    padding: 1% 5% 1% 5%;
+    border-radius: 15px;
+}
+
+#editButton:hover {
+    background-color: rgb(139, 139, 255);
+}
+
+
 /************** first column *****************/
 
 div .column:first-child {
