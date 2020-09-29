@@ -81,7 +81,7 @@ namespace Ganges.IntegrationTests.Repositories
                 var productRepository = new ProductRepository(context);
 
                 // Act
-                var products = await productRepository.GetProductsAsync() as List<Product>;
+                var products = await productRepository.GetAllProductsAsync() as List<Product>;
 
                 // Assert
                 products.Count.ShouldBe(3);

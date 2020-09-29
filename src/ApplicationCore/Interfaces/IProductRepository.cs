@@ -6,7 +6,7 @@ namespace Ganges.ApplicationCore.Interfaces
 {
     public interface IProductRepository
     {
-         Task<IEnumerable<Product>> GetProductsAsync();
+         Task<IEnumerable<Product>> GetAllProductsAsync();
 
          Task<Product> GetProductAsync(int id);
 

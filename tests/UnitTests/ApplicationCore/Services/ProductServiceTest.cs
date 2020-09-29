@@ -20,7 +20,7 @@ namespace Ganges.UnitTests.ApplicationCore.Services
         {
             // Arrange
             var productRepositoryStub = new Mock<IProductRepository>();
-            productRepositoryStub.Setup(pr => pr.GetProductsAsync())
+            productRepositoryStub.Setup(pr => pr.GetAllProductsAsync())
                 .ReturnsAsync(new List<Product>())
                 .Verifiable();
             var productService = new ProductService(productRepositoryStub.Object);
