@@ -11,7 +11,6 @@ import { ProductComponent } from './product/product.component';
 import { ProductService } from './product.service';
 import { AddProductComponent } from './add-product/add-product.component';
 import { BasketComponent } from './basket/basket.component';
-import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +19,7 @@ import { HomeComponent } from './home/home.component';
     ProductsComponent,
     ProductComponent,
     AddProductComponent,
-    BasketComponent,
-    HomeComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,7 +27,7 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', redirectTo: '/products', pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
       { path: 'products/:id', component: ProductComponent },
       { path: 'add-product', component: AddProductComponent },
