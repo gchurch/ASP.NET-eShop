@@ -1,6 +1,7 @@
 <h1>Basket</h1>
 
 <div *ngIf="(products$ | async) as products;">
+    <p id="priceHeading">Price</p>
     <div class="section" *ngFor="let product of products">
         <div>
             <img src="assets/{{product.imageUrl}}"/>
@@ -8,13 +9,12 @@
         <div>
             <p id="productTitle"><a routerLink="/products/{{product.id}}">{{ product.title }}</a></p>
             <p id="productSeller">Sold by: {{ product.seller }}</p>
-            <p id="productPrice">£{{product.price}}</p>
             <p id="productQuantity">Quantity: {{ product.quantity }}</p>
             <button (click)="removeFromBasket(product)">Remove</button>
         </div>
+        <div>
+            <p id="productPrice">£{{product.price}}</p>
+        </div>
     </div>
-    <div class="section" id="summary">
-        <p>Total number of items in basket: {{ numberOfProducts$ | async }}</p>
-        <p>Total cost: £{{ totalCost$ | async}}</p>
-    </div>
+    <p id="summary">Subtotal ({{ numberOfProducts$ | async }} items): <span>£{{ totalCost$ | async}}</span></p>
 </div>

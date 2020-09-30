@@ -3,7 +3,8 @@
 }
 
 .section {
-    border: 1px solid black;
+    border-top: 1px solid grey;
+    padding: 1%;
 }
 
 div div div {
@@ -13,7 +14,7 @@ div div div {
 
 /******************* first child ********************/
 
-div div div:first-child {
+div div div:nth-child(1) {
     width: 20%;
 }
 
@@ -24,8 +25,8 @@ img {
 
 /******************** second child ******************/
 
-div div div:second-child {
-    width: 80%;
+div div div:nth-child(2) {
+    width: 60%;
 }
 
 #productTitle {
@@ -37,18 +38,30 @@ div div div:second-child {
     text-decoration: none;
 }
 
-#productPrice {
-    color: rgb(182, 7, 7);
+/************* third child ************/
+
+div div div:nth-child(3) {
+    text-align: right;
+    width: 20%;
+    font-weight: bold;
+    font-size: 1.5em;
 }
 
-/************** summary *************/
+/*****************************/
+
+#priceHeading {
+    text-align: right;
+    color:  rgb(75, 75, 75);
+    font-size: 1.5em;
+}
 
 #summary {
-    margin-top: 5%;
+    text-align: right;
+    font-size: 1.5em;
+    border-top: 1px solid grey;
     margin-bottom: 5%;
 }
 
-#summary p:nth-child(2) {
-    font-size:1.5em;
-    color: rgb(182, 7, 7);
+#summary span {
+    font-weight: bold;
 }
