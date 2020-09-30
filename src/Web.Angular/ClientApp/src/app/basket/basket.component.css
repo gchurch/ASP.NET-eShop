@@ -1,4 +1,54 @@
+:host {
+    font-size: 1em;
+}
+
+.section {
+    border: 1px solid black;
+}
+
+div div div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/******************* first child ********************/
+
+div div div:first-child {
+    width: 20%;
+}
+
 img {
+    width: 100%;
     height: auto;
-    max-width: 20%;
+}
+
+/******************** second child ******************/
+
+div div div:second-child {
+    width: 80%;
+}
+
+#productTitle {
+    font-size: 1.5em;
+}
+
+#productTitle a {
+    color: black;
+    text-decoration: none;
+}
+
+#productPrice {
+    color: rgb(182, 7, 7);
+}
+
+/************** summary *************/
+
+#summary {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#summary p:nth-child(2) {
+    font-size:1.5em;
+    color: rgb(182, 7, 7);
 }

@@ -94,13 +94,33 @@ export class ProductComponent implements OnInit {
         .pipe(tap(product => this.productForm.patchValue(product)));
   }
 
+  cloneProduct(originalProduct: Product): Product {
+    var clonedProduct: Product = {
+      id: originalProduct.id,
+      title: originalProduct.title,
+      description: originalProduct.description,
+      seller: originalProduct.seller,
+      price: originalProduct.price,
+      quantity: originalProduct.quantity,
+      imageUrl: originalProduct.imageUrl
+    };
+    return clonedProduct;
+  }
+
   addToBasket(product: Product) {
     console.log("Adding product '" + product.title + "' to the basket.");
-    this.basketService.addProduct(product);
+    this.basketService.addProduct(this.cloneProduct(product));
   }
 
   toggleEdit() {
-    this.editingProduct = !this.editingProduct;
+    if(this.editingProduct == true) {
+      this.editingProduct = false;
+      document.getElementById("editButton").innerHTML = 'Edit';
+    }
+    else {
+      this.editingProduct = true;
+      document.getElementById("editButton").innerHTML = 'Stop Editting';
+    }
   }
 
 }

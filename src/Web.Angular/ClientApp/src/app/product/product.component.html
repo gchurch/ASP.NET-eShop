@@ -1,7 +1,7 @@
 <!--Using *ngIf here makes sure that we only subscribe to the observable once-->
 <div *ngIf="(product$ | async) as product">
 
-    <button id="editButton" (click)="toggleEdit()" value="Edit">Toggle Edit View</button>
+    <button id="editButton" (click)="toggleEdit()" value="Edit">Edit</button>
     
     <div>
         <div class="column"><img src="assets/{{product.imageUrl}}"/></div>

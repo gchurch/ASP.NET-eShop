@@ -1,31 +1,20 @@
 <h1>Basket</h1>
 
-<p>Total number of items in basket: {{ numberOfProducts$ | async }}</p>
-
-<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="(products$ | async) as products;">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Seller</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Image</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let product of products">
-            <td>{{ product.id }}</td>
-            <td><a routerLink="/products/{{product.id}}">{{ product.title }}</a></td>
-            <td>{{ product.description }}</td>
-            <td>{{ product.seller }}</td>
-            <td>{{ product.price | currency }}</td>
-            <td>{{ product.quantity }}</td>
-            <td><img src="assets/{{product.imageUrl}}"/></td>
-            <td><button (click)="removeFromBasket(product)">Remove</button></td>
-        </tr>
-    </tbody>
-</table>
-
-<p>Total cost: {{ totalCost$ | async | currency }}</p>
+<div *ngIf="(products$ | async) as products;">
+    <div class="section" *ngFor="let product of products">
+        <div>
+            <img src="assets/{{product.imageUrl}}"/>
+        </div>
+        <div>
+            <p id="productTitle"><a routerLink="/products/{{product.id}}">{{ product.title }}</a></p>
+            <p id="productSeller">Sold by: {{ product.seller }}</p>
+            <p id="productPrice">£{{product.price}}</p>
+            <p id="productQuantity">Quantity: {{ product.quantity }}</p>
+            <button (click)="removeFromBasket(product)">Remove</button>
+        </div>
+    </div>
+    <div class="section" id="summary">
+        <p>Total number of items in basket: {{ numberOfProducts$ | async }}</p>
+        <p>Total cost: £{{ totalCost$ | async}}</p>
+    </div>
+</div>
