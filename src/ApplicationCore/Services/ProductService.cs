@@ -58,7 +58,7 @@ namespace Ganges.ApplicationCore.Services
                 }
                 else if(randomNumber % 3 == 2)
                 {
-                    product.ImageUrl = "toy.png";
+                    product.ImageUrl = "duck.png";
                 }
 
                 await _productRepository.AddProductAsync(product);
