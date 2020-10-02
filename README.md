@@ -2,7 +2,7 @@
 
 I created a simple E-commerce website using ASP.NET Core. I created two different front-ends, one with Angular and another with ASP.NET Core MVC and Razor. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have attempted to follow best practices when it comes to testing and software architecture.
 
-## Angular App
+## Angular Front-end
 
 I created an SPA front-end with Angular. The code for this is in the Web.Angular project.
 
@@ -20,7 +20,7 @@ The application has the following API:
 
 Swagger is used to document the API.
 
-## MVC App
+## MVC/Razor Front-end
 
 I also created the front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.MVC project.
 
