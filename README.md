@@ -1,6 +1,6 @@
 # Ganges
 
-I created a simple E-commerce website using ASP.NET Core. I created two different front-ends, one with Angular and another with ASP.NET Core MVC and Razor. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have attempted to follow best practices when it comes to testing and software architecture.
+I created a simple E-commerce website that is really just a CRUD application. The back end is implemented with ASP.NET Core. I created two different front-ends, one with Angular and another with MVC and Razor. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have attempted to follow best practices when it comes to testing and software architecture.
 
 ## Angular Front-end
 
