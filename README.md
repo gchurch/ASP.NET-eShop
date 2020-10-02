@@ -22,7 +22,7 @@ Swagger is used to document the API.
 
 ## MVC/Razor Front-end
 
-I also created the front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.MVC project.
+I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.MVC project.
 
 ## Clean Architecture
 
