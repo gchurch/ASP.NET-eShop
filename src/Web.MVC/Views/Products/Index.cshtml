@@ -4,73 +4,40 @@
     ViewData["Title"] = "Products";
 }
 
+@section Style {
+    <link rel="stylesheet" href="/css/index.css" />
+}
+
 <h1>Products</h1>
 
 <p>These products have been fetched from the database.</p>
 
 <a asp-action="Create">Create a product.</a>
 
-<table>
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Seller)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var item in Model)
+<div id="products">
+    <ul>
+        @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seller)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-            </td>
-            <td>
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+            <li>
+                <div>
+                    <a href=""><img src="images/@Html.DisplayFor(modelItem => item.ImageUrl)" /></a>
+                </div>
+
+                <div>
+                    <p id="productTitle">
+                        <a asp-action="Details" asp-route-id="@item.Id">
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </a>
+                    </p>
+                    <p id="productSeller">Seller: @Html.DisplayFor(modelItem => item.Seller)</p>
+                    <p id="productPrice">
+                        <a asp-action="Details" asp-route-id="@item.Id">
+                            £@Html.DisplayFor(modelItem => item.Price)
+                        </a>
+                    </p>
+                    <p id="productDelivery">FREE Delivery</p>
+                </div>
+            </li>
         }
-    </tbody>
-</table>
+    </ul>
+</div>

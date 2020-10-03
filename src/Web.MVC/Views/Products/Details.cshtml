@@ -60,5 +60,8 @@
             @Html.DisplayFor(model => model.ImageUrl)
         </dt>
     </dl>
+
+    <p><a asp-action="Edit" asp-route-id="@Html.DisplayFor(model => model.Id)">Edit</a></p>
+    <p><a asp-action="Delete" asp-route-id="@Html.DisplayFor(model => model.Id)">Delete</a></p>
 </div>
 
