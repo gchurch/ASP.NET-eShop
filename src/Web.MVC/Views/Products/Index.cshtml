@@ -20,7 +20,7 @@
         {
             <li>
                 <div>
-                    <a href=""><img src="images/@Html.DisplayFor(modelItem => item.ImageUrl)" /></a>
+                    <a asp-action="Details" asp-route-id="@item.Id"><img src="images/@Html.DisplayFor(modelItem => item.ImageUrl)" /></a>
                 </div>
 
                 <div>
