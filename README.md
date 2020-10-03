@@ -1,12 +1,12 @@
 # Ganges
 
-I created a simple E-commerce website using ASP.NET Core 3.1. I created two different front-ends, one using Angular 9 and another using ASP.NET Core MVC with Razor. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have attempted to follow best practices when it comes to testing and software architecture.
+I created a simple E-commerce website that is really just a CRUD application. The back end is implemented with ASP.NET Core. I created two different front-ends, one with Angular and another with MVC and Razor. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have attempted to follow best practices when it comes to testing and software architecture.
 
-## Angular App
+## Angular Front-end
 
-I created an SPA E-Commerce website front-end created with Angular 9. This code for this is in the Web.Angular project.
+I created an SPA front-end with Angular. The code for this is in the Web.Angular project.
 
-The angular app uses a back-end API created with ASP.NET Core 3.1.
+The angular app uses a back-end API created with ASP.NET Core.
 
 The application has the following API:
 
@@ -20,15 +20,15 @@ The application has the following API:
 
 Swagger is used to document the API.
 
-## MVC App
+## MVC/Razor Front-end
 
-I also created the front-end using ASP.NET Core MVC. The code for this is in the Web.MVC project.
+I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.MVC project.
 
 ## Clean Architecture
 
-A Clean Architecure based on https://github.com/ardalis/CleanArchitecture is used to organize the code.
+I use a Clean Architecture based on https://github.com/ardalis/CleanArchitecture to organize the code.
 
-The application is separated into three layers where each layer is a project. The layers are the ApplicationCore, Infrastructure and the front-end Web. Using a clean architecture means that the Angular front-end and MVC front-end are easily interchangable. You just need to set the front-end project you want to run as the startup project.
+The Clean Architecture separates the application into three layers with each layer being a separate project. The layers are the ApplicationCore, Infrastructure and the front-end Web. Using a clean architecture means that the Angular front-end and MVC/Razor front-end are easily interchangable. You just need to set the front-end project you want to run as the startup project.
 
 <img src="https://miro.medium.com/max/2750/0*lwCWXSNctrUUYeLR.png" alt="alt text" width="60%">
 
