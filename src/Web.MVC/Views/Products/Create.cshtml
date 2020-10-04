@@ -4,30 +4,29 @@
     ViewData["Title"] = "Create";
 }
 
+@section Style {
+    <link rel="stylesheet" href="/css/create.css" />
+}
+
 <h1>Create</h1>
 
 <h4>Product</h4>
 
 <form asp-action="Create">
     <div>
-        <label asp-for="Title"></label>
-        <input asp-for="Title" />
+        Product Title: <input asp-for="Title" />
     </div>
     <div>
-        <label asp-for="Description"></label>
-        <input asp-for="Description" />
+        Price: £<input asp-for="Price" />
     </div>
     <div>
-        <label asp-for="Seller"></label>
-        <input asp-for="Seller" />
+        Quantity: <input asp-for="Quantity" />
+    </div>
+    <div id="description">
+        Description: <input asp-for="Description" />
     </div>
     <div>
-        <label asp-for="Price"></label>
-        <input asp-for="Price" />
-    </div>
-    <div>
-        <label asp-for="Quantity"></label>
-        <input asp-for="Quantity" />
+        Seller Name: <input asp-for="Seller" />
     </div>
     <div>
         <input type="submit" value="Create">
