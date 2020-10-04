@@ -6,19 +6,19 @@
     </div>
     
     <div>
-        <p>Description: <input type="text" formControlName="description"></p>
-    </div>
-
-    <div>
-        <p>Seller's Name: <input type="text" formControlName="seller"></p>
-    </div>
-
-    <div>
         <p>Price: £<input type="number" formControlName="price"></p>
     </div>
 
     <div>
         <p>Quantity: <input type="number" formControlName="quantity"></p>
+    </div>
+
+    <div>
+        <p>Description: <input type="text" formControlName="description"></p>
+    </div>
+
+    <div>
+        <p>Seller's Name: <input type="text" formControlName="seller"></p>
     </div>
 
     <button type="submit" [disabled]="!productForm.valid">Submit</button>

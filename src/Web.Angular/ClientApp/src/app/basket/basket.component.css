@@ -10,6 +10,7 @@
 div div div {
     display: inline-block;
     vertical-align: top;
+    padding: 1%;
 }
 
 /******************* first child ********************/
