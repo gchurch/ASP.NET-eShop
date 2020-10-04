@@ -116,7 +116,7 @@ namespace Ganges.Web.MVC.Controllers
                 return NotFound();
             }
             else {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { Id = updatedProduct.Id });
             }
         }
     }

@@ -4,6 +4,10 @@
     ViewData["Title"] = "Edit";
 }
 
+@section Style {
+    <link rel="stylesheet" href="/css/edit.css" />
+}
+
 <h1>Edit</h1>
 
 <form asp-action="Edit">
@@ -11,28 +15,19 @@
         <input type="hidden" asp-for="Id" />
     </div>
     <div>
-        <label asp-for="Title"></label>
-        <input asp-for="Title" />
+        Title: <input asp-for="Title" />
     </div>
     <div>
-        <label asp-for="Description"></label>
-        <input asp-for="Description" />
+        Price: £<input asp-for="Price" />
     </div>
     <div>
-        <label asp-for="Seller"></label>
-        <input asp-for="Seller" />
+        Quantity: <input asp-for="Quantity" />
+    </div>
+    <div id="description">
+        Description: <input asp-for="Description" />
     </div>
     <div>
-        <label asp-for="Price"></label>
-        <input asp-for="Price" />
-    </div>
-    <div>
-        <label asp-for="Quantity"></label>
-        <input asp-for="Quantity" />
-    </div>
-    <div>
-        <label asp-for="ImageUrl"></label>
-        <input asp-for="ImageUrl" />
+        Seller: <input asp-for="Seller" />
     </div>
     <input type="submit" value="Save" />
 </form>
