@@ -19,7 +19,7 @@ namespace UnitTests.Web.Angular.Controllers
     {
 
         [TestMethod]
-        public async Task GetProductsAsync_ShouldReturnTypeOkObjectResultWithIEnumerableProduct()
+        public async Task GetAllProductsAsync_ShouldReturnTypeOkObjectResultWithIEnumerableProduct()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -29,7 +29,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.GetProductsAsync();
+            var actionResult = await productsController.GetAllProductsAsync();
             var value = (actionResult.Result as OkObjectResult).Value;
 
             // Assert

@@ -30,7 +30,7 @@ namespace Web.MVC
             services.AddControllersWithViews();
 
             // Register the database context
-            services.AddDbContext<GangesDbContext>(options =>
+            services.AddDbContext<ProductDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 

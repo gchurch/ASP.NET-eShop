@@ -12,11 +12,11 @@ namespace IntegrationTests.Repositories
     public class ProductRepositoryTest
     {
 
-        private DbContextOptions<GangesDbContext> _dbOptions;
+        private DbContextOptions<ProductDbContext> _dbOptions;
 
         public ProductRepositoryTest()
         {
-            _dbOptions = new DbContextOptionsBuilder<GangesDbContext>()
+            _dbOptions = new DbContextOptionsBuilder<ProductDbContext>()
                 .UseInMemoryDatabase(databaseName: "UnitTestingDatabase")
                 .Options;
         }
@@ -26,7 +26,7 @@ namespace IntegrationTests.Repositories
         // ProductRepository class.
         private void ResetDatabase()
         {
-            using (var context = new GangesDbContext(_dbOptions))
+            using (var context = new ProductDbContext(_dbOptions))
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -37,7 +37,7 @@ namespace IntegrationTests.Repositories
         [TestMethod]
         public async Task GetProductAsync_GivenProductIdThatExists_ShouldReturnProductWithThatId()
         {
-            using (var context = new GangesDbContext(_dbOptions))
+            using (var context = new ProductDbContext(_dbOptions))
             {
                 // Arrange
                 ResetDatabase();
@@ -55,7 +55,7 @@ namespace IntegrationTests.Repositories
         [TestMethod]
         public async Task GetProductAsync_GivenProductIdThatDoesNotExist_ShouldReturnNull()
         {
-            using (var context = new GangesDbContext(_dbOptions))
+            using (var context = new ProductDbContext(_dbOptions))
             {
                 // Arrange
                 ResetDatabase();
@@ -72,9 +72,9 @@ namespace IntegrationTests.Repositories
 
 
         [TestMethod]
-        public async Task GetProductsAsync_With3ProductsInTheDatabase_ShouldReturnProductCountOf3()
+        public async Task GetAllProductsAsync_With3ProductsInTheDatabase_ShouldReturnProductCountOf3()
         {
-            using (var context = new GangesDbContext(_dbOptions))
+            using (var context = new ProductDbContext(_dbOptions))
             {
                 // Arrange
                 ResetDatabase();

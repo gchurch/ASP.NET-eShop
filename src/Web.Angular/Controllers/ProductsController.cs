@@ -31,7 +31,7 @@ namespace Web.Angular.Controllers
         /// </summary>
         /// <returns>A list of all of the products.</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
+        public async Task<ActionResult<IEnumerable<Product>>> GetAllProductsAsync()
         {
             var products = await _productService.GetAllProductsAsync();
             return Ok(products);

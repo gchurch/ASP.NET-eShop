@@ -13,9 +13,9 @@ namespace Infrastructure.Data
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new GangesDbContext(
+            using (var context = new ProductDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<GangesDbContext>>()))
+                    DbContextOptions<ProductDbContext>>()))
             {
                 // Look for any products.
                 if (context.Products.Any())

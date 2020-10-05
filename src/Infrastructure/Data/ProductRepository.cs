@@ -10,9 +10,9 @@ namespace Infrastructure.Data
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly GangesDbContext _context;
+        private readonly ProductDbContext _context;
 
-        public ProductRepository(GangesDbContext context)
+        public ProductRepository(ProductDbContext context)
         {
             _context = context;
         }

@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
-    public class GangesDbContext : DbContext
+    public class ProductDbContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
 
-        public GangesDbContext(DbContextOptions<GangesDbContext> options)
+        public ProductDbContext(DbContextOptions<ProductDbContext> options)
             : base(options)
         {
         }

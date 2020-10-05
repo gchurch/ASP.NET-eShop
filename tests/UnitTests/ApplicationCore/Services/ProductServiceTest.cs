@@ -16,7 +16,7 @@ namespace UnitTests.ApplicationCore.Services
     {
 
         [TestMethod]
-        public async Task GetProductsAsync_ShouldCallGetProductsAsyncInProductRepository()
+        public async Task GetAllProductsAsync_ShouldCallGetProductsAsyncInProductRepository()
         {
             // Arrange
             var productRepositoryStub = new Mock<IProductRepository>();

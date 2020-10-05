@@ -20,11 +20,11 @@ namespace FunctionalTests
             {
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType ==
-                        typeof(DbContextOptions<GangesDbContext>));
+                        typeof(DbContextOptions<ProductDbContext>));
 
                 services.Remove(descriptor);
 
-                services.AddDbContext<GangesDbContext>(options =>
+                services.AddDbContext<ProductDbContext>(options =>
                 {
                     options.UseInMemoryDatabase(databaseName: "FuctionalTestingDatabase");
                 });
@@ -34,7 +34,7 @@ namespace FunctionalTests
                 using (var scope = sp.CreateScope())
                 {
                     var scopedServices = scope.ServiceProvider;
-                    var db = scopedServices.GetRequiredService<GangesDbContext>();
+                    var db = scopedServices.GetRequiredService<ProductDbContext>();
                     var logger = scopedServices
                         .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 
