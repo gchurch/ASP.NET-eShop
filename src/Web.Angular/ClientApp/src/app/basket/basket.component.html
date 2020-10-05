@@ -1,6 +1,6 @@
 <h1>Basket</h1>
 
-<div *ngIf="(products$ | async) as products;">
+<div *ngIf="(getProducts$() | async) as products;">
     <p id="priceHeading">Price</p>
     <div class="section" *ngFor="let product of products">
         <div>
@@ -16,5 +16,5 @@
             <p id="productPrice">£{{product.price}}</p>
         </div>
     </div>
-    <p id="summary">Subtotal ({{ numberOfProducts$ | async }} items): <span>£{{ totalCost$ | async}}</span></p>
+    <p id="summary">Subtotal ({{ getNumberOfProducts$() | async }} items): <span>£{{ getTotalCost$() | async}}</span></p>
 </div>

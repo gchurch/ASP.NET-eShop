@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 })
 export class NavMenuComponent implements OnInit {
 
-  private isExpanded = false;
+  private isExpanded: boolean = false;
   
   private numberOfProductsInBasket$: Subject<number>;
 
@@ -25,5 +25,13 @@ export class NavMenuComponent implements OnInit {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  getIsExpanded(): boolean {
+    return this.isExpanded;
+  }
+
+  getNumberOfProductsInBasket$(): Subject<number> {
+    return this.numberOfProductsInBasket$;
   }
 }

@@ -27,4 +27,15 @@ export class BasketComponent implements OnInit {
     this.basketService.removeProduct(product);
   }
 
+  getProducts$(): Subject<Product[]> {
+    return this.products$;
+  }
+  
+  getTotalCost$(): Subject<Number> {
+    return this.totalCost$;
+  }
+
+  getNumberOfProducts$(): Subject<Number> {
+    return this.numberOfProducts$;
+  }
 }
