@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Ganges.ApplicationCore.Entities;
-using Ganges.ApplicationCore.Interfaces;
+using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ganges.Web.Angular.Controllers
+namespace Web.Angular.Controllers
 {
     /// <summary>
     /// The class implementing the API to interact with the products.

@@ -1,12 +1,12 @@
-﻿using Ganges.ApplicationCore.Entities;
-using Ganges.Infrastructure.Data;
+﻿using ApplicationCore.Entities;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Ganges.IntegrationTests.Repositories
+namespace IntegrationTests.Repositories
 {
     [TestClass]
     public class ProductRepositoryTest

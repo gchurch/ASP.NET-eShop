@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Ganges.ApplicationCore.Interfaces;
+using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Ganges.ApplicationCore.Entities;
+using ApplicationCore.Entities;
 
-namespace Ganges.Web.MVC.Controllers
+namespace Web.MVC.Controllers
 {
     public class ProductsController : Controller
     {

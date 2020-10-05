@@ -1,10 +1,10 @@
-﻿using Ganges.ApplicationCore.Entities;
-using Ganges.ApplicationCore.Interfaces;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Ganges.ApplicationCore.Services
+namespace ApplicationCore.Services
 {
     public class ProductService : IProductService
     {

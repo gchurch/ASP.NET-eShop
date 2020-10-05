@@ -1,5 +1,5 @@
-﻿using Ganges.ApplicationCore.Entities;
-using Ganges.Infrastructure.Data;
+﻿using ApplicationCore.Entities;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Ganges.Infrastructure.Data
+namespace Infrastructure.Data
 {
     public static class SeedData
     {

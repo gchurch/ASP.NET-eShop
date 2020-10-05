@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Ganges.Infrastructure.Data;
+using Infrastructure.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Ganges.FunctionalTests
+namespace FunctionalTests
 {
     class CustomWebApplicationFactory<TStartup> 
         : WebApplicationFactory<TStartup> where TStartup : class

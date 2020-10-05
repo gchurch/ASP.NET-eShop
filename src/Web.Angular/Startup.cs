@@ -1,6 +1,6 @@
-using Ganges.ApplicationCore.Interfaces;
-using Ganges.ApplicationCore.Services;
-using Ganges.Infrastructure.Data;
+using ApplicationCore.Interfaces;
+using ApplicationCore.Services;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ using System.Reflection;
 using System;
 using System.IO;
 
-namespace Ganges.Web.Angular
+namespace Web.Angular
 {
     public class Startup
     {

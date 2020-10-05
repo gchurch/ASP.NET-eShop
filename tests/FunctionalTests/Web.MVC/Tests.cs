@@ -1,5 +1,5 @@
-﻿using Ganges.ApplicationCore.Entities;
-using Ganges.Web.MVC;
+﻿using ApplicationCore.Entities;
+using Web.MVC;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Shouldly;
@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ganges.FunctionalTests.Web.MVC
+namespace FunctionalTests.Web.MVC
 {
     [TestClass]
     public class Tests

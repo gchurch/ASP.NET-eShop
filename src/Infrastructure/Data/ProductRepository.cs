@@ -1,12 +1,12 @@
-﻿using Ganges.ApplicationCore.Entities;
-using Ganges.ApplicationCore.Interfaces;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 // The repository pattern: https://deviq.com/repository-pattern/
 
-namespace Ganges.Infrastructure.Data
+namespace Infrastructure.Data
 {
     public class ProductRepository : IProductRepository
     {

@@ -1,7 +1,7 @@
-﻿using Ganges.ApplicationCore.Entities;
-using Ganges.ApplicationCore.Interfaces;
-using Ganges.ApplicationCore.Services;
-using Ganges.Infrastructure.Data;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
+using ApplicationCore.Services;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -9,7 +9,7 @@ using Shouldly;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Ganges.UnitTests.ApplicationCore.Services
+namespace UnitTests.ApplicationCore.Services
 {
     [TestClass]
     public class ProductServiceTest

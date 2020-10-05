@@ -1,6 +1,6 @@
-﻿using Ganges.ApplicationCore.Entities;
-using Ganges.ApplicationCore.Interfaces;
-using Ganges.Web.MVC.Controllers;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
+using Web.MVC.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ganges.UnitTests.Web.MVC.Controllers
+namespace UnitTests.Web.MVC.Controllers
 {
     [TestClass]
     public class ProductsControllerTest

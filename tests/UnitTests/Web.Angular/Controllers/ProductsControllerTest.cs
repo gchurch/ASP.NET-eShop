@@ -1,6 +1,6 @@
-﻿using Ganges.ApplicationCore.Entities;
-using Ganges.ApplicationCore.Interfaces;
-using Ganges.Web.Angular.Controllers;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
+using Web.Angular.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 // https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
 // https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/testing?view=aspnetcore-3.1
 
-namespace Ganges.UnitTests.Web.Angular.Controllers
+namespace UnitTests.Web.Angular.Controllers
 {
     [TestClass]
     public class ProductsControllerTest

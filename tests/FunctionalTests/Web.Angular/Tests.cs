@@ -1,16 +1,15 @@
-using Ganges;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System.Threading.Tasks;
 using System.Net;
-using Ganges.ApplicationCore.Entities;
+using ApplicationCore.Entities;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
-using Ganges.Web.Angular;
+using Web.Angular;
 
-namespace Ganges.FunctionalTests.Web.Angular
+namespace FunctionalTests.Web.Angular
 {
 
     // Useful information: https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1

@@ -1,8 +1,8 @@
-﻿using Ganges.ApplicationCore.Entities;
+﻿using ApplicationCore.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Ganges.ApplicationCore.Interfaces
+namespace ApplicationCore.Interfaces
 {
     public interface IProductRepository
     {
