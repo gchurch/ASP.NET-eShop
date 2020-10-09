@@ -39,6 +39,24 @@ namespace ApplicationCore.Services
             return product;
         }
 
+        private String ChooseRandomImageUrl()
+        {
+            int randomNumber = rand.Next();
+            if (randomNumber % 3 == 0)
+            {
+                return "book.png";
+            }
+            else if (randomNumber % 3 == 1)
+            {
+                return "lamp.png";
+            }
+            else if (randomNumber % 3 == 2)
+            {
+                return "duck.png";
+            }
+            return "";
+        }
+
         public async Task AddProductAsync(Product product)
         {
             if (product != null)
@@ -47,20 +65,7 @@ namespace ApplicationCore.Services
                 // because you are not allowed to specify an ID value when adding a product
                 // to the database. an ID value will automatically be given to the product.
                 product.Id = 0;
-                int randomNumber = rand.Next();
-                if(randomNumber % 3 == 0)
-                {
-                    product.ImageUrl = "book.png";
-                }
-                else if(randomNumber % 3 == 1)
-                {
-                    product.ImageUrl = "lamp.png";
-                }
-                else if(randomNumber % 3 == 2)
-                {
-                    product.ImageUrl = "duck.png";
-                }
-
+                product.ImageUrl = ChooseRandomImageUrl();
                 await _productRepository.AddProductAsync(product);
             }
         }
@@ -86,20 +91,24 @@ namespace ApplicationCore.Services
             return false;
         }
 
+        private async Task CopyProductInfoAndUpdateProduct(Product productToModify, Product productToCopy)
+        {
+            if (productToModify != null && productToCopy != null)
+            {
+                productToCopy.Title = productToModify.Title;
+                productToCopy.Description = productToModify.Description;
+                productToCopy.Seller = productToModify.Seller;
+                productToCopy.Price = productToModify.Price;
+                productToCopy.Quantity = productToModify.Quantity;
+                await _productRepository.UpdateProductAsync(productToCopy);
+            }
+        }
+
         public async Task<Product> UpdateProductAsync(Product product)
         {
             if(product != null) {
                 var existingProduct = await GetProductAsync(product.Id);
-
-                if (product != null && existingProduct != null)
-                {
-                    existingProduct.Title = product.Title;
-                    existingProduct.Description = product.Description;
-                    existingProduct.Seller = product.Seller;
-                    existingProduct.Price = product.Price;
-                    existingProduct.Quantity = product.Quantity;
-                    await _productRepository.UpdateProductAsync(existingProduct);
-                }
+                await CopyProductInfoAndUpdateProduct(product, existingProduct);
                 return existingProduct;
             }
             else
