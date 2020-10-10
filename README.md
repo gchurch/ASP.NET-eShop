@@ -1,10 +1,12 @@
 # Ganges
 
-I have created a simple E-commerce website using ASP.NET Core. It is really just a CRUD application, but allows me to demonstrate some of my skills. I created two different front-ends, one with Angular and another with MVC and Razor. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have also created unit tests and functional tests to test the application.
+I have created a simple E-commerce website using ASP.NET Core. It is really just a CRUD application, but allows me to demonstrate some of my skills. I created two different front-ends, one with Angular and another with MVC and Razor. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have also created unit tests and functional tests for the application.
 
 ## Angular Front-end
 
 I created an SPA front-end with Angular. The code for this is in the Web.Angular project.
+
+The app is deployed on Azure and can be found here: https://webangular20201004144924.azurewebsites.net
 
 The angular app uses a back-end API created with ASP.NET Core.
 
