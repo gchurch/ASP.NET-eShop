@@ -6,7 +6,7 @@ I have created a simple E-commerce website using ASP.NET Core. It is really just
 
 I created an SPA front-end with Angular. The code for this is in the Web.Angular project.
 
-The app is deployed here: https://webangular20201004144924.azurewebsites.net
+The app is deployed on Azure and can be found here: https://webangular20201004144924.azurewebsites.net
 
 The angular app uses a back-end API created with ASP.NET Core.
 
