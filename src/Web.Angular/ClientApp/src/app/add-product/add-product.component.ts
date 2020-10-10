@@ -48,10 +48,11 @@ export class AddProductComponent implements OnInit {
     this.productService.addProduct(product).subscribe(
       output => {
         console.log(output);
+        var productId: number = output.id;
         console.log("The product has been added to the database.");
         // Reset the form
         this.productForm.reset();
-        this.router.navigate(['/products']);
+        this.router.navigate(['/products/' + productId]);
       }
     );
   }

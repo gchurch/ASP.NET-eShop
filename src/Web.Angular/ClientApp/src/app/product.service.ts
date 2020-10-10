@@ -22,7 +22,7 @@ export class ProductService {
   }
 
   public addProduct(product: Product) {
-    return this.http.post(this.baseUrl + 'api/products', product);
+    return this.http.post<Product>(this.baseUrl + 'api/products', product);
   }
 
   public deleteProduct(id: number) {
