@@ -1,11 +1,11 @@
 {
-  "name": "ganges",
+  "name": "eShop",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:ssr": "ng run Ganges:server:dev",
+    "build:ssr": "ng run eShop:server:dev",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

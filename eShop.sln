@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "tests\I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionalTests", "tests\FunctionalTests\FunctionalTests.csproj", "{ED9301E9-8629-4057-8CB5-AD5996E1EA85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.MVC", "src\Web.MVC\Web.MVC.csproj", "{01B5BBC5-CDC0-4A5E-840D-E04C366CE009}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.MVC", "src\Web.MVC\Web.MVC.csproj", "{01B5BBC5-CDC0-4A5E-840D-E04C366CE009}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
