@@ -26,6 +26,8 @@ Swagger is used to document the API.
 
 I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.MVC project.
 
+This app is also deployed on Azure and can be found here: https://webmvc20201011164418.azurewebsites.net
+
 ## Clean Architecture
 
 I use a Clean Architecture based on https://github.com/ardalis/CleanArchitecture to organize the code.
@@ -44,7 +46,7 @@ The Clean Architecture separates the application into three layers with each lay
 
 ## Unit Tests
 
-Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework.
+Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework. I have used the Arrange, Act and Assert steps in the tests. I have given each of the tests meaningful names. I have tried to use only one assertion per test.
 
 ## Functional Tests
 
