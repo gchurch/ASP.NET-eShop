@@ -31,7 +31,7 @@ namespace Infrastructure.Data
                         Seller = "Michael",
                         Price = 50,
                         Quantity = 2,
-                        ImageUrl = "toy.png"
+                        ImageUrl = "duck.png"
                     },
                     new Product()
                     {
