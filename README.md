@@ -46,7 +46,7 @@ The Clean Architecture separates the application into three layers with each lay
 
 ## Unit Tests
 
-Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework.
+Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework. I have used the Arrange, Act, Assert steps in the tests. I have give each of the tests meaningful names. I am using one assertion per test.
 
 ## Functional Tests
 
