@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Web.Angular.Controllers
 {
     /// <summary>
-    /// The class implementing the API to interact with the products.
+    /// The controller class implementing the API to interact with the products.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -18,7 +18,7 @@ namespace Web.Angular.Controllers
         private readonly IProductService _productService;
 
         /// <summary>
-        /// Adding the ProductService service to the class using dependency injection.
+        /// Creates a new instance of the ProductsController class.
         /// </summary>
         /// <param name="productService"></param>
         public ProductsController(IProductService productService)
@@ -65,8 +65,6 @@ namespace Web.Angular.Controllers
         /// </summary>
         /// <param name="id">The ID of the product.</param>
         /// <returns>The requested product with its quantity reduced by 1.</returns>
-        // Here I am using the [FromBody] binding source attribute to tell the action method that the id parameter is coming
-        // from the body of the request.
         [HttpPost("buy")]
         public async Task<ActionResult<int>> BuyProduct([FromBody]int id)
         {
