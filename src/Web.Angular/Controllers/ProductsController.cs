@@ -65,9 +65,9 @@ namespace Web.Angular.Controllers
         /// </summary>
         /// <param name="id">The ID of the product.</param>
         /// <returns>The requested product with its quantity reduced by 1.</returns>
-        [HttpPost("buy")]
         // Here I am using the [FromBody] binding source attribute to tell the action method that the id parameter is coming
         // from the body of the request.
+        [HttpPost("buy")]
         public async Task<ActionResult<int>> BuyProduct([FromBody]int id)
         {
             var product = await _productService.BuyProductAsync(id);
@@ -95,7 +95,6 @@ namespace Web.Angular.Controllers
         {
             if (product != null)
             {
-                // Add the product to the database
                 await _productService.AddProductAsync(product);
 
                 // Return a 201 created status code. This also sends the created product
@@ -115,7 +114,6 @@ namespace Web.Angular.Controllers
         /// <param name="id">The ID of the product.</param>
         /// <returns>Ok or NotFound.</returns>
         [HttpDelete("{id}")]
-
         public async Task<ActionResult> DeleteProductAsync(int id)
         {
             bool productExisted = await _productService.DeleteProductAsync(id);
@@ -131,7 +129,7 @@ namespace Web.Angular.Controllers
         }
 
         /// <summary>
-        /// Update a already existing product.
+        /// Update an already existing product.
         /// </summary>
         /// <remarks>The ID of the product argument should be the ID of the product you want to update.</remarks>
         /// <param name="product">What you want to update the product to.</param>
@@ -139,11 +137,10 @@ namespace Web.Angular.Controllers
         [HttpPut]
         public async Task<ActionResult<Product>> UpdateProductAsync([FromBody]Product product)
         {
-            // A null product is not acceptable
             if (product != null)
             {
 
-                // If updatedProduct is null a product with the supplied id doesn't exist.
+                // If updatedProduct is null, a product with the supplied id doesn't exist.
                 Product updatedProduct = await _productService.UpdateProductAsync(product);
 
                 if (updatedProduct != null)
