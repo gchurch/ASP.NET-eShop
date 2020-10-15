@@ -20,7 +20,7 @@ The application has the following API:
 | PUT /api/Products         | Update an existing product | Product      | Product           |
 | DELETE /api/Products/{id} | Delete a product           | None         | None              |
 
-Swagger is used to document the API.
+Swagger is used to document the API: https://webangular20201004144924.azurewebsites.net/swagger/index.html
 
 ## MVC/Razor Front-end
 
