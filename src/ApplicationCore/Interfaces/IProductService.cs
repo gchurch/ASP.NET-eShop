@@ -6,16 +6,16 @@ namespace ApplicationCore.Interfaces
 {
     public interface IProductService
     {
-         Task<IEnumerable<Product>> GetAllProductsAsync();
+        Task<IEnumerable<Product>> GetAllProductsAsync();
 
-         Task<Product> GetProductAsync(int id);
+        Task<Product> GetProductAsync(int id);
 
-         Task<Product> BuyProductAsync(int id);
+        Task<Product> BuyProductAsync(int id);
 
-         Task AddProductAsync(Product product);
+        Task AddProductAsync(Product product);
 
-         Task<bool> DeleteProductAsync(int id);
+        Task<bool> DeleteProductAsync(int id);
 
-         Task<Product> UpdateProductAsync(Product newProduct);
+        Task<Product> UpdateProductAsync(Product newProduct);
     }
 }
