@@ -39,7 +39,7 @@ namespace ApplicationCore.Services
             return product;
         }
 
-        private String ChooseRandomImageUrl()
+        private String ChooseRandomImageUrlFromPossibleOptions()
         {
             int randomNumber = rng.Next();
             if (randomNumber % 3 == 0)
@@ -65,7 +65,7 @@ namespace ApplicationCore.Services
                 // because you are not allowed to specify an ID value when adding a product
                 // to the database. An ID value will automatically be given to the product.
                 product.Id = 0;
-                product.ImageUrl = ChooseRandomImageUrl();
+                product.ImageUrl = ChooseRandomImageUrlFromPossibleOptions();
                 await _productRepository.AddProductAsync(product);
             }
         }
