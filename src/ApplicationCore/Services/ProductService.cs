@@ -83,16 +83,16 @@ namespace ApplicationCore.Services
             return false;
         }
 
-        private async Task CopyProductInfoAndUpdateProduct(Product productToModify, Product productToCopy)
+        private void CopyProductPropertiesExcludingImageUrl(Product productToCopyFrom, Product productToCopyTo)
         {
-            if (productToModify != null && productToCopy != null)
+            if (productToCopyFrom != null && productToCopyTo != null)
             {
-                productToCopy.Title = productToModify.Title;
-                productToCopy.Description = productToModify.Description;
-                productToCopy.Seller = productToModify.Seller;
-                productToCopy.Price = productToModify.Price;
-                productToCopy.Quantity = productToModify.Quantity;
-                await _productRepository.UpdateProductAsync(productToCopy);
+                productToCopyTo.Id = productToCopyFrom.Id;
+                productToCopyTo.Title = productToCopyFrom.Title;
+                productToCopyTo.Description = productToCopyFrom.Description;
+                productToCopyTo.Seller = productToCopyFrom.Seller;
+                productToCopyTo.Price = productToCopyFrom.Price;
+                productToCopyTo.Quantity = productToCopyFrom.Quantity;
             }
         }
 
@@ -100,7 +100,11 @@ namespace ApplicationCore.Services
         {
             if(product != null) {
                 var existingProduct = await GetProductAsync(product.Id);
-                await CopyProductInfoAndUpdateProduct(product, existingProduct);
+                if (existingProduct != null)
+                {
+                    CopyProductPropertiesExcludingImageUrl(product, existingProduct);
+                    await _productRepository.UpdateProductAsync(existingProduct);
+                }
                 return existingProduct;
             }
             else
