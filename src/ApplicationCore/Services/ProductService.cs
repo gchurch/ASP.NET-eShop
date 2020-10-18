@@ -83,26 +83,13 @@ namespace ApplicationCore.Services
             return false;
         }
 
-        private void CopyProductPropertiesExcludingImageUrl(Product productToCopyFrom, Product productToCopyTo)
-        {
-            if (productToCopyFrom != null && productToCopyTo != null)
-            {
-                productToCopyTo.Id = productToCopyFrom.Id;
-                productToCopyTo.Title = productToCopyFrom.Title;
-                productToCopyTo.Description = productToCopyFrom.Description;
-                productToCopyTo.Seller = productToCopyFrom.Seller;
-                productToCopyTo.Price = productToCopyFrom.Price;
-                productToCopyTo.Quantity = productToCopyFrom.Quantity;
-            }
-        }
-
         public async Task<Product> UpdateProductAsync(Product product)
         {
             if(product != null) {
                 var existingProduct = await GetProductAsync(product.Id);
                 if (existingProduct != null)
                 {
-                    CopyProductPropertiesExcludingImageUrl(product, existingProduct);
+                    existingProduct.CopyProductPropertiesExcludingImageUrl(product);
                     await _productRepository.UpdateProductAsync(existingProduct);
                 }
                 return existingProduct;

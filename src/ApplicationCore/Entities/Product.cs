@@ -9,5 +9,18 @@
         public int Price { get; set; }
         public int Quantity { get; set; }
         public string ImageUrl { get; set; }
+
+        public void CopyProductPropertiesExcludingImageUrl(Product productToCopyFrom)
+        {
+            if (productToCopyFrom != null)
+            {
+                Id = productToCopyFrom.Id;
+                Title = productToCopyFrom.Title;
+                Description = productToCopyFrom.Description;
+                Seller = productToCopyFrom.Seller;
+                Price = productToCopyFrom.Price;
+                Quantity = productToCopyFrom.Quantity;
+            }
+        }
     }
 }
