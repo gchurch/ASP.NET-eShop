@@ -1,0 +1,54 @@
+﻿<docs>
+  <members name="ProductsController">
+    
+    <GetAllProductsAsync>
+      <summary>
+        Get all of the products.
+      </summary>
+      <returns>A list of all of the products.</returns>
+    </GetAllProductsAsync>
+    
+    <GetProductAsync>
+      <summary>
+        Get a specific product.
+      </summary>
+      <param name="id">The ID of the product</param>
+      <returns>The requested product.</returns>
+    </GetProductAsync>
+
+    <BuyProductAsync>
+      <summary>
+        Reduce the quantity of a specific product by 1.
+      </summary>
+      <param name="id">The ID of the product.</param>
+      <returns>The requested product with its quantity reduced by 1.</returns>
+    </BuyProductAsync>
+
+    <AddProductAsync>
+      <summary>
+        Add a product to the list of products.
+      </summary>
+      <remarks>The ID supplied in the product will be ignored.</remarks>
+      <param name="product">The product that you want to add.</param>
+      <returns>The created product.</returns>
+    </AddProductAsync>
+
+    <DeleteProductAsync>
+      <summary>
+        Delete a specific product.
+      </summary>
+      <param name="id">The ID of the product.</param>
+      <returns>Ok or NotFound.</returns>
+    </DeleteProductAsync>
+
+    <UpdateProductAsync>
+      <summary>
+        Update an already existing product.
+      </summary>
+      <remarks>The ID of the product argument should be the ID of the product you want to update.</remarks>
+      <param name="product">What you want to update the product to.</param>
+      <returns>The updated product.</returns>
+    </UpdateProductAsync>
+    
+  </members>
+</docs>

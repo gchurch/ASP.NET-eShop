@@ -94,7 +94,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.BuyProduct(productIdThatExists);
+            var actionResult = await productsController.BuyProductAsync(productIdThatExists);
             var value = (actionResult.Result as OkObjectResult).Value;
 
             // Assert
@@ -116,7 +116,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.BuyProduct(productIdThatDoesNotExist);
+            var actionResult = await productsController.BuyProductAsync(productIdThatDoesNotExist);
 
             // Assert
             actionResult.ShouldBeOfType<ActionResult<int>>();

@@ -28,7 +28,7 @@ namespace ApplicationCore.Services
        
         public async Task<Product> BuyProductAsync(int id)
         {
-            var product = await _productRepository.GetProductAsync(id);
+            var product = await GetProductAsync(id);
 
             if(product != null)
             {
@@ -72,7 +72,7 @@ namespace ApplicationCore.Services
    
         public async Task<bool> DeleteProductAsync(int id)
         {
-            var product = await _productRepository.GetProductAsync(id);
+            var product = await GetProductAsync(id);
 
             if(product != null)
             {

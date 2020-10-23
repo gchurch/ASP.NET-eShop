@@ -7,9 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Angular.Controllers
 {
-    /// <summary>
-    /// The controller class implementing the API to interact with the products.
-    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
@@ -17,19 +14,12 @@ namespace Web.Angular.Controllers
 
         private readonly IProductService _productService;
 
-        /// <summary>
-        /// Creates a new instance of the ProductsController class.
-        /// </summary>
-        /// <param name="productService"></param>
         public ProductsController(IProductService productService)
         {
             _productService = productService;
         }
 
-        /// <summary>
-        /// Get all of the products.
-        /// </summary>
-        /// <returns>A list of all of the products.</returns>
+        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/GetAllProductsAsync/*'/>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetAllProductsAsync()
         {
@@ -37,11 +27,7 @@ namespace Web.Angular.Controllers
             return Ok(products);
         }
 
-        /// <summary>
-        /// Get a specific product.
-        /// </summary>
-        /// <param name="id">The ID of the product</param>
-        /// <returns>The requested product.</returns>
+        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/GetProductAsync/*'/>
         [HttpGet("{id}", Name="GetProduct")]
         public async Task<ActionResult<Product>> GetProductAsync(int id)
         {
@@ -57,13 +43,9 @@ namespace Web.Angular.Controllers
             }
         }
 
-        /// <summary>
-        /// Reduce the quantity of a specific product by 1.
-        /// </summary>
-        /// <param name="id">The ID of the product.</param>
-        /// <returns>The requested product with its quantity reduced by 1.</returns>
+        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/BuyProductAsync/*'/>
         [HttpPost("buy")]
-        public async Task<ActionResult<int>> BuyProduct([FromBody]int id)
+        public async Task<ActionResult<int>> BuyProductAsync([FromBody]int id)
         {
             var product = await _productService.BuyProductAsync(id);
 
@@ -77,12 +59,7 @@ namespace Web.Angular.Controllers
             }
         }
 
-        /// <summary>
-        /// Add a product to the list of products.
-        /// </summary>
-        /// <remarks>The ID supplied in the product will be ignored.</remarks>
-        /// <param name="product">The product that you want to add.</param>
-        /// <returns>The created product.</returns>
+        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/AddProductAsync/*'/>
         [HttpPost]
         public async Task<ActionResult<Product>> AddProductAsync([FromBody]Product product)
         {
@@ -97,11 +74,7 @@ namespace Web.Angular.Controllers
             }
         }
 
-        /// <summary>
-        /// Delete a specific product.
-        /// </summary>
-        /// <param name="id">The ID of the product.</param>
-        /// <returns>Ok or NotFound.</returns>
+        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/DeleteProductAsync/*'/>
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProductAsync(int id)
         {
@@ -117,12 +90,7 @@ namespace Web.Angular.Controllers
             }
         }
 
-        /// <summary>
-        /// Update an already existing product.
-        /// </summary>
-        /// <remarks>The ID of the product argument should be the ID of the product you want to update.</remarks>
-        /// <param name="product">What you want to update the product to.</param>
-        /// <returns>The updated product.</returns>
+        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/UpdateProductAsync/*'/>
         [HttpPut]
         public async Task<ActionResult<Product>> UpdateProductAsync([FromBody]Product product)
         {
