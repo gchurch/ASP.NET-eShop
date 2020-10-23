@@ -45,15 +45,12 @@ namespace Web.Angular.Controllers
         [HttpGet("{id}", Name="GetProduct")]
         public async Task<ActionResult<Product>> GetProductAsync(int id)
         {
-
             var product = await _productService.GetProductAsync(id);
 
-            // If the product is not found then return a 404 status code.
             if (product == null)
             {
                 return NotFound();
             }
-            // If the product is found then return a 200 status code along with the product.
             else
             {
                 return Ok(product);
@@ -72,12 +69,10 @@ namespace Web.Angular.Controllers
 
             if (product == null)
             {
-                // Respond withe a 404 status code.
                 return NotFound();
             }
             else
             {
-                // Respond with a 200 status code.
                 return Ok(product.Quantity);
             }
         }
@@ -91,18 +86,14 @@ namespace Web.Angular.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> AddProductAsync([FromBody]Product product)
         {
-            if (product != null)
+            if (product == null)
             {
-                await _productService.AddProductAsync(product);
-
-                // Return a 201 created status code. This also sends the created product
-                // in the body of the response and sets the location of the created product 
-                // in the response header.
-                return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+                return BadRequest("The product cannot be null.");
             }
             else
             {
-                return BadRequest("The product cannot be null.");
+                await _productService.AddProductAsync(product);
+                return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
             }
         }
 
@@ -135,12 +126,13 @@ namespace Web.Angular.Controllers
         [HttpPut]
         public async Task<ActionResult<Product>> UpdateProductAsync([FromBody]Product product)
         {
-            if (product != null)
+            if (product == null)
             {
-
-                // If updatedProduct is null, a product with the supplied id doesn't exist.
+                return BadRequest("The product cannot be null.");
+            }
+            else
+            {
                 Product updatedProduct = await _productService.UpdateProductAsync(product);
-
                 if (updatedProduct != null)
                 {
                     return Ok(updatedProduct);
@@ -149,10 +141,6 @@ namespace Web.Angular.Controllers
                 {
                     return NotFound();
                 }
-            }
-            else
-            {
-                return BadRequest("The product cannot be null.");
             }
         }
     }

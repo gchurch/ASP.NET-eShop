@@ -9,7 +9,7 @@ namespace ApplicationCore.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        private readonly Random rng = new Random();
+        private readonly Random randomNumberGenerator = new Random();
 
         public ProductService(IProductRepository productRepository)
         {
@@ -41,7 +41,7 @@ namespace ApplicationCore.Services
 
         private String ChooseRandomImageUrlFromPossibleOptions()
         {
-            int randomNumber = rng.Next();
+            int randomNumber = randomNumberGenerator.Next();
             if (randomNumber % 3 == 0)
             {
                 return "book.png";
