@@ -17,5 +17,7 @@ namespace ApplicationCore.Interfaces
         Task DeleteProductAsync(int id);
 
         Task UpdateProductAsync(Product newProduct);
+
+        Task<bool> DoesProductIdExist(int productId);
     }
 }

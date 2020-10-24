@@ -12,7 +12,7 @@
       <summary>
         Get a specific product.
       </summary>
-      <param name="id">The ID of the product</param>
+      <param name="productId">The ID of the product</param>
       <returns>The requested product.</returns>
     </GetProductAsync>
 
@@ -20,7 +20,7 @@
       <summary>
         Reduce the quantity of a specific product by 1.
       </summary>
-      <param name="id">The ID of the product.</param>
+      <param name="productId">The ID of the product.</param>
       <returns>The requested product with its quantity reduced by 1.</returns>
     </BuyProductAsync>
 
@@ -37,7 +37,7 @@
       <summary>
         Delete a specific product.
       </summary>
-      <param name="id">The ID of the product.</param>
+      <param name="productId">The ID of the product.</param>
       <returns>Ok or NotFound.</returns>
     </DeleteProductAsync>
 

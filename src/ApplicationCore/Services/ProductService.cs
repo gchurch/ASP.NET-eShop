@@ -89,5 +89,18 @@ namespace ApplicationCore.Services
                 }
             }
         }
+
+        public async Task<bool> DoesProductIdExist(int productId)
+        {
+            var product = await GetProductAsync(productId);
+            if(product == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

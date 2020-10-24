@@ -29,34 +29,36 @@ namespace Web.Angular.Controllers
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/GetProductAsync/*'/>
         [HttpGet("{id}", Name="GetProduct")]
-        public async Task<ActionResult<Product>> GetProductAsync(int id)
+        public async Task<ActionResult<Product>> GetProductAsync(int productId)
         {
-            var product = await _productService.GetProductAsync(id);
+            bool doesProductExist = await _productService.DoesProductIdExist(productId);
 
-            if (product == null)
+            if (doesProductExist == true)
             {
-                return NotFound();
+                Product product = await _productService.GetProductAsync(productId);
+                return Ok(product);
             }
             else
             {
-                return Ok(product);
+                return NotFound();
             }
         }
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/BuyProductAsync/*'/>
         [HttpPost("buy")]
-        public async Task<ActionResult<int>> BuyProductAsync([FromBody]int id)
+        public async Task<ActionResult<int>> BuyProductAsync([FromBody]int productId)
         {
-            var product = await _productService.GetProductAsync(id);
+            bool doesProductExist = await _productService.DoesProductIdExist(productId);
 
-            if (product == null)
+            if (doesProductExist == true)
             {
-                return NotFound();
+                await _productService.BuyProductAsync(productId);
+                Product product = await _productService.GetProductAsync(productId);
+                return Ok(product.Quantity);
             }
             else
             {
-                await _productService.BuyProductAsync(id);
-                return Ok(product.Quantity);
+                return NotFound();
             }
         }
 
@@ -64,31 +66,31 @@ namespace Web.Angular.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> AddProductAsync([FromBody]Product product)
         {
-            if (product == null)
-            {
-                return BadRequest("The product cannot be null.");
-            }
-            else
+            if (product != null)
             {
                 await _productService.AddProductAsync(product);
                 return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+            }
+            else
+            {
+                return BadRequest("The product cannot be null.");
             }
         }
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/DeleteProductAsync/*'/>
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteProductAsync(int id)
+        public async Task<ActionResult> DeleteProductAsync(int productId)
         {
-            var product = await _productService.GetProductAsync(id);
+            bool doesProductExist = await _productService.DoesProductIdExist(productId);
 
-            if(product == null)
+            if(doesProductExist == true)
             {
-                return NotFound();
+                await _productService.DeleteProductAsync(productId);
+                return Ok();
             }
             else
             {
-                await _productService.DeleteProductAsync(id);
-                return Ok();
+                return NotFound();
             }
         }
 
@@ -102,12 +104,13 @@ namespace Web.Angular.Controllers
             }
             else
             {
-                var productToUpdate = await _productService.GetProductAsync(product.Id);
+                bool doesProductExist = await _productService.DoesProductIdExist(product.Id);
 
-                if (productToUpdate != null)
+                if (doesProductExist == true)
                 {
                     await _productService.UpdateProductAsync(product);
-                    return Ok(productToUpdate);
+                    Product updatedProduct = await _productService.GetProductAsync(product.Id);
+                    return Ok(updatedProduct);
                 }
                 else
                 {
