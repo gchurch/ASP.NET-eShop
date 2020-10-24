@@ -1,4 +1,6 @@
-# Ganges
+# ASP.NET-eShop
+
+![.NET Core](https://github.com/gchurch/Ganges/workflows/.NET%20Core/badge.svg?branch=master)
 
 I have created a simple E-commerce website using ASP.NET Core. It is really just a CRUD application, but allows me to demonstrate some of my skills. I created two different front-ends, one with Angular and another with MVC and Razor. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have also created unit tests and functional tests for the application.
 
@@ -35,8 +37,6 @@ I use a Clean Architecture based on https://github.com/ardalis/CleanArchitecture
 The Clean Architecture separates the application into three layers with each layer being a separate project. The layers are the ApplicationCore, Infrastructure and the front-end Web. Using a clean architecture means that the Angular front-end and MVC/Razor front-end are easily interchangable. You just need to set the front-end project you want to run as the startup project.
 
 <img src="https://miro.medium.com/max/2750/0*lwCWXSNctrUUYeLR.png" alt="alt text" width="60%">
-
-![.NET Core](https://github.com/gchurch/Ganges/workflows/.NET%20Core/badge.svg?branch=master)
 
 ## Database
 
