@@ -88,9 +88,9 @@ namespace UnitTests.Web.Angular.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatExists = 0;
-            productServiceStub.Setup(ps => ps.BuyProductAsync(productIdThatExists))
-                .ReturnsAsync(new Product())
-                .Verifiable();
+            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatExists))
+                .ReturnsAsync(new Product());
+            productServiceStub.Setup(ps => ps.BuyProductAsync(productIdThatExists));
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -101,7 +101,6 @@ namespace UnitTests.Web.Angular.Controllers
             actionResult.ShouldBeOfType<ActionResult<int>>();
             actionResult.Result.ShouldBeOfType<OkObjectResult>();
             value.ShouldBeOfType<int>();
-            productServiceStub.Verify();
         }
 
         [TestMethod]
@@ -110,9 +109,8 @@ namespace UnitTests.Web.Angular.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.BuyProductAsync(productIdThatDoesNotExist))
-                .ReturnsAsync((Product) null)
-                .Verifiable();
+            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatDoesNotExist))
+                .ReturnsAsync((Product)null);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -121,7 +119,6 @@ namespace UnitTests.Web.Angular.Controllers
             // Assert
             actionResult.ShouldBeOfType<ActionResult<int>>();
             actionResult.Result.ShouldBeOfType<NotFoundResult>();
-            productServiceStub.Verify();
         }
 
         [TestMethod]
@@ -169,9 +166,9 @@ namespace UnitTests.Web.Angular.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatExists = 0;
-            productServiceStub.Setup(ps => ps.DeleteProductAsync(productIdThatExists))
-                .ReturnsAsync(true)
-                .Verifiable();
+            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatExists))
+                .ReturnsAsync(new Product());
+            productServiceStub.Setup(ps => ps.DeleteProductAsync(productIdThatExists));
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -179,8 +176,6 @@ namespace UnitTests.Web.Angular.Controllers
 
             // Assert
             actionResult.ShouldBeOfType<OkResult>();
-            productServiceStub.Verify();
-            
         }
 
         [TestMethod]
@@ -189,9 +184,8 @@ namespace UnitTests.Web.Angular.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.DeleteProductAsync(productIdThatDoesNotExist))
-                .ReturnsAsync(false)
-                .Verifiable();
+            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatDoesNotExist))
+                .ReturnsAsync((Product)null);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -199,19 +193,21 @@ namespace UnitTests.Web.Angular.Controllers
 
             // Assert
             actionResult.ShouldBeOfType<NotFoundResult>();
-            productServiceStub.Verify();
-
         }
 
         [TestMethod]
         public async Task UpdateProductAsync_GivenProductWithKnownId_ShouldReturnTypeOkObjectResultAndProduct()
         {
             // Arrange
-            var productWithKnownId = new Product();
+            var productIdThatExists = 1;
+            var productWithKnownId = new Product()
+            {
+                Id = productIdThatExists
+            };
             var productServiceStub = new Mock<IProductService>();
-            productServiceStub.Setup(ps => ps.UpdateProductAsync(It.IsAny<Product>()))
-                .ReturnsAsync(new Product())
-                .Verifiable();
+            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatExists))
+                .ReturnsAsync(productWithKnownId);
+            productServiceStub.Setup(ps => ps.UpdateProductAsync(It.IsAny<Product>()));
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -222,18 +218,21 @@ namespace UnitTests.Web.Angular.Controllers
             actionResult.ShouldBeOfType<ActionResult<Product>>();
             actionResult.Result.ShouldBeOfType<OkObjectResult>();
             value.ShouldBeOfType<Product>();
-            productServiceStub.Verify();
         }
 
         [TestMethod]
         public async Task UpdateProductAsync_GivenProductWithUnknownId_ShouldReturnTypeNotFoundResult()
         {
             // Arrange
-            var productWithUnknownId = new Product();
+            var productIdThatDoesNotExist = 0;
+            var productWithUnknownId = new Product()
+            {
+                Id = productIdThatDoesNotExist
+            };
             var productServiceStub = new Mock<IProductService>();
-            productServiceStub.Setup(ps => ps.UpdateProductAsync(productWithUnknownId))
-                .ReturnsAsync((Product)null)
-                .Verifiable();
+            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatDoesNotExist))
+                .ReturnsAsync((Product)null);
+            productServiceStub.Setup(ps => ps.UpdateProductAsync(productWithUnknownId));
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -242,7 +241,6 @@ namespace UnitTests.Web.Angular.Controllers
             // Assert
             actionResult.ShouldBeOfType<ActionResult<Product>>();
             actionResult.Result.ShouldBeOfType<NotFoundResult>();
-            productServiceStub.Verify();
         }
 
         [TestMethod]

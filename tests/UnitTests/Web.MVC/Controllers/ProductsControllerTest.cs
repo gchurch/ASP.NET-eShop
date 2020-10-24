@@ -223,8 +223,9 @@ namespace UnitTests.Web.MVC.Controllers
             var productWithIdThatExists = new Product() {
                 Id = productIdThatExists
             };
-            productServiceStub.Setup(ps => ps.UpdateProductAsync(productWithIdThatExists))
+            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatExists))
                 .ReturnsAsync(productWithIdThatExists);
+            productServiceStub.Setup(ps => ps.UpdateProductAsync(productWithIdThatExists));
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act

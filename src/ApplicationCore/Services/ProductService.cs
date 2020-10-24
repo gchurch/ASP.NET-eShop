@@ -26,7 +26,7 @@ namespace ApplicationCore.Services
             return await _productRepository.GetProductAsync(id);
         }
        
-        public async Task<Product> BuyProductAsync(int id)
+        public async Task BuyProductAsync(int id)
         {
             var product = await GetProductAsync(id);
 
@@ -35,8 +35,6 @@ namespace ApplicationCore.Services
                 product.Quantity -= 1;
                 await _productRepository.UpdateProductAsync(product);
             }
-
-            return product;
         }
 
         private String ChooseRandomImageUrlFromPossibleOptions()
@@ -70,20 +68,17 @@ namespace ApplicationCore.Services
             }
         }
    
-        public async Task<bool> DeleteProductAsync(int id)
+        public async Task DeleteProductAsync(int id)
         {
             var product = await GetProductAsync(id);
 
             if(product != null)
             {
                 await _productRepository.DeleteProductAsync(product);
-                return true;
             }
-
-            return false;
         }
 
-        public async Task<Product> UpdateProductAsync(Product product)
+        public async Task UpdateProductAsync(Product product)
         {
             if(product != null) {
                 var existingProduct = await GetProductAsync(product.Id);
@@ -92,11 +87,6 @@ namespace ApplicationCore.Services
                     existingProduct.CopyProductPropertiesExcludingImageUrl(product);
                     await _productRepository.UpdateProductAsync(existingProduct);
                 }
-                return existingProduct;
-            }
-            else
-            {
-                return product;
             }
         }
     }

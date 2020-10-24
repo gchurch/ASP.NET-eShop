@@ -47,7 +47,7 @@ namespace Web.Angular.Controllers
         [HttpPost("buy")]
         public async Task<ActionResult<int>> BuyProductAsync([FromBody]int id)
         {
-            var product = await _productService.BuyProductAsync(id);
+            var product = await _productService.GetProductAsync(id);
 
             if (product == null)
             {
@@ -55,6 +55,7 @@ namespace Web.Angular.Controllers
             }
             else
             {
+                await _productService.BuyProductAsync(id);
                 return Ok(product.Quantity);
             }
         }
@@ -78,15 +79,16 @@ namespace Web.Angular.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProductAsync(int id)
         {
-            bool productExisted = await _productService.DeleteProductAsync(id);
+            var product = await _productService.GetProductAsync(id);
 
-            if(productExisted)
+            if(product == null)
             {
-                return Ok();
+                return NotFound();
             }
             else
             {
-                return NotFound();
+                await _productService.DeleteProductAsync(id);
+                return Ok();
             }
         }
 
@@ -100,10 +102,12 @@ namespace Web.Angular.Controllers
             }
             else
             {
-                Product updatedProduct = await _productService.UpdateProductAsync(product);
-                if (updatedProduct != null)
+                var productToUpdate = await _productService.GetProductAsync(product.Id);
+
+                if (productToUpdate != null)
                 {
-                    return Ok(updatedProduct);
+                    await _productService.UpdateProductAsync(product);
+                    return Ok(productToUpdate);
                 }
                 else
                 {

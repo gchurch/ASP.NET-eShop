@@ -10,12 +10,12 @@ namespace ApplicationCore.Interfaces
 
         Task<Product> GetProductAsync(int id);
 
-        Task<Product> BuyProductAsync(int id);
+        Task BuyProductAsync(int id);
 
         Task AddProductAsync(Product product);
 
-        Task<bool> DeleteProductAsync(int id);
+        Task DeleteProductAsync(int id);
 
-        Task<Product> UpdateProductAsync(Product newProduct);
+        Task UpdateProductAsync(Product newProduct);
     }
 }

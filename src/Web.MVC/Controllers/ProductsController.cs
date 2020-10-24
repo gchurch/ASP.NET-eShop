@@ -109,14 +109,15 @@ namespace Web.MVC.Controllers
         [HttpPost, ActionName("Edit")]
         public async Task<IActionResult> EditPost(Product product)
         {
-            var updatedProduct = await _productService.UpdateProductAsync(product);
+            var productToUpdate = await _productService.GetProductAsync(product.Id);
 
-            if(updatedProduct == null)
+            if(productToUpdate == null)
             {
                 return NotFound();
             }
             else {
-                return RedirectToAction(nameof(Details), new { Id = updatedProduct.Id });
+                await _productService.UpdateProductAsync(product);
+                return RedirectToAction(nameof(Details), new { Id = productToUpdate.Id });
             }
         }
     }

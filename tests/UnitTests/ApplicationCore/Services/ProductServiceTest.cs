@@ -51,28 +51,6 @@ namespace UnitTests.ApplicationCore.Services
         }
 
         [TestMethod]
-        public async Task BuyProductAsync_GivenAProductIdThatExists_ShouldReturnProductWithQuantityDecreasedByOne()
-        {
-            // Arrange
-            var productIdThatExists = 1;
-            var retrievedProduct = new Product() { 
-                Id = productIdThatExists, 
-                Quantity = 2 
-            };
-            var productRepositoryStub = new Mock<IProductRepository>();
-            productRepositoryStub.Setup(pr => pr.GetProductAsync(productIdThatExists))
-                .ReturnsAsync(retrievedProduct);
-            productRepositoryStub.Setup(pr => pr.UpdateProductAsync(retrievedProduct));
-            var productService = new ProductService(productRepositoryStub.Object);
-
-            // Act
-            var result = await productService.BuyProductAsync(productIdThatExists);
-
-            // Assert
-            result.Quantity.ShouldBe(1);
-        }
-
-        [TestMethod]
         public async Task BuyProductAsync_GivenAProductIdThatExists_ShouldCallUpdateProductAsyncInProductRepository()
         {
             // Arrange
@@ -85,7 +63,7 @@ namespace UnitTests.ApplicationCore.Services
             var productService = new ProductService(productRepositoryStub.Object);
 
             // Act
-            var result = await productService.BuyProductAsync(productIdThatExists);
+            await productService.BuyProductAsync(productIdThatExists);
 
             // Assert
             productRepositoryStub.Verify(pr => pr.UpdateProductAsync(It.IsAny<Product>()), Times.Once());
@@ -104,7 +82,7 @@ namespace UnitTests.ApplicationCore.Services
             var productService = new ProductService(productRepositoryStub.Object);
 
             // Act
-            var result = await productService.BuyProductAsync(productIdThatDoesNotExist);
+            await productService.BuyProductAsync(productIdThatDoesNotExist);
 
             // Assert
             productRepositoryStub.Verify(pr => pr.UpdateProductAsync(It.IsAny<Product>()), Times.Never());
@@ -144,42 +122,6 @@ namespace UnitTests.ApplicationCore.Services
 
             // Assert
             product.Id.ShouldBe(0);
-        }
-
-        [TestMethod]
-        public async Task DeleteProductAsync_GivenAProductIdThatExists_ShouldReturnTrue()
-        {
-            // Arrange
-            var productIdThatExists = 1;
-            var productRepositoryStub = new Mock<IProductRepository>();
-            productRepositoryStub.Setup(pr => pr.GetProductAsync(productIdThatExists))
-                .ReturnsAsync(new Product());
-            productRepositoryStub.Setup(pr => pr.DeleteProductAsync(It.IsAny<Product>()));
-            var productService = new ProductService(productRepositoryStub.Object);
-
-            // Act
-            var result = await productService.DeleteProductAsync(productIdThatExists);
-
-            // Assert
-            result.ShouldBe(true);
-        }
-
-        [TestMethod]
-        public async Task DeleteProductAsync_GivenAProductIdThatDoesNotExist_ShouldReturnFalse()
-        {
-            // Arrange
-            var productIdThatDoesNotExist = 0;
-            var productRepositoryStub = new Mock<IProductRepository>();
-            productRepositoryStub.Setup(pr => pr.GetProductAsync(productIdThatDoesNotExist))
-                .ReturnsAsync((Product)null);
-            productRepositoryStub.Setup(pr => pr.DeleteProductAsync(It.IsAny<Product>()));
-            var productService = new ProductService(productRepositoryStub.Object);
-
-            // Act
-            var result = await productService.DeleteProductAsync(productIdThatDoesNotExist);
-
-            // Assert
-            result.ShouldBe(false);
         }
 
         [TestMethod]
@@ -237,7 +179,7 @@ namespace UnitTests.ApplicationCore.Services
             var productService = new ProductService(productRepositoryStub.Object);
 
             // Act
-            var result = await productService.UpdateProductAsync(existingProduct);
+            await productService.UpdateProductAsync(existingProduct);
 
             // Assert
             productRepositoryStub.Verify();
@@ -254,7 +196,7 @@ namespace UnitTests.ApplicationCore.Services
             var productService = new ProductService(productRepositoryStub.Object);
 
             // Act
-            var result = await productService.UpdateProductAsync(nullProduct);
+            await productService.UpdateProductAsync(nullProduct);
 
             // Assert
             productRepositoryStub.Verify(pr => pr.UpdateProductAsync(It.IsAny<Product>()), Times.Never());
