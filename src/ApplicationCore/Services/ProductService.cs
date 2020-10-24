@@ -21,14 +21,14 @@ namespace ApplicationCore.Services
             return await _productRepository.GetAllProductsAsync();
         }
 
-        public async Task<Product> GetProductAsync(int id)
+        public async Task<Product> GetProductAsync(int productId)
         {
-            return await _productRepository.GetProductAsync(id);
+            return await _productRepository.GetProductAsync(productId);
         }
        
-        public async Task BuyProductAsync(int id)
+        public async Task BuyProductAsync(int productId)
         {
-            var product = await GetProductAsync(id);
+            Product product = await GetProductAsync(productId);
 
             if(product != null)
             {
@@ -70,7 +70,7 @@ namespace ApplicationCore.Services
    
         public async Task DeleteProductAsync(int id)
         {
-            var product = await GetProductAsync(id);
+            Product product = await GetProductAsync(id);
 
             if(product != null)
             {
@@ -81,7 +81,7 @@ namespace ApplicationCore.Services
         public async Task UpdateProductAsync(Product product)
         {
             if(product != null) {
-                var existingProduct = await GetProductAsync(product.Id);
+                Product existingProduct = await GetProductAsync(product.Id);
                 if (existingProduct != null)
                 {
                     existingProduct.CopyProductPropertiesExcludingImageUrl(product);
@@ -92,7 +92,7 @@ namespace ApplicationCore.Services
 
         public async Task<bool> DoesProductIdExist(int productId)
         {
-            var product = await GetProductAsync(productId);
+            Product product = await GetProductAsync(productId);
             if(product == null)
             {
                 return false;

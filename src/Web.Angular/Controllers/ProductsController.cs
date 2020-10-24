@@ -23,12 +23,12 @@ namespace Web.Angular.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetAllProductsAsync()
         {
-            var products = await _productService.GetAllProductsAsync();
+            IEnumerable<Product> products = await _productService.GetAllProductsAsync();
             return Ok(products);
         }
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/GetProductAsync/*'/>
-        [HttpGet("{id}", Name="GetProduct")]
+        [HttpGet("{productId}")]
         public async Task<ActionResult<Product>> GetProductAsync(int productId)
         {
             bool doesProductExist = await _productService.DoesProductIdExist(productId);
@@ -69,7 +69,7 @@ namespace Web.Angular.Controllers
             if (product != null)
             {
                 await _productService.AddProductAsync(product);
-                return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+                return CreatedAtAction(nameof(GetProductAsync), new { id = product.Id }, product);
             }
             else
             {
@@ -78,7 +78,7 @@ namespace Web.Angular.Controllers
         }
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/DeleteProductAsync/*'/>
-        [HttpDelete("{id}")]
+        [HttpDelete("{productId}")]
         public async Task<ActionResult> DeleteProductAsync(int productId)
         {
             bool doesProductExist = await _productService.DoesProductIdExist(productId);

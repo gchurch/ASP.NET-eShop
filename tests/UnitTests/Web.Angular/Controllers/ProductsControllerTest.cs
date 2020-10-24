@@ -120,23 +120,21 @@ namespace UnitTests.Web.Angular.Controllers
         }
 
         [TestMethod]
-        public async Task AddProductAsync_GivenProduct_ShouldReturnTypeCreatedAtRouteResultWithProduct()
+        public async Task AddProductAsync_GivenProduct_ShouldReturnTypeCreatedAtActionResultWithProduct()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
-            productServiceStub.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()))
-                .Verifiable();
+            productServiceStub.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()));
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
             var actionResult = await productsController.AddProductAsync(new Product());
-            var value = (actionResult.Result as CreatedAtRouteResult).Value;
+            var value = (actionResult.Result as CreatedAtActionResult).Value;
 
             // Assert
             actionResult.ShouldBeOfType<ActionResult<Product>>();
-            actionResult.Result.ShouldBeOfType<CreatedAtRouteResult>();
+            actionResult.Result.ShouldBeOfType<CreatedAtActionResult>();
             value.ShouldBeOfType<Product>();
-            productServiceStub.Verify();
         }
 
         [TestMethod]
