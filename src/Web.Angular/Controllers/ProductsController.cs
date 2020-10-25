@@ -28,8 +28,8 @@ namespace Web.Angular.Controllers
         }
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/GetProductAsync/*'/>
-        [HttpGet("{productId}", Name="GetProduct")]
-        public async Task<ActionResult<Product>> GetProductAsync(int productId)
+        [HttpGet("{productId}")]
+        public async Task<ActionResult<Product>> GetProductByIdAsync(int productId)
         {
             bool doesProductExist = await _productService.DoesProductIdExist(productId);
 
@@ -46,7 +46,7 @@ namespace Web.Angular.Controllers
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/BuyProductAsync/*'/>
         [HttpPost("buy")]
-        public async Task<ActionResult<int>> BuyProductAsync([FromBody]int productId)
+        public async Task<ActionResult<int>> BuyProductByIdAsync([FromBody]int productId)
         {
             bool doesProductExist = await _productService.DoesProductIdExist(productId);
 
@@ -69,7 +69,7 @@ namespace Web.Angular.Controllers
             if (product != null)
             {
                 await _productService.AddProductAsync(product);
-                return CreatedAtAction("GetProduct", new { productId = product.Id }, product);
+                return CreatedAtAction("GetProductById", new { productId = product.Id }, product);
             }
             else
             {
@@ -79,7 +79,7 @@ namespace Web.Angular.Controllers
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/DeleteProductAsync/*'/>
         [HttpDelete("{productId}")]
-        public async Task<ActionResult> DeleteProductAsync(int productId)
+        public async Task<ActionResult> DeleteProductByIdAsync(int productId)
         {
             bool doesProductExist = await _productService.DoesProductIdExist(productId);
 

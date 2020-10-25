@@ -39,7 +39,7 @@ namespace UnitTests.Web.Angular.Controllers
 
 
         [TestMethod]
-        public async Task GetProductAsync_GivenProductIdThatExists_ShouldReturnTypeOkObjectResultWithProduct()
+        public async Task GetProductByIdAsync_GivenProductIdThatExists_ShouldReturnTypeOkObjectResultWithProduct()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -51,7 +51,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.GetProductAsync(productIdThatExists);
+            var actionResult = await productsController.GetProductByIdAsync(productIdThatExists);
             var value = (actionResult.Result as OkObjectResult).Value;
 
             // Assert
@@ -61,7 +61,7 @@ namespace UnitTests.Web.Angular.Controllers
         }
 
         [TestMethod]
-        public async Task GetProductAsync_GivenProductIdThatDoesNotExist_ShouldReturnTypeNotFoundResult()
+        public async Task GetProductByIdAsync_GivenProductIdThatDoesNotExist_ShouldReturnTypeNotFoundResult()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -71,7 +71,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var result = await productsController.GetProductAsync(productIdThatDoesNotExist);
+            var result = await productsController.GetProductByIdAsync(productIdThatDoesNotExist);
 
             // Assert
             result.ShouldBeOfType<ActionResult<Product>>();
@@ -79,7 +79,7 @@ namespace UnitTests.Web.Angular.Controllers
         }
 
         [TestMethod]
-        public async Task BuyProductAsync_GivenProductIdThatExists_ShouldReturnTypeOkObjectResultWithInt()
+        public async Task BuyProductByIdAsync_GivenProductIdThatExists_ShouldReturnTypeOkObjectResultWithInt()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -92,7 +92,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.BuyProductAsync(productIdThatExists);
+            var actionResult = await productsController.BuyProductByIdAsync(productIdThatExists);
             var value = (actionResult.Result as OkObjectResult).Value;
 
             // Assert
@@ -102,7 +102,7 @@ namespace UnitTests.Web.Angular.Controllers
         }
 
         [TestMethod]
-        public async Task BuyProductAsync_GivenProductIdThatDoesNotExist_ShouldReturnTypeNotFoundResult()
+        public async Task BuyProductByIdAsync_GivenProductIdThatDoesNotExist_ShouldReturnTypeNotFoundResult()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -112,7 +112,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.BuyProductAsync(productIdThatDoesNotExist);
+            var actionResult = await productsController.BuyProductByIdAsync(productIdThatDoesNotExist);
 
             // Assert
             actionResult.ShouldBeOfType<ActionResult<int>>();
@@ -157,7 +157,7 @@ namespace UnitTests.Web.Angular.Controllers
         
 
         [TestMethod]
-        public async Task DeleteProductAsync_GivenProductIdThatExists_ShouldReturnTypeOkResult()
+        public async Task DeleteProductByIdAsync_GivenProductIdThatExists_ShouldReturnTypeOkResult()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -168,14 +168,14 @@ namespace UnitTests.Web.Angular.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.DeleteProductAsync(productIdThatExists);
+            var actionResult = await productsController.DeleteProductByIdAsync(productIdThatExists);
 
             // Assert
             actionResult.ShouldBeOfType<OkResult>();
         }
 
         [TestMethod]
-        public async Task DeleteProductAsync_GivenProductIdThatDoesNotExist_ShouldReturnTypeNotFoundResult()
+        public async Task DeleteProductByIdAsync_GivenProductIdThatDoesNotExist_ShouldReturnTypeNotFoundResult()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -185,7 +185,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.DeleteProductAsync(productIdThatDoesNotExist);
+            var actionResult = await productsController.DeleteProductByIdAsync(productIdThatDoesNotExist);
 
             // Assert
             actionResult.ShouldBeOfType<NotFoundResult>();

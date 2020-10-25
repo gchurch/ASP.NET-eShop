@@ -8,21 +8,21 @@
       <returns>A list of all of the products.</returns>
     </GetAllProductsAsync>
     
-    <GetProductAsync>
+    <GetProductByIdAsync>
       <summary>
         Get a specific product.
       </summary>
       <param name="productId">The ID of the product</param>
       <returns>The requested product.</returns>
-    </GetProductAsync>
+    </GetProductByIdAsync>
 
-    <BuyProductAsync>
+    <BuyProductByIdAsync>
       <summary>
         Reduce the quantity of a specific product by 1.
       </summary>
       <param name="productId">The ID of the product.</param>
       <returns>The requested product with its quantity reduced by 1.</returns>
-    </BuyProductAsync>
+    </BuyProductByIdAsync>
 
     <AddProductAsync>
       <summary>
@@ -33,13 +33,13 @@
       <returns>The created product.</returns>
     </AddProductAsync>
 
-    <DeleteProductAsync>
+    <DeleteProductByIdAsync>
       <summary>
         Delete a specific product.
       </summary>
       <param name="productId">The ID of the product.</param>
       <returns>Ok or NotFound.</returns>
-    </DeleteProductAsync>
+    </DeleteProductByIdAsync>
 
     <UpdateProductAsync>
       <summary>
