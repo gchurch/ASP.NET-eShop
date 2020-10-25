@@ -37,8 +37,8 @@ namespace UnitTests.Web.MVC.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatExists = 1;
-            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatExists))
-                .ReturnsAsync(new Product());
+            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+                .ReturnsAsync(true);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -54,8 +54,8 @@ namespace UnitTests.Web.MVC.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatDoesNotExist))
-                .ReturnsAsync((Product)null);
+            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+                .ReturnsAsync(false);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -118,8 +118,8 @@ namespace UnitTests.Web.MVC.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatExists = 1;
-            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatExists))
-                .ReturnsAsync(new Product());
+            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+                .ReturnsAsync(true);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -135,8 +135,8 @@ namespace UnitTests.Web.MVC.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatDoesNotExist))
-                .ReturnsAsync((Product)null);
+            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+                .ReturnsAsync(false);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -152,8 +152,8 @@ namespace UnitTests.Web.MVC.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatExists = 1;
-            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatExists))
-                .ReturnsAsync(new Product());
+            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+                .ReturnsAsync(true);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -169,8 +169,8 @@ namespace UnitTests.Web.MVC.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatDoesNotExist))
-                .ReturnsAsync((Product)null);
+            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+                .ReturnsAsync(false);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -186,8 +186,8 @@ namespace UnitTests.Web.MVC.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatExists = 1;
-            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatExists))
-                .ReturnsAsync(new Product());
+            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+                .ReturnsAsync(true);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -203,8 +203,8 @@ namespace UnitTests.Web.MVC.Controllers
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatDoesNotExist))
-                .ReturnsAsync((Product)null);
+            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+                .ReturnsAsync(false);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -223,9 +223,10 @@ namespace UnitTests.Web.MVC.Controllers
             var productWithIdThatExists = new Product() {
                 Id = productIdThatExists
             };
+            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+                .ReturnsAsync(true);
             productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatExists))
                 .ReturnsAsync(productWithIdThatExists);
-            productServiceStub.Setup(ps => ps.UpdateProductAsync(productWithIdThatExists));
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
@@ -245,8 +246,8 @@ namespace UnitTests.Web.MVC.Controllers
             {
                 Id = productIdThatDoesNotExist
             };
-            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatDoesNotExist))
-                .ReturnsAsync((Product)null);
+            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+                .ReturnsAsync(false);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act

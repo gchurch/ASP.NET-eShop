@@ -30,15 +30,16 @@ namespace Web.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var product = await _productService.GetProductAsync(id);
+            bool doesProductExist = await _productService.DoesProductIdExist(id);
 
-            if (product == null)
+            if (doesProductExist == true)
             {
-                return NotFound();
+                Product product = await _productService.GetProductAsync(id);
+                return View(product);
             }
             else
             {
-                return View(product);
+                return NotFound();
             }
         }
 
@@ -61,15 +62,16 @@ namespace Web.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var product = await _productService.GetProductAsync(id);
+            bool doesProductExist = await _productService.DoesProductIdExist(id);
 
-            if (product == null)
+            if (doesProductExist == true)
             {
-                return NotFound();
+                Product product = await _productService.GetProductAsync(id);
+                return View(product);
             }
             else
             {
-                return View(product);
+                return NotFound();
             }
         }
 
@@ -77,15 +79,15 @@ namespace Web.MVC.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeletePost(int id)
         {
-            var product = await _productService.GetProductAsync(id);
+            bool doesProductExist = await _productService.DoesProductIdExist(id);
 
-            if(product == null)
+            if(doesProductExist == true)
             {
-                return NotFound();
-            }
-            else {
                 await _productService.DeleteProductAsync(id);
                 return RedirectToAction(nameof(Index));
+            }
+            else {
+                return NotFound();
             }
         }
 
@@ -93,15 +95,16 @@ namespace Web.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var product = await _productService.GetProductAsync(id);
+            bool doesProductExist = await _productService.DoesProductIdExist(id);
 
-            if(product == null)
+            if(doesProductExist == true)
             {
-                return NotFound();
+                Product product = await _productService.GetProductAsync(id);
+                return View(product);
             }
             else
             {
-                return View(product);
+                 return NotFound();
             }
         }
 
@@ -109,15 +112,16 @@ namespace Web.MVC.Controllers
         [HttpPost, ActionName("Edit")]
         public async Task<IActionResult> EditPost(Product product)
         {
-            var productToUpdate = await _productService.GetProductAsync(product.Id);
+            bool doesProductExist = await _productService.DoesProductIdExist(product.Id);
 
-            if(productToUpdate == null)
+            if(doesProductExist == true)
             {
-                return NotFound();
-            }
-            else {
+                var productToUpdate = await _productService.GetProductAsync(product.Id);
                 await _productService.UpdateProductAsync(product);
                 return RedirectToAction(nameof(Details), new { Id = productToUpdate.Id });
+            }
+            else {
+                return NotFound();
             }
         }
     }
