@@ -37,24 +37,6 @@ namespace ApplicationCore.Services
             }
         }
 
-        private String ChooseRandomImageUrlFromPossibleOptions()
-        {
-            int randomNumber = randomNumberGenerator.Next();
-            if (randomNumber % 3 == 0)
-            {
-                return "book.png";
-            }
-            else if (randomNumber % 3 == 1)
-            {
-                return "lamp.png";
-            }
-            else if (randomNumber % 3 == 2)
-            {
-                return "duck.png";
-            }
-            return "";
-        }
-
         public async Task AddProductAsync(Product product)
         {
             if (product != null)
@@ -67,7 +49,25 @@ namespace ApplicationCore.Services
                 await _productRepository.AddProductAsync(product);
             }
         }
-   
+
+        private String ChooseRandomImageUrlFromPossibleOptions()
+        {
+            List<String> potentialImageUrls = new List<String>() {
+                "book.png",
+                "lamp.png",
+                "duck,png"
+            };
+            int randomNumber = randomNumberGenerator.Next();
+            for(int i = 0; i < potentialImageUrls.Count; i++)
+            {
+                if(randomNumber % potentialImageUrls.Count == i)
+                {
+                    return potentialImageUrls[i];
+                }
+            }
+            return "";
+        }
+
         public async Task DeleteProductByIdAsync(int id)
         {
             Product product = await GetProductByIdAsync(id);
