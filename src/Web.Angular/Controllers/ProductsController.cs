@@ -35,7 +35,7 @@ namespace Web.Angular.Controllers
 
             if (doesProductExist == true)
             {
-                Product product = await _productService.GetProductAsync(productId);
+                Product product = await _productService.GetProductByIdAsync(productId);
                 return Ok(product);
             }
             else
@@ -52,8 +52,8 @@ namespace Web.Angular.Controllers
 
             if (doesProductExist == true)
             {
-                await _productService.BuyProductAsync(productId);
-                Product product = await _productService.GetProductAsync(productId);
+                await _productService.BuyProductByIdAsync(productId);
+                Product product = await _productService.GetProductByIdAsync(productId);
                 return Ok(product.Quantity);
             }
             else
@@ -85,7 +85,7 @@ namespace Web.Angular.Controllers
 
             if(doesProductExist == true)
             {
-                await _productService.DeleteProductAsync(productId);
+                await _productService.DeleteProductByIdAsync(productId);
                 return Ok();
             }
             else
@@ -109,7 +109,7 @@ namespace Web.Angular.Controllers
                 if (doesProductExist == true)
                 {
                     await _productService.UpdateProductAsync(product);
-                    Product updatedProduct = await _productService.GetProductAsync(product.Id);
+                    Product updatedProduct = await _productService.GetProductByIdAsync(product.Id);
                     return Ok(updatedProduct);
                 }
                 else

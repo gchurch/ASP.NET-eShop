@@ -22,7 +22,7 @@ namespace Infrastructure.Data
             return await _context.Products.ToListAsync();
         }
 
-        public async Task<Product> GetProductAsync(int id)
+        public async Task<Product> GetProductByIdAsync(int id)
         {
             // SingleOrDefault returns the Product with the specified ID, or returns null if it doesn't exist.
             return await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
@@ -34,7 +34,7 @@ namespace Infrastructure.Data
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteProductAsync(Product product)
+        public async Task DeleteProductByIdAsync(Product product)
         {
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();

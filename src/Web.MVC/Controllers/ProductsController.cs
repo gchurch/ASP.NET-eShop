@@ -34,7 +34,7 @@ namespace Web.MVC.Controllers
 
             if (doesProductExist == true)
             {
-                Product product = await _productService.GetProductAsync(id);
+                Product product = await _productService.GetProductByIdAsync(id);
                 return View(product);
             }
             else
@@ -66,7 +66,7 @@ namespace Web.MVC.Controllers
 
             if (doesProductExist == true)
             {
-                Product product = await _productService.GetProductAsync(id);
+                Product product = await _productService.GetProductByIdAsync(id);
                 return View(product);
             }
             else
@@ -83,7 +83,7 @@ namespace Web.MVC.Controllers
 
             if(doesProductExist == true)
             {
-                await _productService.DeleteProductAsync(id);
+                await _productService.DeleteProductByIdAsync(id);
                 return RedirectToAction(nameof(Index));
             }
             else {
@@ -99,7 +99,7 @@ namespace Web.MVC.Controllers
 
             if(doesProductExist == true)
             {
-                Product product = await _productService.GetProductAsync(id);
+                Product product = await _productService.GetProductByIdAsync(id);
                 return View(product);
             }
             else
@@ -116,7 +116,7 @@ namespace Web.MVC.Controllers
 
             if(doesProductExist == true)
             {
-                Product productToUpdate = await _productService.GetProductAsync(product.Id);
+                Product productToUpdate = await _productService.GetProductByIdAsync(product.Id);
                 await _productService.UpdateProductAsync(product);
                 return RedirectToAction(nameof(Details), new { Id = productToUpdate.Id });
             }

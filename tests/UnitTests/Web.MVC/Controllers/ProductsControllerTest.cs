@@ -225,7 +225,7 @@ namespace UnitTests.Web.MVC.Controllers
             };
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
-            productServiceStub.Setup(ps => ps.GetProductAsync(productIdThatExists))
+            productServiceStub.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(productWithIdThatExists);
             var productsController = new ProductsController(productServiceStub.Object);
 

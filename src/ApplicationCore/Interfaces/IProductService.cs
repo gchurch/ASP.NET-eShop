@@ -8,13 +8,13 @@ namespace ApplicationCore.Interfaces
     {
         Task<IEnumerable<Product>> GetAllProductsAsync();
 
-        Task<Product> GetProductAsync(int id);
+        Task<Product> GetProductByIdAsync(int id);
 
-        Task BuyProductAsync(int id);
+        Task BuyProductByIdAsync(int id);
 
         Task AddProductAsync(Product product);
 
-        Task DeleteProductAsync(int id);
+        Task DeleteProductByIdAsync(int id);
 
         Task UpdateProductAsync(Product newProduct);
 

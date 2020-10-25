@@ -8,11 +8,11 @@ namespace ApplicationCore.Interfaces
     {
          Task<IEnumerable<Product>> GetAllProductsAsync();
 
-         Task<Product> GetProductAsync(int id);
+         Task<Product> GetProductByIdAsync(int id);
 
          Task AddProductAsync(Product product);
 
-         Task DeleteProductAsync(Product product);
+         Task DeleteProductByIdAsync(Product product);
 
          Task UpdateProductAsync(Product product);
     }

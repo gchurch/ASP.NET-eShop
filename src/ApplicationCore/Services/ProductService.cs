@@ -21,14 +21,14 @@ namespace ApplicationCore.Services
             return await _productRepository.GetAllProductsAsync();
         }
 
-        public async Task<Product> GetProductAsync(int productId)
+        public async Task<Product> GetProductByIdAsync(int productId)
         {
-            return await _productRepository.GetProductAsync(productId);
+            return await _productRepository.GetProductByIdAsync(productId);
         }
        
-        public async Task BuyProductAsync(int productId)
+        public async Task BuyProductByIdAsync(int productId)
         {
-            Product product = await GetProductAsync(productId);
+            Product product = await GetProductByIdAsync(productId);
 
             if(product != null)
             {
@@ -68,20 +68,20 @@ namespace ApplicationCore.Services
             }
         }
    
-        public async Task DeleteProductAsync(int id)
+        public async Task DeleteProductByIdAsync(int id)
         {
-            Product product = await GetProductAsync(id);
+            Product product = await GetProductByIdAsync(id);
 
             if(product != null)
             {
-                await _productRepository.DeleteProductAsync(product);
+                await _productRepository.DeleteProductByIdAsync(product);
             }
         }
 
         public async Task UpdateProductAsync(Product product)
         {
             if(product != null) {
-                Product existingProduct = await GetProductAsync(product.Id);
+                Product existingProduct = await GetProductByIdAsync(product.Id);
                 if (existingProduct != null)
                 {
                     existingProduct.CopyProductPropertiesExcludingImageUrl(product);
@@ -92,7 +92,7 @@ namespace ApplicationCore.Services
 
         public async Task<bool> DoesProductIdExist(int productId)
         {
-            Product product = await GetProductAsync(productId);
+            Product product = await GetProductByIdAsync(productId);
             if(product == null)
             {
                 return false;
