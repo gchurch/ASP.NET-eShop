@@ -22,7 +22,7 @@ namespace Web.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var products = await _productService.GetAllProductsAsync();
+            IEnumerable<Product> products = await _productService.GetAllProductsAsync();
             return View(products);
         }
 
@@ -116,7 +116,7 @@ namespace Web.MVC.Controllers
 
             if(doesProductExist == true)
             {
-                var productToUpdate = await _productService.GetProductAsync(product.Id);
+                Product productToUpdate = await _productService.GetProductAsync(product.Id);
                 await _productService.UpdateProductAsync(product);
                 return RedirectToAction(nameof(Details), new { Id = productToUpdate.Id });
             }
