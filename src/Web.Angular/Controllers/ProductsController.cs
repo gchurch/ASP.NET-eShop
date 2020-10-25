@@ -28,7 +28,7 @@ namespace Web.Angular.Controllers
         }
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/GetProductAsync/*'/>
-        [HttpGet("{productId}")]
+        [HttpGet("{productId}", Name="GetProduct")]
         public async Task<ActionResult<Product>> GetProductAsync(int productId)
         {
             bool doesProductExist = await _productService.DoesProductIdExist(productId);
@@ -69,7 +69,7 @@ namespace Web.Angular.Controllers
             if (product != null)
             {
                 await _productService.AddProductAsync(product);
-                return CreatedAtAction(nameof(GetProductAsync), new { id = product.Id }, product);
+                return CreatedAtAction("GetProduct", new { productId = product.Id }, product);
             }
             else
             {
