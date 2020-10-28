@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,8 +25,19 @@ namespace Infrastructure.Data
 
         public async Task<Product> GetProductByIdAsync(int id)
         {
-            // SingleOrDefault returns the Product with the specified ID, or returns null if it doesn't exist.
-            return await _context.Products.SingleOrDefaultAsync(x => x.Id == id);
+            try
+            {
+                return await TryToGetProductByIdAsync(id);
+            }
+            catch (InvalidOperationException e)
+            {
+                return new Product();
+            }
+        }
+
+        public async Task<Product> TryToGetProductByIdAsync(int id)
+        {
+            return await _context.Products.SingleAsync(x => x.Id == id);
         }
 
         public async Task AddProductAsync(Product product)

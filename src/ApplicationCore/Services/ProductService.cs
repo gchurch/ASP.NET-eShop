@@ -93,13 +93,13 @@ namespace ApplicationCore.Services
         public async Task<bool> DoesProductIdExist(int productId)
         {
             Product product = await GetProductByIdAsync(productId);
-            if(product == null)
+            if(product.Id != 0)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
     }
