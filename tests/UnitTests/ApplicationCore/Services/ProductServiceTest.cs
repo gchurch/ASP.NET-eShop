@@ -132,7 +132,7 @@ namespace UnitTests.ApplicationCore.Services
             var productRepositoryStub = new Mock<IProductRepository>();
             productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(new Product());
-            productRepositoryStub.Setup(pr => pr.DeleteProductByIdAsync())
+            productRepositoryStub.Setup(pr => pr.DeleteProductByIdAsync(productIdThatExists))
                 .Verifiable();
             var productService = new ProductService(productRepositoryStub.Object);
 
@@ -140,26 +140,7 @@ namespace UnitTests.ApplicationCore.Services
             await productService.DeleteProductByIdAsync(productIdThatExists);
 
             // Assert
-            productRepositoryStub.Verify(pr => pr.DeleteProductByIdAsync(), Times.Once());
-        }
-
-        [TestMethod]
-        public async Task DeleteProductByIdAsync_GivenAProductIdThatExists_ShouldNotCallDeleteProductAsyncInProductRepository()
-        {
-            // Arrange
-            var productIdThatDoesNotExist = 1;
-            var productRepositoryStub = new Mock<IProductRepository>();
-            productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(productIdThatDoesNotExist))
-                .ReturnsAsync((Product)null);
-            productRepositoryStub.Setup(pr => pr.DeleteProductByIdAsync())
-                .Verifiable();
-            var productService = new ProductService(productRepositoryStub.Object);
-
-            // Act
-            await productService.DeleteProductByIdAsync(productIdThatDoesNotExist);
-
-            // Assert
-            productRepositoryStub.Verify(pr => pr.DeleteProductByIdAsync(), Times.Never());
+            productRepositoryStub.Verify(pr => pr.DeleteProductByIdAsync(productIdThatExists), Times.Once());
         }
 
         [TestMethod]
