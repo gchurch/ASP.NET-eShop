@@ -37,7 +37,7 @@ namespace Infrastructure.Data
 
         public async Task<Product> TryToGetProductByIdAsync(int id)
         {
-            return await _context.Products.SingleAsync(x => x.Id == id);
+            return await _context.Products.AsNoTracking().SingleAsync(x => x.Id == id);
         }
 
         public async Task AddProductAsync(Product product)
@@ -46,8 +46,12 @@ namespace Infrastructure.Data
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteProductByIdAsync(Product product)
+        public async Task DeleteProductByIdAsync(int id)
         {
+            Product product = new Product() { 
+                Id = id 
+            };
+            _context.Products.Attach(product);
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
         }

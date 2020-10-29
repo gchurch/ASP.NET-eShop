@@ -70,12 +70,7 @@ namespace ApplicationCore.Services
 
         public async Task DeleteProductByIdAsync(int id)
         {
-            Product product = await GetProductByIdAsync(id);
-
-            if(product != null)
-            {
-                await _productRepository.DeleteProductByIdAsync(product);
-            }
+              await _productRepository.DeleteProductByIdAsync(id);
         }
 
         public async Task UpdateProductAsync(Product product)

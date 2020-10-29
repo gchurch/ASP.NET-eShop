@@ -12,7 +12,7 @@ namespace ApplicationCore.Interfaces
 
          Task AddProductAsync(Product product);
 
-         Task DeleteProductByIdAsync(Product product);
+         Task DeleteProductByIdAsync(int id);
 
          Task UpdateProductAsync(Product product);
     }
