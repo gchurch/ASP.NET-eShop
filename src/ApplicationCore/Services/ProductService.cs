@@ -55,7 +55,7 @@ namespace ApplicationCore.Services
             List<String> potentialImageUrls = new List<String>() {
                 "book.png",
                 "lamp.png",
-                "duck,png"
+                "duck.png"
             };
             int randomNumber = randomNumberGenerator.Next();
             for(int i = 0; i < potentialImageUrls.Count; i++)
