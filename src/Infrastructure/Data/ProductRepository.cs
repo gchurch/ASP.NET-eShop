@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,19 @@ namespace Infrastructure.Data
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
+            try
+            {
+                return await TryToGetAllProductsAsync();
+            }
+            catch (SqlException e)
+            {
+                LogError(e.Message);
+                return new List<Product>();
+            }
+        }
+
+        public async Task<IEnumerable<Product>> TryToGetAllProductsAsync()
+        {
             return await _context.Products.ToListAsync();
         }
 
@@ -31,6 +45,12 @@ namespace Infrastructure.Data
             }
             catch (InvalidOperationException e)
             {
+                Console.WriteLine(e.Message);
+                return new Product();
+            }
+            catch (SqlException e)
+            {
+                LogError(e.Message);
                 return new Product();
             }
         }
@@ -42,14 +62,39 @@ namespace Infrastructure.Data
 
         public async Task AddProductAsync(Product product)
         {
+            try
+            {
+                await TryToAddProductAsync(product);
+            }
+            catch (SqlException e)
+            {
+                LogError(e.Message);
+            }
+        }
+
+        public async Task TryToAddProductAsync(Product product)
+        {
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteProductByIdAsync(int id)
         {
-            Product product = new Product() { 
-                Id = id 
+            try
+            {
+                await TryToDeleteProductByIdAsync(id);
+            }
+            catch (SqlException e)
+            {
+                LogError(e.Message);
+            }
+        }
+
+        public async Task TryToDeleteProductByIdAsync(int id)
+        {
+            Product product = new Product()
+            {
+                Id = id
             };
             _context.Products.Attach(product);
             _context.Products.Remove(product);
@@ -58,8 +103,25 @@ namespace Infrastructure.Data
 
         public async Task UpdateProductAsync(Product product)
         {
+            try
+            {
+                await TryToUpdateProductAsync(product);
+            }
+            catch (SqlException e)
+            {
+                LogError(e.Message);
+            }
+        }
+
+        public async Task TryToUpdateProductAsync(Product product)
+        {
             _context.Entry(product).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+        }
+
+        public void LogError(string errorMessage)
+        {
+            Console.WriteLine(errorMessage);
         }
     }
 }
