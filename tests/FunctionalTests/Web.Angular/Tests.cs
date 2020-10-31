@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
 using Web.Angular;
+using System;
 
 namespace FunctionalTests.Web.Angular
 {
@@ -19,12 +20,25 @@ namespace FunctionalTests.Web.Angular
     [TestClass]
     public class Tests
     {
-
-        private CustomWebApplicationFactory<Startup> _factory;
-
-        public Tests()
+        public StringContent SerializeProduct(Product product)
         {
-            _factory = new CustomWebApplicationFactory<Startup>();
+            string productString = JsonConvert.SerializeObject(product);
+            StringContent stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
+            return stringContent;
+        }
+
+        public async Task<T> DeserializeResponse<T>(HttpResponseMessage response)
+        {
+            string responseString = await response.Content.ReadAsStringAsync();
+            T result = JsonConvert.DeserializeObject<T>(responseString);
+            return result;
+        }
+
+        public HttpClient CreateTestHttpClient()
+        {
+            var factory = new CustomWebApplicationFactory<Startup>();
+            HttpClient client = factory.CreateClient();
+            return client;
         }
 
         [DataTestMethod]
@@ -35,12 +49,10 @@ namespace FunctionalTests.Web.Angular
         public async Task GetRequestsOfExistingProducts_ShouldGiveOkResponse(string url)
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
+            HttpClient client = CreateTestHttpClient();
 
             // Act
-            var response = await client.GetAsync(url);
+            HttpResponseMessage response = await client.GetAsync(url);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -50,14 +62,11 @@ namespace FunctionalTests.Web.Angular
         public async Task GettingAllProductsWithAGetRequest_ShouldReturnOkStatusCodeAndAllTheProducts()
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
+            HttpClient client = CreateTestHttpClient();
 
             // Act
-            var response = await client.GetAsync("/api/products");
-            var responseString = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<Product[]>(responseString);
+            HttpResponseMessage response = await client.GetAsync("/api/products");
+            Product[] result = await DeserializeResponse<Product[]>(response);
 
             // Assert
             result.Length.ShouldBe(3);
@@ -73,15 +82,12 @@ namespace FunctionalTests.Web.Angular
         public async Task GettingAProductWithAGetRequest_GivenAProductIdThatExists_ShouldReturnOkStatusCodeAndTheRequestedProduct()
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
-            var id = 2;
+            HttpClient client = CreateTestHttpClient();
+            int productIdThatExists = 2;
 
             // Act
-            var response = await client.GetAsync("/api/products/" + id);
-            var responseString = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<Product>(responseString);
+            HttpResponseMessage response = await client.GetAsync("/api/products/" + productIdThatExists);
+            Product result = await DeserializeResponse<Product>(response);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -98,9 +104,8 @@ namespace FunctionalTests.Web.Angular
         public async Task AddingAProductWithAPostRequest_GivenAValidProduct_ShouldReturnCreatedStatusCodeAndTheCreatedProduct()
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
+            HttpClient client = CreateTestHttpClient();
+
             var product = new Product()
             {
                 Id = 0,
@@ -110,13 +115,11 @@ namespace FunctionalTests.Web.Angular
                 Price = 2,
                 Quantity = 3,
             };
-            var productString = JsonConvert.SerializeObject(product);
-            var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
+            StringContent serializedProduct = SerializeProduct(product);
 
             // Act
-            var postResponse = await client.PostAsync("/api/products/", stringContent);
-            var postResponseString = await postResponse.Content.ReadAsStringAsync();
-            var postResponseProduct = JsonConvert.DeserializeObject<Product>(postResponseString);
+            HttpResponseMessage postResponse = await client.PostAsync("/api/products/", serializedProduct);
+            Product postResponseProduct = await DeserializeResponse<Product>(postResponse);
 
             // Assert
             postResponse.StatusCode.ShouldBe(HttpStatusCode.Created);
@@ -132,9 +135,7 @@ namespace FunctionalTests.Web.Angular
         public async Task AddingAProductWithAPostRequest_GivenAValidProduct_ShouldEnableSuccessfulGetRequest()
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
+            HttpClient client = CreateTestHttpClient();
             var product = new Product()
             {
                 Id = 0,
@@ -144,17 +145,14 @@ namespace FunctionalTests.Web.Angular
                 Price = 2,
                 Quantity = 3,
             };
-            var productString = JsonConvert.SerializeObject(product);
-            var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
+            StringContent serializedProduct = SerializeProduct(product);
 
             // Act
-            var postResponse = await client.PostAsync("/api/products/", stringContent);
-            var postResponseString = await postResponse.Content.ReadAsStringAsync();
-            var postResponseProduct = JsonConvert.DeserializeObject<Product>(postResponseString);
+            HttpResponseMessage postResponse = await client.PostAsync("/api/products/", serializedProduct);
+            Product postResponseProduct = await DeserializeResponse<Product>(postResponse);
 
-            var getResponse = await client.GetAsync("/api/products/" + postResponseProduct.Id);
-            var getResponseString = await getResponse.Content.ReadAsStringAsync();
-            var getResponseProduct = JsonConvert.DeserializeObject<Product>(getResponseString);
+            HttpResponseMessage getResponse = await client.GetAsync("/api/products/" + postResponseProduct.Id);
+            Product getResponseProduct = await DeserializeResponse<Product>(getResponse);
 
             // Assert
             getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -170,9 +168,7 @@ namespace FunctionalTests.Web.Angular
         public async Task UpdatingAProductWithAPutRequest_GivenAValidProduct_ShouldReturnOkStatusCodeAndTheUpdatedProduct()
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
+            HttpClient client = CreateTestHttpClient();
             var product = new Product()
             {
                 Id = 1,
@@ -182,13 +178,11 @@ namespace FunctionalTests.Web.Angular
                 Price = 100,
                 Quantity = 20,
             };
-            var productString = JsonConvert.SerializeObject(product);
-            var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
+            StringContent serializedProduct = SerializeProduct(product);
 
             // Act
-            var response = await client.PutAsync("/api/products/", stringContent);
-            var responseString = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<Product>(responseString);
+            HttpResponseMessage response = await client.PutAsync("/api/products/", serializedProduct);
+            Product result = await DeserializeResponse<Product>(response);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -204,16 +198,14 @@ namespace FunctionalTests.Web.Angular
         public async Task DeletingAProductWithADeleteRequest_GivenAProductIdThatExists_ShouldStopSuccessfulGetRequestOfThatProduct()
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
-            var id = 1;
-            var url = "/api/products/" + id;
+            HttpClient client = CreateTestHttpClient();
+            int id = 1;
+            string url = "/api/products/" + id;
 
             // Act
-            var getResponseBeforeDeletion = await client.GetAsync(url);
-            var deletionResponse = await client.DeleteAsync(url);
-            var getResponseAfterDeletion = await client.GetAsync(url);
+            HttpResponseMessage getResponseBeforeDeletion = await client.GetAsync(url);
+            HttpResponseMessage deletionResponse = await client.DeleteAsync(url);
+            HttpResponseMessage getResponseAfterDeletion = await client.GetAsync(url);
 
             // Assert
             getResponseBeforeDeletion.StatusCode.ShouldBe(HttpStatusCode.OK);
