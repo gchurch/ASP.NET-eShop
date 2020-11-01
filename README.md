@@ -2,7 +2,7 @@
 
 ![.NET Core](https://github.com/gchurch/Ganges/workflows/.NET%20Core/badge.svg?branch=master)
 
-I have created a simple E-commerce website using ASP.NET Core. It is really just a CRUD application, but allows me to demonstrate some of my skills. I created two different front-ends, one with Angular and another with MVC and Razor. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have also created unit tests and functional tests for the application.
+I have created a simple E-commerce website using ASP.NET Core. It is really just a CRUD application, but allows me to demonstrate some of my skills. I have created two different front-ends, one with Angular and another with MVC and Razor. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have also created unit tests and functional tests for the application.
 
 ## Angular Front-end
 
