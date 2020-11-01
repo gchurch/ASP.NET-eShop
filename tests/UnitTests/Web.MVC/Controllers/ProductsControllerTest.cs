@@ -16,7 +16,7 @@ namespace UnitTests.Web.MVC.Controllers
     public class ProductsControllerTest
     {
         [TestMethod]
-        public async Task Index_ShouldReturnTypeViewResult()
+        public async Task Index_ShouldReturnViewResult()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -25,31 +25,31 @@ namespace UnitTests.Web.MVC.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.Index();
+            IActionResult actionResult = await productsController.Index();
 
             // Assert
             actionResult.ShouldBeOfType<ViewResult>();
         }
 
         [TestMethod]
-        public async Task Details_GivenProductIdThatExists_ShouldReturnTypeViewResult()
+        public async Task Details_GivenProductIdThatExists_ShouldReturnViewResult()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
-            var productIdThatExists = 1;
+            int productIdThatExists = 1;
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.Details(productIdThatExists);
+            IActionResult actionResult = await productsController.Details(productIdThatExists);
 
             // Assert
             actionResult.ShouldBeOfType<ViewResult>();
         }
 
         [TestMethod]
-        public async Task Details_GivenProductIdThatDoesNotExist_ShouldReturnTypeNotFound()
+        public async Task Details_GivenProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -59,28 +59,28 @@ namespace UnitTests.Web.MVC.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.Details(productIdThatDoesNotExist);
+            IActionResult actionResult = await productsController.Details(productIdThatDoesNotExist);
 
             // Assert
             actionResult.ShouldBeOfType<NotFoundResult>();
         }
 
         [TestMethod]
-        public void Create_ShouldReturnTypeViewResult()
+        public void Create_ShouldReturnViewResult()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = productsController.Create();
+            IActionResult actionResult = productsController.Create();
 
             // Assert
             actionResult.ShouldBeOfType<ViewResult>();
         }
 
         [TestMethod]
-        public async Task CreatePost_GivenAProduct_ShouldReturnTypeRedirectToActionResult()
+        public async Task CreatePost_GivenAProduct_ShouldReturnRedirect()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -89,31 +89,14 @@ namespace UnitTests.Web.MVC.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.CreatePost(product);
+            IActionResult actionResult = await productsController.CreatePost(product);
 
             // Assert
             actionResult.ShouldBeOfType<RedirectToActionResult>();
         }
 
         [TestMethod]
-        public async Task Create_GivenAProduct_ShouldCallAddProductAsyncInProductService()
-        {
-            // Arrange
-            var productServiceStub = new Mock<IProductService>();
-            var product = new Product();
-            productServiceStub.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()))
-                .Verifiable();
-            var productsController = new ProductsController(productServiceStub.Object);
-
-            // Act
-            var actionResult = await productsController.CreatePost(product);
-
-            // Assert
-            productServiceStub.Verify(ps => ps.AddProductAsync(product), Times.Once());
-        }
-
-        [TestMethod]
-        public async Task Delete_GivenAProductIdThatExists_ShouldReturnTypeViewResult()
+        public async Task Delete_GivenAProductIdThatExists_ShouldReturnViewResult()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -123,14 +106,14 @@ namespace UnitTests.Web.MVC.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.Delete(productIdThatExists);
+            IActionResult actionResult = await productsController.Delete(productIdThatExists);
 
             // Assert
             actionResult.ShouldBeOfType<ViewResult>();
         }
 
         [TestMethod]
-        public async Task Delete_GivenAProductIdThatDoesNotExist_ShouldReturnNotFoundResult()
+        public async Task Delete_GivenAProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -140,14 +123,14 @@ namespace UnitTests.Web.MVC.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.Delete(productIdThatDoesNotExist);
+            IActionResult actionResult = await productsController.Delete(productIdThatDoesNotExist);
 
             // Assert
             actionResult.ShouldBeOfType<NotFoundResult>();
         }
 
         [TestMethod]
-        public async Task DeletePost_GivenAProductIdThatExists_ShouldReturnTypeRedirectToActionResult()
+        public async Task DeletePost_GivenAProductIdThatExists_ShouldReturnRedirect()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -157,14 +140,14 @@ namespace UnitTests.Web.MVC.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.DeletePost(productIdThatExists);
+            IActionResult actionResult = await productsController.DeletePost(productIdThatExists);
 
             // Assert
             actionResult.ShouldBeOfType<RedirectToActionResult>();
         }
 
         [TestMethod]
-        public async Task DeletePost_GivenAProductIdThatDoesNotExist_ShouldReturnNotFoundResult()
+        public async Task DeletePost_GivenAProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -174,14 +157,14 @@ namespace UnitTests.Web.MVC.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.DeletePost(productIdThatDoesNotExist);
+            IActionResult actionResult = await productsController.DeletePost(productIdThatDoesNotExist);
 
             // Assert
             actionResult.ShouldBeOfType<NotFoundResult>();
         }
 
         [TestMethod]
-        public async Task Edit_GivenAProductIdThatExists_ShouldReturnTypeViewResult()
+        public async Task Edit_GivenAProductIdThatExists_ShouldReturnViewResult()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
@@ -191,35 +174,35 @@ namespace UnitTests.Web.MVC.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.Edit(productIdThatExists);
+            IActionResult actionResult = await productsController.Edit(productIdThatExists);
 
             // Assert
             actionResult.ShouldBeOfType<ViewResult>();
         }
 
         [TestMethod]
-        public async Task Edit_GivenAProductIdThatDoesNotExist_ShouldReturnNotFoundResult()
+        public async Task Edit_GivenAProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
-            var productIdThatDoesNotExist = 0;
+            int productIdThatDoesNotExist = 0;
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.Edit(productIdThatDoesNotExist);
+            IActionResult actionResult = await productsController.Edit(productIdThatDoesNotExist);
 
             // Assert
             actionResult.ShouldBeOfType<NotFoundResult>();
         }
 
         [TestMethod]
-        public async Task EditPost_GivenAProductIdThatExists_ShouldReturnTypeRedirectToActionResult()
+        public async Task EditPost_GivenAProductIdThatExists_ShouldReturnRedirect()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
-            var productIdThatExists = 1;
+            int productIdThatExists = 1;
             var productWithIdThatExists = new Product() {
                 Id = productIdThatExists
             };
@@ -230,18 +213,18 @@ namespace UnitTests.Web.MVC.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.EditPost(productWithIdThatExists);
+            IActionResult actionResult = await productsController.EditPost(productWithIdThatExists);
 
             // Assert
             actionResult.ShouldBeOfType<RedirectToActionResult>();
         }
 
         [TestMethod]
-        public async Task EditPost_GivenAProductIdThatDoesNotExist_ShouldReturnTypeNotFoundResult()
+        public async Task EditPost_GivenAProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
-            var productIdThatDoesNotExist = 0;
+            int productIdThatDoesNotExist = 0;
             var productWithIdThatDoesNotExist = new Product()
             {
                 Id = productIdThatDoesNotExist
@@ -251,7 +234,7 @@ namespace UnitTests.Web.MVC.Controllers
             var productsController = new ProductsController(productServiceStub.Object);
 
             // Act
-            var actionResult = await productsController.EditPost(productWithIdThatDoesNotExist);
+            IActionResult actionResult = await productsController.EditPost(productWithIdThatDoesNotExist);
 
             // Assert
             actionResult.ShouldBeOfType<NotFoundResult>();
