@@ -33,7 +33,7 @@ namespace UnitTests.ApplicationCore.Services
         }
 
         [TestMethod]
-        public async Task GetProductByIdAsync_GivenAProductId_ShouldCallGetProductAsyncInProductRepository()
+        public async Task GetProductByIdAsync_ShouldCallGetProductByIdAsyncInProductRepository()
         {
             // Arrange
             var productRepositoryStub = new Mock<IProductRepository>();
@@ -41,55 +41,36 @@ namespace UnitTests.ApplicationCore.Services
                 .ReturnsAsync(new Product())
                 .Verifiable();
             var productService = new ProductService(productRepositoryStub.Object);
-            int id = 0;
+            int productId = 0;
 
             // Act
-            var result = await productService.GetProductByIdAsync(id);
+            var result = await productService.GetProductByIdAsync(productId);
 
             // Assert
             productRepositoryStub.Verify();
         }
 
         [TestMethod]
-        public async Task BuyProductByIdAsync_GivenAProductIdThatExists_ShouldCallUpdateProductAsyncInProductRepository()
+        public async Task BuyProductByIdAsync_ShouldCallUpdateProductAsyncInProductRepository()
         {
             // Arrange
-            var productIdThatExists = 1;
             var productRepositoryStub = new Mock<IProductRepository>();
-            productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(productIdThatExists))
+            productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(new Product());
             productRepositoryStub.Setup(pr => pr.UpdateProductAsync(It.IsAny<Product>()))
                 .Verifiable();
             var productService = new ProductService(productRepositoryStub.Object);
+            int productId = 0;
 
             // Act
-            await productService.BuyProductByIdAsync(productIdThatExists);
+            await productService.BuyProductByIdAsync(productId);
 
             // Assert
             productRepositoryStub.Verify(pr => pr.UpdateProductAsync(It.IsAny<Product>()), Times.Once());
         }
 
         [TestMethod]
-        public async Task BuyProductByIdAsync_GivenAProductIdThatDoesNotExist_ShouldNotCallUpdateProductAsyncInProductRepository()
-        {
-            // Arrange
-            var productIdThatDoesNotExist = 1;
-            var productRepositoryStub = new Mock<IProductRepository>();
-            productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(productIdThatDoesNotExist))
-                .ReturnsAsync((Product)null);
-            productRepositoryStub.Setup(pr => pr.UpdateProductAsync(It.IsAny<Product>()))
-                .Verifiable();
-            var productService = new ProductService(productRepositoryStub.Object);
-
-            // Act
-            await productService.BuyProductByIdAsync(productIdThatDoesNotExist);
-
-            // Assert
-            productRepositoryStub.Verify(pr => pr.UpdateProductAsync(It.IsAny<Product>()), Times.Never());
-        }
-
-        [TestMethod]
-        public async Task AddProductAsync_GivenAProduct_ShouldCallAddProductAsyncInProductRepository()
+        public async Task AddProductAsync_ShouldCallAddProductAsyncInProductRepository()
         {
             // Arrange
             var product = new Product();
@@ -106,7 +87,7 @@ namespace UnitTests.ApplicationCore.Services
         }
 
         [TestMethod]
-        public async Task AddProductAsync_GivenAProduct_ShouldGiveThatProductAnIdOfZero()
+        public async Task AddProductAsync_ShouldChangeTheGivenProductsIdToZero()
         {
             // Arrange
             var product = new Product()
@@ -125,62 +106,87 @@ namespace UnitTests.ApplicationCore.Services
         }
 
         [TestMethod]
-        public async Task DeleteProductByIdAsync_GivenAProductIdThatExists_ShouldCallDeleteProductAsyncInProductRepository()
+        public async Task DeleteProductByIdAsync_ShouldCallDeleteProductAsyncInProductRepository()
         {
             // Arrange
-            var productIdThatExists = 1;
+            var productId = 1;
             var productRepositoryStub = new Mock<IProductRepository>();
-            productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(productIdThatExists))
+            productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(new Product());
-            productRepositoryStub.Setup(pr => pr.DeleteProductByIdAsync(productIdThatExists))
+            productRepositoryStub.Setup(pr => pr.DeleteProductByIdAsync(It.IsAny<int>()))
                 .Verifiable();
             var productService = new ProductService(productRepositoryStub.Object);
 
             // Act
-            await productService.DeleteProductByIdAsync(productIdThatExists);
+            await productService.DeleteProductByIdAsync(productId);
 
             // Assert
-            productRepositoryStub.Verify(pr => pr.DeleteProductByIdAsync(productIdThatExists), Times.Once());
+            productRepositoryStub.Verify(pr => pr.DeleteProductByIdAsync(productId), Times.Once());
         }
 
         [TestMethod]
-        public async Task UpdateProductAsync_GivenAnExistingProduct_ShouldCallUpdateProductAsyncInProductRepository()
+        public async Task UpdateProductAsync_ShouldCallUpdateProductAsyncInProductRepository()
         {
             // Arrange
-            int existingProductId = 1;
-            var existingProduct = new Product()
+            int productId = 1;
+            var product = new Product()
             {
-                Id = existingProductId
+                Id = productId
             };
             var productRepositoryStub = new Mock<IProductRepository>();
-            productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(existingProductId))
-                .ReturnsAsync(existingProduct);
+            productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(product);
             productRepositoryStub.Setup(pr => pr.UpdateProductAsync(It.IsAny<Product>()))
                 .Verifiable();
             var productService = new ProductService(productRepositoryStub.Object);
 
             // Act
-            await productService.UpdateProductAsync(existingProduct);
+            await productService.UpdateProductAsync(product);
 
             // Assert
-            productRepositoryStub.Verify();
+            productRepositoryStub.Verify(pr => pr.UpdateProductAsync(product), Times.Once());
         }
 
         [TestMethod]
-        public async Task UpdateProductAsync_GivenANullProduct_ShouldNotCallUpdateProductAsyncInProductRepository()
+        public async Task DoesProductIdExist_GivenAProductIdThatExists_ShouldReturnTrue()
         {
             // Arrange
-            var nullProduct = (Product)null;
             var productRepositoryStub = new Mock<IProductRepository>();
-            productRepositoryStub.Setup(pr => pr.UpdateProductAsync(It.IsAny<Product>()))
-                .Verifiable();
+            int productIdThatExists = 1;
+            var product = new Product()
+            {
+                Id = productIdThatExists
+            };
+            productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(productIdThatExists))
+                .ReturnsAsync(product);
             var productService = new ProductService(productRepositoryStub.Object);
 
             // Act
-            await productService.UpdateProductAsync(nullProduct);
+            bool result = await productService.DoesProductIdExist(productIdThatExists);
 
             // Assert
-            productRepositoryStub.Verify(pr => pr.UpdateProductAsync(It.IsAny<Product>()), Times.Never());
+            result.ShouldBeTrue();
+        }
+
+        [TestMethod]
+        public async Task DoesProductIdExist_GivenAProductIdThatDoesNotExist_ShouldReturnFalse()
+        {
+            // Arrange
+            var productRepositoryStub = new Mock<IProductRepository>();
+            int productIdThatDoesNotExist = 1;
+            var product = new Product()
+            {
+                Id = 0
+            };
+            productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(productIdThatDoesNotExist))
+                .ReturnsAsync(product);
+            var productService = new ProductService(productRepositoryStub.Object);
+
+            // Act
+            bool result = await productService.DoesProductIdExist(productIdThatDoesNotExist);
+
+            // Assert
+            result.ShouldBeFalse();
         }
     }
 }

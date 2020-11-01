@@ -29,25 +29,18 @@ namespace ApplicationCore.Services
         public async Task BuyProductByIdAsync(int productId)
         {
             Product product = await GetProductByIdAsync(productId);
-
-            if(product != null)
-            {
-                product.Quantity -= 1;
-                await _productRepository.UpdateProductAsync(product);
-            }
+            product.Quantity -= 1;
+            await _productRepository.UpdateProductAsync(product);
         }
 
         public async Task AddProductAsync(Product product)
         {
-            if (product != null)
-            {
-                // product.Id has to be 0 otherwise there will be an error. This is 
-                // because you are not allowed to specify an ID value when adding a product
-                // to the database. An ID value will automatically be given to the product.
-                product.Id = 0;
-                product.ImageUrl = ChooseRandomImageUrlFromPossibleOptions();
-                await _productRepository.AddProductAsync(product);
-            }
+            // product.Id has to be 0 otherwise there will be an error. This is 
+            // because you are not allowed to specify an ID value when adding a product
+            // to the database. An ID value will automatically be given to the product.
+            product.Id = 0;
+            product.ImageUrl = ChooseRandomImageUrlFromPossibleOptions();
+            await _productRepository.AddProductAsync(product);
         }
 
         private String ChooseRandomImageUrlFromPossibleOptions()
@@ -58,14 +51,8 @@ namespace ApplicationCore.Services
                 "duck.png"
             };
             int randomNumber = randomNumberGenerator.Next();
-            for(int i = 0; i < potentialImageUrls.Count; i++)
-            {
-                if(randomNumber % potentialImageUrls.Count == i)
-                {
-                    return potentialImageUrls[i];
-                }
-            }
-            return "";
+            int indexOfChosenImage = randomNumber % potentialImageUrls.Count;
+            return potentialImageUrls[indexOfChosenImage];
         }
 
         public async Task DeleteProductByIdAsync(int id)
@@ -75,14 +62,9 @@ namespace ApplicationCore.Services
 
         public async Task UpdateProductAsync(Product product)
         {
-            if(product != null) {
-                Product existingProduct = await GetProductByIdAsync(product.Id);
-                if (existingProduct != null)
-                {
-                    existingProduct.CopyProductPropertiesExcludingImageUrl(product);
-                    await _productRepository.UpdateProductAsync(existingProduct);
-                }
-            }
+            Product existingProduct = await GetProductByIdAsync(product.Id);
+            existingProduct.CopyProductPropertiesExcludingImageUrl(product);
+            await _productRepository.UpdateProductAsync(existingProduct);
         }
 
         public async Task<bool> DoesProductIdExist(int productId)
