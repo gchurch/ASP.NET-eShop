@@ -18,28 +18,8 @@ namespace FunctionalTests.Web.Angular
     // These tests could also be described as end-to-end functional tests.
 
     [TestClass]
-    public class Tests
+    public class Tests : FunctionalTests<Startup>
     {
-        public StringContent SerializeProduct(Product product)
-        {
-            string productString = JsonConvert.SerializeObject(product);
-            StringContent stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
-            return stringContent;
-        }
-
-        public async Task<T> DeserializeResponse<T>(HttpResponseMessage response)
-        {
-            string responseString = await response.Content.ReadAsStringAsync();
-            T result = JsonConvert.DeserializeObject<T>(responseString);
-            return result;
-        }
-
-        public HttpClient CreateTestHttpClient()
-        {
-            var factory = new CustomWebApplicationFactory<Startup>();
-            HttpClient client = factory.CreateClient();
-            return client;
-        }
 
         [DataTestMethod]
         [DataRow("/api/products")]
@@ -66,16 +46,16 @@ namespace FunctionalTests.Web.Angular
 
             // Act
             HttpResponseMessage response = await client.GetAsync("/api/products");
-            Product[] result = await DeserializeResponse<Product[]>(response);
+            Product[] responseProducts = await DeserializeResponse<Product[]>(response);
 
             // Assert
-            result.Length.ShouldBe(3);
-            result[0].Id.ShouldBe(1);
-            result[0].Title.ShouldBe("Toy");
-            result[1].Id.ShouldBe(2);
-            result[1].Title.ShouldBe("Book");
-            result[2].Id.ShouldBe(3);
-            result[2].Title.ShouldBe("Lamp");
+            responseProducts.Length.ShouldBe(3);
+            responseProducts[0].Id.ShouldBe(1);
+            responseProducts[0].Title.ShouldBe("Toy");
+            responseProducts[1].Id.ShouldBe(2);
+            responseProducts[1].Title.ShouldBe("Book");
+            responseProducts[2].Id.ShouldBe(3);
+            responseProducts[2].Title.ShouldBe("Lamp");
         }
 
         [TestMethod]
@@ -87,17 +67,17 @@ namespace FunctionalTests.Web.Angular
 
             // Act
             HttpResponseMessage response = await client.GetAsync("/api/products/" + productIdThatExists);
-            Product result = await DeserializeResponse<Product>(response);
+            Product responseProduct = await DeserializeResponse<Product>(response);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
-            result.Id.ShouldBe(2);
-            result.Title.ShouldBe("Book");
-            result.Description.ShouldBe("Hard back");
-            result.Seller.ShouldBe("Peter");
-            result.Price.ShouldBe(25);
-            result.Quantity.ShouldBe(4);
-            result.ImageUrl.ShouldBe("book.png");
+            responseProduct.Id.ShouldBe(2);
+            responseProduct.Title.ShouldBe("Book");
+            responseProduct.Description.ShouldBe("Hard back");
+            responseProduct.Seller.ShouldBe("Peter");
+            responseProduct.Price.ShouldBe(25);
+            responseProduct.Quantity.ShouldBe(4);
+            responseProduct.ImageUrl.ShouldBe("book.png");
         }
 
         [TestMethod]
@@ -115,20 +95,20 @@ namespace FunctionalTests.Web.Angular
                 Price = 2,
                 Quantity = 3,
             };
-            StringContent serializedProduct = SerializeProduct(product);
+            StringContent serializedProduct = SerializeObject(product);
 
             // Act
-            HttpResponseMessage postResponse = await client.PostAsync("/api/products/", serializedProduct);
-            Product postResponseProduct = await DeserializeResponse<Product>(postResponse);
+            HttpResponseMessage response = await client.PostAsync("/api/products/", serializedProduct);
+            Product responseProduct = await DeserializeResponse<Product>(response);
 
             // Assert
-            postResponse.StatusCode.ShouldBe(HttpStatusCode.Created);
-            postResponseProduct.Id.ShouldNotBe(0);
-            postResponseProduct.Title.ShouldBe(product.Title);
-            postResponseProduct.Description.ShouldBe(product.Description);
-            postResponseProduct.Seller.ShouldBe(product.Seller);
-            postResponseProduct.Price.ShouldBe(product.Price);
-            postResponseProduct.Quantity.ShouldBe(product.Quantity);
+            response.StatusCode.ShouldBe(HttpStatusCode.Created);
+            responseProduct.Id.ShouldNotBe(0);
+            responseProduct.Title.ShouldBe(product.Title);
+            responseProduct.Description.ShouldBe(product.Description);
+            responseProduct.Seller.ShouldBe(product.Seller);
+            responseProduct.Price.ShouldBe(product.Price);
+            responseProduct.Quantity.ShouldBe(product.Quantity);
         }
 
         [TestMethod]
@@ -145,7 +125,7 @@ namespace FunctionalTests.Web.Angular
                 Price = 2,
                 Quantity = 3,
             };
-            StringContent serializedProduct = SerializeProduct(product);
+            StringContent serializedProduct = SerializeObject(product);
 
             // Act
             HttpResponseMessage postResponse = await client.PostAsync("/api/products/", serializedProduct);
@@ -178,20 +158,20 @@ namespace FunctionalTests.Web.Angular
                 Price = 100,
                 Quantity = 20,
             };
-            StringContent serializedProduct = SerializeProduct(product);
+            StringContent serializedProduct = SerializeObject(product);
 
             // Act
             HttpResponseMessage response = await client.PutAsync("/api/products/", serializedProduct);
-            Product result = await DeserializeResponse<Product>(response);
+            Product responseProduct = await DeserializeResponse<Product>(response);
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
-            result.Id.ShouldBe(product.Id);
-            result.Title.ShouldBe(product.Title);
-            result.Description.ShouldBe(product.Description);
-            result.Seller.ShouldBe(product.Seller);
-            result.Price.ShouldBe(product.Price);
-            result.Quantity.ShouldBe(product.Quantity);
+            responseProduct.Id.ShouldBe(product.Id);
+            responseProduct.Title.ShouldBe(product.Title);
+            responseProduct.Description.ShouldBe(product.Description);
+            responseProduct.Seller.ShouldBe(product.Seller);
+            responseProduct.Price.ShouldBe(product.Price);
+            responseProduct.Quantity.ShouldBe(product.Quantity);
         }
 
         [TestMethod]

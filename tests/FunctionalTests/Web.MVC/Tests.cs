@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace FunctionalTests.Web.MVC
 {
     [TestClass]
-    public class Tests
+    public class Tests : FunctionalTests<Startup>
     {
 
         [DataTestMethod]
@@ -31,40 +31,34 @@ namespace FunctionalTests.Web.MVC
         public async Task GetRequestOfExistingProducts_ShouldGiveOkResponse(string url)
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
+            HttpClient client = CreateTestHttpClient();
 
             // Act
-            var response = await client.GetAsync(url);
-
+            HttpResponseMessage getResponse = await client.GetAsync(url);
 
             // Assert
-            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+            getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
         }
 
         [TestMethod]
         public async Task CreatingANewProductWithAPostRequest_ShouldResultInSuccessfulGetRequest()
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
-            var product = new Product()
+            HttpClient client = CreateTestHttpClient();
+            var newProduct = new Product()
             {
                 Title = "TestTitle"
             };
-            var productString = JsonConvert.SerializeObject(product);
-            var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
+            StringContent serializedProduct = SerializeObject(newProduct);
 
             // Act
-            var getResponseBeforeCreation = await client.GetAsync("/Products/Details/4");
-            var postResponse = await client.PostAsync("/Products/Create", stringContent);
-            var getResponseAfterCreation = await client.GetAsync("/Products/Details/4");
+            HttpResponseMessage getResponseBeforeCreation = await client.GetAsync("/Products/Details/4");
+            HttpResponseMessage creationResponse = await client.PostAsync("/Products/Create", serializedProduct);
+            HttpResponseMessage getResponseAfterCreation = await client.GetAsync("/Products/Details/4");
 
             // Assert
             getResponseBeforeCreation.StatusCode.ShouldBe(HttpStatusCode.NotFound);
-            postResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+            creationResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
             getResponseAfterCreation.StatusCode.ShouldBe(HttpStatusCode.OK);
         }
 
@@ -72,35 +66,30 @@ namespace FunctionalTests.Web.MVC
         public async Task GettingTheDetailsOfAProductWithNonExistantID_ShouldResultInNotFoundResponse()
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
+            HttpClient client = CreateTestHttpClient();
 
-            var productId = 4;
+            int nonExistantProductId = 4;
 
             // Act
-            var getResponse = await client.GetAsync("/Products/Details/" + productId);
+            HttpResponseMessage getResponse = await client.GetAsync("/Products/Details/" + nonExistantProductId);
 
             // Assert
             getResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
 
         [TestMethod]
-        public async Task DeletingAProduct_ShouldResultInANotFoundResponseWhenGettingTheProduct()
+        public async Task DeletingAProduct_AfterwardsShouldResultInANotFoundResponseWhenGettingTheProduct()
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
+            HttpClient client = CreateTestHttpClient();
 
-            var productId = 3;
-            var productString = JsonConvert.SerializeObject(productId);
-            var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
+            int productId = 3;
+            StringContent serializedProductId = SerializeObject(productId);
 
             // Act
-            var getResponseBeforeDeletion = await client.GetAsync("Products/Details/" + productId);
-            var deletionResponse = await client.PostAsync("/Products/Delete/" + productId, stringContent);
-            var getResponseAfterDeletion = await client.GetAsync("/Products/Details/" + productId);
+            HttpResponseMessage getResponseBeforeDeletion = await client.GetAsync("Products/Details/" + productId);
+            HttpResponseMessage deletionResponse = await client.PostAsync("/Products/Delete/" + productId, serializedProductId);
+            HttpResponseMessage getResponseAfterDeletion = await client.GetAsync("/Products/Details/" + productId);
 
             // Assert
             getResponseBeforeDeletion.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -112,19 +101,16 @@ namespace FunctionalTests.Web.MVC
         public async Task EditingAnExistingProductWithAPostRequest_ShouldRespondWithAnOkStatusCode()
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
+            HttpClient client = CreateTestHttpClient();
 
-            var newProduct = new Product()
+            var existingProduct = new Product()
             {
                 Id = 3,
             };
-            var productString = JsonConvert.SerializeObject(newProduct);
-            var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
+            StringContent serializedProduct = SerializeObject(existingProduct);
 
             // Act
-            var getResponse = await client.PostAsync("Products/Edit/" + newProduct.Id, stringContent);
+            HttpResponseMessage getResponse = await client.PostAsync("Products/Edit/" + existingProduct.Id, serializedProduct);
 
             // Assert
             getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -134,19 +120,16 @@ namespace FunctionalTests.Web.MVC
         public async Task EditingANonExistentProductWithAPostRequest_ShouldRespondWithANotFoundStatusCode()
         {
             // Arrange
-            CustomWebApplicationFactory<Startup> factory
-                = new CustomWebApplicationFactory<Startup>();
-            var client = factory.CreateClient();
+            HttpClient client = CreateTestHttpClient();
 
             var nonExistentProduct = new Product()
             {
                 Id = 0,
             };
-            var productString = JsonConvert.SerializeObject(nonExistentProduct);
-            var stringContent = new StringContent(productString, Encoding.UTF8, "application/json");
+            StringContent serializedProduct = SerializeObject(nonExistentProduct);
 
             // Act
-            var getResponse = await client.PostAsync("Products/Edit", stringContent);
+            HttpResponseMessage getResponse = await client.PostAsync("Products/Edit", serializedProduct);
 
             // Assert
             getResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
