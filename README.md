@@ -46,8 +46,8 @@ The Clean Architecture separates the application into three layers with each lay
 
 ## Unit Tests
 
-Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework. I have used the Arrange, Act and Assert steps in the tests. I have given each of the tests meaningful names. I have tried to use only one assertion per test.
+Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework.
 
 ## Functional Tests
 
-The [WebApplicationFactory](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1?view=aspnetcore-3.0) class is used to perform functional end to end tests. A test server is created and an in-memory test database is used. Requests are made to the test server and the responses are tested.
+The [WebApplicationFactory](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1?view=aspnetcore-3.0) class is used to perform functional end to end tests. A test server is created and an in-memory test database is used. Requests are made to the test server and the results are tested.
