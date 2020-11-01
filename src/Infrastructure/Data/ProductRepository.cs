@@ -45,7 +45,7 @@ namespace Infrastructure.Data
             }
             catch (InvalidOperationException e)
             {
-                Console.WriteLine(e.Message);
+                LogError(e.Message);
                 return new Product();
             }
             catch (SqlException e)
