@@ -30,9 +30,9 @@ namespace Web.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            bool doesProductExist = await _productService.DoesProductIdExist(id);
+            bool doesProductIdExist = await _productService.DoesProductIdExist(id);
 
-            if (doesProductExist == true)
+            if (doesProductIdExist == true)
             {
                 Product product = await _productService.GetProductByIdAsync(id);
                 return View(product);
@@ -62,9 +62,9 @@ namespace Web.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            bool doesProductExist = await _productService.DoesProductIdExist(id);
+            bool doesProductIdExist = await _productService.DoesProductIdExist(id);
 
-            if (doesProductExist == true)
+            if (doesProductIdExist == true)
             {
                 Product product = await _productService.GetProductByIdAsync(id);
                 return View(product);
@@ -79,9 +79,9 @@ namespace Web.MVC.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeletePost(int id)
         {
-            bool doesProductExist = await _productService.DoesProductIdExist(id);
+            bool doesProductIdExist = await _productService.DoesProductIdExist(id);
 
-            if(doesProductExist == true)
+            if(doesProductIdExist == true)
             {
                 await _productService.DeleteProductByIdAsync(id);
                 return RedirectToAction(nameof(Index));
@@ -95,9 +95,9 @@ namespace Web.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            bool doesProductExist = await _productService.DoesProductIdExist(id);
+            bool doesProductIdExist = await _productService.DoesProductIdExist(id);
 
-            if(doesProductExist == true)
+            if(doesProductIdExist == true)
             {
                 Product product = await _productService.GetProductByIdAsync(id);
                 return View(product);
@@ -112,9 +112,9 @@ namespace Web.MVC.Controllers
         [HttpPost, ActionName("Edit")]
         public async Task<IActionResult> EditPost(Product product)
         {
-            bool doesProductExist = await _productService.DoesProductIdExist(product.Id);
+            bool doesProductIdExist = await _productService.DoesProductIdExist(product.Id);
 
-            if(doesProductExist == true)
+            if(doesProductIdExist == true)
             {
                 Product productToUpdate = await _productService.GetProductByIdAsync(product.Id);
                 await _productService.UpdateProductAsync(product);
