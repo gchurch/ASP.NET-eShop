@@ -124,22 +124,6 @@ namespace UnitTests.Web.Angular.Controllers
         }
 
         [TestMethod]
-        public async Task AddProductAsync_GivenNullProduct_ShouldReturnBadRequest()
-        {
-            // Arrange
-            var productServiceStub = new Mock<IProductService>();
-            var productsController = new ProductsController(productServiceStub.Object);
-            var nullProduct = (Product)null;
-
-            // Act
-            ActionResult<Product> actionResult = await productsController.AddProductAsync(nullProduct);
-
-            // Assert
-            actionResult.Result.ShouldBeOfType<BadRequestObjectResult>();
-        }
-        
-
-        [TestMethod]
         public async Task DeleteProductByIdAsync_GivenProductIdThatExists_ShouldReturnOk()
         {
             // Arrange
@@ -217,21 +201,6 @@ namespace UnitTests.Web.Angular.Controllers
 
             // Assert
             actionResult.ShouldBeOfType<ActionResult<Product>>();
-        }
-
-        [TestMethod]
-        public async Task UpdateProductAsync_GivenNullProduct_ShouldBadRequest()
-        {
-            // Arrange
-            var productServiceStub = new Mock<IProductService>();
-            var productsController = new ProductsController(productServiceStub.Object);
-            var nullProduct = (Product)null;
-
-            // Act
-            ActionResult<Product> actionResult = await productsController.UpdateProductAsync(nullProduct);
-
-            // Assert
-            actionResult.Result.ShouldBeOfType<BadRequestObjectResult>();
         }
     }
 }

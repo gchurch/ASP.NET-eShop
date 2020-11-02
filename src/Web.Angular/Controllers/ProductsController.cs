@@ -31,9 +31,9 @@ namespace Web.Angular.Controllers
         [HttpGet("{productId}")]
         public async Task<ActionResult<Product>> GetProductByIdAsync(int productId)
         {
-            bool doesProductExist = await _productService.DoesProductIdExist(productId);
+            bool doesProductIdExist = await _productService.DoesProductIdExist(productId);
 
-            if (doesProductExist == true)
+            if (doesProductIdExist == true)
             {
                 Product product = await _productService.GetProductByIdAsync(productId);
                 return Ok(product);
@@ -48,9 +48,9 @@ namespace Web.Angular.Controllers
         [HttpPost("buy")]
         public async Task<ActionResult<int>> BuyProductByIdAsync([FromBody]int productId)
         {
-            bool doesProductExist = await _productService.DoesProductIdExist(productId);
+            bool doesProductIdExist = await _productService.DoesProductIdExist(productId);
 
-            if (doesProductExist == true)
+            if (doesProductIdExist == true)
             {
                 await _productService.BuyProductByIdAsync(productId);
                 Product product = await _productService.GetProductByIdAsync(productId);
@@ -64,26 +64,19 @@ namespace Web.Angular.Controllers
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/AddProductAsync/*'/>
         [HttpPost]
-        public async Task<ActionResult<Product>> AddProductAsync([FromBody]Product product)
+        public async Task<ActionResult<Product>> AddProductAsync([FromBody] Product product)
         {
-            if (product != null)
-            {
-                await _productService.AddProductAsync(product);
-                return CreatedAtAction("GetProductById", new { productId = product.Id }, product);
-            }
-            else
-            {
-                return BadRequest("The product cannot be null.");
-            }
+            await _productService.AddProductAsync(product);
+            return CreatedAtAction("GetProductById", new { productId = product.Id }, product);
         }
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/DeleteProductAsync/*'/>
         [HttpDelete("{productId}")]
         public async Task<ActionResult> DeleteProductByIdAsync(int productId)
         {
-            bool doesProductExist = await _productService.DoesProductIdExist(productId);
+            bool doesProductIdExist = await _productService.DoesProductIdExist(productId);
 
-            if(doesProductExist == true)
+            if(doesProductIdExist == true)
             {
                 await _productService.DeleteProductByIdAsync(productId);
                 return Ok();
@@ -96,26 +89,19 @@ namespace Web.Angular.Controllers
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/UpdateProductAsync/*'/>
         [HttpPut]
-        public async Task<ActionResult<Product>> UpdateProductAsync([FromBody]Product product)
+        public async Task<ActionResult<Product>> UpdateProductAsync([FromBody] Product product)
         {
-            if (product == null)
+            bool doesProductIdExist = await _productService.DoesProductIdExist(product.Id);
+
+            if (doesProductIdExist == true)
             {
-                return BadRequest("The product cannot be null.");
+                await _productService.UpdateProductAsync(product);
+                Product updatedProduct = await _productService.GetProductByIdAsync(product.Id);
+                return Ok(updatedProduct);
             }
             else
             {
-                bool doesProductExist = await _productService.DoesProductIdExist(product.Id);
-
-                if (doesProductExist == true)
-                {
-                    await _productService.UpdateProductAsync(product);
-                    Product updatedProduct = await _productService.GetProductByIdAsync(product.Id);
-                    return Ok(updatedProduct);
-                }
-                else
-                {
-                    return NotFound();
-                }
+                return NotFound();
             }
         }
     }
