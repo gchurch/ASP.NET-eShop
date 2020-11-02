@@ -2,7 +2,7 @@
 
 ![.NET Core](https://github.com/gchurch/Ganges/workflows/.NET%20Core/badge.svg?branch=master)
 
-I have created a simple E-commerce website using ASP.NET Core. It is really just a CRUD application, but allows me to demonstrate some of my skills. I have created two different front-ends, one with Angular and another with MVC and Razor. The code uses a clean architecture which results in the two front-ends being easily interchangable. I have also created unit tests and functional tests for the application.
+I have created a simple CRUD E-commerce website using ASP.NET Core. I have created two different front-ends, one with Angular and another with MVC and Razor. The solution has a clean architecture which results in the two front-ends being easily interchangable. I have also created unit tests and functional tests for the application.
 
 ## Angular Front-end
 
@@ -40,9 +40,7 @@ The Clean Architecture separates the application into three layers with each lay
 
 ## Database
 
-- An SQL Server used to store application data.
-- Entity Framework Core is used for data access.
-- LINQ is used to query data.
+An SQL Server database is used to store the application data. Entity Framework Core is used for data access. LINQ is used to query data.
 
 ## Unit Tests
 
