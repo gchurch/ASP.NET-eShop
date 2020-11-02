@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Angular.Controllers
@@ -21,14 +22,17 @@ namespace Web.Angular.Controllers
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/GetAllProductsAsync/*'/>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetAllProductsAsync()
         {
             IEnumerable<Product> products = await _productService.GetAllProductsAsync();
             return Ok(products);
         }
 
-        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/GetProductAsync/*'/>
+        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/GetProductByIdAsync/*'/>
         [HttpGet("{productId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Product>> GetProductByIdAsync(int productId)
         {
             bool doesProductIdExist = await _productService.DoesProductIdExist(productId);
@@ -44,8 +48,10 @@ namespace Web.Angular.Controllers
             }
         }
 
-        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/BuyProductAsync/*'/>
+        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/BuyProductByIdAsync/*'/>
         [HttpPost("buy")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<int>> BuyProductByIdAsync([FromBody]int productId)
         {
             bool doesProductIdExist = await _productService.DoesProductIdExist(productId);
@@ -64,14 +70,17 @@ namespace Web.Angular.Controllers
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/AddProductAsync/*'/>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<Product>> AddProductAsync([FromBody] Product product)
         {
             await _productService.AddProductAsync(product);
             return CreatedAtAction("GetProductById", new { productId = product.Id }, product);
         }
 
-        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/DeleteProductAsync/*'/>
+        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/DeleteProductByIdAsync/*'/>
         [HttpDelete("{productId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeleteProductByIdAsync(int productId)
         {
             bool doesProductIdExist = await _productService.DoesProductIdExist(productId);
@@ -89,6 +98,8 @@ namespace Web.Angular.Controllers
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/UpdateProductAsync/*'/>
         [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Product>> UpdateProductAsync([FromBody] Product product)
         {
             bool doesProductIdExist = await _productService.DoesProductIdExist(product.Id);
