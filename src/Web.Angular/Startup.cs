@@ -32,8 +32,8 @@ namespace Web.Angular
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Ganges API",
-                    Description = "An API built for my Ganges SPA"
+                    Title = "eShop API",
+                    Description = "An API built for my eShop SPA"
                 });
 
                 // Set the comments path for the Swagger JSON and UI.
