@@ -1,36 +1,39 @@
 <!--Using *ngIf here makes sure that we only subscribe to the observable once-->
 <div *ngIf="(product$ | async) as product">
-
-    <button id="editButton" (click)="toggleEdit()" value="Edit">Edit</button>
-    
-    <div>
-        <div class="column"><img src="assets/{{product.imageUrl}}"/></div>
-        <div class="column">
-
-            <div *ngIf="editingProduct && product.id">
-                <!--If a valid product is received then display its details.-->
-                <form [formGroup]="productForm" (ngSubmit)="onSubmit(product.id)">
-                    <p>Title: <input type="text" formControlName="title"/></p>
-                    <p>Price: £<input type="number" formControlName="price"/></p>
-                    <p>Quantity: <input type="number" formControlName="quantity"/></p>
-                    <p>Description: <input type="text" formControlName="description"/></p>
-                    <p>Seller: <input type="text" formControlName="seller"/></p>
-                    <button id="updateButton" type="submit" [disabled]="!productForm.valid">Update</button>
-                    <button id="deleteButton" (click)="onDelete(product.id)">Delete</button>
-                </form>
+    <div *ngIf="product.id != 0">
+        <button id="editButton" (click)="toggleEdit()" value="Edit">
+            <span *ngIf="!editingProduct">Edit</span>
+            <span *ngIf="editingProduct">Stop Editing</span>
+        </button>
+        <div>
+            <div class="column"><img src="assets/{{product.imageUrl}}"/></div>
+            <div class="column">
+                <div *ngIf="editingProduct">
+                    <!--If a valid product is received then display its details.-->
+                    <form [formGroup]="productForm" (ngSubmit)="onUpdate(product.id)">
+                        <p>Title: <input type="text" formControlName="title"/></p>
+                        <p>Price: £<input type="number" formControlName="price"/></p>
+                        <p>Quantity: <input type="number" formControlName="quantity"/></p>
+                        <p>Description: <input type="text" formControlName="description"/></p>
+                        <p>Seller: <input type="text" formControlName="seller"/></p>
+                        <button id="updateButton" type="submit" [disabled]="!productForm.valid">Update</button>
+                        <button id="deleteButton" (click)="onDelete(product.id)">Delete</button>
+                    </form>
+                </div>
+                <div *ngIf="!editingProduct">
+                    <p id="productTitle">{{product.title}}</p>
+                    <p id="productPrice">Price: <span>£{{product.price}}</span></p>
+                    <p id="productQuantity">{{product.quantity}} <span>in stock</span></p>
+                    <p id="productDescription"><span>About this product</span><br>{{product.description}}</p>
+                    <p id="productSeller">Seller: <span>{{product.seller}}</span></p>
+                </div>
             </div>
-
-            <div *ngIf="!editingProduct && product.id">
-                <p id="productTitle">{{product.title}}</p>
-                <p id="productPrice">Price: <span>£{{product.price}}</span></p>
-                <p id="productQuantity">{{product.quantity}} <span>in stock</span></p>
-                <p id="productDescription"><span>About this product</span><br>{{product.description}}</p>
-                <p id="productSeller">Seller: <span>{{product.seller}}</span></p>
+            <div class="column">
+                <button (click)="addToBasket(product)">Add to Basket</button>
             </div>
-
         </div>
-        <div class="column">
-            <button (click)="addToBasket(product)">Add to Basket</button>
-        </div>
+    </div>
+    <div *ngIf="product.id == 0">
+        <p>Product not found.</p>
     </div>
 </div>

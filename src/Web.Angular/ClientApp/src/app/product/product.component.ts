@@ -72,7 +72,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  onSubmit(id: number): void {
+  onUpdate(id: number): void {
 
     // Create a Product object from the form data.
     var product: Product = {
@@ -92,6 +92,8 @@ export class ProductComponent implements OnInit {
     this.product$ = this.productService.updateProduct(product)
         .pipe(catchError(err => of(this.productNotFound)))
         .pipe(tap(product => this.productForm.patchValue(product)));
+    
+    this.editingProduct = false;
   }
 
   cloneProduct(originalProduct: Product): Product {
@@ -113,14 +115,7 @@ export class ProductComponent implements OnInit {
   }
 
   toggleEdit() {
-    if(this.editingProduct == true) {
-      this.editingProduct = false;
-      document.getElementById("editButton").innerHTML = 'Edit';
-    }
-    else {
-      this.editingProduct = true;
-      document.getElementById("editButton").innerHTML = 'Stop Editting';
-    }
+    this.editingProduct = !this.editingProduct;
   }
 
 }
