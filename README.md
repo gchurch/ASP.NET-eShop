@@ -36,17 +36,14 @@ I use a Clean Architecture based on https://github.com/ardalis/CleanArchitecture
 
 The Clean Architecture separates the application into three layers with each layer being a separate project. The layers are the ApplicationCore, Infrastructure and the front-end Web. Using a clean architecture means that the Angular front-end and MVC/Razor front-end are easily interchangable. You just need to set the front-end project you want to run as the startup project.
 
-<img src="https://miro.medium.com/max/2750/0*lwCWXSNctrUUYeLR.png" alt="alt text" width="60%">
-
 ## Database
 
 An SQL Server database is used to store the application data. Entity Framework Core is used for data access. LINQ is used to query data.
 
 ## Unit Tests
 
-Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework.
+Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework. I have tried to follow best practice when it comes to unit testing.
 
 ## Functional Tests
 
-The [WebApplicationFactory](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1?view=aspnetcore-3.0) class is used to perform functional end to end tests. A test server is created and an in-memory test database is used.
-
+The WebApplicationFactory class is used to perform functional end to end tests. A test server is created and an in-memory test database is used.
