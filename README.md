@@ -42,7 +42,7 @@ An SQL Server database is used to store the application data. Entity Framework C
 
 ## Unit Tests
 
-Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework.
+Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework. I have tried to follow best practice when it comes to unit testing.
 
 ## Functional Tests
 
