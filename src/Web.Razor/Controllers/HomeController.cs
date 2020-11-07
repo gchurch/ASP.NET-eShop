@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Web.MVC.Models;
+using Web.Razor.Models;
 
-namespace Web.MVC.Controllers
+namespace Web.Razor.Controllers
 {
     public class HomeController : Controller
     {

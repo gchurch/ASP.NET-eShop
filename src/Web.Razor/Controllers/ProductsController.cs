@@ -6,7 +6,7 @@ using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ApplicationCore.Entities;
 
-namespace Web.MVC.Controllers
+namespace Web.Razor.Controllers
 {
     public class ProductsController : Controller
     {

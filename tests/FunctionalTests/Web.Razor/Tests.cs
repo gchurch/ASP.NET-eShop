@@ -1,5 +1,5 @@
 ﻿using ApplicationCore.Entities;
-using Web.MVC;
+using Web.Razor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Shouldly;
@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FunctionalTests.Web.MVC
+namespace FunctionalTests.Web.Razor
 {
     [TestClass]
     public class Tests : FunctionalTests<Startup>

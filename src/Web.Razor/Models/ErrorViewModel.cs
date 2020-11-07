@@ -1,6 +1,6 @@
 using System;
 
-namespace Web.MVC.Models
+namespace Web.Razor.Models
 {
     public class ErrorViewModel
     {
