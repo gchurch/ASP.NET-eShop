@@ -36,6 +36,8 @@ I use a Clean Architecture based on https://github.com/ardalis/CleanArchitecture
 
 The Clean Architecture separates the application into three layers with each layer being a separate project. The layers are the ApplicationCore, Infrastructure and Web. ApplicationCore contains the Entities, interfaces and services; Infrastructure contains the database code; and Web contains the controllers and front-end code. Using a clean architecture results in the Angular front-end and Razor front-end being easily interchangable. You just need to set the front-end project you want to run as the startup project.
 
+<img src="https://miro.medium.com/max/2750/0*lwCWXSNctrUUYeLR.png" alt="alt text" width="60%">
+
 ## Database
 
 An SQL Server database is used to store the application data. Entity Framework Core is used for data access. LINQ is used to query data.
