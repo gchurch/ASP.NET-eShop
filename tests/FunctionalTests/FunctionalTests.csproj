@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Web.Angular\Web.Angular.csproj" />
-    <ProjectReference Include="..\..\src\Web.MVC\Web.MVC.csproj" />
+    <ProjectReference Include="..\..\src\Web.MVC\Web.Razor.csproj" />
   </ItemGroup>
 
 </Project>
