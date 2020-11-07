@@ -34,7 +34,7 @@ This is also deployed on Azure and can be found here: https://webmvc202011031320
 
 I use a Clean Architecture based on https://github.com/ardalis/CleanArchitecture to organize the code.
 
-The Clean Architecture separates the application into three layers with each layer being a separate project. The layers are the ApplicationCore, Infrastructure and Web. Using a clean architecture means that the Angular front-end and Razor front-end are easily interchangable. You just need to set the front-end project you want to run as the startup project.
+The Clean Architecture separates the application into three layers with each layer being a separate project. The layers are the ApplicationCore, Infrastructure and Web. ApplicationCore contains the Entities, interfaces and services; Infrastructure contains the database code; and Web contains the controllers and front-end code. Using a clean architecture results in the Angular front-end and Razor front-end being easily interchangable. You just need to set the front-end project you want to run as the startup project.
 
 ## Database
 
