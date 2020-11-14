@@ -2,7 +2,7 @@
 
 ![.NET Core](https://github.com/gchurch/Ganges/workflows/.NET%20Core/badge.svg?branch=master)
 
-I have created a simple CRUD E-commerce website using ASP.NET Core. I have created two different front-ends, one with Angular and another with Razor. The solution has a clean architecture which results in the two front-ends being easily interchangable. I have also created unit tests and functional tests for the application.
+I have created a CRUD E-commerce website using ASP.NET Core. I have created two different front-ends, one with Angular and another with Razor. The solution has a clean architecture which results in the two front-ends being easily substitutable. I have also created unit tests and functional tests for the application.
 
 ## Angular Front-end
 
@@ -34,7 +34,7 @@ This is also deployed on Azure and can be found here: https://webmvc202011031320
 
 I use a Clean Architecture based on https://github.com/ardalis/CleanArchitecture to organize the code.
 
-The Clean Architecture separates the application into three layers with each layer being a separate project. The layers are the ApplicationCore, Infrastructure and Web (User Interface). ApplicationCore contains the Entities, interfaces and services; Infrastructure contains the database code; and Web contains the controllers and front-end code. Using a clean architecture results in the Angular front-end and Razor front-end being easily interchangable. You just need to set the front-end project you want to run as the startup project.
+The Clean Architecture separates the application into three layers with each layer being a separate project. The layers are the ApplicationCore, Infrastructure and Web (User Interface). ApplicationCore contains the Entities, interfaces and services; Infrastructure contains the database code; and Web contains the controllers and front-end code. Using a clean architecture results in the Angular front-end and Razor front-end being easily substitutable. You just need to set the front-end project that you want to run as the startup project.
 
 <img src="https://miro.medium.com/max/2750/0*lwCWXSNctrUUYeLR.png" alt="alt text" width="60%">
 
