@@ -16,12 +16,14 @@ namespace Web.Angular
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            CurrentEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment CurrentEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services for dependency injection.
         public void ConfigureServices(IServiceCollection services)
@@ -50,9 +52,18 @@ namespace Web.Angular
             });
 
             // Register the database context
-            services.AddDbContext<ProductDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            if (CurrentEnvironment.IsDevelopment())
+            {
+                services.AddDbContext<ProductDbContext>(options =>
+                    options.UseInMemoryDatabase(
+                        Configuration.GetConnectionString("DefaultConnection")));
+            }
+            else
+            {
+                services.AddDbContext<ProductDbContext>(options =>
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("DefaultConnection")));
+            }
 
             // Registering services and repositories
             services.AddTransient<IProductService, ProductService>();
