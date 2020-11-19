@@ -11,6 +11,8 @@ import { ProductComponent } from './product/product.component';
 import { ProductService } from './product.service';
 import { AddProductComponent } from './add-product/add-product.component';
 import { BasketComponent } from './basket/basket.component';
+import { ProductInfoComponent } from './product-info/product-info.component';
+import { ProductUpdateComponent } from './product-update/product-update.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { BasketComponent } from './basket/basket.component';
     ProductsComponent,
     ProductComponent,
     AddProductComponent,
-    BasketComponent
+    BasketComponent,
+    ProductInfoComponent,
+    ProductUpdateComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
