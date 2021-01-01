@@ -165,7 +165,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productIdThatExists = 1;
             var productWithKnownId = new Product()
             {
-                Id = productIdThatExists
+                ProductId = productIdThatExists
             };
             var productServiceStub = new Mock<IProductService>();
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
@@ -189,7 +189,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productIdThatDoesNotExist = 0;
             var productWithUnknownId = new Product()
             {
-                Id = productIdThatDoesNotExist
+                ProductId = productIdThatDoesNotExist
             };
             var productServiceStub = new Mock<IProductService>();
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))

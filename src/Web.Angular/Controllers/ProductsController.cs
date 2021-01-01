@@ -74,7 +74,7 @@ namespace Web.Angular.Controllers
         public async Task<ActionResult<Product>> AddProductAsync([FromBody] Product product)
         {
             await _productService.AddProductAsync(product);
-            return CreatedAtAction("GetProductById", new { productId = product.Id }, product);
+            return CreatedAtAction("GetProductById", new { productId = product.ProductId }, product);
         }
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/DeleteProductByIdAsync/*'/>
@@ -102,12 +102,12 @@ namespace Web.Angular.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Product>> UpdateProductAsync([FromBody] Product product)
         {
-            bool doesProductIdExist = await _productService.DoesProductIdExist(product.Id);
+            bool doesProductIdExist = await _productService.DoesProductIdExist(product.ProductId);
 
             if (doesProductIdExist == true)
             {
                 await _productService.UpdateProductAsync(product);
-                Product updatedProduct = await _productService.GetProductByIdAsync(product.Id);
+                Product updatedProduct = await _productService.GetProductByIdAsync(product.ProductId);
                 return Ok(updatedProduct);
             }
             else

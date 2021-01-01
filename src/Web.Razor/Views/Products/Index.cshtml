@@ -18,18 +18,18 @@
         {
             <li>
                 <div>
-                    <a asp-action="Details" asp-route-id="@item.Id"><img src="images/@Html.DisplayFor(modelItem => item.ImageUrl)" /></a>
+                    <a asp-action="Details" asp-route-id="@item.ProductId"><img src="images/@Html.DisplayFor(modelItem => item.ImageUrl)" /></a>
                 </div>
 
                 <div>
                     <p id="productTitle">
-                        <a asp-action="Details" asp-route-id="@item.Id">
+                        <a asp-action="Details" asp-route-id="@item.ProductId">
                             @Html.DisplayFor(modelItem => item.Title)
                         </a>
                     </p>
                     <p id="productSeller">Seller: @Html.DisplayFor(modelItem => item.Seller)</p>
                     <p id="productPrice">
-                        <a asp-action="Details" asp-route-id="@item.Id">
+                        <a asp-action="Details" asp-route-id="@item.ProductId">
                             £@Html.DisplayFor(modelItem => item.Price)
                         </a>
                     </p>

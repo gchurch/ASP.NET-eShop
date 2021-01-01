@@ -12,10 +12,10 @@
     <dl class="row">
 
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+            @Html.DisplayNameFor(model => model.ProductId)
         </dt>
         <dt class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
+            @Html.DisplayFor(model => model.ProductId)
         </dt>
 
         <dt class="col-sm-2">
@@ -65,6 +65,6 @@
 <p>Click the delete button to delete this object.</p>
 
 <form asp-action="Delete">
-    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ProductId" />
     <input type="submit" value="Delete" />
 </form>

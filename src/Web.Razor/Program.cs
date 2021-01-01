@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +24,9 @@ namespace Web.Razor
 
                 try
                 {
-                    SeedData.Initialize(services);
+                    var context = services.GetRequiredService<ProductDbContext>();
+                    context.Database.Migrate();
+                    SeedData.Initialize(services, "not used");
                 }
                 catch (Exception ex)
                 {

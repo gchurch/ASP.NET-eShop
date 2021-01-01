@@ -204,7 +204,7 @@ namespace UnitTests.Web.MVC.Controllers
             var productServiceStub = new Mock<IProductService>();
             int productIdThatExists = 1;
             var productWithIdThatExists = new Product() {
-                Id = productIdThatExists
+                ProductId = productIdThatExists
             };
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
@@ -227,7 +227,7 @@ namespace UnitTests.Web.MVC.Controllers
             int productIdThatDoesNotExist = 0;
             var productWithIdThatDoesNotExist = new Product()
             {
-                Id = productIdThatDoesNotExist
+                ProductId = productIdThatDoesNotExist
             };
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);

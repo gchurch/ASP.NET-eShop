@@ -105,12 +105,12 @@ namespace FunctionalTests.Web.Razor
 
             var existingProduct = new Product()
             {
-                Id = 3,
+                ProductId = 3,
             };
             StringContent serializedProduct = SerializeObject(existingProduct);
 
             // Act
-            HttpResponseMessage getResponse = await client.PostAsync("Products/Edit/" + existingProduct.Id, serializedProduct);
+            HttpResponseMessage getResponse = await client.PostAsync("Products/Edit/" + existingProduct.ProductId, serializedProduct);
 
             // Assert
             getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -124,7 +124,7 @@ namespace FunctionalTests.Web.Razor
 
             var nonExistentProduct = new Product()
             {
-                Id = 0,
+                ProductId = 0,
             };
             StringContent serializedProduct = SerializeObject(nonExistentProduct);
 

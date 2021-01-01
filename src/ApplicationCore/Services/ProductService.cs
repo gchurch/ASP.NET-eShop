@@ -38,7 +38,7 @@ namespace ApplicationCore.Services
             // product.Id has to be 0 otherwise there will be an error. This is 
             // because you are not allowed to specify an ID value when adding a product
             // to the database. An ID value will automatically be given to the product.
-            product.Id = 0;
+            product.ProductId = 0;
             product.ImageUrl = ChooseRandomImageUrlFromPossibleOptions();
             await _productRepository.AddProductAsync(product);
         }
@@ -62,7 +62,7 @@ namespace ApplicationCore.Services
 
         public async Task UpdateProductAsync(Product product)
         {
-            Product existingProduct = await GetProductByIdAsync(product.Id);
+            Product existingProduct = await GetProductByIdAsync(product.ProductId);
             existingProduct.CopyProductPropertiesExcludingImageUrl(product);
             await _productRepository.UpdateProductAsync(existingProduct);
         }
@@ -70,7 +70,7 @@ namespace ApplicationCore.Services
         public async Task<bool> DoesProductIdExist(int productId)
         {
             Product product = await GetProductByIdAsync(productId);
-            if(product.Id != 0)
+            if(product.ProductId != 0)
             {
                 return true;
             }

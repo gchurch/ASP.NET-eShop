@@ -92,7 +92,7 @@ namespace UnitTests.ApplicationCore.Services
             // Arrange
             var product = new Product()
             {
-                Id = 25
+                ProductId = 25
             };
             var productRepositoryStub = new Mock<IProductRepository>();
             productRepositoryStub.Setup(pr => pr.AddProductAsync(It.IsAny<Product>()));
@@ -102,7 +102,7 @@ namespace UnitTests.ApplicationCore.Services
             await productService.AddProductAsync(product);
 
             // Assert
-            product.Id.ShouldBe(0);
+            product.ProductId.ShouldBe(0);
         }
 
         [TestMethod]
@@ -131,7 +131,7 @@ namespace UnitTests.ApplicationCore.Services
             int productId = 1;
             var product = new Product()
             {
-                Id = productId
+                ProductId = productId
             };
             var productRepositoryStub = new Mock<IProductRepository>();
             productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(It.IsAny<int>()))
@@ -155,7 +155,7 @@ namespace UnitTests.ApplicationCore.Services
             int productIdThatExists = 1;
             var product = new Product()
             {
-                Id = productIdThatExists
+                ProductId = productIdThatExists
             };
             productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(product);
@@ -176,7 +176,7 @@ namespace UnitTests.ApplicationCore.Services
             int productIdThatDoesNotExist = 1;
             var product = new Product()
             {
-                Id = 0
+                ProductId = 0
             };
             productRepositoryStub.Setup(pr => pr.GetProductByIdAsync(productIdThatDoesNotExist))
                 .ReturnsAsync(product);

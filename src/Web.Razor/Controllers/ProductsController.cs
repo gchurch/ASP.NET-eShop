@@ -112,13 +112,13 @@ namespace Web.Razor.Controllers
         [HttpPost, ActionName("Edit")]
         public async Task<IActionResult> EditPost(Product product)
         {
-            bool doesProductIdExist = await _productService.DoesProductIdExist(product.Id);
+            bool doesProductIdExist = await _productService.DoesProductIdExist(product.ProductId);
 
             if(doesProductIdExist == true)
             {
-                Product productToUpdate = await _productService.GetProductByIdAsync(product.Id);
+                Product productToUpdate = await _productService.GetProductByIdAsync(product.ProductId);
                 await _productService.UpdateProductAsync(product);
-                return RedirectToAction(nameof(Details), new { Id = productToUpdate.Id });
+                return RedirectToAction(nameof(Details), new { Id = productToUpdate.ProductId });
             }
             else {
                 return NotFound();

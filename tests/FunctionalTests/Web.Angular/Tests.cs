@@ -50,11 +50,11 @@ namespace FunctionalTests.Web.Angular
 
             // Assert
             responseProducts.Length.ShouldBe(3);
-            responseProducts[0].Id.ShouldBe(1);
+            responseProducts[0].ProductId.ShouldBe(1);
             responseProducts[0].Title.ShouldBe("Toy");
-            responseProducts[1].Id.ShouldBe(2);
+            responseProducts[1].ProductId.ShouldBe(2);
             responseProducts[1].Title.ShouldBe("Book");
-            responseProducts[2].Id.ShouldBe(3);
+            responseProducts[2].ProductId.ShouldBe(3);
             responseProducts[2].Title.ShouldBe("Lamp");
         }
 
@@ -71,7 +71,7 @@ namespace FunctionalTests.Web.Angular
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
-            responseProduct.Id.ShouldBe(2);
+            responseProduct.ProductId.ShouldBe(2);
             responseProduct.Title.ShouldBe("Book");
             responseProduct.Description.ShouldBe("Hard back");
             responseProduct.Seller.ShouldBe("Peter");
@@ -88,7 +88,7 @@ namespace FunctionalTests.Web.Angular
 
             var product = new Product()
             {
-                Id = 0,
+                ProductId = 0,
                 Title = "Sock",
                 Description = "Red",
                 Seller = "Anthony",
@@ -103,7 +103,7 @@ namespace FunctionalTests.Web.Angular
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.Created);
-            responseProduct.Id.ShouldNotBe(0);
+            responseProduct.ProductId.ShouldNotBe(0);
             responseProduct.Title.ShouldBe(product.Title);
             responseProduct.Description.ShouldBe(product.Description);
             responseProduct.Seller.ShouldBe(product.Seller);
@@ -118,7 +118,7 @@ namespace FunctionalTests.Web.Angular
             HttpClient client = CreateTestHttpClient();
             var product = new Product()
             {
-                Id = 0,
+                ProductId = 0,
                 Title = "Sock",
                 Description = "Red",
                 Seller = "Anthony",
@@ -131,12 +131,12 @@ namespace FunctionalTests.Web.Angular
             HttpResponseMessage postResponse = await client.PostAsync("/api/products/", serializedProduct);
             Product postResponseProduct = await DeserializeResponse<Product>(postResponse);
 
-            HttpResponseMessage getResponse = await client.GetAsync("/api/products/" + postResponseProduct.Id);
+            HttpResponseMessage getResponse = await client.GetAsync("/api/products/" + postResponseProduct.ProductId);
             Product getResponseProduct = await DeserializeResponse<Product>(getResponse);
 
             // Assert
             getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
-            getResponseProduct.Id.ShouldBe(postResponseProduct.Id);
+            getResponseProduct.ProductId.ShouldBe(postResponseProduct.ProductId);
             getResponseProduct.Title.ShouldBe(product.Title);
             getResponseProduct.Description.ShouldBe(product.Description);
             getResponseProduct.Seller.ShouldBe(product.Seller);
@@ -151,7 +151,7 @@ namespace FunctionalTests.Web.Angular
             HttpClient client = CreateTestHttpClient();
             var product = new Product()
             {
-                Id = 1,
+                ProductId = 1,
                 Title = "New Title",
                 Description = "New Description",
                 Seller = "New Seller",
@@ -166,7 +166,7 @@ namespace FunctionalTests.Web.Angular
 
             // Assert
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
-            responseProduct.Id.ShouldBe(product.Id);
+            responseProduct.ProductId.ShouldBe(product.ProductId);
             responseProduct.Title.ShouldBe(product.Title);
             responseProduct.Description.ShouldBe(product.Description);
             responseProduct.Seller.ShouldBe(product.Seller);

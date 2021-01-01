@@ -50,8 +50,9 @@ namespace Infrastructure.Data.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    ProductId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    OwnerID = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: false),
                     Seller = table.Column<string>(nullable: false),
@@ -61,7 +62,7 @@ namespace Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
                 });
 
             migrationBuilder.CreateTable(
