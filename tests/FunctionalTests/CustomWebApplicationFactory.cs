@@ -45,7 +45,7 @@ namespace FunctionalTests
 
                     try
                     {
-                        SeedData.Initialize(scopedServices);
+                        SeedData.Initialize(scopedServices, "not used");
                     }
                     catch (Exception ex)
                     {
