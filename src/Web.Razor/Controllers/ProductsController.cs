@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ApplicationCore.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Razor.Controllers
 {
@@ -20,6 +21,7 @@ namespace Web.Razor.Controllers
 
         // GET: /Products
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             IEnumerable<Product> products = await _productService.GetAllProductsAsync();
@@ -28,6 +30,7 @@ namespace Web.Razor.Controllers
 
         // GET: /Products/Details/1
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             bool doesProductIdExist = await _productService.DoesProductIdExist(id);
