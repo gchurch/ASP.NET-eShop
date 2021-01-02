@@ -26,7 +26,15 @@ namespace Web.Razor
                 {
                     var context = services.GetRequiredService<ProductDbContext>();
                     context.Database.Migrate();
-                    SeedData.Initialize(services, "not used");
+
+                    // requires using Microsoft.Extensions.Configuration;
+                    var config = host.Services.GetRequiredService<IConfiguration>();
+                    // Set password with the Secret Manager tool.
+                    // dotnet user-secrets set SeedUserPW <pw>
+
+                    var testUserPw = config["SeedUserPW"];
+
+                    Data.SeedData.Initialize(services, testUserPw).Wait(); ;
                 }
                 catch (Exception ex)
                 {

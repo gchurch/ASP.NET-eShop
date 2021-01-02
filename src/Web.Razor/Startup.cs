@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Web.Razor.Authorization;
 
 namespace Web.Razor
 {
@@ -46,6 +47,9 @@ namespace Web.Razor
                     .RequireAuthenticatedUser()
                     .Build();
             });
+
+            services.AddScoped<IAuthorizationHandler, ProductIsOwnerAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, ProductAdministratorsAuthorizationHandler>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
