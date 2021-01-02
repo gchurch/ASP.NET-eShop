@@ -41,6 +41,9 @@ namespace Web.Razor
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ProductDbContext>();
 
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
             services.AddAuthorization(options =>
             {
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
@@ -50,9 +53,6 @@ namespace Web.Razor
 
             services.AddScoped<IAuthorizationHandler, ProductIsOwnerAuthorizationHandler>();
             services.AddSingleton<IAuthorizationHandler, ProductAdministratorsAuthorizationHandler>();
-
-            services.AddControllersWithViews();
-            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

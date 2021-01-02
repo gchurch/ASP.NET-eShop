@@ -6,6 +6,8 @@ using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ApplicationCore.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Web.Razor.Authorization;
 
 namespace Web.Razor.Controllers
 {
@@ -13,10 +15,18 @@ namespace Web.Razor.Controllers
     {
 
         private readonly IProductService _productService;
+        private readonly IAuthorizationService _authorizationService;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(
+            IProductService productService,
+            IAuthorizationService authorizationService,
+            UserManager<IdentityUser> userManager
+        )
         {
             _productService = productService;
+            _authorizationService = authorizationService;
+            _userManager = userManager;
         }
 
         // GET: /Products
@@ -57,6 +67,19 @@ namespace Web.Razor.Controllers
         [HttpPost, ActionName("Create")]
         public async Task<IActionResult> CreatePost(Product product)
         {
+            product.OwnerID = _userManager.GetUserId(User);
+
+            var isAuthorized = await _authorizationService.AuthorizeAsync(
+                User,
+                product,
+                ProductOperations.Create
+            );
+
+            if(!isAuthorized.Succeeded)
+            {
+                return Forbid();
+            }
+
             await _productService.AddProductAsync(product);
             return RedirectToAction(nameof(Index));
         }
