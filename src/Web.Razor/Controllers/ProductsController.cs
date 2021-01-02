@@ -121,12 +121,25 @@ namespace Web.Razor.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            bool doesProductIdExist = await _productService.DoesProductIdExist(id);
+            bool productIdExists = await _productService.DoesProductIdExist(id);
 
-            if(doesProductIdExist == true)
+            if(productIdExists)
             {
-                Product product = await _productService.GetProductByIdAsync(id);
-                return View(product);
+                var product = await _productService.GetProductByIdAsync(id);
+
+                var isAuthorized = await _authorizationService.AuthorizeAsync(
+                    User,
+                    product,
+                    ProductOperations.Update);
+
+                if(isAuthorized.Succeeded)
+                {
+                    return View(product);
+                }
+                else
+                {
+                    return Forbid();
+                }
             }
             else
             {
