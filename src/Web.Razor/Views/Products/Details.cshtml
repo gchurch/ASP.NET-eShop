@@ -38,5 +38,11 @@
     </div>
 </div>
 
-<p><a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a></p>
-<p><a asp-action="Delete" asp-route-id="@Model.ProductId">Delete</a></p>
+@if ((await AuthorizationService.AuthorizeAsync(User, Model, ProductOperations.Update)).Succeeded)
+{
+    <p><a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a></p>
+}
+@if ((await AuthorizationService.AuthorizeAsync(User, Model, ProductOperations.Delete)).Succeeded)
+{
+    <p><a asp-action="Delete" asp-route-id="@Model.ProductId">Delete</a></p>
+}
