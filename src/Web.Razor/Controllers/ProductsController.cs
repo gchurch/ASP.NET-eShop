@@ -93,7 +93,20 @@ namespace Web.Razor.Controllers
             if (doesProductIdExist == true)
             {
                 Product product = await _productService.GetProductByIdAsync(id);
-                return View(product);
+                AuthorizationResult isAuthorized = await _authorizationService.AuthorizeAsync(
+                    User,
+                    product,
+                    ProductOperations.Delete
+                );
+
+                if(isAuthorized.Succeeded)
+                {
+                    return View(product);
+                }
+                else
+                {
+                    return Forbid();
+                }
             }
             else
             {
@@ -109,8 +122,22 @@ namespace Web.Razor.Controllers
 
             if(doesProductIdExist == true)
             {
-                await _productService.DeleteProductByIdAsync(id);
-                return RedirectToAction(nameof(Index));
+                Product product = await _productService.GetProductByIdAsync(id);
+                var isAuthorized = await _authorizationService.AuthorizeAsync(
+                    User,
+                    product,
+                    ProductOperations.Delete
+                );
+
+                if(isAuthorized.Succeeded)
+                {
+                    await _productService.DeleteProductByIdAsync(id);
+                    return RedirectToAction(nameof(Index));
+                } 
+                else
+                {
+                    return Forbid();
+                }
             }
             else {
                 return NotFound();
@@ -156,8 +183,22 @@ namespace Web.Razor.Controllers
             if(doesProductIdExist == true)
             {
                 Product productToUpdate = await _productService.GetProductByIdAsync(product.ProductId);
-                await _productService.UpdateProductAsync(product);
-                return RedirectToAction(nameof(Details), new { Id = productToUpdate.ProductId });
+
+                AuthorizationResult isAuthorized = await _authorizationService.AuthorizeAsync(
+                    User,
+                    productToUpdate,
+                    ProductOperations.Update
+                );
+
+                if(isAuthorized.Succeeded)
+                {
+                    await _productService.UpdateProductAsync(product);
+                    return RedirectToAction(nameof(Details), new { Id = product.ProductId });
+                }
+                else
+                {
+                    return Forbid();
+                }
             }
             else {
                 return NotFound();
