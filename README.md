@@ -8,8 +8,6 @@ I have created a CRUD E-commerce website using ASP.NET Core. I have created two 
 
 I created an SPA front-end with Angular. The code for this is in the Web.Angular project.
 
-The app is deployed on Azure and can be found here: https://webangular20201103115618.azurewebsites.net/products
-
 The angular app uses a back-end API created with ASP.NET Core MVC.
 
 The application has the following API:
@@ -27,8 +25,6 @@ Swagger is used to document the API: https://webangular20201103115618.azurewebsi
 ## Razor Front-end
 
 I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project.
-
-This is also deployed on Azure and can be found here: https://webmvc20201103132037.azurewebsites.net/Products
 
 ## Clean Architecture
 
