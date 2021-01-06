@@ -24,7 +24,7 @@ Swagger is used to document the API: https://webangular20201103115618.azurewebsi
 
 ## Razor Front-end
 
-I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project.
+I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project. For this version of the application I have implemented authentication and authorization using ASP.NET Identity.
 
 ## Clean Architecture
 
