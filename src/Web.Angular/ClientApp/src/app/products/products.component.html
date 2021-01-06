@@ -8,12 +8,12 @@
     <ul>
         <li *ngFor="let product of products">
             <div>
-                <a routerLink="/products/{{product.id}}"><img src="assets/{{product.imageUrl}}"/></a>
+                <a routerLink="/products/{{product.productId}}"><img src="assets/{{product.imageUrl}}"/></a>
             </div>
             <div>
-                <p id="productTitle"><a routerLink="/products/{{product.id}}">{{ product.title }}</a></p>
+                <p id="productTitle"><a routerLink="/products/{{product.productId}}">{{ product.title }}</a></p>
                 <p id="productSeller">Seller: {{ product.seller }}</p>
-                <p id="productPrice"><a routerLink="/products/{{product.id}}">£{{ product.price }}</a></p>
+                <p id="productPrice"><a routerLink="/products/{{product.productId}}">£{{ product.price }}</a></p>
                 <p id="productDelivery">FREE Delivery</p>
             </div>
         </li>

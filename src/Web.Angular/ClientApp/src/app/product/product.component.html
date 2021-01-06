@@ -1,6 +1,6 @@
 <!--Using *ngIf here makes sure that we only subscribe to the observable once-->
 <div *ngIf="(product$ | async) as product">
-    <div *ngIf="product.id != 0">
+    <div *ngIf="product.productId != 0">
         <button id="editButton" (click)="toggleEdit()" value="Edit">
             <span *ngIf="!editingProduct">Edit</span>
             <span *ngIf="editingProduct">Stop Editing</span>
@@ -12,14 +12,14 @@
             <div class="column">
                 <div *ngIf="editingProduct">
                     <!--If a valid product is received then display its details.-->
-                    <form [formGroup]="productForm" (ngSubmit)="onUpdate(product.id)">
+                    <form [formGroup]="productForm" (ngSubmit)="onUpdate(product.productId)">
                         <p>Title: <input type="text" formControlName="title"/></p>
                         <p>Price: £<input type="number" formControlName="price"/></p>
                         <p>Quantity: <input type="number" formControlName="quantity"/></p>
                         <p>Description: <input type="text" formControlName="description"/></p>
                         <p>Seller: <input type="text" formControlName="seller"/></p>
                         <button id="updateButton" type="submit" [disabled]="!productForm.valid">Update</button>
-                        <button id="deleteButton" (click)="onDelete(product.id)">Delete</button>
+                        <button id="deleteButton" (click)="onDelete(product.productId)">Delete</button>
                     </form>
                 </div>
                 <app-product-info *ngIf="!editingProduct" [product]="product"></app-product-info>
@@ -31,7 +31,7 @@
             
         </div>
     </div>
-    <div *ngIf="product.id == 0">
+    <div *ngIf="product.productId == 0">
         <p>Product not found.</p>
     </div>
 </div>

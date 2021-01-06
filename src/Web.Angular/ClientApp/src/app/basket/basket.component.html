@@ -7,7 +7,7 @@
             <img src="assets/{{product.imageUrl}}"/>
         </div>
         <div>
-            <p id="productTitle"><a routerLink="/products/{{product.id}}">{{ product.title }}</a></p>
+            <p id="productTitle"><a routerLink="/products/{{product.productId}}">{{ product.title }}</a></p>
             <p id="productSeller">Sold by: {{ product.seller }}</p>
             <p id="productQuantity">Quantity: {{ product.quantity }}</p>
             <button (click)="removeFromBasket(product)">Remove</button>

@@ -47,7 +47,7 @@ export class BasketService {
     // Check if the product is already in the basket and if so just increase the quantity of the product by one.
     var productAlreadyInBasket: boolean = false;
     for(var i: number = 0; i < this.products.length; i++) {
-      if(product.id == this.products[i].id) {
+      if(product.productId == this.products[i].productId) {
         this.products[i].quantity++;
         productAlreadyInBasket = true;
         break;
@@ -68,7 +68,7 @@ export class BasketService {
   removeProduct(product: Product) : void {
 
     for(var i: number = 0; i < this.products.length; i++) {
-      if(this.products[i].id == product.id) {
+      if(this.products[i].productId == product.productId) {
         if(this.products[i].quantity > 1) {
           this.products[i].quantity--;
         }

@@ -50,20 +50,10 @@ namespace Web.Angular
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-
-            // Register the database context
-            if (CurrentEnvironment.IsDevelopment())
-            {
-                services.AddDbContext<ProductDbContext>(options =>
-                    options.UseInMemoryDatabase(
-                        Configuration.GetConnectionString("DefaultConnection")));
-            }
-            else
-            {
-                services.AddDbContext<ProductDbContext>(options =>
-                    options.UseSqlServer(
-                        Configuration.GetConnectionString("DefaultConnection")));
-            }
+           
+            services.AddDbContext<ProductDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
             // Registering services and repositories
             services.AddTransient<IProductService, ProductService>();

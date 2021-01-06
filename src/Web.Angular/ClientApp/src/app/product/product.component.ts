@@ -26,7 +26,7 @@ export class ProductComponent implements OnInit {
 
   // This product is used is the requested product does not exist.
   productNotFound: Product = {
-    id: 0,
+    productId: 0,
     title: "Product not found.",
     description: "",
     seller: "",
@@ -76,7 +76,7 @@ export class ProductComponent implements OnInit {
 
     // Create a Product object from the form data.
     var product: Product = {
-      id: id,
+      productId: id,
       title: this.productForm.value.title,
       description: this.productForm.value.description,
       seller: this.productForm.value.seller,
@@ -98,7 +98,7 @@ export class ProductComponent implements OnInit {
 
   cloneProduct(originalProduct: Product): Product {
     var clonedProduct: Product = {
-      id: originalProduct.id,
+      productId: originalProduct.productId,
       title: originalProduct.title,
       description: originalProduct.description,
       seller: originalProduct.seller,

@@ -34,7 +34,7 @@ export class AddProductComponent implements OnInit {
     // Create a product object from the values in the form. The product id has to be zero when you add a product
     // to the database.
     var product: Product = {
-      id: 0,
+      productId: 0,
       title: this.productForm.value.title,
       description: this.productForm.value.description,
       seller: this.productForm.value.seller,
@@ -48,7 +48,7 @@ export class AddProductComponent implements OnInit {
     this.productService.addProduct(product).subscribe(
       output => {
         console.log(output);
-        var productId: number = output.id;
+        var productId: number = output.productId;
         console.log("The product has been added to the database.");
         // Reset the form
         this.productForm.reset();
