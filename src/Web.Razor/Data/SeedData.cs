@@ -1,8 +1,10 @@
 ﻿using ApplicationCore.Entities;
+using IdentityServer4.EntityFramework.Options;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,9 @@ namespace Web.Razor.Data
         {
             using (var context = new ProductDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<ProductDbContext>>()))
+                    DbContextOptions<ProductDbContext>>(),
+                serviceProvider.GetRequiredService<
+                    IOptions<OperationalStoreOptions>>()))
             {
 
                 // The admin user can do anything

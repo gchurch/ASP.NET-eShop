@@ -1,7 +1,9 @@
 ﻿using ApplicationCore.Entities;
+using IdentityServer4.EntityFramework.Options;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,9 @@ namespace Infrastructure.Data
         {
             using (var context = new ProductDbContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<ProductDbContext>>()))
+                    DbContextOptions<ProductDbContext>>(),
+                serviceProvider.GetRequiredService<
+                    IOptions<OperationalStoreOptions>>()))
             {
                 SeedDB(context, "0");
             }
