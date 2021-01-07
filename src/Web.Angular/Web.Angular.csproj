@@ -49,12 +49,8 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Compile Remove="Pages\Shared\**" />
     <Content Remove="$(SpaRoot)**" />
-    <Content Remove="Pages\Shared\**" />
-    <EmbeddedResource Remove="Pages\Shared\**" />
     <None Remove="$(SpaRoot)**" />
-    <None Remove="Pages\Shared\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 

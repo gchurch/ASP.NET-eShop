@@ -13,6 +13,9 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { BasketComponent } from './basket/basket.component';
 import { ProductInfoComponent } from './product-info/product-info.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
+import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
+import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
+import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,16 +33,18 @@ import { ProductUpdateComponent } from './product-update/product-update.componen
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ApiAuthorizationModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/products', pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
       { path: 'products/:id', component: ProductComponent },
-      { path: 'add-product', component: AddProductComponent },
+      { path: 'add-product', component: AddProductComponent},
       { path: 'basket', component: BasketComponent },
     ])
   ],
   providers: [
-    ProductService
+    ProductService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
