@@ -1,4 +1,4 @@
-export const ApplicationName = 'angular_app_auth';
+export const ApplicationName = 'eShop';
 
 export const ReturnUrlType = 'returnUrl';
 
