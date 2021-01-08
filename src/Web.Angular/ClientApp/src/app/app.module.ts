@@ -38,7 +38,7 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
       { path: '', redirectTo: '/products', pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
       { path: 'products/:id', component: ProductComponent },
-      { path: 'add-product', component: AddProductComponent},
+      { path: 'add-product', component: AddProductComponent, canActivate: [AuthorizeGuard]},
       { path: 'basket', component: BasketComponent },
     ])
   ],
