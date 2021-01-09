@@ -37,7 +37,7 @@ namespace Web.Razor
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(
-                options => options.SignIn.RequireConfirmedAccount = true)
+                options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ProductDbContext>();
 
