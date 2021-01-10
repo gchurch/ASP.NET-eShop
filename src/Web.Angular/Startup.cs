@@ -55,7 +55,7 @@ namespace Web.Angular
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(
-                options => options.SignIn.RequireConfirmedAccount = true)
+                options => options.SignIn.RequireConfirmedAccount = false)
                .AddEntityFrameworkStores<ProductDbContext>();
 
             services.AddIdentityServer()
