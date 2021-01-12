@@ -26,7 +26,7 @@ I also created a separate front-end using ASP.NET Core MVC and Razor. The code f
 
 ## Clean Architecture
 
-I use a Clean Architecture based on https://github.com/ardalis/CleanArchitecture to organize the code.
+A Clean Architecture based on https://github.com/ardalis/CleanArchitecture is used to organize the code.
 
 The Clean Architecture separates the application into three layers with each layer being a separate project. The layers are the ApplicationCore, Infrastructure and Web (User Interface). ApplicationCore contains the Entities, interfaces and services; Infrastructure contains the database code; and Web contains the controllers and front-end code. Using a clean architecture results in the Angular front-end and Razor front-end being easily substitutable. You just need to set the front-end project that you want to run as the startup project.
 
