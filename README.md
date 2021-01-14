@@ -20,9 +20,11 @@ The application has the following API:
 | PUT /api/Products         | Update an existing product | Product      | Product           |
 | DELETE /api/Products/{id} | Delete a product           | None         | None              |
 
+I am currently working on implementing authentication and authorization for this version of the front-end.
+
 ## Razor Front-end
 
-I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project. For this version of the application I have implemented authentication and authorization using ASP.NET Identity.
+I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project. For this version of the application I have implemented authentication and authorization using Identity.
 
 ## Clean Architecture
 
