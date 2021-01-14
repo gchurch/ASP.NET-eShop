@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionalTests", "tests\Fu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Razor", "src\Web.Razor\Web.Razor.csproj", "{01B5BBC5-CDC0-4A5E-840D-E04C366CE009}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.React", "Web.React\Web.React.csproj", "{CB147E25-D622-4C04-8F44-6425F951F3DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.React", "src\Web.React\Web.React.csproj", "{CB147E25-D622-4C04-8F44-6425F951F3DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
