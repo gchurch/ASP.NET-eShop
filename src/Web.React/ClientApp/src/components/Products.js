@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Products.css';
 
 export class Products extends Component {
   static displayName = Products.name;
@@ -14,48 +15,23 @@ export class Products extends Component {
 
   static renderProductsTable(products) {
     return (
-      /*
-      <table className='table table-striped' aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-          </tr>
-        </thead>
-        <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-      */
-      <table className='table table-striped' aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Seller</th>
-            <th>Quantity</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
+      <div id="products">
+        <ul>
           {products.map(product =>
-            <tr>
-              <td>{product.title}</td>
-              <td>{product.seller}</td>
-              <td>{product.quantity}</td>
-              <td>{product.price}</td>
-            </tr>
+            <li>
+              <div>
+                <img src="assets/{product.imageUrl}" alt=""/>
+              </div>
+              <div>
+                <p id="productTitle">{ product.title }</p>
+                <p id="productSeller">Seller: { product.seller }</p>
+                <p id="productPrice">£{ product.price }</p>
+                <p id="productDelivery">FREE Delivery</p>
+            </div>
+            </li>
           )}
-        </tbody>
-      </table>
+        </ul>
+      </div>
     );
   }
 
