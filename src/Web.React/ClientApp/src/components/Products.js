@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 
-export class FetchData extends Component {
-  static displayName = FetchData.name;
+export class Products extends Component {
+  static displayName = Products.name;
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { products: [], loading: true };
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    this.populateProductsData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderProductsTable(products) {
     return (
+      /*
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>
@@ -34,26 +35,47 @@ export class FetchData extends Component {
           )}
         </tbody>
       </table>
+      */
+      <table className='table table-striped' aria-labelledby="tabelLabel">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Seller</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map(product =>
+            <tr>
+              <td>{product.title}</td>
+              <td>{product.seller}</td>
+              <td>{product.quantity}</td>
+              <td>{product.price}</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     );
   }
 
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+      : Products.renderProductsTable(this.state.products);
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
+        <h1 id="tabelLabel" >Products</h1>
         <p>This component demonstrates fetching data from the server.</p>
         {contents}
       </div>
     );
   }
 
-  async populateWeatherData() {
-    const response = await fetch('weatherforecast');
+  async populateProductsData() {
+    const response = await fetch('api/products');
     const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    this.setState({ products: data, loading: false });
   }
 }
