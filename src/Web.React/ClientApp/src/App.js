@@ -4,6 +4,7 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { Products } from './components/Products';
 import { Counter } from './components/Counter';
+import { Product } from './components/Product';
 
 import './custom.css'
 
@@ -16,6 +17,7 @@ export default class App extends Component {
         <Route exact path='/' component={Home} />
         <Route path='/counter' component={Counter} />
         <Route path='/products' component={Products} />
+        <Route path='/product/:id' component={Product} />
       </Layout>
     );
   }
