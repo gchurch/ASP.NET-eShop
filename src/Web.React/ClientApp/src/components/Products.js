@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import './Products.css';
 
 export class Products extends Component {
@@ -13,26 +15,10 @@ export class Products extends Component {
     this.populateProductsData();
   }
 
-  static renderProductsTable(products) {
-    return (
-      <div id="products">
-        <ul>
-          {products.map(product =>
-            <li>
-              <div>
-                <img src="assets/{product.imageUrl}" alt=""/>
-              </div>
-              <div>
-                <p id="productTitle">{ product.title }</p>
-                <p id="productSeller">Seller: { product.seller }</p>
-                <p id="productPrice">£{ product.price }</p>
-                <p id="productDelivery">FREE Delivery</p>
-            </div>
-            </li>
-          )}
-        </ul>
-      </div>
-    );
+  async populateProductsData() {
+    const response = await fetch('api/products');
+    const data = await response.json();
+    this.setState({ products: data, loading: false });
   }
 
   render() {
@@ -49,9 +35,27 @@ export class Products extends Component {
     );
   }
 
-  async populateProductsData() {
-    const response = await fetch('api/products');
-    const data = await response.json();
-    this.setState({ products: data, loading: false });
+  static renderProductsTable(products) {
+    return (
+      <div id="products">
+        <ul>
+          {products.map(product =>
+            <li>
+              <div>
+                <img src="assets/{product.imageUrl}" alt=""/>
+              </div>
+              <div>
+                <Link to={"product/" + product.productId}>
+                  <p id="productTitle">{ product.title }</p>
+                </Link>
+                <p id="productSeller">Seller: { product.seller }</p>
+                <p id="productPrice">£{ product.price }</p>
+                <p id="productDelivery">FREE Delivery</p>
+            </div>
+            </li>
+          )}
+        </ul>
+      </div>
+    );
   }
 }
