@@ -42,7 +42,9 @@ export class Products extends Component {
           {products.map(product =>
             <li>
               <div>
-                <img src="assets/{product.imageUrl}" alt=""/>
+                <Link to={"product/" + product.productId}>
+                  <img src={"images/" + product.imageUrl} alt=""/>
+                </Link>
               </div>
               <div>
                 <Link to={"product/" + product.productId}>
