@@ -46,10 +46,8 @@ export class Products extends Component {
                   <img src={"images/" + product.imageUrl} alt=""/>
                 </Link>
               </div>
-              <div>
-                <Link to={"product/" + product.productId}>
-                  <p id="productTitle">{ product.title }</p>
-                </Link>
+              <div>             
+                <p id="productTitle"><Link to={"product/" + product.productId}>{ product.title }</Link></p>
                 <p id="productSeller">Seller: { product.seller }</p>
                 <p id="productPrice">£{ product.price }</p>
                 <p id="productDelivery">FREE Delivery</p>
