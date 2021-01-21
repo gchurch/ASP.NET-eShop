@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import './Product.css';
+
 export class Product extends Component {
 
     constructor(props) {
@@ -32,9 +34,13 @@ export class Product extends Component {
 
     static renderProduct (product) {
         return (
-            <div>
-                <h1>Title: {product.title}</h1>
-                <p>ID: {product.productId}</p>
+            <div id="product">
+                <div id="image"><img src={"images/" + product.imageUrl} alt=""/></div>
+                <p id="productTitle">{product.title}</p>
+                <p id="productPrice">Price: <span>£{product.price}</span></p>
+                <p id="productQuantity">{product.quantity} <span>in stock</span></p>
+                <p id="productDescription"><span>About this product</span><br/>{product.description}</p>
+                <p id="productSeller">Seller: <span>{product.seller}</span></p>
             </div>
         );
     }
