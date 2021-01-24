@@ -28,9 +28,24 @@ export class AddProduct extends Component {
     }
 
     handleSubmit(event) {
-        alert('New product created: ' + this.state.title);
         event.preventDefault();
-        console.log(this.state);
+        this.SendProduct();
+    }
+
+    async SendProduct() {
+        const body = JSON.stringify(this.state);
+        console.log(body);
+        const response = await fetch('api/products/', 
+            {
+                method: 'POST', 
+                body: body, 
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        const data = await response.json();
+        console.log(data);
     }
 
     render() {
