@@ -2,7 +2,7 @@
 
 ![.NET Core](https://github.com/gchurch/Ganges/workflows/.NET%20Core/badge.svg?branch=master)
 
-I have created a CRUD E-commerce website using ASP.NET Core 5.0. I have created two different front-ends, one with Angular and another with Razor. The solution has a clean architecture which results in the two front-ends being easily substitutable. I have also created unit tests and functional tests for the application.
+I have created a CRUD E-commerce website using ASP.NET Core 5.0. I have created a few different front-ends using different technologies. These are Angular, React, and Razor. The solution has a clean architecture which results in the front-ends being easily substitutable. I have also created unit tests and functional tests for the application.
 
 ## Angular Front-end
 
@@ -21,6 +21,10 @@ The application has the following API:
 | DELETE /api/Products/{id} | Delete a product           | None         | None              |
 
 I am currently working on implementing authentication and authorization for this version of the front-end.
+
+## React Front-end
+
+I created a similar SPA front-end using React. The code for this is in the Web.React project.
 
 ## Razor Front-end
 
