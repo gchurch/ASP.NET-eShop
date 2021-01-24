@@ -34,7 +34,6 @@ export class AddProduct extends Component {
 
     async SendProduct() {
         const body = JSON.stringify(this.state);
-        console.log(body);
         const response = await fetch('api/products/', 
             {
                 method: 'POST', 
@@ -45,7 +44,9 @@ export class AddProduct extends Component {
             }
         );
         const data = await response.json();
-        console.log(data);
+        if(data.productId) {
+            this.props.history.push("/product/" + data.productId);
+        }
     }
 
     render() {
