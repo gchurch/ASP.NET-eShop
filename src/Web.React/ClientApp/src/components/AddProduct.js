@@ -74,10 +74,19 @@ export class AddProduct extends Component {
                         <p>Seller's Name: <input name="seller" type="text" value={this.state.seller} onChange={this.handleChange} /></p>
                     </div>
 
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Submit" disabled={this.isSubmitDisabled()} />
 
                 </form>
             </div>
         );
+    }
+
+    isSubmitDisabled() {
+        if(this.state.title && this.state.description && this.state.seller) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }
