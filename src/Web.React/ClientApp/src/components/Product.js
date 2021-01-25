@@ -6,7 +6,11 @@ export class Product extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { product: {}, loading: true };
+        this.state = {
+            id: this.props.match.params.id,
+            product: {}, 
+            loading: true 
+        };
     }
 
     componentDidMount() {
@@ -14,8 +18,7 @@ export class Product extends Component {
     }
 
     async populateProductData() {
-        const id = this.props.match.params.id;
-        const response = await fetch('api/products/' + id);
+        const response = await fetch('api/products/' + this.state.id);
         const data = await response.json();
         this.setState({ product: data, loading: false });
     }
@@ -23,7 +26,7 @@ export class Product extends Component {
     render () {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : Product.renderProduct(this.state.product);
+            : this.renderProduct(this.state.product);
 
         return (
             <div>
@@ -32,17 +35,26 @@ export class Product extends Component {
         );
     }
 
-    static renderProduct (product) {
+    renderProduct (product) {
         return (
-            <div id="product">
-                <div id="image"><img src={"images/" + product.imageUrl} alt=""/></div>
-                <p id="productTitle">{product.title}</p>
-                <p id="productPrice">Price: <span>£{product.price}</span></p>
-                <p id="productQuantity">{product.quantity} <span>in stock</span></p>
-                <p id="productDescription"><span>About this product</span><br/>{product.description}</p>
-                <p id="productSeller">Seller: <span>{product.seller}</span></p>
+            <div>
+                <div id="product">
+                    <div id="image"><img src={"images/" + product.imageUrl} alt=""/></div>
+                    <p id="productTitle">{product.title}</p>
+                    <p id="productPrice">Price: <span>£{product.price}</span></p>
+                    <p id="productQuantity">{product.quantity} <span>in stock</span></p>
+                    <p id="productDescription"><span>About this product</span><br/>{product.description}</p>
+                    <p id="productSeller">Seller: <span>{product.seller}</span></p>
+                </div>
+                <button onClick={this.onDelete}>Delete</button>
             </div>
         );
+    }
+
+    onDelete = async () => {
+        const url = "api/products/" + this.state.id
+        await fetch(url, { method: 'DELETE' });
+        console.log("Product has been deleted");
     }
 
 }
