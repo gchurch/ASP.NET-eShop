@@ -43,6 +43,7 @@ export class AddProduct extends Component {
                 }
             }
         );
+        console.log("Product created.")
         const data = await response.json();
         if(data.productId) {
             this.props.history.push("/product/" + data.productId);

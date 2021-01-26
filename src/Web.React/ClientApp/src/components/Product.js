@@ -52,9 +52,10 @@ export class Product extends Component {
     }
 
     onDelete = async () => {
-        const url = "api/products/" + this.state.id
-        await fetch(url, { method: 'DELETE' });
-        console.log("Product has been deleted");
+        const deletionUrl = "api/products/" + this.state.id
+        await fetch(deletionUrl, { method: 'DELETE' });
+        console.log("Product deleted");
+        this.props.history.push("/products");
     }
 
 }
