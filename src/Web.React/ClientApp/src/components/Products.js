@@ -24,7 +24,7 @@ export class Products extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : Products.renderProductsTable(this.state.products);
+      : this.renderProducts(this.state.products);
 
     return (
       <div>
@@ -35,7 +35,7 @@ export class Products extends Component {
     );
   }
 
-  static renderProductsTable(products) {
+  renderProducts(products) {
     return (
       <div id="products">
         <ul>
