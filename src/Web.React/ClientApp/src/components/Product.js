@@ -24,6 +24,8 @@ export class Product extends Component {
     }
 
     render () {
+        let productImage = this.renderProductImage(this.state.product);
+
         let productDetails = this.state.loading
             ? <p><em>Loading...</em></p>
             : this.renderProductDetails(this.state.product);
@@ -34,24 +36,32 @@ export class Product extends Component {
 
         return (
             <div>
-                {productDetails}
-                {productUpdateForm}
+                <div id="product">
+                    {productImage}
+                    {productDetails}
+                    {productUpdateForm}
+                </div>
+                <button onClick={this.onDelete}>Delete</button>
             </div>
         );
     }
 
+    renderProductImage(product) {
+        return (
+            <div id="image">
+                <img src={"images/" + product.imageUrl} alt=""/>
+            </div>
+        )
+    }
+
     renderProductDetails (product) {
         return (
-            <div>
-                <div id="product">
-                    <div id="image"><img src={"images/" + product.imageUrl} alt=""/></div>
-                    <p id="productTitle">{product.title}</p>
-                    <p id="productPrice">Price: <span>£{product.price}</span></p>
-                    <p id="productQuantity">{product.quantity} <span>in stock</span></p>
-                    <p id="productDescription"><span>About this product</span><br/>{product.description}</p>
-                    <p id="productSeller">Seller: <span>{product.seller}</span></p>
-                </div>
-                <button onClick={this.onDelete}>Delete</button>
+            <div id="productDetails">
+                <p id="productTitle">{product.title}</p>
+                <p id="productPrice">Price: <span>£{product.price}</span></p>
+                <p id="productQuantity">{product.quantity} <span>in stock</span></p>
+                <p id="productDescription"><span>About this product</span><br/>{product.description}</p>
+                <p id="productSeller">Seller: <span>{product.seller}</span></p>
             </div>
         );
     }

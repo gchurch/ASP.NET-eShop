@@ -11,28 +11,35 @@
     max-width: 100%;
 }
 
-#product p {
+#product #productDetails {
+    display: inline-block;
+    padding: 1%;
+    width: 75%;
+    margin: none;
+}
+
+#product #productDetails p {
     border-bottom: 1px solid rgb(201, 201, 201);
     font-family: Arial;
 }
 
-#product #productTitle {
+#product #productDetails #productTitle {
     font-size: 1.5em;
 }
 
-#product #productPrice {
+#product #productDetails #productPrice {
     color: rgb(75, 75, 75);
 }
 
-#product #productPrice span {
+#product #productDetails #productPrice span {
     color: rgb(182, 7, 7);
     font-size: 1.2em;
 }
 
-#product #productQuantity span {
+#product #productDetails #productQuantity span {
     color: rgb(75, 75, 75);
 }
 
-#product #productDescription span {
+#product #productDetails #productDescription span {
     font-weight: bold;
 }
