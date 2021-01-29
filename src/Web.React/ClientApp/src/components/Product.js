@@ -9,7 +9,7 @@ export class Product extends Component {
         this.state = {
             id: this.props.match.params.id,
             product: {}, 
-            loading: true 
+            loading: true
         };
     }
 
@@ -24,18 +24,23 @@ export class Product extends Component {
     }
 
     render () {
-        let contents = this.state.loading
+        let productDetails = this.state.loading
             ? <p><em>Loading...</em></p>
-            : this.renderProduct(this.state.product);
+            : this.renderProductDetails(this.state.product);
+        
+        let productUpdateForm = this.state.loading
+            ? <p><em>Loading...</em></p>
+            : this.renderProductUpdateForm();
 
         return (
             <div>
-                {contents}
+                {productDetails}
+                {productUpdateForm}
             </div>
         );
     }
 
-    renderProduct (product) {
+    renderProductDetails (product) {
         return (
             <div>
                 <div id="product">
@@ -56,6 +61,29 @@ export class Product extends Component {
         await fetch(deletionUrl, { method: 'DELETE' });
         console.log("Product deleted");
         this.props.history.push("/products");
+    }
+
+    renderProductUpdateForm () {
+        return (
+            <form>
+                <div>
+                    <p>Product Title: <input name="title" type="text" /></p>
+                </div>
+                <div>
+                    <p>Price: £<input name="price" type="number" /></p>
+                </div>
+                <div>
+                    <p>Quantity: <input name="quantity" type="number" /></p>
+                </div>
+                <div>
+                    <p>Description: <input name="description" type="text" /></p>
+                </div>
+                <div>
+                    <p>Seller's Name: <input name="seller" type="text" /></p>
+                </div>
+                <input type="submit" value="Submit" />
+            </form>
+        )
     }
 
 }
