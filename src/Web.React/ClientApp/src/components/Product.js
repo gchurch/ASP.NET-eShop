@@ -9,8 +9,11 @@ export class Product extends Component {
         this.state = {
             id: this.props.match.params.id,
             product: {}, 
-            loading: true
+            loading: true,
+            formValues: {}
         };
+
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
@@ -20,7 +23,7 @@ export class Product extends Component {
     async populateProductData() {
         const response = await fetch('api/products/' + this.state.id);
         const data = await response.json();
-        this.setState({ product: data, loading: false });
+        this.setState({ product: data, loading: false, formValues: data });
     }
 
     render () {
@@ -77,23 +80,36 @@ export class Product extends Component {
         return (
             <form>
                 <div>
-                    <p>Product Title: <input name="title" type="text" /></p>
+                    <p>Product Title: <input name="title" type="text" value={this.state.formValues.title} onChange={this.handleChange} /></p>
                 </div>
                 <div>
-                    <p>Price: £<input name="price" type="number" /></p>
+                    <p>Price: £<input name="price" type="number" value={this.state.formValues.price} onChange={this.handleChange} /></p>
                 </div>
                 <div>
-                    <p>Quantity: <input name="quantity" type="number" /></p>
+                    <p>Quantity: <input name="quantity" type="number" value={this.state.formValues.quantity} onChange={this.handleChange} /></p>
                 </div>
                 <div>
-                    <p>Description: <input name="description" type="text" /></p>
+                    <p>Description: <input name="description" type="text" value={this.state.formValues.description} onChange={this.handleChange} /></p>
                 </div>
                 <div>
-                    <p>Seller's Name: <input name="seller" type="text" /></p>
+                    <p>Seller's Name: <input name="seller" type="text" value={this.state.formValues.seller} onChange={this.handleChange} /></p>
                 </div>
                 <input type="submit" value="Submit" />
             </form>
         )
+    }
+
+    handleChange(event) {
+
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            formValues: {
+                [name]: value
+            }
+        });
     }
 
 }
