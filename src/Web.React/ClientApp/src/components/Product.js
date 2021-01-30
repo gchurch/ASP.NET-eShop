@@ -14,6 +14,7 @@ export class Product extends Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -69,16 +70,9 @@ export class Product extends Component {
         );
     }
 
-    onDelete = async () => {
-        const deletionUrl = "api/products/" + this.state.id
-        await fetch(deletionUrl, { method: 'DELETE' });
-        console.log("Product deleted");
-        this.props.history.push("/products");
-    }
-
     renderProductUpdateForm () {
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <div>
                     <p>Product Title: <input name="title" type="text" value={this.state.formValues.title} onChange={this.handleChange} /></p>
                 </div>
@@ -94,7 +88,7 @@ export class Product extends Component {
                 <div>
                     <p>Seller's Name: <input name="seller" type="text" value={this.state.formValues.seller} onChange={this.handleChange} /></p>
                 </div>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Update" />
             </form>
         )
     }
@@ -105,11 +99,39 @@ export class Product extends Component {
         const value = target.value;
         const name = target.name;
 
-        this.setState({
-            formValues: {
-                [name]: value
+        this.setState(prevState => {
+            let formValues = Object.assign({}, prevState.formValues);   // creating copy of state variable formValues
+            formValues[name] = value;                                   // update the name property, assign a new value                 
+            return { formValues };                                      // return new object formValues object
+          })
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.sendProduct();
+    }
+
+    async sendProduct() {
+        const body = JSON.stringify(this.state.formValues);
+        const response = await fetch('api/products/', 
+            {
+                method: 'PUT', 
+                body: body, 
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             }
-        });
+        );
+        const data = await response.json();
+        this.setState({product: data});
+        console.log("Product updated.");
+    }
+
+    onDelete = async () => {
+        const deletionUrl = "api/products/" + this.state.id
+        await fetch(deletionUrl, { method: 'DELETE' });
+        console.log("Product deleted");
+        this.props.history.push("/products");
     }
 
 }

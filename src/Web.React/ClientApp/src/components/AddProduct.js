@@ -16,40 +16,6 @@ export class AddProduct extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
-
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value 
-        });
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        this.SendProduct();
-    }
-
-    async SendProduct() {
-        const body = JSON.stringify(this.state);
-        const response = await fetch('api/products/', 
-            {
-                method: 'POST', 
-                body: body, 
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
-        console.log("Product created.")
-        const data = await response.json();
-        if(data.productId) {
-            this.props.history.push("/product/" + data.productId);
-        }
-    }
-
     render() {
         return (
             <div>
@@ -81,6 +47,40 @@ export class AddProduct extends Component {
                 </form>
             </div>
         );
+    }
+
+    handleChange(event) {
+
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value 
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.SendProduct();
+    }
+
+    async SendProduct() {
+        const body = JSON.stringify(this.state);
+        const response = await fetch('api/products/', 
+            {
+                method: 'POST', 
+                body: body, 
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        console.log("Product created.");
+        const data = await response.json();
+        if(data.productId) {
+            this.props.history.push("/product/" + data.productId);
+        }
     }
 
     isSubmitDisabled() {
