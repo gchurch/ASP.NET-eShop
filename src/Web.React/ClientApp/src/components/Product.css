@@ -11,11 +11,16 @@
     max-width: 100%;
 }
 
-#product #productDetails {
+#product #productContent {
     display: inline-block;
     padding: 1%;
     width: 75%;
     margin: none;
+}
+
+#product #productContent div, form {
+    margin: 0;
+    padding: 0;
 }
 
 #product #productDetails p {
