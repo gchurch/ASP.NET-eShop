@@ -10,7 +10,8 @@ export class Product extends Component {
             id: this.props.match.params.id,
             product: {}, 
             loading: true,
-            formValues: {}
+            formValues: {},
+            editing: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -28,6 +29,8 @@ export class Product extends Component {
     }
 
     render () {
+        let editButtonText = this.state.editing ? "Stop editing" : "Edit";
+
         let productImage = this.renderProductImage(this.state.product);
 
         let productDetails = this.state.loading
@@ -40,6 +43,7 @@ export class Product extends Component {
 
         return (
             <div>
+                <button onClick={this.onEdit}>{editButtonText}</button>
                 <div id="product">
                     {productImage}
                     {productDetails}
@@ -100,9 +104,12 @@ export class Product extends Component {
         const name = target.name;
 
         this.setState(prevState => {
-            let formValues = Object.assign({}, prevState.formValues);   // creating copy of state variable formValues
-            formValues[name] = value;                                   // update the name property, assign a new value                 
-            return { formValues };                                      // return new object formValues object
+            // creating copy of state variable formValues
+            let formValues = Object.assign({}, prevState.formValues);
+            // update the name property, assign a new value
+            formValues[name] = value;
+            // return new object formValues object
+            return { formValues };
           })
     }
 
@@ -125,6 +132,10 @@ export class Product extends Component {
         const data = await response.json();
         this.setState({product: data});
         console.log("Product updated.");
+    }
+
+    onEdit = async () => {
+        this.setState({editing: !this.state.editing});
     }
 
     onDelete = async () => {
