@@ -121,7 +121,6 @@ export class Product extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.sendProduct();
-        this.setState({editing: false});
     }
 
     async sendProduct() {
@@ -138,6 +137,7 @@ export class Product extends Component {
         const data = await response.json();
         this.setState({product: data});
         console.log("Product updated.");
+        this.setState({editing: false});
     }
 
     onEdit = async () => {
