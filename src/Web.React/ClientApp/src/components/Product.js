@@ -40,14 +40,19 @@ export class Product extends Component {
         let productUpdateForm = this.state.loading
             ? <p><em>Loading...</em></p>
             : this.renderProductUpdateForm();
+        
+        let productContentToDisplay = this.state.editing
+            ? productUpdateForm
+            : productDetails
 
         return (
             <div>
                 <button onClick={this.onEdit}>{editButtonText}</button>
                 <div id="product">
                     {productImage}
-                    {productDetails}
-                    {productUpdateForm}
+                    <div id="productContent">
+                        {productContentToDisplay}
+                    </div>
                 </div>
                 <button onClick={this.onDelete}>Delete</button>
             </div>
