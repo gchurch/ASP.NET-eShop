@@ -121,6 +121,7 @@ export class Product extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.sendProduct();
+        this.setState({editing: false});
     }
 
     async sendProduct() {
