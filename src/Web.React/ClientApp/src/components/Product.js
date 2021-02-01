@@ -54,7 +54,6 @@ export class Product extends Component {
                         {productContentToDisplay}
                     </div>
                 </div>
-                <button onClick={this.onDelete}>Delete</button>
             </div>
         );
     }
@@ -81,24 +80,27 @@ export class Product extends Component {
 
     renderProductUpdateForm () {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <div>
-                    <p>Product Title: <input name="title" type="text" value={this.state.formValues.title} onChange={this.handleChange} /></p>
-                </div>
-                <div>
-                    <p>Price: £<input name="price" type="number" value={this.state.formValues.price} onChange={this.handleChange} /></p>
-                </div>
-                <div>
-                    <p>Quantity: <input name="quantity" type="number" value={this.state.formValues.quantity} onChange={this.handleChange} /></p>
-                </div>
-                <div>
-                    <p>Description: <input name="description" type="text" value={this.state.formValues.description} onChange={this.handleChange} /></p>
-                </div>
-                <div>
-                    <p>Seller's Name: <input name="seller" type="text" value={this.state.formValues.seller} onChange={this.handleChange} /></p>
-                </div>
-                <input type="submit" value="Update" />
-            </form>
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <div>
+                        <p>Product Title: <input name="title" type="text" value={this.state.formValues.title} onChange={this.handleChange} /></p>
+                    </div>
+                    <div>
+                        <p>Price: £<input name="price" type="number" value={this.state.formValues.price} onChange={this.handleChange} /></p>
+                    </div>
+                    <div>
+                        <p>Quantity: <input name="quantity" type="number" value={this.state.formValues.quantity} onChange={this.handleChange} /></p>
+                    </div>
+                    <div>
+                        <p>Description: <input name="description" type="text" value={this.state.formValues.description} onChange={this.handleChange} /></p>
+                    </div>
+                    <div>
+                        <p>Seller's Name: <input name="seller" type="text" value={this.state.formValues.seller} onChange={this.handleChange} /></p>
+                    </div>
+                    <input type="submit" value="Update" />
+                </form>
+                <button onClick={this.onDelete}>Delete</button>
+            </div>
         )
     }
 
