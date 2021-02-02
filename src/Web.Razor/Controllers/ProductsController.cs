@@ -77,7 +77,7 @@ namespace Web.Razor.Controllers
             if(isUserAuthorized)
             {
                 await _productService.AddProductAsync(product);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = product.ProductId });
             }
             else
             {
