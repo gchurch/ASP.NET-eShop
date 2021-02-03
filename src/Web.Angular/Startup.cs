@@ -11,8 +11,6 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System;
 using System.IO;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication;
 
 namespace Web.Angular
 {
@@ -54,16 +52,6 @@ namespace Web.Angular
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(
-                options => options.SignIn.RequireConfirmedAccount = false)
-               .AddEntityFrameworkStores<ProductDbContext>();
-
-            services.AddIdentityServer()
-                .AddApiAuthorization<IdentityUser, ProductDbContext>();
-
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
-
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -98,10 +86,6 @@ namespace Web.Angular
             }
 
             app.UseRouting();
-
-            app.UseAuthentication();
-            app.UseIdentityServer();
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
