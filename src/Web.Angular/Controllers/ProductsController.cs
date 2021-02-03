@@ -11,7 +11,6 @@ namespace Web.Angular.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class ProductsController : ControllerBase
     {
 
@@ -24,7 +23,6 @@ namespace Web.Angular.Controllers
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/GetAllProductsAsync/*'/>
         [HttpGet]
-        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetAllProductsAsync()
         {
@@ -34,7 +32,6 @@ namespace Web.Angular.Controllers
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/GetProductByIdAsync/*'/>
         [HttpGet("{productId}")]
-        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Product>> GetProductByIdAsync(int productId)

@@ -38,13 +38,12 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
       { path: '', redirectTo: '/products', pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
       { path: 'products/:id', component: ProductComponent },
-      { path: 'add-product', component: AddProductComponent, canActivate: [AuthorizeGuard]},
+      { path: 'add-product', component: AddProductComponent },
       { path: 'basket', component: BasketComponent },
     ])
   ],
   providers: [
-    ProductService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
