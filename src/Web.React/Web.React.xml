@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Web.React</name>
+    </assembly>
+    <members>
+        <member name="M:Web.React.Controllers.ProductsController.GetAllProductsAsync">
+            <!-- Failed to insert some or all of included XML --><include file="ApiDoc.xml" path="docs/members[@name=&quot;ProductsController&quot;]/GetAllProductsAsync/*" />
+        </member>
+        <member name="M:Web.React.Controllers.ProductsController.GetProductByIdAsync(System.Int32)">
+            <!-- Failed to insert some or all of included XML --><include file="ApiDoc.xml" path="docs/members[@name=&quot;ProductsController&quot;]/GetProductByIdAsync/*" />
+        </member>
+        <member name="M:Web.React.Controllers.ProductsController.BuyProductByIdAsync(System.Int32)">
+            <!-- Failed to insert some or all of included XML --><include file="ApiDoc.xml" path="docs/members[@name=&quot;ProductsController&quot;]/BuyProductByIdAsync/*" />
+        </member>
+        <member name="M:Web.React.Controllers.ProductsController.AddProductAsync(ApplicationCore.Entities.Product)">
+            <!-- Failed to insert some or all of included XML --><include file="ApiDoc.xml" path="docs/members[@name=&quot;ProductsController&quot;]/AddProductAsync/*" />
+        </member>
+        <member name="M:Web.React.Controllers.ProductsController.DeleteProductByIdAsync(System.Int32)">
+            <!-- Failed to insert some or all of included XML --><include file="ApiDoc.xml" path="docs/members[@name=&quot;ProductsController&quot;]/DeleteProductByIdAsync/*" />
+        </member>
+        <member name="M:Web.React.Controllers.ProductsController.UpdateProductAsync(ApplicationCore.Entities.Product)">
+            <!-- Failed to insert some or all of included XML --><include file="ApiDoc.xml" path="docs/members[@name=&quot;ProductsController&quot;]/UpdateProductAsync/*" />
+        </member>
+    </members>
+</doc>
