@@ -149,6 +149,40 @@ namespace UnitTests.Web.Razor.Controllers
             actionResult.ShouldBeOfType<RedirectToActionResult>();
         }
 
+        [TestMethod]
+        public async Task CreatePost_GivenUserIsUnauthorized_ShouldReturnForbidden()
+        {
+            // Arrange
+            var productServiceStub = new Mock<IProductService>();
+            var product = new Product();
+            productServiceStub.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()));
+
+            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            authorizationServiceStub.Setup(
+                x => x.AuthorizeAsync(
+                    It.IsAny<ClaimsPrincipal>(),
+                    It.IsAny<Product>(),
+                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
+                )
+                .ReturnsAsync(AuthorizationResult.Failed());
+
+            var mockUserStore = new Mock<IUserStore<IdentityUser>>();
+            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManagerStub.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("ownerId");
+
+            var productsController = new ProductsController(
+                productServiceStub.Object,
+                authorizationServiceStub.Object,
+                userManagerStub.Object
+            );
+
+            // Act
+            IActionResult actionResult = await productsController.CreatePost(product);
+
+            // Assert
+            actionResult.ShouldBeOfType<ForbidResult>();
+        }
+
         /*
 
         [TestMethod]
