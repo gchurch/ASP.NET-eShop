@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace UnitTests.Web.Razor.Controllers
 {
@@ -92,14 +93,20 @@ namespace UnitTests.Web.Razor.Controllers
             actionResult.ShouldBeOfType<NotFoundResult>();
         }
 
-        /*
-
         [TestMethod]
         public void Create_ShouldReturnViewResult()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
-            var productsController = new ProductsController(productServiceStub.Object);
+            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            var mockUserStore = new Mock<IUserStore<IdentityUser>>();
+            var userManager = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+
+            var productsController = new ProductsController(
+                productServiceStub.Object,
+                authorizationServiceStub.Object,
+                userManager.Object
+            );
 
             // Act
             IActionResult actionResult = productsController.Create();
@@ -109,13 +116,31 @@ namespace UnitTests.Web.Razor.Controllers
         }
 
         [TestMethod]
-        public async Task CreatePost_GivenAProduct_ShouldReturnRedirect()
+        public async Task CreatePost_GivenUserIsAuthorized_ShouldReturnRedirect()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var product = new Product();
             productServiceStub.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()));
-            var productsController = new ProductsController(productServiceStub.Object);
+
+            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            authorizationServiceStub.Setup(
+                x => x.AuthorizeAsync (
+                    It.IsAny<ClaimsPrincipal>(), 
+                    It.IsAny<Product>(), 
+                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
+                )
+                .ReturnsAsync(AuthorizationResult.Success());
+
+            var mockUserStore = new Mock<IUserStore<IdentityUser>>();
+            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManagerStub.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("ownerId");
+
+            var productsController = new ProductsController(
+                productServiceStub.Object,
+                authorizationServiceStub.Object,
+                userManagerStub.Object
+            );
 
             // Act
             IActionResult actionResult = await productsController.CreatePost(product);
@@ -123,6 +148,8 @@ namespace UnitTests.Web.Razor.Controllers
             // Assert
             actionResult.ShouldBeOfType<RedirectToActionResult>();
         }
+
+        /*
 
         [TestMethod]
         public async Task Delete_GivenAProductIdThatExists_ShouldReturnViewResult()
