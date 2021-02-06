@@ -24,7 +24,6 @@ namespace UnitTests.Web.Razor.Controllers
             var productServiceStub = new Mock<IProductService>();
             productServiceStub.Setup(ps => ps.GetAllProductsAsync())
                 .ReturnsAsync(new List<Product>());
-
             var authorizationServiceStub = new Mock<IAuthorizationService>();
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManager = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
@@ -41,7 +40,7 @@ namespace UnitTests.Web.Razor.Controllers
             // Assert
             actionResult.ShouldBeOfType<ViewResult>();
         }
-        /*
+        
 
         [TestMethod]
         public async Task Details_GivenProductIdThatExists_ShouldReturnViewResult()
@@ -51,7 +50,15 @@ namespace UnitTests.Web.Razor.Controllers
             int productIdThatExists = 1;
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
-            var productsController = new ProductsController(productServiceStub.Object);
+            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            var mockUserStore = new Mock<IUserStore<IdentityUser>>();
+            var userManager = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+
+            var productsController = new ProductsController(
+                productServiceStub.Object,
+                authorizationServiceStub.Object,
+                userManager.Object
+            );
 
             // Act
             IActionResult actionResult = await productsController.Details(productIdThatExists);
@@ -68,7 +75,15 @@ namespace UnitTests.Web.Razor.Controllers
             var productIdThatDoesNotExist = 0;
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
-            var productsController = new ProductsController(productServiceStub.Object);
+            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            var mockUserStore = new Mock<IUserStore<IdentityUser>>();
+            var userManager = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+
+            var productsController = new ProductsController(
+                productServiceStub.Object,
+                authorizationServiceStub.Object,
+                userManager.Object
+            );
 
             // Act
             IActionResult actionResult = await productsController.Details(productIdThatDoesNotExist);
@@ -76,6 +91,8 @@ namespace UnitTests.Web.Razor.Controllers
             // Assert
             actionResult.ShouldBeOfType<NotFoundResult>();
         }
+
+        /*
 
         [TestMethod]
         public void Create_ShouldReturnViewResult()
