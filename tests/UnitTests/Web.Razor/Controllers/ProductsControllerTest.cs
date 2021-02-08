@@ -279,23 +279,72 @@ namespace UnitTests.Web.Razor.Controllers
             actionResult.ShouldBeOfType<NotFoundResult>();
         }
 
-        /*
-
         [TestMethod]
-        public async Task DeletePost_GivenAProductIdThatExists_ShouldReturnRedirect()
+        public async Task DeletePost_GivenAProductIdThatExistsAsAnAuthorizedUser_ShouldReturnRedirect()
         {
             // Arrange
             var productServiceStub = new Mock<IProductService>();
             var productIdThatExists = 1;
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
-            var productsController = new ProductsController(productServiceStub.Object);
+
+            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            authorizationServiceStub.Setup(
+                x => x.AuthorizeAsync(
+                    It.IsAny<ClaimsPrincipal>(),
+                    It.IsAny<Product>(),
+                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
+                )
+                .ReturnsAsync(AuthorizationResult.Success());
+
+            var mockUserStore = new Mock<IUserStore<IdentityUser>>();
+            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+
+            var productsController = new ProductsController(
+                productServiceStub.Object,
+                authorizationServiceStub.Object,
+                userManagerStub.Object
+            );
 
             // Act
             IActionResult actionResult = await productsController.DeletePost(productIdThatExists);
 
             // Assert
             actionResult.ShouldBeOfType<RedirectToActionResult>();
+        }
+
+        [TestMethod]
+        public async Task DeletePost_GivenAProductIdThatExistsAsAnUnauthorizedUser_ShouldReturnForbid()
+        {
+            // Arrange
+            var productServiceStub = new Mock<IProductService>();
+            var productIdThatExists = 1;
+            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+                .ReturnsAsync(true);
+
+            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            authorizationServiceStub.Setup(
+                x => x.AuthorizeAsync(
+                    It.IsAny<ClaimsPrincipal>(),
+                    It.IsAny<Product>(),
+                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
+                )
+                .ReturnsAsync(AuthorizationResult.Failed());
+
+            var mockUserStore = new Mock<IUserStore<IdentityUser>>();
+            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+
+            var productsController = new ProductsController(
+                productServiceStub.Object,
+                authorizationServiceStub.Object,
+                userManagerStub.Object
+            );
+
+            // Act
+            IActionResult actionResult = await productsController.DeletePost(productIdThatExists);
+
+            // Assert
+            actionResult.ShouldBeOfType<ForbidResult>();
         }
 
         [TestMethod]
@@ -306,7 +355,17 @@ namespace UnitTests.Web.Razor.Controllers
             var productIdThatDoesNotExist = 0;
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
-            var productsController = new ProductsController(productServiceStub.Object);
+
+            var authorizationServiceStub = new Mock<IAuthorizationService>();
+
+            var mockUserStore = new Mock<IUserStore<IdentityUser>>();
+            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+
+            var productsController = new ProductsController(
+                productServiceStub.Object,
+                authorizationServiceStub.Object,
+                userManagerStub.Object
+            );
 
             // Act
             IActionResult actionResult = await productsController.DeletePost(productIdThatDoesNotExist);
@@ -314,6 +373,8 @@ namespace UnitTests.Web.Razor.Controllers
             // Assert
             actionResult.ShouldBeOfType<NotFoundResult>();
         }
+
+        /*
 
         [TestMethod]
         public async Task Edit_GivenAProductIdThatExists_ShouldReturnViewResult()
