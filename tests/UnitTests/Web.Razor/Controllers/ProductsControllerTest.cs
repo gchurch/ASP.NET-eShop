@@ -123,14 +123,7 @@ namespace UnitTests.Web.Razor.Controllers
             var product = new Product();
             productServiceStub.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()));
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
-            authorizationServiceStub.Setup(
-                x => x.AuthorizeAsync (
-                    It.IsAny<ClaimsPrincipal>(), 
-                    It.IsAny<Product>(), 
-                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
-                )
-                .ReturnsAsync(AuthorizationResult.Success());
+            var authorizationServiceStub = CreateAuthorizationServiceStubThatAuthorizesUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
@@ -157,14 +150,7 @@ namespace UnitTests.Web.Razor.Controllers
             var product = new Product();
             productServiceStub.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()));
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
-            authorizationServiceStub.Setup(
-                x => x.AuthorizeAsync(
-                    It.IsAny<ClaimsPrincipal>(),
-                    It.IsAny<Product>(),
-                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
-                )
-                .ReturnsAsync(AuthorizationResult.Failed());
+            var authorizationServiceStub = CreateAuthorizationServiceStubThatDoesNotAuthorizeUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
@@ -193,14 +179,7 @@ namespace UnitTests.Web.Razor.Controllers
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
-            authorizationServiceStub.Setup(
-                x => x.AuthorizeAsync(
-                    It.IsAny<ClaimsPrincipal>(),
-                    It.IsAny<Product>(),
-                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
-                )
-                .ReturnsAsync(AuthorizationResult.Success());
+            var authorizationServiceStub = CreateAuthorizationServiceStubThatAuthorizesUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
@@ -227,14 +206,7 @@ namespace UnitTests.Web.Razor.Controllers
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
-            authorizationServiceStub.Setup(
-                x => x.AuthorizeAsync(
-                    It.IsAny<ClaimsPrincipal>(),
-                    It.IsAny<Product>(),
-                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
-                )
-                .ReturnsAsync(AuthorizationResult.Failed());
+            var authorizationServiceStub = CreateAuthorizationServiceStubThatDoesNotAuthorizeUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
@@ -288,14 +260,7 @@ namespace UnitTests.Web.Razor.Controllers
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
-            authorizationServiceStub.Setup(
-                x => x.AuthorizeAsync(
-                    It.IsAny<ClaimsPrincipal>(),
-                    It.IsAny<Product>(),
-                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
-                )
-                .ReturnsAsync(AuthorizationResult.Success());
+            var authorizationServiceStub = CreateAuthorizationServiceStubThatAuthorizesUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
@@ -322,14 +287,7 @@ namespace UnitTests.Web.Razor.Controllers
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
-            authorizationServiceStub.Setup(
-                x => x.AuthorizeAsync(
-                    It.IsAny<ClaimsPrincipal>(),
-                    It.IsAny<Product>(),
-                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
-                )
-                .ReturnsAsync(AuthorizationResult.Failed());
+            var authorizationServiceStub = CreateAuthorizationServiceStubThatDoesNotAuthorizeUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
@@ -383,14 +341,7 @@ namespace UnitTests.Web.Razor.Controllers
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
-            authorizationServiceStub.Setup(
-                x => x.AuthorizeAsync(
-                    It.IsAny<ClaimsPrincipal>(),
-                    It.IsAny<Product>(),
-                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
-                )
-                .ReturnsAsync(AuthorizationResult.Success());
+            var authorizationServiceStub = CreateAuthorizationServiceStubThatAuthorizesUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
@@ -417,14 +368,7 @@ namespace UnitTests.Web.Razor.Controllers
             productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
-            authorizationServiceStub.Setup(
-                x => x.AuthorizeAsync(
-                    It.IsAny<ClaimsPrincipal>(),
-                    It.IsAny<Product>(),
-                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
-                )
-                .ReturnsAsync(AuthorizationResult.Failed());
+            var authorizationServiceStub = CreateAuthorizationServiceStubThatDoesNotAuthorizeUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
@@ -483,14 +427,7 @@ namespace UnitTests.Web.Razor.Controllers
             productServiceStub.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(productWithIdThatExists);
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
-            authorizationServiceStub.Setup(
-                x => x.AuthorizeAsync(
-                    It.IsAny<ClaimsPrincipal>(),
-                    It.IsAny<Product>(),
-                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
-                )
-                .ReturnsAsync(AuthorizationResult.Success());
+            var authorizationServiceStub = CreateAuthorizationServiceStubThatAuthorizesUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
@@ -524,14 +461,7 @@ namespace UnitTests.Web.Razor.Controllers
             productServiceStub.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(productWithIdThatExists);
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
-            authorizationServiceStub.Setup(
-                x => x.AuthorizeAsync(
-                    It.IsAny<ClaimsPrincipal>(),
-                    It.IsAny<Product>(),
-                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
-                )
-                .ReturnsAsync(AuthorizationResult.Failed());
+            var authorizationServiceStub = CreateAuthorizationServiceStubThatDoesNotAuthorizeUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
@@ -578,6 +508,32 @@ namespace UnitTests.Web.Razor.Controllers
 
             // Assert
             actionResult.ShouldBeOfType<NotFoundResult>();
+        }
+
+        Mock<IAuthorizationService> CreateAuthorizationServiceStubThatAuthorizesUser()
+        {
+            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            authorizationServiceStub.Setup(
+                x => x.AuthorizeAsync(
+                    It.IsAny<ClaimsPrincipal>(),
+                    It.IsAny<Product>(),
+                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
+                )
+                .ReturnsAsync(AuthorizationResult.Success());
+            return authorizationServiceStub;
+        }
+
+        Mock<IAuthorizationService> CreateAuthorizationServiceStubThatDoesNotAuthorizeUser()
+        {
+            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            authorizationServiceStub.Setup(
+                x => x.AuthorizeAsync(
+                    It.IsAny<ClaimsPrincipal>(),
+                    It.IsAny<Product>(),
+                    It.IsAny<IEnumerable<IAuthorizationRequirement>>())
+                )
+                .ReturnsAsync(AuthorizationResult.Failed());
+            return authorizationServiceStub;
         }
 
     }
