@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace UnitTests.ApplicationCore.Services
 {
     [TestClass]
-    public class ProductServiceTest
+    public class ProductServiceTests
     {
 
         [TestMethod]

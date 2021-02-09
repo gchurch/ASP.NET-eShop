@@ -16,7 +16,7 @@ using System.Security.Claims;
 namespace UnitTests.Web.Razor.Controllers
 {
     [TestClass]
-    public class ProductsControllerTest
+    public class ProductsControllerTests
     {
         [TestMethod]
         public async Task Index_ShouldReturnViewResult()

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace UnitTests.Web.Angular.Controllers
 {
     [TestClass]
-    public class ProductsControllerTest
+    public class ProductsControllerTests
     {
 
         [TestMethod]
