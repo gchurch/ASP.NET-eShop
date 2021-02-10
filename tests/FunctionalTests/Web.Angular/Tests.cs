@@ -29,7 +29,7 @@ namespace FunctionalTests.Web.Angular
         public async Task GetRequestsOfExistingProducts_ShouldGiveOkResponse(string url)
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
 
             // Act
             HttpResponseMessage response = await client.GetAsync(url);
@@ -42,7 +42,7 @@ namespace FunctionalTests.Web.Angular
         public async Task GettingAllProductsWithAGetRequest_ShouldReturnOkStatusCodeAndAllTheProducts()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
 
             // Act
             HttpResponseMessage response = await client.GetAsync("/api/products");
@@ -62,7 +62,7 @@ namespace FunctionalTests.Web.Angular
         public async Task GettingAProductWithAGetRequest_GivenAProductIdThatExists_ShouldReturnOkStatusCodeAndTheRequestedProduct()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
             int productIdThatExists = 2;
 
             // Act
@@ -84,7 +84,7 @@ namespace FunctionalTests.Web.Angular
         public async Task AddingAProductWithAPostRequest_GivenAValidProduct_ShouldReturnCreatedStatusCodeAndTheCreatedProduct()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
 
             var product = new Product()
             {
@@ -115,7 +115,7 @@ namespace FunctionalTests.Web.Angular
         public async Task AddingAProductWithAPostRequest_GivenAValidProduct_ShouldEnableSuccessfulGetRequest()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
             var product = new Product()
             {
                 ProductId = 0,
@@ -148,7 +148,7 @@ namespace FunctionalTests.Web.Angular
         public async Task UpdatingAProductWithAPutRequest_GivenAValidProduct_ShouldReturnOkStatusCodeAndTheUpdatedProduct()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
             var product = new Product()
             {
                 ProductId = 1,
@@ -178,7 +178,7 @@ namespace FunctionalTests.Web.Angular
         public async Task DeletingAProductWithADeleteRequest_GivenAProductIdThatExists_ShouldStopSuccessfulGetRequestOfThatProduct()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
             int id = 1;
             string url = "/api/products/" + id;
 

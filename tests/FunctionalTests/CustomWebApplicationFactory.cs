@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace FunctionalTests
 {
-    class CustomWebApplicationFactory<TStartup> 
+    public class CustomWebApplicationFactory<TStartup> 
         : WebApplicationFactory<TStartup> where TStartup : class
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)

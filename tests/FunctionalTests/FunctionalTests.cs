@@ -10,6 +10,8 @@ namespace FunctionalTests
 {
     public abstract class FunctionalTests<TStartup> where TStartup : class
     {
+        public CustomWebApplicationFactory<TStartup> _factory = new CustomWebApplicationFactory<TStartup>();
+
         public StringContent SerializeObject(object objectToSerialize)
         {
             string productString = JsonConvert.SerializeObject(objectToSerialize);
@@ -22,13 +24,6 @@ namespace FunctionalTests
             string responseString = await response.Content.ReadAsStringAsync();
             T result = JsonConvert.DeserializeObject<T>(responseString);
             return result;
-        }
-
-        public HttpClient CreateTestHttpClient()
-        {
-            var factory = new CustomWebApplicationFactory<TStartup>();
-            HttpClient client = factory.CreateClient();
-            return client;
         }
     }
 }

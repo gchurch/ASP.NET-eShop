@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace FunctionalTests.Web.Razor
 {
@@ -31,7 +32,7 @@ namespace FunctionalTests.Web.Razor
         public async Task GetRequestOfExistingProducts_ShouldGiveOkResponse(string url)
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
 
             // Act
             HttpResponseMessage getResponse = await client.GetAsync(url);
@@ -44,7 +45,7 @@ namespace FunctionalTests.Web.Razor
         public async Task CreatingANewProductWithAPostRequest_ShouldResultInSuccessfulGetRequest()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
             var newProduct = new Product()
             {
                 Title = "TestTitle"
@@ -66,7 +67,7 @@ namespace FunctionalTests.Web.Razor
         public async Task GettingTheDetailsOfAProductWithNonExistantID_ShouldResultInNotFoundResponse()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
 
             int nonExistantProductId = 4;
 
@@ -77,11 +78,35 @@ namespace FunctionalTests.Web.Razor
             getResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
 
+        // This test proves the the current issue that I am facing with these functional tests is that
+        // we are logged in to an account. As a result, we are re-directed to the login page.
+        [TestMethod]
+        public async Task DeletingAProductWhenNotAuthorized_ShouldReturnForbiddenResponse()
+        {
+            // Arrange
+            HttpClient client = _factory.CreateClient(
+                new WebApplicationFactoryClientOptions
+                {
+                    AllowAutoRedirect = false
+                }
+            );
+
+            int productId = 4;
+            StringContent serializedProductId = SerializeObject(productId);
+
+            // Act
+            HttpResponseMessage deletionResponse = await client.PostAsync("/Products/Delete/" + productId, serializedProductId);
+
+            // Assert
+            deletionResponse.StatusCode.ShouldBe(HttpStatusCode.Redirect);
+            deletionResponse.Headers.Location.OriginalString.ShouldStartWith("http://localhost/Identity/Account/Login");
+        }
+
         [TestMethod]
         public async Task DeletingAProduct_AfterwardsShouldResultInANotFoundResponseWhenGettingTheProduct()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
 
             int productId = 3;
             StringContent serializedProductId = SerializeObject(productId);
@@ -101,7 +126,7 @@ namespace FunctionalTests.Web.Razor
         public async Task EditingAnExistingProductWithAPostRequest_ShouldRespondWithAnOkStatusCode()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
 
             var existingProduct = new Product()
             {
@@ -120,7 +145,7 @@ namespace FunctionalTests.Web.Razor
         public async Task EditingANonExistentProductWithAPostRequest_ShouldRespondWithANotFoundStatusCode()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = _factory.CreateClient();
 
             var nonExistentProduct = new Product()
             {
