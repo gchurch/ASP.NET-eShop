@@ -63,7 +63,8 @@ namespace FunctionalTests.Web.Razor
 
             // Assert
             getResponseBeforeCreation.StatusCode.ShouldBe(HttpStatusCode.NotFound);
-            creationResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+            creationResponse.StatusCode.ShouldBe(HttpStatusCode.Redirect);
+            creationResponse.Headers.Location.OriginalString.ShouldStartWith("/Products/Details/4");
             getResponseAfterCreation.StatusCode.ShouldBe(HttpStatusCode.OK);
         }
 
@@ -117,12 +118,13 @@ namespace FunctionalTests.Web.Razor
 
             // Assert
             getResponseBeforeDeletion.StatusCode.ShouldBe(HttpStatusCode.OK);
-            deletionResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+            deletionResponse.StatusCode.ShouldBe(HttpStatusCode.Redirect);
+            deletionResponse.Headers.Location.OriginalString.ShouldStartWith("/Products");
             getResponseAfterDeletion.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
 
         [TestMethod]
-        public async Task EditingAnExistingProductWithAPostRequest_ShouldRespondWithAnOkStatusCode()
+        public async Task EditingAnExistingProductWithAPostRequest_ShouldRespondWithARedirect()
         {
             // Arrange
             HttpClient client = CreateTestHttpClient();
@@ -132,12 +134,14 @@ namespace FunctionalTests.Web.Razor
                 ProductId = 3,
             };
             StringContent serializedProduct = SerializeObject(existingProduct);
+            Console.WriteLine(serializedProduct);
 
             // Act
-            HttpResponseMessage getResponse = await client.PostAsync("Products/Edit/" + existingProduct.ProductId, serializedProduct);
+            HttpResponseMessage postResponse = await client.PostAsync("/Products/Edit/3", serializedProduct);
 
             // Assert
-            getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+            postResponse.StatusCode.ShouldBe(HttpStatusCode.Redirect);
+            postResponse.Headers.Location.OriginalString.ShouldStartWith("/Products/Details/");
         }
 
         [TestMethod]
