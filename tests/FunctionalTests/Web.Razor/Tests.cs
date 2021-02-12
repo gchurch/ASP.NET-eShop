@@ -36,7 +36,7 @@ namespace FunctionalTests.Web.Razor
         public async Task GetRequestOfExistingProducts_ShouldGiveOkResponse(string url)
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = CreateAuthorizedTestHttpClient();
 
             // Act
             HttpResponseMessage getResponse = await client.GetAsync(url);
@@ -49,17 +49,18 @@ namespace FunctionalTests.Web.Razor
         public async Task CreatingANewProductWithAPostRequest_ShouldResultInSuccessfulGetRequest()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = CreateAuthorizedTestHttpClient();
             var newProduct = new Product()
             {
                 Title = "TestTitle"
             };
             StringContent serializedProduct = SerializeObject(newProduct);
+            int idOfCreatedProduct = 4;
 
             // Act
-            HttpResponseMessage getResponseBeforeCreation = await client.GetAsync("/Products/Details/4");
+            HttpResponseMessage getResponseBeforeCreation = await client.GetAsync("/Products/Details/" + idOfCreatedProduct);
             HttpResponseMessage creationResponse = await client.PostAsync("/Products/Create", serializedProduct);
-            HttpResponseMessage getResponseAfterCreation = await client.GetAsync("/Products/Details/4");
+            HttpResponseMessage getResponseAfterCreation = await client.GetAsync("/Products/Details/" + idOfCreatedProduct);
 
             // Assert
             getResponseBeforeCreation.StatusCode.ShouldBe(HttpStatusCode.NotFound);
@@ -72,7 +73,7 @@ namespace FunctionalTests.Web.Razor
         public async Task GettingTheDetailsOfAProductWithNonExistantID_ShouldResultInNotFoundResponse()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = CreateAuthorizedTestHttpClient();
 
             int nonExistantProductId = 4;
 
@@ -83,30 +84,11 @@ namespace FunctionalTests.Web.Razor
             getResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
 
-        // This test proves the the current issue that I am facing with these functional tests is that
-        // we are logged in to an account. As a result, we are re-directed to the login page.
-        [TestMethod]
-        public async Task DeletingAProductWhenNotAuthorized_ShouldReturnForbiddenResponse()
-        {
-            // Arrange
-            HttpClient client = CreateTestHttpClient();
-
-            int productId = 3;
-            StringContent serializedProductId = SerializeObject(productId);
-
-            // Act
-            HttpResponseMessage deletionResponse = await client.PostAsync("/Products/Delete/" + productId, serializedProductId);
-
-            // Assert
-            deletionResponse.StatusCode.ShouldBe(HttpStatusCode.Redirect);
-            //deletionResponse.Headers.Location.OriginalString.ShouldStartWith("http://localhost/Identity/Account/Login");
-        }
-
         [TestMethod]
         public async Task DeletingAProduct_AfterwardsShouldResultInANotFoundResponseWhenGettingTheProduct()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = CreateAuthorizedTestHttpClient();
 
             int productId = 3;
             StringContent serializedProductId = SerializeObject(productId);
@@ -123,32 +105,36 @@ namespace FunctionalTests.Web.Razor
             getResponseAfterDeletion.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
 
+        // The reason this test is failing is because despite the fact that we are sending a serialized product
+        // within the post request, the ProductsController class seems to always use a null product.
         [TestMethod]
         public async Task EditingAnExistingProductWithAPostRequest_ShouldRespondWithARedirect()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
-
-            var existingProduct = new Product()
+            HttpClient client = CreateAuthorizedTestHttpClient();
+            int idOfEditedProduct = 3;
+            var editedProduct = new Product()
             {
-                ProductId = 3,
+                ProductId = idOfEditedProduct,
+                Title = "New Title"
             };
-            StringContent serializedProduct = SerializeObject(existingProduct);
-            Console.WriteLine(serializedProduct);
+            StringContent serializedProduct = SerializeObject(editedProduct);
 
             // Act
-            HttpResponseMessage postResponse = await client.PostAsync("/Products/Edit/3", serializedProduct);
+            HttpResponseMessage getResponse = await client.GetAsync("Products/Details/" + idOfEditedProduct);
+            HttpResponseMessage editPostResponse = await client.PostAsync("/Products/Edit/" + idOfEditedProduct, serializedProduct);
 
             // Assert
-            postResponse.StatusCode.ShouldBe(HttpStatusCode.Redirect);
-            postResponse.Headers.Location.OriginalString.ShouldStartWith("/Products/Details/");
+            getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+            editPostResponse.StatusCode.ShouldBe(HttpStatusCode.Redirect);
+            editPostResponse.Headers.Location.OriginalString.ShouldStartWith("/Products/Details/");
         }
 
         [TestMethod]
         public async Task EditingANonExistentProductWithAPostRequest_ShouldRespondWithANotFoundStatusCode()
         {
             // Arrange
-            HttpClient client = CreateTestHttpClient();
+            HttpClient client = CreateAuthorizedTestHttpClient();
 
             var nonExistentProduct = new Product()
             {
@@ -161,30 +147,6 @@ namespace FunctionalTests.Web.Razor
 
             // Assert
             getResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
-        }
-
-        public HttpClient CreateTestHttpClient()
-        {
-            HttpClient client = _factory.WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureTestServices(services =>
-                {
-                    services.AddAuthentication("Test")
-                        .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(
-                            "Test", options => { });
-                });
-            })
-                .CreateClient(
-                new WebApplicationFactoryClientOptions
-                {
-                    AllowAutoRedirect = false
-                }
-            );
-
-            client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Test");
-
-            return client;
         }
 
     }
