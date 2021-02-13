@@ -2,7 +2,7 @@
 
 ![.NET Core](https://github.com/gchurch/Ganges/workflows/.NET%20Core/badge.svg?branch=master)
 
-I have created a CRUD application in the style of an E-commerce website using ASP.NET Core 5.0. I have created a few different front-ends using different technologies. The front-end technologies I have used are Angular, React, and Razor. The solution has a clean architecture which results in the front-ends being easily substitutable for one another. I have also created unit tests and functional tests for the application.
+I have created a CRUD application in the style of an E-commerce website using ASP.NET Core 5.0. I have created a few different front-ends using different technologies. The front-end technologies I have used are Angular, React, and Razor. The solution uses a clean architecture which results in the front-ends being easily substitutable for one another. I have also created unit tests and functional tests for the application.
 
 ## Angular Front-end
 
