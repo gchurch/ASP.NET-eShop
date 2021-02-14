@@ -26,7 +26,6 @@ namespace Web.Angular
                 {
                     var context = services.GetRequiredService<ProductDbContext>();
                     context.Database.Migrate();
-                    SeedData.Initialize(services, "not used");
                 }
                 catch (Exception ex)
                 {

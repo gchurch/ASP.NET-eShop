@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Web.Razor.Authorization;
 
 namespace Web.Razor.Data
 {
@@ -26,9 +27,9 @@ namespace Web.Razor.Data
 
                 // The admin user can do anything
                 var adminID = await EnsureUser(serviceProvider, testUserPw, "admin@eshop.co.uk");
-                await EnsureRole(serviceProvider, adminID, Authorization.Constants.ProductAdministratorsRole);
+                await EnsureRole(serviceProvider, adminID, Constants.ProductAdministratorsRole);
 
-                SeedDB(context, "0");
+                SeedDB(context, adminID);
             }
         }
 
