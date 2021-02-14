@@ -28,7 +28,7 @@ I created a similar SPA front-end using React. The code for this is in the Web.R
 
 ## Razor Front-end
 
-I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project. For this version of the application I have implemented authentication and authorization using Identity. Users need to registered and be logged in to an account in order to create a product. A user can only edit and delete products that they created themself. The admin account can edit and delete all products.
+I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project. For this version of the application I have implemented authentication and authorization using Identity. Users must be registered and logged in to an account in order to create a product. Users can only edit and delete products that they have created themselves. The admin account can edit and delete all products.
 
 ## Clean Architecture
 
