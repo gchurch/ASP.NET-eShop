@@ -2,7 +2,7 @@
 
 ![.NET Core](https://github.com/gchurch/Ganges/workflows/.NET%20Core/badge.svg?branch=master)
 
-I have created a CRUD application in the style of an E-commerce website using ASP.NET Core 5.0. I have created a few different front-ends using different technologies. The front-end technologies I have used are Angular, React, and Razor. The solution has a clean architecture which results in the front-ends being easily substitutable for one another. I have also created unit tests and functional tests for the application.
+I have created a CRUD application in the style of an E-commerce website using ASP.NET Core 5.0. I have created a few different front-ends using different technologies. The front-end technologies I have used are Angular, React, and Razor. The solution uses a clean architecture which results in the front-ends being easily substitutable for one another. I have also created unit tests and functional tests for the application.
 
 ## Angular Front-end
 
@@ -28,7 +28,7 @@ I created a similar SPA front-end using React. The code for this is in the Web.R
 
 ## Razor Front-end
 
-I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project. For this version of the application I have implemented authentication and authorization using Identity.
+I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project. For this version of the application I have implemented authentication and authorization using Identity. Users need to registered and be logged in to an account in order to create a product. A user can only edit and delete products that they created themself. The admin account can edit and delete all products.
 
 ## Clean Architecture
 
