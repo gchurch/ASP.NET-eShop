@@ -13,9 +13,7 @@ using System;
 namespace FunctionalTests.Web.Angular
 {
 
-    // Useful information: https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1
-
-    // These tests could also be described as end-to-end functional tests.
+    // Useful information for functional/integration tests : https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1
 
     [TestClass]
     public class Tests : FunctionalTests<Startup>
