@@ -113,16 +113,16 @@ namespace FunctionalTests.Web.Razor
             // Arrange
             HttpClient client = CreateAuthorizedTestHttpClient();
             int idOfEditedProduct = 3;
-            var editedProduct = new Product()
-            {
-                ProductId = idOfEditedProduct,
-                Title = "New Title"
-            };
-            StringContent serializedProduct = SerializeObject(editedProduct);
+
+            var formDictionary = new Dictionary<string, string>();
+            formDictionary.Add("ProductId", idOfEditedProduct.ToString());
+            formDictionary.Add("Title", "Item Title");
+
+            var formContent = new FormUrlEncodedContent(formDictionary);
 
             // Act
             HttpResponseMessage getResponse = await client.GetAsync("Products/Details/" + idOfEditedProduct);
-            HttpResponseMessage editPostResponse = await client.PostAsync("/Products/Edit/" + idOfEditedProduct, serializedProduct);
+            HttpResponseMessage editPostResponse = await client.PostAsync("/Products/Edit/" + idOfEditedProduct, formContent);
 
             // Assert
             getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
