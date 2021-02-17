@@ -50,16 +50,16 @@ namespace FunctionalTests.Web.Razor
         {
             // Arrange
             HttpClient client = CreateAuthorizedTestHttpClient();
-            var newProduct = new Product()
-            {
-                Title = "TestTitle"
-            };
-            StringContent serializedProduct = SerializeObject(newProduct);
+
+            var formDictionary = new Dictionary<string, string>();
+            formDictionary.Add("Title", "TestTitle");
+            var formContent = new FormUrlEncodedContent(formDictionary);
+
             int idOfCreatedProduct = 4;
 
             // Act
             HttpResponseMessage getResponseBeforeCreation = await client.GetAsync("/Products/Details/" + idOfCreatedProduct);
-            HttpResponseMessage creationResponse = await client.PostAsync("/Products/Create", serializedProduct);
+            HttpResponseMessage creationResponse = await client.PostAsync("/Products/Create", formContent);
             HttpResponseMessage getResponseAfterCreation = await client.GetAsync("/Products/Details/" + idOfCreatedProduct);
 
             // Assert
@@ -67,6 +67,7 @@ namespace FunctionalTests.Web.Razor
             creationResponse.StatusCode.ShouldBe(HttpStatusCode.Redirect);
             creationResponse.Headers.Location.OriginalString.ShouldStartWith("/Products/Details/4");
             getResponseAfterCreation.StatusCode.ShouldBe(HttpStatusCode.OK);
+            (await getResponseAfterCreation.Content.ReadAsStringAsync()).Contains("TestTitle").ShouldBeTrue();
         }
 
         [TestMethod]
@@ -105,8 +106,6 @@ namespace FunctionalTests.Web.Razor
             getResponseAfterDeletion.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
 
-        // The reason this test is failing is because despite the fact that we are sending a serialized product
-        // within the post request, the ProductsController class seems to always use a null product.
         [TestMethod]
         public async Task EditingAnExistingProductWithAPostRequest_ShouldRespondWithARedirect()
         {
@@ -117,7 +116,6 @@ namespace FunctionalTests.Web.Razor
             var formDictionary = new Dictionary<string, string>();
             formDictionary.Add("ProductId", idOfEditedProduct.ToString());
             formDictionary.Add("Title", "Item Title");
-
             var formContent = new FormUrlEncodedContent(formDictionary);
 
             // Act
@@ -136,18 +134,18 @@ namespace FunctionalTests.Web.Razor
             // Arrange
             HttpClient client = CreateAuthorizedTestHttpClient();
 
-            var nonExistentProduct = new Product()
-            {
-                ProductId = 0,
-            };
-            StringContent serializedProduct = SerializeObject(nonExistentProduct);
+            int idOfEditedProduct = -1;
+
+            var formDictionary = new Dictionary<string, string>();
+            formDictionary.Add("ProductId", idOfEditedProduct.ToString());
+            formDictionary.Add("Title", "New Title");
+            var formContent = new FormUrlEncodedContent(formDictionary);
 
             // Act
-            HttpResponseMessage getResponse = await client.PostAsync("Products/Edit", serializedProduct);
+            HttpResponseMessage getResponse = await client.PostAsync("Products/Edit", formContent);
 
             // Assert
             getResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
-
     }
 }
