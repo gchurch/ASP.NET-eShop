@@ -8,7 +8,7 @@ I have created a CRUD application in the style of an E-commerce website using AS
 
 I created an SPA front-end with Angular. The code for this is in the Web.Angular project.
 
-The app is deployed on Azure here: https://webangular20210218164157.azurewebsites.net/products
+The Angular app is deployed on Azure here: https://webangular20210218164157.azurewebsites.net/products
 
 The angular app uses a back-end API created with ASP.NET Core MVC.
 
@@ -28,11 +28,13 @@ The API is documented using Swagger which is shown here: https://webangular20210
 
 I created a similar SPA front-end using React. The code for this is in the Web.React project.
 
+The React app is deployed on Azure here: https://webreact20210218165252.azurewebsites.net/products
+
 ## Razor Front-end
 
 I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project. For this version of the application I have implemented authentication and authorization using Identity. Users must be registered and logged in to an account in order to create a product. Users can only edit and delete products that they have created themselves. The admin account can edit and delete all products.
 
-The app is deployed on azure here: https://webrazor20210217164335.azurewebsites.net/Products
+The Razor app is deployed on azure here: https://webrazor20210217164335.azurewebsites.net/Products
 
 ## Clean Architecture
 
