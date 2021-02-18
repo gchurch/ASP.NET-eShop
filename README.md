@@ -8,7 +8,7 @@ I have created a CRUD application in the style of an E-commerce website using AS
 
 I created an SPA front-end with Angular. The code for this is in the Web.Angular project.
 
-The app is deployed on Azure here: https://webrazor20210217164335.azurewebsites.net/products
+The app is deployed on Azure here: https://webangular20210218164157.azurewebsites.net/products
 
 The angular app uses a back-end API created with ASP.NET Core MVC.
 
@@ -22,7 +22,7 @@ The application has the following API:
 | PUT /api/Products         | Update an existing product | Product      | Product           |
 | DELETE /api/Products/{id} | Delete a product           | None         | None              |
 
-The API is documented using Swagger which is shown here: https://webrazor20210217164335.azurewebsites.net/swagger/index.html
+The API is documented using Swagger which is shown here: https://webangular20210218164157.azurewebsites.net/swagger/index.html
 
 ## React Front-end
 
