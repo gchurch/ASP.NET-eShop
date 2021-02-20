@@ -2,12 +2,6 @@
     font-size: 1em;
 }
 
-.column {
-    display: inline-block;
-    vertical-align: top;
-    padding: 1%;
-}
-
 #editButton {
     background-color:rgb(162, 162, 255);
     border: none;
@@ -20,68 +14,67 @@
     background-color: rgb(139, 139, 255);
 }
 
-
-/************** Product Image *****************/
+.productColumn {
+    display: inline-block;
+    vertical-align: top;
+    padding: 1%;
+}
 
 #productImage {
     width: 25%;
     margin: none;
-}
 
-img {
-    height: auto;
-    max-width: 100%;
+    img {
+        height: auto;
+        max-width: 100%;
+    }
 }
-
-/************** Product Info *********************/
 
 #productInfo {
     width: 55%;
-}
 
-#productInfo button {
-    display: inline-block;
-    border: none;
-    padding: 1% 5% 1% 5%;
-    border-radius: 15px;
-}
+    button {
+        display: inline-block;
+        border: none;
+        padding: 1% 5% 1% 5%;
+        border-radius: 15px;
+    }
 
-#updateButton {
-    background-color: rgb(0, 207, 0);
-    margin-right: 10%;
+    #updateButton {
+        background-color: rgb(0, 207, 0);
+        margin-right: 10%;
+    }
+    
+    #updateButton:hover {
+        background-color: rgb(0, 175, 0);
+    }
+    
+    #deleteButton {
+        background-color: rgb(255, 108, 108);
+    }
+    
+    #deleteButton:hover {
+        background-color: red;
+    }
 }
-
-#updateButton:hover {
-    background-color: rgb(0, 175, 0);
-}
-
-#deleteButton {
-    background-color: rgb(255, 108, 108);
-}
-
-#deleteButton:hover {
-    background-color: red;
-}
-
-/************* Product Basket ************************/
 
 #productBasket {
     vertical-align: bottom;
     width: 20%;
-}
 
-#productBasket button {
-    background-color: rgb(255, 208, 0);
-    border: none;
-    padding: 5% 25% 5% 25%;
-    border-radius: 15px;
-}
+    button {
+        background-color: rgb(255, 208, 0);
+        border: none;
+        padding: 5% 25% 5% 25%;
+        border-radius: 15px;
+    }
 
-#productBasket button:hover {
-    background-color: rgb(241, 198, 2);
-}
+    button:hover {
+        background-color: rgb(241, 198, 2);
+    }
 
-#productBasket button:focus {
-    outline: none;
+    button:focus {
+        outline: none;
+    }
 }
 

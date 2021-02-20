@@ -8,8 +8,8 @@
         </button>
 
         <div>
-            <div class="column" id="productImage"><img src="assets/{{product.imageUrl}}"/></div>
-            <div class="column" id="productInfo">
+            <div class="productColumn" id="productImage"><img src="assets/{{product.imageUrl}}"/></div>
+            <div class="productColumn" id="productInfo">
                 <div *ngIf="editingProduct">
                     <!--If a valid product is received then display its details.-->
                     <form [formGroup]="productForm" (ngSubmit)="onUpdate(product.productId)">
@@ -24,7 +24,7 @@
                 </div>
                 <app-product-info *ngIf="!editingProduct" [product]="product"></app-product-info>
             </div>
-            <div class="column" id="productBasket">
+            <div class="productColumn" id="productBasket">
                 <button (click)="addToBasket(product)">Add to Basket</button>
             </div>
             
