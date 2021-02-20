@@ -2,7 +2,7 @@
     font-size: 1em;
 }
 
-div .column {
+.column {
     display: inline-block;
     vertical-align: top;
     padding: 1%;
@@ -21,9 +21,9 @@ div .column {
 }
 
 
-/************** first column *****************/
+/************** Product Image *****************/
 
-div .column:first-child {
+#productImage {
     width: 25%;
     margin: none;
 }
@@ -33,13 +33,13 @@ img {
     max-width: 100%;
 }
 
-/************** second column *********************/
+/************** Product Info *********************/
 
-div .column:nth-child(2) {
+#productInfo {
     width: 55%;
 }
 
-div .column:nth-child(2) button {
+#productInfo button {
     display: inline-block;
     border: none;
     padding: 1% 5% 1% 5%;
@@ -63,25 +63,25 @@ div .column:nth-child(2) button {
     background-color: red;
 }
 
-/************* third column ************************/
+/************* Product Basket ************************/
 
-div .column:last-child {
+#productBasket {
     vertical-align: bottom;
     width: 20%;
 }
 
-div .column:last-child button {
+#productBasket button {
     background-color: rgb(255, 208, 0);
     border: none;
     padding: 5% 25% 5% 25%;
     border-radius: 15px;
 }
 
-div .column:last-child button:hover {
+#productBasket button:hover {
     background-color: rgb(241, 198, 2);
 }
 
-div .column:last-child button:focus {
+#productBasket button:focus {
     outline: none;
 }
 
