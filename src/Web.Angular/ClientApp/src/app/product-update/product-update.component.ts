@@ -4,7 +4,7 @@ import { Product } from '../product';
 @Component({
   selector: 'app-product-update',
   templateUrl: './product-update.component.html',
-  styleUrls: ['./product-update.component.css']
+  styleUrls: ['./product-update.component.scss']
 })
 export class ProductUpdateComponent implements OnInit {
 
