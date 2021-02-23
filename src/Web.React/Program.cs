@@ -22,6 +22,7 @@ namespace Web.React
                 {
                     var context = services.GetRequiredService<ProductDbContext>();
                     context.Database.Migrate();
+                    SeedData.Initialize(services);
                 }
                 catch (Exception ex)
                 {
@@ -31,7 +32,6 @@ namespace Web.React
             }
 
             host.Run();
-            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

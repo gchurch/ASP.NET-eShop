@@ -26,6 +26,7 @@ namespace Web.Angular
                 {
                     var context = services.GetRequiredService<ProductDbContext>();
                     context.Database.Migrate();
+                    SeedData.Initialize(services);
                 }
                 catch (Exception ex)
                 {
@@ -35,7 +36,6 @@ namespace Web.Angular
             }
 
             host.Run();
-            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
