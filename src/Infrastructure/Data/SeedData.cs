@@ -1,19 +1,19 @@
 ﻿using ApplicationCore.Entities;
 using IdentityServer4.EntityFramework.Options;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
-namespace FunctionalTests
+namespace Infrastructure.Data
 {
     public static class SeedData
     {
-        public static void Initialize(IServiceProvider serviceProvider, string testUserPw)
+        public static void Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new ProductDbContext(
                 serviceProvider.GetRequiredService<
@@ -21,11 +21,11 @@ namespace FunctionalTests
                 serviceProvider.GetRequiredService<
                     IOptions<OperationalStoreOptions>>()))
             {
-                SeedDB(context, "0");
+                SeedDB(context);
             }
         }
 
-        public static void SeedDB(ProductDbContext context, string adminId)
+        public static void SeedDB(ProductDbContext context)
         {
             // Look for any products.
             if (context.Products.Any())
