@@ -29,7 +29,9 @@ export class Products extends Component {
     return (
       <div>
         <h1 id="tabelLabel" >Products</h1>
-        <p>This component demonstrates fetching data from the server.</p>
+        <Link to={"add-product"}>
+          <p>Add a product</p>
+        </Link>
         {contents}
       </div>
     );
