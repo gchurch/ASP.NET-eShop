@@ -32,7 +32,11 @@ namespace Web.Razor
                     // Set password with the Secret Manager tool.
                     // dotnet user-secrets set SeedUserPW <pw>
 
-                    var testUserPw = config["SeedUserPW"];
+                    //var testUserPw = config["SeedUserPW"];
+
+                    // It is bad practice to include the admin password in the code but I do it here in order
+                    // to easily demonstrate the application running.
+                    var testUserPw = "Password1!";
 
                     Data.SeedData.Initialize(services, testUserPw).Wait(); ;
                 }
