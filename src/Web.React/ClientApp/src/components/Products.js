@@ -51,7 +51,7 @@ export class Products extends Component {
               <div>             
                 <p id="productTitle"><Link to={"product/" + product.productId}>{ product.title }</Link></p>
                 <p id="productSeller">Seller: { product.seller }</p>
-                <p id="productPrice">£{ product.price }</p>
+                <p id="productPrice"><Link to={"product/" + product.productId}>£{ product.price }</Link></p>
                 <p id="productDelivery">FREE Delivery</p>
             </div>
             </li>
