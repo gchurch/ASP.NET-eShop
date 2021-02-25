@@ -22,10 +22,10 @@ namespace UnitTests.Web.Angular.Controllers
         public async Task GetAllProductsAsync_ShouldReturnOk()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
-            productServiceStub.Setup(ps => ps.GetAllProductsAsync())
+            var productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(ps => ps.GetAllProductsAsync())
                 .ReturnsAsync(new List<Product>());
-            var productsController = new ProductsController(productServiceStub.Object);
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<IEnumerable<Product>> actionResult = await productsController.GetAllProductsAsync();
@@ -39,13 +39,13 @@ namespace UnitTests.Web.Angular.Controllers
         public async Task GetProductByIdAsync_GivenProductIdThatExists_ShouldReturnTypeOk()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             int productIdThatExists = 0;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
-            productServiceStub.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
+            productServiceMock.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(new Product());
-            var productsController = new ProductsController(productServiceStub.Object);
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<Product> actionResult = await productsController.GetProductByIdAsync(productIdThatExists);
@@ -58,11 +58,11 @@ namespace UnitTests.Web.Angular.Controllers
         public async Task GetProductByIdAsync_GivenProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             int productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
-            var productsController = new ProductsController(productServiceStub.Object);
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<Product> actionResult = await productsController.GetProductByIdAsync(productIdThatDoesNotExist);
@@ -75,14 +75,14 @@ namespace UnitTests.Web.Angular.Controllers
         public async Task BuyProductByIdAsync_GivenProductIdThatExists_ShouldReturnOk()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             int productIdThatExists = 0;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
-            productServiceStub.Setup(ps => ps.BuyProductByIdAsync(productIdThatExists));
-            productServiceStub.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
+            productServiceMock.Setup(ps => ps.BuyProductByIdAsync(productIdThatExists));
+            productServiceMock.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(new Product());
-            var productsController = new ProductsController(productServiceStub.Object);
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<int> actionResult = await productsController.BuyProductByIdAsync(productIdThatExists);
@@ -95,11 +95,11 @@ namespace UnitTests.Web.Angular.Controllers
         public async Task BuyProductByIdAsync_GivenProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             int productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
-            var productsController = new ProductsController(productServiceStub.Object);
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<int> actionResult = await productsController.BuyProductByIdAsync(productIdThatDoesNotExist);
@@ -112,9 +112,9 @@ namespace UnitTests.Web.Angular.Controllers
         public async Task AddProductAsync_GivenProduct_ShouldReturnCreated()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
-            productServiceStub.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()));
-            var productsController = new ProductsController(productServiceStub.Object);
+            var productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()));
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<Product> actionResult = await productsController.AddProductAsync(new Product());
@@ -127,12 +127,12 @@ namespace UnitTests.Web.Angular.Controllers
         public async Task DeleteProductByIdAsync_GivenProductIdThatExists_ShouldReturnOk()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var productIdThatExists = 0;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
-            productServiceStub.Setup(ps => ps.DeleteProductByIdAsync(productIdThatExists));
-            var productsController = new ProductsController(productServiceStub.Object);
+            productServiceMock.Setup(ps => ps.DeleteProductByIdAsync(productIdThatExists));
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
             ActionResult actionResult = await productsController.DeleteProductByIdAsync(productIdThatExists);
@@ -145,11 +145,11 @@ namespace UnitTests.Web.Angular.Controllers
         public async Task DeleteProductByIdAsync_GivenProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.GetProductByIdAsync(productIdThatDoesNotExist))
+            productServiceMock.Setup(ps => ps.GetProductByIdAsync(productIdThatDoesNotExist))
                 .ReturnsAsync((Product)null);
-            var productsController = new ProductsController(productServiceStub.Object);
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
             ActionResult actionResult = await productsController.DeleteProductByIdAsync(productIdThatDoesNotExist);
@@ -167,13 +167,13 @@ namespace UnitTests.Web.Angular.Controllers
             {
                 ProductId = productIdThatExists
             };
-            var productServiceStub = new Mock<IProductService>();
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            var productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
-            productServiceStub.Setup(ps => ps.UpdateProductAsync(It.IsAny<Product>()));
-            productServiceStub.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
+            productServiceMock.Setup(ps => ps.UpdateProductAsync(It.IsAny<Product>()));
+            productServiceMock.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(new Product());
-            var productsController = new ProductsController(productServiceStub.Object);
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<Product> actionResult = await productsController.UpdateProductAsync(productWithKnownId);
@@ -191,10 +191,10 @@ namespace UnitTests.Web.Angular.Controllers
             {
                 ProductId = productIdThatDoesNotExist
             };
-            var productServiceStub = new Mock<IProductService>();
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+            var productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
-            var productsController = new ProductsController(productServiceStub.Object);
+            var productsController = new ProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<Product> actionResult = await productsController.UpdateProductAsync(productWithUnknownId);

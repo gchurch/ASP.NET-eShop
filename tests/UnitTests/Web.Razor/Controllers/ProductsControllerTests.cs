@@ -22,16 +22,16 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task Index_ShouldReturnViewResult()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
-            productServiceStub.Setup(ps => ps.GetAllProductsAsync())
+            var productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(ps => ps.GetAllProductsAsync())
                 .ReturnsAsync(new List<Product>());
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            var authorizationServiceMock = new Mock<IAuthorizationService>();
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManager = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
                 userManager.Object
             );
 
@@ -47,17 +47,17 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task Details_GivenProductIdThatExists_ShouldReturnViewResult()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             int productIdThatExists = 1;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            var authorizationServiceMock = new Mock<IAuthorizationService>();
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManager = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
                 userManager.Object
             );
 
@@ -72,17 +72,17 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task Details_GivenProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            var authorizationServiceMock = new Mock<IAuthorizationService>();
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManager = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
                 userManager.Object
             );
 
@@ -97,14 +97,14 @@ namespace UnitTests.Web.Razor.Controllers
         public void Create_ShouldReturnViewResult()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            var productServiceMock = new Mock<IProductService>();
+            var authorizationServiceMock = new Mock<IAuthorizationService>();
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
             var userManager = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
                 userManager.Object
             );
 
@@ -119,20 +119,20 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task CreatePost_AsAnAuthorizedUser_ShouldReturnRedirect()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var product = new Product();
-            productServiceStub.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()));
+            productServiceMock.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()));
 
-            var authorizationServiceStub = CreateAuthorizationServiceStubThatAuthorizesUser();
+            var authorizationServiceMock = CreateAuthorizationServiceMockThatAuthorizesUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
-            userManagerStub.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("ownerId");
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManagerMock.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("ownerId");
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -146,20 +146,20 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task CreatePost_AsAnUnauthorizedUser_ShouldReturnForbid()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var product = new Product();
-            productServiceStub.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()));
+            productServiceMock.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()));
 
-            var authorizationServiceStub = CreateAuthorizationServiceStubThatDoesNotAuthorizeUser();
+            var authorizationServiceMock = CreateAuthorizationServiceMockThatDoesNotAuthorizeUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
-            userManagerStub.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("ownerId");
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            userManagerMock.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("ownerId");
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -174,20 +174,20 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task Delete_GivenAProductIdThatExistsAsAnAuthorizedUser_ShouldReturnViewResult()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var productIdThatExists = 1;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
 
-            var authorizationServiceStub = CreateAuthorizationServiceStubThatAuthorizesUser();
+            var authorizationServiceMock = CreateAuthorizationServiceMockThatAuthorizesUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -201,20 +201,20 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task Delete_GivenAProductIdThatExistsAsAnUnauthorizedUser_ShouldReturnForbid()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var productIdThatExists = 1;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
 
-            var authorizationServiceStub = CreateAuthorizationServiceStubThatDoesNotAuthorizeUser();
+            var authorizationServiceMock = CreateAuthorizationServiceMockThatDoesNotAuthorizeUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -228,20 +228,20 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task Delete_GivenAProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            var authorizationServiceMock = new Mock<IAuthorizationService>();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -255,20 +255,20 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task DeletePost_GivenAProductIdThatExistsAsAnAuthorizedUser_ShouldReturnRedirect()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var productIdThatExists = 1;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
 
-            var authorizationServiceStub = CreateAuthorizationServiceStubThatAuthorizesUser();
+            var authorizationServiceMock = CreateAuthorizationServiceMockThatAuthorizesUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -282,20 +282,20 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task DeletePost_GivenAProductIdThatExistsAsAnUnauthorizedUser_ShouldReturnForbid()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var productIdThatExists = 1;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
 
-            var authorizationServiceStub = CreateAuthorizationServiceStubThatDoesNotAuthorizeUser();
+            var authorizationServiceMock = CreateAuthorizationServiceMockThatDoesNotAuthorizeUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -309,20 +309,20 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task DeletePost_GivenAProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            var authorizationServiceMock = new Mock<IAuthorizationService>();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -336,20 +336,20 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task Edit_GivenAProductIdThatExistsAsAnAuthorizedUser_ShouldReturnViewResult()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var productIdThatExists = 1;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
 
-            var authorizationServiceStub = CreateAuthorizationServiceStubThatAuthorizesUser();
+            var authorizationServiceMock = CreateAuthorizationServiceMockThatAuthorizesUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -363,20 +363,20 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task Edit_GivenAProductIdThatExistsAsAnUnauthorizedUser_ShouldReturnForbidResult()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             var productIdThatExists = 1;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
 
-            var authorizationServiceStub = CreateAuthorizationServiceStubThatDoesNotAuthorizeUser();
+            var authorizationServiceMock = CreateAuthorizationServiceMockThatDoesNotAuthorizeUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -390,20 +390,20 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task Edit_GivenAProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             int productIdThatDoesNotExist = 0;
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            var authorizationServiceMock = new Mock<IAuthorizationService>();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -417,25 +417,25 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task EditPost_GivenAProductIdThatExistsAsAnAuthorizedUser_ShouldReturnRedirect()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             int productIdThatExists = 1;
             var productWithIdThatExists = new Product() {
                 ProductId = productIdThatExists
             };
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
-            productServiceStub.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
+            productServiceMock.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(productWithIdThatExists);
 
-            var authorizationServiceStub = CreateAuthorizationServiceStubThatAuthorizesUser();
+            var authorizationServiceMock = CreateAuthorizationServiceMockThatAuthorizesUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
 
@@ -450,26 +450,26 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task EditPost_GivenAProductIdThatExistsAsAnUnauthorizedUser_ShouldReturnForbid()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             int productIdThatExists = 1;
             var productWithIdThatExists = new Product()
             {
                 ProductId = productIdThatExists
             };
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
-            productServiceStub.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
+            productServiceMock.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(productWithIdThatExists);
 
-            var authorizationServiceStub = CreateAuthorizationServiceStubThatDoesNotAuthorizeUser();
+            var authorizationServiceMock = CreateAuthorizationServiceMockThatDoesNotAuthorizeUser();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -483,24 +483,24 @@ namespace UnitTests.Web.Razor.Controllers
         public async Task EditPost_GivenAProductIdThatDoesNotExist_ShouldReturnNotFound()
         {
             // Arrange
-            var productServiceStub = new Mock<IProductService>();
+            var productServiceMock = new Mock<IProductService>();
             int productIdThatDoesNotExist = 0;
             var productWithIdThatDoesNotExist = new Product()
             {
                 ProductId = productIdThatDoesNotExist
             };
-            productServiceStub.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
+            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
 
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
+            var authorizationServiceMock = new Mock<IAuthorizationService>();
 
             var mockUserStore = new Mock<IUserStore<IdentityUser>>();
-            var userManagerStub = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
+            var userManagerMock = new Mock<UserManager<IdentityUser>>(mockUserStore.Object, null, null, null, null, null, null, null, null);
 
             var productsController = new ProductsController(
-                productServiceStub.Object,
-                authorizationServiceStub.Object,
-                userManagerStub.Object
+                productServiceMock.Object,
+                authorizationServiceMock.Object,
+                userManagerMock.Object
             );
 
             // Act
@@ -510,30 +510,30 @@ namespace UnitTests.Web.Razor.Controllers
             actionResult.ShouldBeOfType<NotFoundResult>();
         }
 
-        Mock<IAuthorizationService> CreateAuthorizationServiceStubThatAuthorizesUser()
+        Mock<IAuthorizationService> CreateAuthorizationServiceMockThatAuthorizesUser()
         {
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
-            authorizationServiceStub.Setup(
+            var authorizationServiceMock = new Mock<IAuthorizationService>();
+            authorizationServiceMock.Setup(
                 x => x.AuthorizeAsync(
                     It.IsAny<ClaimsPrincipal>(),
                     It.IsAny<Product>(),
                     It.IsAny<IEnumerable<IAuthorizationRequirement>>())
                 )
                 .ReturnsAsync(AuthorizationResult.Success());
-            return authorizationServiceStub;
+            return authorizationServiceMock;
         }
 
-        Mock<IAuthorizationService> CreateAuthorizationServiceStubThatDoesNotAuthorizeUser()
+        Mock<IAuthorizationService> CreateAuthorizationServiceMockThatDoesNotAuthorizeUser()
         {
-            var authorizationServiceStub = new Mock<IAuthorizationService>();
-            authorizationServiceStub.Setup(
+            var authorizationServiceMock = new Mock<IAuthorizationService>();
+            authorizationServiceMock.Setup(
                 x => x.AuthorizeAsync(
                     It.IsAny<ClaimsPrincipal>(),
                     It.IsAny<Product>(),
                     It.IsAny<IEnumerable<IAuthorizationRequirement>>())
                 )
                 .ReturnsAsync(AuthorizationResult.Failed());
-            return authorizationServiceStub;
+            return authorizationServiceMock;
         }
 
     }
