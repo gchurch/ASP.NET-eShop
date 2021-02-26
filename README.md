@@ -24,17 +24,23 @@ The application has the following API:
 
 The API is documented using Swagger which is shown here: https://webangular20210218164157.azurewebsites.net/swagger/index.html
 
+To run the application locally, in a command prompt navigate to src\Web.Angular\ClientApp and run the command "npm start". Then in Visual Studio set the Web.Angular project as the startup project and then start. 
+
 ## React Front-end
 
 I created a similar SPA front-end using React. The code for this is in the Web.React project.
 
 The React app is deployed on Azure here: https://webreact20210218165252.azurewebsites.net/products
 
+To run the application locally, in a command prompt navigate to src\Web.React\ClientApp and run the command "npm start". Then in Visual Studio set the Web.React project as the startup project and then start. 
+
 ## Razor Front-end
 
 I also created a separate front-end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project. For this version of the application I have implemented authentication and authorization using Identity. Users must be registered and logged in to an account in order to create a product. Users can only edit and delete products that they have created themselves. The admin account can edit and delete all products.
 
 The Razor app is deployed on azure here: https://webrazor20210219144828.azurewebsites.net/Products
+
+To run the application locally, set the Web.Razor project as the startup project and then start.
 
 ## Clean Architecture
 
