@@ -14,12 +14,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\$(Configuration)\Web.Angular.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\George\Code\dotnet\ASP.NET-eShop\src\Web.Angular\Web.Angular.xml</DocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Debug\Web.Angular.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\George\Code\dotnet\ASP.NET-eShop\src\Web.Angular\Web.Angular.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

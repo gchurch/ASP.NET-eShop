@@ -11,12 +11,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\$(Configuration)\Web.React.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\George\Code\dotnet\ASP.NET-eShop\src\Web.React\Web.React.xml</DocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Debug\Web.React.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\George\Code\dotnet\ASP.NET-eShop\src\Web.React\Web.React.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
