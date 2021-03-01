@@ -1,15 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp5.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\George\Code\dotnet\ASP.NET-eShop\src\ClassLibrary\ClassLibrary.xml</DocumentationFile>
+    <DocumentationFile>ClassLibrary.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Users\George\Code\dotnet\ASP.NET-eShop\src\ClassLibrary\ClassLibrary.xml</DocumentationFile>
+    <DocumentationFile>ClassLibrary.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
