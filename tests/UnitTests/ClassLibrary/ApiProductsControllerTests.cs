@@ -1,21 +1,21 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
-using Web.Angular.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Shouldly;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ClassLibrary;
 
 // Helpful pages for unit testing:
 // https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
 // https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/testing?view=aspnetcore-3.1
 
-namespace UnitTests.Web.Angular.Controllers
+namespace UnitTests.ClassLibrary
 {
     [TestClass]
-    public class ProductsControllerTests
+    public class ApiProductsControllerTests
     {
 
         [TestMethod]
@@ -25,7 +25,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productServiceMock = new Mock<IProductService>();
             productServiceMock.Setup(ps => ps.GetAllProductsAsync())
                 .ReturnsAsync(new List<Product>());
-            var productsController = new ProductsController(productServiceMock.Object);
+            var productsController = new ApiProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<IEnumerable<Product>> actionResult = await productsController.GetAllProductsAsync();
@@ -45,7 +45,7 @@ namespace UnitTests.Web.Angular.Controllers
                 .ReturnsAsync(true);
             productServiceMock.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(new Product());
-            var productsController = new ProductsController(productServiceMock.Object);
+            var productsController = new ApiProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<Product> actionResult = await productsController.GetProductByIdAsync(productIdThatExists);
@@ -62,7 +62,7 @@ namespace UnitTests.Web.Angular.Controllers
             int productIdThatDoesNotExist = 0;
             productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
-            var productsController = new ProductsController(productServiceMock.Object);
+            var productsController = new ApiProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<Product> actionResult = await productsController.GetProductByIdAsync(productIdThatDoesNotExist);
@@ -82,7 +82,7 @@ namespace UnitTests.Web.Angular.Controllers
             productServiceMock.Setup(ps => ps.BuyProductByIdAsync(productIdThatExists));
             productServiceMock.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(new Product());
-            var productsController = new ProductsController(productServiceMock.Object);
+            var productsController = new ApiProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<int> actionResult = await productsController.BuyProductByIdAsync(productIdThatExists);
@@ -99,7 +99,7 @@ namespace UnitTests.Web.Angular.Controllers
             int productIdThatDoesNotExist = 0;
             productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
-            var productsController = new ProductsController(productServiceMock.Object);
+            var productsController = new ApiProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<int> actionResult = await productsController.BuyProductByIdAsync(productIdThatDoesNotExist);
@@ -114,7 +114,7 @@ namespace UnitTests.Web.Angular.Controllers
             // Arrange
             var productServiceMock = new Mock<IProductService>();
             productServiceMock.Setup(ps => ps.AddProductAsync(It.IsAny<Product>()));
-            var productsController = new ProductsController(productServiceMock.Object);
+            var productsController = new ApiProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<Product> actionResult = await productsController.AddProductAsync(new Product());
@@ -132,7 +132,7 @@ namespace UnitTests.Web.Angular.Controllers
             productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
                 .ReturnsAsync(true);
             productServiceMock.Setup(ps => ps.DeleteProductByIdAsync(productIdThatExists));
-            var productsController = new ProductsController(productServiceMock.Object);
+            var productsController = new ApiProductsController(productServiceMock.Object);
 
             // Act
             ActionResult actionResult = await productsController.DeleteProductByIdAsync(productIdThatExists);
@@ -149,7 +149,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productIdThatDoesNotExist = 0;
             productServiceMock.Setup(ps => ps.GetProductByIdAsync(productIdThatDoesNotExist))
                 .ReturnsAsync((Product)null);
-            var productsController = new ProductsController(productServiceMock.Object);
+            var productsController = new ApiProductsController(productServiceMock.Object);
 
             // Act
             ActionResult actionResult = await productsController.DeleteProductByIdAsync(productIdThatDoesNotExist);
@@ -173,7 +173,7 @@ namespace UnitTests.Web.Angular.Controllers
             productServiceMock.Setup(ps => ps.UpdateProductAsync(It.IsAny<Product>()));
             productServiceMock.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
                 .ReturnsAsync(new Product());
-            var productsController = new ProductsController(productServiceMock.Object);
+            var productsController = new ApiProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<Product> actionResult = await productsController.UpdateProductAsync(productWithKnownId);
@@ -194,7 +194,7 @@ namespace UnitTests.Web.Angular.Controllers
             var productServiceMock = new Mock<IProductService>();
             productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
                 .ReturnsAsync(false);
-            var productsController = new ProductsController(productServiceMock.Object);
+            var productsController = new ApiProductsController(productServiceMock.Object);
 
             // Act
             ActionResult<Product> actionResult = await productsController.UpdateProductAsync(productWithUnknownId);

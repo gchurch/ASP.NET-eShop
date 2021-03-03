@@ -22,8 +22,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\ApplicationCore\ApplicationCore.csproj" />
+    <ProjectReference Include="..\..\src\ClassLibrary\ClassLibrary.csproj" />
     <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\..\src\Web.Angular\Web.Angular.csproj" />
     <ProjectReference Include="..\..\src\Web.Razor\Web.Razor.csproj" />
   </ItemGroup>
 

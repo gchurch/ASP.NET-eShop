@@ -9,7 +9,7 @@ namespace ClassLibrary
 {
     [ApiController]
     [Route("api/[controller]")]
-    public abstract class ApiProductsController : ControllerBase
+    public class ApiProductsController : ControllerBase
     {
 
         private readonly IProductService _productService;
