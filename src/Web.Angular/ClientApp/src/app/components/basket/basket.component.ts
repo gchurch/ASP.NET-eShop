@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BasketService } from '../basket.service';
-import { Product } from '../product';
+import { BasketService } from '../../services/basket.service';
+import { Product } from '../../product';
 import { Subject } from 'rxjs';
 
 @Component({

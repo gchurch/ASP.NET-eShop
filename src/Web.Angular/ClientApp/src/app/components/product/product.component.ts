@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from '../product.service';
+import { ProductService } from '../../services/product.service';
 import { Observable, of } from 'rxjs';
-import { Product } from '../product';
+import { Product } from '../../product';
 import { catchError, tap } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { BasketService } from '../basket.service';
+import { BasketService } from '../../services/basket.service';
 import { Router } from '@angular/router';
 
 @Component({
