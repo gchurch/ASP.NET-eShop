@@ -2,58 +2,50 @@
     font-size: 1em;
 }
 
-.section {
-    border-top: 1px solid grey;
-    padding: 1%;
-}
-
-div div div {
-    display: inline-block;
-    vertical-align: top;
-    padding: 1%;
-}
-
-/******************* first child ********************/
-
-div div div:nth-child(1) {
-    width: 20%;
-}
-
-img {
-    width: 100%;
-    height: auto;
-}
-
-/******************** second child ******************/
-
-div div div:nth-child(2) {
-    width: 60%;
-}
-
-#productTitle {
-    font-size: 1.5em;
-}
-
-#productTitle a {
-    color: black;
-    text-decoration: none;
-}
-
-/************* third child ************/
-
-div div div:nth-child(3) {
-    text-align: right;
-    width: 20%;
-    font-weight: bold;
-    font-size: 1.5em;
-}
-
-/*****************************/
-
 #priceHeading {
     text-align: right;
     color:  rgb(75, 75, 75);
     font-size: 1.5em;
+}
+
+#basket {
+    border-top: 1px solid grey;
+    padding: 1%;
+
+    div {
+        display: inline-block;
+        vertical-align: top;
+        padding: 1%;
+    }
+
+    div:nth-child(1) {
+        width: 20%;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    div:nth-child(2) {
+        width: 60%;
+
+        #productTitle {
+            font-size: 1.5em;
+        }
+        
+        #productTitle a {
+            color: black;
+            text-decoration: none;
+        }
+    }
+
+    div:nth-child(3) {
+        text-align: right;
+        width: 20%;
+        font-weight: bold;
+        font-size: 1.5em;
+    }
 }
 
 #summary {

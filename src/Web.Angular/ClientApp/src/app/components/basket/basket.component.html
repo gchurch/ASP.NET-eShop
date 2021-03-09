@@ -2,7 +2,7 @@
 
 <div *ngIf="(getProducts$() | async) as products;">
     <p id="priceHeading">Price</p>
-    <div class="section" *ngFor="let product of products">
+    <div id="basket" *ngFor="let product of products">
         <div>
             <img src="assets/{{product.imageUrl}}"/>
         </div>
