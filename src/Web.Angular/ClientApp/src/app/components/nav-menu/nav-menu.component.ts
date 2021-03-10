@@ -16,7 +16,7 @@ export class NavMenuComponent implements OnInit {
   constructor(private basketService: BasketService) { }
 
   ngOnInit() : void {
-    this.numberOfProductsInBasket$ = this.basketService.getNumberOfProducts();
+    this.numberOfProductsInBasket$ = this.basketService.getNumberOfProducts$();
   }
 
   collapse() {

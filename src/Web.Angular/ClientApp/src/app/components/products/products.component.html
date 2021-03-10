@@ -2,9 +2,7 @@
 
 <a routerLink="/add-product"><p>Add a product</p></a>
 
-
 <div *ngIf="(products$ | async) as products;">
-
     <ul>
         <li *ngFor="let product of products">
             <div>
@@ -18,5 +16,4 @@
             </div>
         </li>
     </ul>
-
 </div>
