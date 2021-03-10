@@ -1,4 +1,3 @@
-<!--Using *ngIf here makes sure that we only subscribe to the observable once-->
 <div *ngIf="(product$ | async) as product">
     <div *ngIf="product.productId != 0">
 
@@ -11,21 +10,20 @@
             <div class="productColumn" id="productImage"><img src="assets/{{product.imageUrl}}"/></div>
             <div class="productColumn" id="productInfo">
                 <div *ngIf="editingProduct">
-                    <!--If a valid product is received then display its details.-->
-                    <form [formGroup]="productForm" (ngSubmit)="onUpdate(product.productId)">
+                    <form [formGroup]="productUpdateForm" (ngSubmit)="onUpdate(product.productId)">
                         <p>Title: <input type="text" formControlName="title"/></p>
                         <p>Price: £<input type="number" formControlName="price"/></p>
                         <p>Quantity: <input type="number" formControlName="quantity"/></p>
                         <p>Description: <input type="text" formControlName="description"/></p>
                         <p>Seller: <input type="text" formControlName="seller"/></p>
-                        <button id="updateButton" type="submit" [disabled]="!productForm.valid">Update</button>
+                        <button id="updateButton" type="submit" [disabled]="!productUpdateForm.valid">Update</button>
                         <button id="deleteButton" (click)="onDelete(product.productId)">Delete</button>
                     </form>
                 </div>
                 <app-product-info *ngIf="!editingProduct" [product]="product"></app-product-info>
             </div>
             <div class="productColumn" id="productBasket">
-                <button (click)="addToBasket(product)">Add to Basket</button>
+                <button (click)="addProductToBasket(product)">Add to Basket</button>
             </div>
             
         </div>

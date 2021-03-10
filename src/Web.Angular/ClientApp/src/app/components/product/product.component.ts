@@ -15,16 +15,11 @@ import { Router } from '@angular/router';
 })
 export class ProductComponent implements OnInit {
 
-  // The observable for retreiving the product from the server
   product$: Observable<Product>;
-
   productQuantity: number;
-
-  productForm: FormGroup;
-
+  productUpdateForm: FormGroup;
   editingProduct: boolean = false;
 
-  // This product is used is the requested product does not exist.
   productNotFound: Product = {
     productId: 0,
     title: "Product not found.",
@@ -35,32 +30,34 @@ export class ProductComponent implements OnInit {
     imageUrl: ""
   };
 
-  constructor(private route: ActivatedRoute, private productService: ProductService, private basketService: BasketService, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private productService: ProductService, 
+    private basketService: BasketService, 
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    // Create the observable for retrieving the product from the server
+    this.createProductObservable();
+    this.createProductUpdateForm();
+  }
+
+  createProductObservable(): void {
     this.route.paramMap.subscribe(params => {
       var id: number = +params.get('id');
       this.product$ = this.productService.getProduct(id)
         .pipe(catchError(err => of(this.productNotFound)))
-        .pipe(tap(product => this.productForm.patchValue(product)));
+        .pipe(tap(product => this.productUpdateForm.patchValue(product)));
     });
-    
-    // Create the product form. Here I am subscribing to the product observable in order to give initial values
-    // to the form. I am not sure if this is good practice.
-    this.productForm = new FormGroup({
+  }
+
+  createProductUpdateForm(): void {
+    this.productUpdateForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       seller: new FormControl('', Validators.required),
       price: new FormControl([Validators.required, Validators.min(0.01)]),
       quantity: new FormControl([Validators.required, Validators.min(1)])
-    });
-  }
-
-  onBuyNow(id: number) : void {
-    this.productService.buyProduct(id).subscribe(output => {
-      this.productQuantity = output
-      console.log("Updated product quantity to: " + output);
     });
   }
 
@@ -73,27 +70,30 @@ export class ProductComponent implements OnInit {
   }
 
   onUpdate(id: number): void {
+    var product = this.createProductObjectFromFormData(id);
+    console.log(product);
+    this.updateProduct(product);
+    this.editingProduct = false;
+  }
 
-    // Create a Product object from the form data.
+  createProductObjectFromFormData(id: number): Product {
     var product: Product = {
       productId: id,
-      title: this.productForm.value.title,
-      description: this.productForm.value.description,
-      seller: this.productForm.value.seller,
-      price: parseInt(this.productForm.value.price),
-      quantity: parseInt(this.productForm.value.quantity),
+      title: this.productUpdateForm.value.title,
+      description: this.productUpdateForm.value.description,
+      seller: this.productUpdateForm.value.seller,
+      price: parseInt(this.productUpdateForm.value.price),
+      quantity: parseInt(this.productUpdateForm.value.quantity),
       imageUrl: ""
     };
+    return product;
+  }
 
-    console.log(product);
-
-    // Send the updated product to server
-    console.log("Sending updated product to the server.");
+  updateProduct(product: Product): void {
     this.product$ = this.productService.updateProduct(product)
         .pipe(catchError(err => of(this.productNotFound)))
-        .pipe(tap(product => this.productForm.patchValue(product)));
-    
-    this.editingProduct = false;
+        .pipe(tap(product => this.productUpdateForm.patchValue(product)));
+    console.log("Product updated.");
   }
 
   cloneProduct(originalProduct: Product): Product {
@@ -109,7 +109,7 @@ export class ProductComponent implements OnInit {
     return clonedProduct;
   }
 
-  addToBasket(product: Product) {
+  addProductToBasket(product: Product) {
     console.log("Adding product '" + product.title + "' to the basket.");
     this.basketService.addProduct(this.cloneProduct(product));
   }
@@ -117,5 +117,4 @@ export class ProductComponent implements OnInit {
   toggleEdit() {
     this.editingProduct = !this.editingProduct;
   }
-
 }
