@@ -22,7 +22,7 @@ The application has the following API:
 | PUT /api/Products         | Update an existing product | Product      | Product           |
 | DELETE /api/Products/{id} | Delete a product           | None         | None              |
 
-The API is documented using Swagger which is shown here: https://webangular20210218164157.azurewebsites.net/swagger/index.html
+The API is documented using Swagger here: https://webangular20210218164157.azurewebsites.net/swagger/index.html
 
 To run the application locally, in a command prompt navigate to src\Web.Angular\ClientApp and run the command "npm start". Then in Visual Studio set the Web.Angular project as the startup project and then start. 
 
