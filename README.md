@@ -10,7 +10,7 @@ I have created an SPA front end with Angular. The code for this is in the Web.An
 
 The Angular app is deployed on Azure here: https://webangular20210218164157.azurewebsites.net/products
 
-The Angular app uses a back-end API created with ASP.NET Core MVC.
+The Angular app uses a back-end API created with ASP.NET Core MVC. The code for the Api is in the Api project.
 
 The application has the following API:
 
