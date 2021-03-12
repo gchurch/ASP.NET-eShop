@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities;
+﻿using Api;
+using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -6,16 +7,15 @@ using Moq;
 using Shouldly;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Api;
 
 // Helpful pages for unit testing:
 // https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
 // https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/testing?view=aspnetcore-3.1
 
-namespace UnitTests.ClassLibrary
+namespace UnitTests.Api
 {
     [TestClass]
-    public class ApiProductsControllerTests
+    public class ProductsControllerTests
     {
 
         [TestMethod]
