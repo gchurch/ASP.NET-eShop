@@ -10,11 +10,9 @@ using System.Text;
 using Web.Angular;
 using System;
 
+// Useful information for functional/integration tests : https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1
 namespace FunctionalTests.Web.Angular
 {
-
-    // Useful information for functional/integration tests : https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1
-
     [TestClass]
     public class Tests : FunctionalTests<Startup>
     {
