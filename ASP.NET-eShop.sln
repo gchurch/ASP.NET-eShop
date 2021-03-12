@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Razor", "src\Web.Razor\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.React", "src\Web.React\Web.React.csproj", "{CB147E25-D622-4C04-8F44-6425F951F3DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary", "src\ClassLibrary\ClassLibrary.csproj", "{2FA4E727-9C82-416C-AE2F-93195048312D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\ClassLibrary\Api.csproj", "{2FA4E727-9C82-416C-AE2F-93195048312D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

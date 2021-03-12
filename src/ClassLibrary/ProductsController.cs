@@ -5,16 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ClassLibrary
+namespace Api
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ApiProductsController : ControllerBase
+    public class ProductsController : ControllerBase
     {
 
         private readonly IProductService _productService;
 
-        public ApiProductsController(IProductService productService)
+        public ProductsController(IProductService productService)
         {
             _productService = productService;
         }

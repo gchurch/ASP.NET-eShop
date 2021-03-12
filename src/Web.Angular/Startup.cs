@@ -42,7 +42,7 @@ namespace Web.Angular
                 //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
-                var xmlFile = $"ClassLibrary.xml";
+                var xmlFile = $"Api.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });

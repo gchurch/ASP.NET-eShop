@@ -1,9 +1,9 @@
 ﻿using ApplicationCore.Interfaces;
-using ClassLibrary;
+using Api;
 
 namespace Web.React.Controllers
 {
-    public class ProductsController : ApiProductsController
+    public class ProductsController : Api.ProductsController
     {
         public ProductsController(IProductService productService) : base(productService)
         {
