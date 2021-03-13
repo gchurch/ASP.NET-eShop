@@ -11,14 +11,14 @@ import { Router } from '@angular/router';
 })
 export class AddProductComponent implements OnInit {
 
-  productForm:  FormGroup;
+  public productForm:  FormGroup;
 
-  constructor(private productService: ProductService, private router: Router) { }
+  public constructor(private productService: ProductService, private router: Router) { }
 
   // https://angular.io/guide/reactive-forms
   // https://angular.io/guide/form-validation
   // https://angular.io/api/forms/Validators
-  ngOnInit() {
+  public ngOnInit(): void {
     this.productForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -29,7 +29,13 @@ export class AddProductComponent implements OnInit {
     this.productForm.reset();
   }
 
-  onSubmit() {
+  public onSubmit(): void {
+    var product = this.createProductObjectFromFormData();
+    console.log(product);
+    this.addProduct(product);
+  }
+
+  private createProductObjectFromFormData(): Product {
     var product: Product = {
       productId: 0,
       title: this.productForm.value.title,
@@ -39,7 +45,10 @@ export class AddProductComponent implements OnInit {
       quantity: parseInt(this.productForm.value.quantity),
       imageUrl: ""
     };
-    console.log(product);
+    return product;
+  }
+
+  private addProduct(product: Product) : void {
     this.productService.addProduct(product).subscribe(
       output => {
         console.log(output);

@@ -15,12 +15,11 @@ import { Router } from '@angular/router';
 })
 export class ProductComponent implements OnInit {
 
-  product$: Observable<Product>;
-  productQuantity: number;
-  productUpdateForm: FormGroup;
-  editingProduct: boolean = false;
+  public product$: Observable<Product>;
+  public productUpdateForm: FormGroup;
+  public editingProduct: boolean = false;
 
-  productNotFound: Product = {
+  private productNotFound: Product = {
     productId: 0,
     title: "Product not found.",
     description: "",
@@ -30,19 +29,19 @@ export class ProductComponent implements OnInit {
     imageUrl: ""
   };
 
-  constructor(
+  public constructor(
     private route: ActivatedRoute, 
     private productService: ProductService, 
     private basketService: BasketService, 
     private router: Router
   ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.createProductObservable();
     this.createProductUpdateForm();
   }
 
-  createProductObservable(): void {
+  private createProductObservable(): void {
     this.route.paramMap.subscribe(params => {
       var id: number = +params.get('id');
       this.product$ = this.productService.getProduct(id)
@@ -51,7 +50,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  createProductUpdateForm(): void {
+  private createProductUpdateForm(): void {
     this.productUpdateForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -61,7 +60,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  onDelete(id: number) : void {
+  public onDelete(id: number) : void {
     console.log("Deleting product " + id);
     this.productService.deleteProduct(id).subscribe(output => {
       console.log(output);
@@ -69,14 +68,14 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  onUpdate(id: number): void {
+  public onUpdate(id: number): void {
     var product = this.createProductObjectFromFormData(id);
     console.log(product);
     this.updateProduct(product);
     this.editingProduct = false;
   }
 
-  createProductObjectFromFormData(id: number): Product {
+  private createProductObjectFromFormData(id: number): Product {
     var product: Product = {
       productId: id,
       title: this.productUpdateForm.value.title,
@@ -89,14 +88,14 @@ export class ProductComponent implements OnInit {
     return product;
   }
 
-  updateProduct(product: Product): void {
+  private updateProduct(product: Product): void {
     this.product$ = this.productService.updateProduct(product)
         .pipe(catchError(err => of(this.productNotFound)))
         .pipe(tap(product => this.productUpdateForm.patchValue(product)));
     console.log("Product updated.");
   }
 
-  cloneProduct(originalProduct: Product): Product {
+  private cloneProduct(originalProduct: Product): Product {
     var clonedProduct: Product = {
       productId: originalProduct.productId,
       title: originalProduct.title,
@@ -109,12 +108,12 @@ export class ProductComponent implements OnInit {
     return clonedProduct;
   }
 
-  addProductToBasket(product: Product) {
+  public addProductToBasket(product: Product): void {
     console.log("Adding product '" + product.title + "' to the basket.");
     this.basketService.addProduct(this.cloneProduct(product));
   }
 
-  toggleEdit() {
+  public toggleEdit(): void {
     this.editingProduct = !this.editingProduct;
   }
 }

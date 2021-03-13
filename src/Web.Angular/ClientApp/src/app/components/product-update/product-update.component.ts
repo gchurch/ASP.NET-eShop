@@ -8,9 +8,9 @@ import { Product } from '../../product';
 })
 export class ProductUpdateComponent implements OnInit {
 
-  constructor() { }
+  public constructor() { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
   }
 
   @Input() product: Product;

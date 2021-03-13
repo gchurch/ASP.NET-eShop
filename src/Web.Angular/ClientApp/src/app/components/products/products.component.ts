@@ -10,11 +10,11 @@ import { Product } from '../../product';
 })
 export class ProductsComponent implements OnInit {
 
-  products$: Observable<Product[]>;
+  public products$: Observable<Product[]>;
 
-  constructor(private productService: ProductService) {}
+  public constructor(private productService: ProductService) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.products$ = this.productService.getProducts();
   }
 

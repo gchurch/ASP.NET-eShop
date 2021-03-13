@@ -10,28 +10,27 @@ import { Subject } from 'rxjs';
 export class NavMenuComponent implements OnInit {
 
   private isExpanded: boolean = false;
-  
   private numberOfProductsInBasket$: Subject<number>;
 
   constructor(private basketService: BasketService) { }
 
-  ngOnInit() : void {
+  public ngOnInit(): void {
     this.numberOfProductsInBasket$ = this.basketService.getNumberOfProducts$();
   }
 
-  collapse() {
+  public collapse(): void {
     this.isExpanded = false;
   }
 
-  toggle() {
+  public toggle(): void {
     this.isExpanded = !this.isExpanded;
   }
 
-  getIsExpanded(): boolean {
+  public getIsExpanded(): boolean {
     return this.isExpanded;
   }
 
-  getNumberOfProductsInBasket$(): Subject<number> {
+  public getNumberOfProductsInBasket$(): Subject<number> {
     return this.numberOfProductsInBasket$;
   }
 }

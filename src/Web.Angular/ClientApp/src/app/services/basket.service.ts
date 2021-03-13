@@ -12,7 +12,7 @@ export class BasketService {
   private totalCost$ = new ReplaySubject<number>(1);
   private totalNumberOfProducts$ = new ReplaySubject<number>(1);
 
-  constructor() {
+  public constructor() {
     this.loadBasketFromLocalStorage();
     this.updateTotalCostObservable();
     this.updateTotalNumberOfProductsObservable();

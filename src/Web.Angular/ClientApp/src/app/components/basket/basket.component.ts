@@ -14,28 +14,28 @@ export class BasketComponent implements OnInit {
   private totalCost$: Subject<number>;
   private numberOfProducts$: Subject<number>;
 
-  constructor(private basketService: BasketService) { }
+  public constructor(private basketService: BasketService) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.products$ = this.basketService.getProducts$();
     this.totalCost$ = this.basketService.getTotalCost$();
     this.numberOfProducts$ = this.basketService.getNumberOfProducts$();
   }
 
-  removeFromBasket(product: Product) : void {
+  public removeFromBasket(product: Product) : void {
     console.log("Removing product '" + product.title + "' from basket.");
     this.basketService.removeProduct(product);
   }
 
-  getProducts$(): Subject<Product[]> {
+  public getProducts$(): Subject<Product[]> {
     return this.products$;
   }
   
-  getTotalCost$(): Subject<Number> {
+  public getTotalCost$(): Subject<Number> {
     return this.totalCost$;
   }
 
-  getNumberOfProducts$(): Subject<Number> {
+  public getNumberOfProducts$(): Subject<Number> {
     return this.numberOfProducts$;
   }
 }
