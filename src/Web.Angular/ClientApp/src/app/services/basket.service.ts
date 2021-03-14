@@ -7,6 +7,7 @@ import { ReplaySubject } from 'rxjs';
 })
 export class BasketService {
 
+  private productIds: Map<number, number> = new Map<number, number>();
   private products: Product[] = [];
   private products$ = new ReplaySubject<Product[]>(1);
   private totalCost$ = new ReplaySubject<number>(1);
@@ -14,6 +15,7 @@ export class BasketService {
 
   public constructor() {
     this.loadBasketFromLocalStorage();
+    this.loadMapFromLocalStore();
     this.updateTotalCostObservable();
     this.updateTotalNumberOfProductsObservable();
     this.updateProductsObservable();
@@ -29,12 +31,28 @@ export class BasketService {
     }
   }
 
-  private updateProductsObservable(): void{
-    this.products$.next(this.products);
+  private loadMapFromLocalStore(): void {
+    var savedMap = localStorage.getItem('mape');
+    if(savedMap) {
+      console.log(savedMap);
+      this.productIds = new Map<number, number>(JSON.parse(savedMap));
+    }
+    else {
+      this.productIds = new Map<number, number>();
+    }
   }
 
   private saveBasketToLocalStorage(): void {
     localStorage.setItem('basket', JSON.stringify(this.products));
+  }
+
+  private saveMapToLocalStorage(): void {
+    var string: string = JSON.stringify(Array.from(this.productIds));
+    localStorage.setItem('mape', string);
+  }
+
+  private updateProductsObservable(): void{
+    this.products$.next(this.products);
   }
 
   public addProduct(product: Product): void {
@@ -46,6 +64,18 @@ export class BasketService {
       this.products.push(product);
     }
     this.updateBasketInformation();
+    this.addProductToMap(product);
+  }
+
+  private addProductToMap(product: Product): void {
+    if(this.productIds.get(product.productId)) {
+      this.productIds.set(product.productId, this.productIds.get(product.productId) + 1);
+    }
+    else {
+      this.productIds.set(product.productId, 1);
+    }
+    console.log(this.productIds);
+    this.saveMapToLocalStorage();
   }
 
   private isProductInProductsArray(product: Product): boolean {
@@ -98,6 +128,18 @@ export class BasketService {
       this.products.splice(productIndex, 1);
     }
     this.updateBasketInformation();
+    this.removeProductFromMap(product);
+  }
+
+  private removeProductFromMap(product: Product): void {
+    if(this.productIds.get(product.productId) > 1) {
+      this.productIds.set(product.productId, this.productIds.get(product.productId) - 1);
+    }
+    else {
+      this.productIds.delete(product.productId);
+    }
+    console.log(this.productIds);
+    this.saveMapToLocalStorage();
   }
 
   public getProducts$(): ReplaySubject<Product[]> {
