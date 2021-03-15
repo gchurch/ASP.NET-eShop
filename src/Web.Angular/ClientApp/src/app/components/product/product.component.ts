@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Observable, of } from 'rxjs';
 import { Product } from '../../product';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BasketService } from '../../services/basket.service';
 import { Router } from '@angular/router';
@@ -42,12 +42,10 @@ export class ProductComponent implements OnInit {
   }
 
   private createProductObservable(): void {
-    this.route.paramMap.subscribe(params => {
-      var id: number = +params.get('id');
-      this.product$ = this.productService.getProduct(id)
-        .pipe(catchError(err => of(this.productNotFound)))
-        .pipe(tap(product => this.productUpdateForm.patchValue(product)));
-    });
+    this.product$ = this.route.paramMap
+    .pipe(mergeMap(params => this.productService.getProduct(+params.get('id'))))
+    .pipe(catchError(err => of(this.productNotFound)))
+    .pipe(tap(product => this.productUpdateForm.patchValue(product)));
   }
 
   private createProductUpdateForm(): void {
