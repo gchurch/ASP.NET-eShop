@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../product';
-import { ReplaySubject } from 'rxjs';
+import { forkJoin, ReplaySubject } from 'rxjs';
+import { ProductService } from './product.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,16 +10,31 @@ export class BasketService {
 
   private productIds: Map<number, number> = new Map<number, number>();
   private products: Product[] = [];
+  private upToDateProducts: Product[] = [];
   private products$ = new ReplaySubject<Product[]>(1);
   private totalCost$ = new ReplaySubject<number>(1);
   private totalNumberOfProducts$ = new ReplaySubject<number>(1);
 
-  public constructor() {
+  public constructor(private productService: ProductService) {
     this.loadBasketFromLocalStorage();
     this.loadMapFromLocalStore();
     this.updateTotalCostObservable();
     this.updateTotalNumberOfProductsObservable();
     this.updateProductsObservable();
+    this.fetchProductsInBasket();
+  }
+
+  private fetchProductsInBasket(): void {
+    var observablesArray = [];
+    for (var key of this.productIds.keys()) {
+      observablesArray.push(this.productService.getProduct(key));
+    }
+    forkJoin(observablesArray).subscribe(results =>
+      {
+        console.log(results);
+        this.upToDateProducts = results as Product[];
+      }
+    );
   }
 
   private loadBasketFromLocalStorage(): void {
@@ -65,6 +81,7 @@ export class BasketService {
     }
     this.updateBasketInformation();
     this.addProductToMap(product);
+    this.fetchProductsInBasket();
   }
 
   private addProductToMap(product: Product): void {
@@ -129,6 +146,7 @@ export class BasketService {
     }
     this.updateBasketInformation();
     this.removeProductFromMap(product);
+    this.fetchProductsInBasket();
   }
 
   private removeProductFromMap(product: Product): void {
