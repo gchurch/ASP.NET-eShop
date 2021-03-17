@@ -8,7 +8,7 @@ import { ProductService } from './product.service';
 })
 export class BasketService {
 
-  private productIds: Map<number, number> = new Map<number, number>();
+  private productMap: Map<number, number> = new Map<number, number>();
   private products: Product[] = [];
   private upToDateProducts: Product[] = [];
   private products$ = new ReplaySubject<Product[]>(1);
@@ -26,14 +26,19 @@ export class BasketService {
 
   private fetchProductsInBasket(): void {
     var observablesArray = [];
-    for (var key of this.productIds.keys()) {
+    for (var key of this.productMap.keys()) {
       observablesArray.push(this.productService.getProduct(key));
     }
-    forkJoin(observablesArray).subscribe(results =>
-      {
-        console.log(results);
-        this.upToDateProducts = results as Product[];
-      }
+    forkJoin(observablesArray).subscribe(
+      (products: Product[]) =>
+        {
+          console.log(products);
+          for (var product of products) {
+            product.quantity = this.productMap.get(product.productId);
+          }
+          this.products = products;
+          this.updateBasketInformation();
+        }
     );
   }
 
@@ -51,10 +56,10 @@ export class BasketService {
     var savedMap = localStorage.getItem('mape');
     if(savedMap) {
       console.log(savedMap);
-      this.productIds = new Map<number, number>(JSON.parse(savedMap));
+      this.productMap = new Map<number, number>(JSON.parse(savedMap));
     }
     else {
-      this.productIds = new Map<number, number>();
+      this.productMap = new Map<number, number>();
     }
   }
 
@@ -63,7 +68,7 @@ export class BasketService {
   }
 
   private saveMapToLocalStorage(): void {
-    var string: string = JSON.stringify(Array.from(this.productIds));
+    var string: string = JSON.stringify(Array.from(this.productMap));
     localStorage.setItem('mape', string);
   }
 
@@ -72,45 +77,19 @@ export class BasketService {
   }
 
   public addProduct(product: Product): void {
-    if(this.isProductInProductsArray(product) == true) {
-      var index: number = this.findProductIndexInProductsArray(product);
-      this.products[index].quantity++;
-    } else {
-      product.quantity = 1;
-      this.products.push(product);
-    }
-    this.updateBasketInformation();
     this.addProductToMap(product);
     this.fetchProductsInBasket();
   }
 
   private addProductToMap(product: Product): void {
-    if(this.productIds.get(product.productId)) {
-      this.productIds.set(product.productId, this.productIds.get(product.productId) + 1);
+    if(this.productMap.get(product.productId)) {
+      this.productMap.set(product.productId, this.productMap.get(product.productId) + 1);
     }
     else {
-      this.productIds.set(product.productId, 1);
+      this.productMap.set(product.productId, 1);
     }
-    console.log(this.productIds);
+    console.log(this.productMap);
     this.saveMapToLocalStorage();
-  }
-
-  private isProductInProductsArray(product: Product): boolean {
-    for(var i: number = 0; i < this.products.length; i++) {
-      if(product.productId == this.products[i].productId) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private findProductIndexInProductsArray(product: Product): number {
-    for(var i: number = 0; i < this.products.length; i++) {
-      if(product.productId == this.products[i].productId) {
-        return i;
-      }
-    }
-    return -1;
   }
 
   private updateBasketInformation(): void {
@@ -137,26 +116,18 @@ export class BasketService {
   }
 
   public removeProduct(product: Product): void {
-    var productIndex: number = this.findProductIndexInProductsArray(product);
-    if(this.products[productIndex].quantity > 1) {
-      this.products[productIndex].quantity--;
-    }
-    else {
-      this.products.splice(productIndex, 1);
-    }
-    this.updateBasketInformation();
     this.removeProductFromMap(product);
     this.fetchProductsInBasket();
   }
 
   private removeProductFromMap(product: Product): void {
-    if(this.productIds.get(product.productId) > 1) {
-      this.productIds.set(product.productId, this.productIds.get(product.productId) - 1);
+    if(this.productMap.get(product.productId) > 1) {
+      this.productMap.set(product.productId, this.productMap.get(product.productId) - 1);
     }
     else {
-      this.productIds.delete(product.productId);
+      this.productMap.delete(product.productId);
     }
-    console.log(this.productIds);
+    console.log(this.productMap);
     this.saveMapToLocalStorage();
   }
 
