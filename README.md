@@ -2,7 +2,7 @@
 
 ![.NET](https://github.com/gchurch/ASP.NET-eShop/workflows/.NET/badge.svg)
 
-I have created a CRUD application in the style of an E-commerce website using ASP.NET Core 5.0. I have created a few different front ends using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the front-ends being easily substitutable for one another. I have also created unit tests and functional tests for the application. The application is deployed on Azure for demonstration.
+I have created a CRUD application in the style of an E-commerce website using ASP.NET Core 5.0. I have created a few different versions of the front end using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the front-ends being easily substitutable for one another. I have also created unit tests and functional tests for the application. The application is deployed on Azure for demonstration.
 
 ## Angular Front-end
 
