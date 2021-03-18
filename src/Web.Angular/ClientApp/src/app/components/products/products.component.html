@@ -2,7 +2,7 @@
 
 <a routerLink="/add-product"><p>Add a product</p></a>
 
-<div *ngIf="(products$ | async) as products;">
+<div *ngIf="(products$ | async) as products; else loading">
     <ul>
         <li *ngFor="let product of products">
             <div>
@@ -17,3 +17,7 @@
         </li>
     </ul>
 </div>
+
+<ng-template #loading>
+    Loading...
+</ng-template>

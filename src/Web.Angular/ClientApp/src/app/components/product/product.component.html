@@ -1,4 +1,4 @@
-<div *ngIf="(product$ | async) as product">
+<div *ngIf="(product$ | async) as product; else loading">
     <div *ngIf="product.productId != 0">
 
         <button id="editButton" (click)="toggleEdit()" value="Edit">
@@ -32,3 +32,7 @@
         <p>Product not found.</p>
     </div>
 </div>
+
+<ng-template #loading>
+    Loading...
+</ng-template>
