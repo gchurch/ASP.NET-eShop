@@ -1,6 +1,6 @@
 <h1>Basket</h1>
 
-<div *ngIf="(getProducts$() | async) as products;">
+<div *ngIf="(getProducts$() | async) as products; else loading">
     <p id="priceHeading">Price</p>
     <div id="basket" *ngFor="let product of products">
         <div>
@@ -18,3 +18,7 @@
     </div>
     <p id="summary">Subtotal ({{ getNumberOfProducts$() | async }} items): <span>£{{ getTotalCost$() | async}}</span></p>
 </div>
+
+<ng-template #loading>
+    Loading...
+</ng-template>
