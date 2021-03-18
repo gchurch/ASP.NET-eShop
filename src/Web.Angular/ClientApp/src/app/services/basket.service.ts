@@ -39,10 +39,14 @@ export class BasketService {
     for (var key of this.productMap.keys()) {
       observablesArray.push(this.productService.getProduct(key));
     }
+    if(observablesArray.length == 0) {
+      console.log("updating with empty products array");
+      this.updateBasketInformation([]);
+    }
     forkJoin(observablesArray).subscribe(
       (products: Product[]) =>
         {
-          console.log(products);
+          console.log("fetching products");
           for (var product of products) {
             product.quantity = this.productMap.get(product.productId);
           }
