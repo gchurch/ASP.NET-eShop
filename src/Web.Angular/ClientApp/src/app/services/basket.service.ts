@@ -9,19 +9,29 @@ import { ProductService } from './product.service';
 export class BasketService {
 
   private productMap: Map<number, number> = new Map<number, number>();
-  private products: Product[] = [];
-  private upToDateProducts: Product[] = [];
   private products$ = new ReplaySubject<Product[]>(1);
   private totalCost$ = new ReplaySubject<number>(1);
   private totalNumberOfProducts$ = new ReplaySubject<number>(1);
 
   public constructor(private productService: ProductService) {
-    this.loadBasketFromLocalStorage();
     this.loadMapFromLocalStore();
-    this.updateTotalCostObservable();
-    this.updateTotalNumberOfProductsObservable();
-    this.updateProductsObservable();
     this.fetchProductsInBasket();
+  }
+
+  private loadMapFromLocalStore(): void {
+    var savedMap = localStorage.getItem('mape');
+    if(savedMap) {
+      console.log(savedMap);
+      this.productMap = new Map<number, number>(JSON.parse(savedMap));
+    }
+    else {
+      this.productMap = new Map<number, number>();
+    }
+  }
+
+  private saveMapToLocalStorage(): void {
+    var string: string = JSON.stringify(Array.from(this.productMap));
+    localStorage.setItem('mape', string);
   }
 
   private fetchProductsInBasket(): void {
@@ -36,44 +46,35 @@ export class BasketService {
           for (var product of products) {
             product.quantity = this.productMap.get(product.productId);
           }
-          this.products = products;
-          this.updateBasketInformation();
+          this.updateBasketInformation(products);
         }
     );
   }
 
-  private loadBasketFromLocalStorage(): void {
-    var savedBasket = localStorage.getItem('basket');
-    if(savedBasket) {
-      this.products = JSON.parse(savedBasket);
-    }
-    else {
-      this.products = [];
-    }
+  private updateBasketInformation(products: Product[]): void {
+    this.updateProductsObservable(products);
+    this.updateTotalCostObservable(products);
+    this.updateTotalNumberOfProductsObservable(products);
   }
 
-  private loadMapFromLocalStore(): void {
-    var savedMap = localStorage.getItem('mape');
-    if(savedMap) {
-      console.log(savedMap);
-      this.productMap = new Map<number, number>(JSON.parse(savedMap));
+  private updateProductsObservable(products: Product[]): void{
+    this.products$.next(products);
+  }
+
+  private updateTotalCostObservable(products: Product[]): void {
+    var totalCost: number = 0;
+    for(var product of products) {
+      totalCost += product.price * product.quantity;
     }
-    else {
-      this.productMap = new Map<number, number>();
+    this.totalCost$.next(totalCost);
+  }
+
+  private updateTotalNumberOfProductsObservable(products: Product[]): void {
+    var numberOfProducts: number = 0;
+    for(var product of products) {
+      numberOfProducts += product.quantity;
     }
-  }
-
-  private saveBasketToLocalStorage(): void {
-    localStorage.setItem('basket', JSON.stringify(this.products));
-  }
-
-  private saveMapToLocalStorage(): void {
-    var string: string = JSON.stringify(Array.from(this.productMap));
-    localStorage.setItem('mape', string);
-  }
-
-  private updateProductsObservable(): void{
-    this.products$.next(this.products);
+    this.totalNumberOfProducts$.next(numberOfProducts);
   }
 
   public addProduct(product: Product): void {
@@ -90,29 +91,6 @@ export class BasketService {
     }
     console.log(this.productMap);
     this.saveMapToLocalStorage();
-  }
-
-  private updateBasketInformation(): void {
-    this.saveBasketToLocalStorage();
-    this.updateProductsObservable();
-    this.updateTotalCostObservable();
-    this.updateTotalNumberOfProductsObservable();
-  }
-
-  private updateTotalCostObservable(): void {
-    var totalCost: number = 0;
-    for(var product of this.products) {
-      totalCost += product.price * product.quantity;
-    }
-    this.totalCost$.next(totalCost);
-  }
-
-  private updateTotalNumberOfProductsObservable(): void {
-    var numberOfProducts: number = 0;
-    for(var product of this.products) {
-      numberOfProducts += product.quantity;
-    }
-    this.totalNumberOfProducts$.next(numberOfProducts);
   }
 
   public removeProduct(product: Product): void {
