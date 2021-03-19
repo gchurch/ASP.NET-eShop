@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../product';
-import { forkJoin, ReplaySubject } from 'rxjs';
+import { forkJoin, Observable, ReplaySubject } from 'rxjs';
 import { ProductService } from './product.service';
 
 @Injectable({
@@ -14,11 +14,11 @@ export class BasketService {
   private totalNumberOfProducts$ = new ReplaySubject<number>(1);
 
   public constructor(private productService: ProductService) {
-    this.loadMapFromLocalStore();
-    this.fetchProductsInBasket();
+    this.loadProductMapFromLocalStore();
+    this.updateBasketInformation();
   }
 
-  private loadMapFromLocalStore(): void {
+  private loadProductMapFromLocalStore(): void {
     var savedMap = localStorage.getItem('mape');
     if(savedMap) {
       console.log(savedMap);
@@ -29,20 +29,23 @@ export class BasketService {
     }
   }
 
-  private saveMapToLocalStorage(): void {
-    var string: string = JSON.stringify(Array.from(this.productMap));
-    localStorage.setItem('mape', string);
+  private updateBasketInformation(): void {
+    var observablesArray: Observable<Product>[] = this.createProductRequests();
+    if(observablesArray.length == 0) {
+      this.updateObservables([]);
+    }
+    this.fetchProducts(observablesArray);
   }
 
-  private fetchProductsInBasket(): void {
-    var observablesArray = [];
+  private createProductRequests(): Observable<Product>[] {
+    var observablesArray: Observable<Product>[] = [];
     for (var key of this.productMap.keys()) {
       observablesArray.push(this.productService.getProduct(key));
     }
-    if(observablesArray.length == 0) {
-      console.log("updating with empty products array");
-      this.updateBasketInformation([]);
-    }
+    return observablesArray;
+  }
+
+  private fetchProducts(observablesArray: Observable<Product>[]) {
     forkJoin(observablesArray).subscribe(
       (products: Product[]) =>
         {
@@ -50,12 +53,12 @@ export class BasketService {
           for (var product of products) {
             product.quantity = this.productMap.get(product.productId);
           }
-          this.updateBasketInformation(products);
+          this.updateObservables(products);
         }
     );
   }
 
-  private updateBasketInformation(products: Product[]): void {
+  private updateObservables(products: Product[]): void {
     this.updateProductsObservable(products);
     this.updateTotalCostObservable(products);
     this.updateTotalNumberOfProductsObservable(products);
@@ -83,7 +86,7 @@ export class BasketService {
 
   public addProduct(product: Product): void {
     this.addProductToMap(product);
-    this.fetchProductsInBasket();
+    this.updateBasketInformation();
   }
 
   private addProductToMap(product: Product): void {
@@ -94,12 +97,12 @@ export class BasketService {
       this.productMap.set(product.productId, 1);
     }
     console.log(this.productMap);
-    this.saveMapToLocalStorage();
+    this.saveProductMapToLocalStorage();
   }
 
   public removeProduct(product: Product): void {
     this.removeProductFromMap(product);
-    this.fetchProductsInBasket();
+    this.updateBasketInformation();
   }
 
   private removeProductFromMap(product: Product): void {
@@ -110,8 +113,14 @@ export class BasketService {
       this.productMap.delete(product.productId);
     }
     console.log(this.productMap);
-    this.saveMapToLocalStorage();
+    this.saveProductMapToLocalStorage();
   }
+
+  private saveProductMapToLocalStorage(): void {
+    var string: string = JSON.stringify(Array.from(this.productMap));
+    localStorage.setItem('mape', string);
+  }
+
 
   public getProducts$(): ReplaySubject<Product[]> {
     return this.products$;
