@@ -43,7 +43,7 @@ export class ProductComponent implements OnInit {
 
   private createProductObservable(): void {
     this.product$ = this.route.paramMap
-    .pipe(mergeMap(params => this.productService.getProduct(+params.get('id'))))
+    .pipe(mergeMap(params => this.productService.getProductById(+params.get('id'))))
     .pipe(catchError(err => of(this.productNotFound)))
     .pipe(tap(product => this.productUpdateForm.patchValue(product)));
   }
@@ -60,7 +60,7 @@ export class ProductComponent implements OnInit {
 
   public onDelete(id: number) : void {
     console.log("Deleting product " + id);
-    this.productService.deleteProduct(id).subscribe(output => {
+    this.productService.deleteProductById(id).subscribe(output => {
       console.log(output);
       this.router.navigate(['/products']);
     });

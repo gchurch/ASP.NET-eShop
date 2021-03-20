@@ -41,7 +41,7 @@ export class BasketService {
   private createProductRequests(): Observable<Product>[] {
     var observablesArray: Observable<Product>[] = [];
     for (var key of this.productIdToQuantity.keys()) {
-      var productRequestObservable: Observable<Product> = this.productService.getProduct(key);
+      var productRequestObservable: Observable<Product> = this.productService.getProductById(key);
       observablesArray.push(productRequestObservable);
     }
     return observablesArray;

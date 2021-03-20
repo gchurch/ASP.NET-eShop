@@ -10,11 +10,11 @@ export class ProductService {
 
   public constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-  public getProducts() : Observable<Product[]> {
+  public getAllProducts() : Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl + 'api/products');
   }
 
-  public getProduct(id: number) : Observable<Product> {
+  public getProductById(id: number) : Observable<Product> {
     return this.http.get<Product>(this.baseUrl + 'api/products/' + id);
   }
 
@@ -26,7 +26,7 @@ export class ProductService {
     return this.http.post<Product>(this.baseUrl + 'api/products', product);
   }
 
-  public deleteProduct(id: number) : Observable<Object> {
+  public deleteProductById(id: number) : Observable<Object> {
     return this.http.delete(this.baseUrl + 'api/products/' + id);
   }
 
