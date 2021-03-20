@@ -14,11 +14,11 @@ export class BasketService {
   private totalNumberOfProducts$ = new ReplaySubject<number>(1);
 
   public constructor(private productService: ProductService) {
-    this.loadProductFromLocalStorage();
+    this.loadBasketFromLocalStorage();
     this.updateBasketInformation();
   }
 
-  private loadProductFromLocalStorage(): void {
+  private loadBasketFromLocalStorage(): void {
     var savedData = localStorage.getItem('basket');
     if(savedData) {
       console.log(savedData);
