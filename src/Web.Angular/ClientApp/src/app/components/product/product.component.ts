@@ -108,7 +108,7 @@ export class ProductComponent implements OnInit {
 
   public addProductToBasket(product: Product): void {
     console.log("Adding product '" + product.title + "' to the basket.");
-    this.basketService.addProduct(this.cloneProduct(product));
+    this.basketService.addProduct(product.productId);
   }
 
   public toggleEdit(): void {

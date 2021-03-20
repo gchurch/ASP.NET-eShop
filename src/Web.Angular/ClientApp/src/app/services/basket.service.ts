@@ -8,54 +8,43 @@ import { ProductService } from './product.service';
 })
 export class BasketService {
 
-  private productMap: Map<number, number> = new Map<number, number>();
+  private productIdToQuantity: Map<number, number> = new Map<number, number>();
   private products$ = new ReplaySubject<Product[]>(1);
   private totalCost$ = new ReplaySubject<number>(1);
   private totalNumberOfProducts$ = new ReplaySubject<number>(1);
 
   public constructor(private productService: ProductService) {
-    this.loadProductMapFromLocalStore();
+    this.loadProductFromLocalStorage();
     this.updateBasketInformation();
   }
 
-  private loadProductMapFromLocalStore(): void {
-    var savedMap = localStorage.getItem('mape');
-    if(savedMap) {
-      console.log(savedMap);
-      this.productMap = new Map<number, number>(JSON.parse(savedMap));
+  private loadProductFromLocalStorage(): void {
+    var savedData = localStorage.getItem('basket');
+    if(savedData) {
+      console.log(savedData);
+      this.productIdToQuantity = new Map<number, number>(JSON.parse(savedData));
     }
     else {
-      this.productMap = new Map<number, number>();
+      this.productIdToQuantity = new Map<number, number>();
     }
   }
 
   private updateBasketInformation(): void {
-    var observablesArray: Observable<Product>[] = this.createProductRequests();
-    if(observablesArray.length == 0) {
+    var productRequests: Observable<Product>[] = this.createProductRequests();
+    if(productRequests.length == 0) {
       this.updateObservables([]);
+    } else {
+      this.fetchProductsAndUpdateObservables(productRequests);
     }
-    this.fetchProducts(observablesArray);
   }
 
   private createProductRequests(): Observable<Product>[] {
     var observablesArray: Observable<Product>[] = [];
-    for (var key of this.productMap.keys()) {
-      observablesArray.push(this.productService.getProduct(key));
+    for (var key of this.productIdToQuantity.keys()) {
+      var productRequestObservable: Observable<Product> = this.productService.getProduct(key);
+      observablesArray.push(productRequestObservable);
     }
     return observablesArray;
-  }
-
-  private fetchProducts(observablesArray: Observable<Product>[]) {
-    forkJoin(observablesArray).subscribe(
-      (products: Product[]) =>
-        {
-          console.log("fetching products");
-          for (var product of products) {
-            product.quantity = this.productMap.get(product.productId);
-          }
-          this.updateObservables(products);
-        }
-    );
   }
 
   private updateObservables(products: Product[]): void {
@@ -84,43 +73,64 @@ export class BasketService {
     this.totalNumberOfProducts$.next(numberOfProducts);
   }
 
-  public addProduct(product: Product): void {
-    this.addProductToMap(product);
-    this.updateBasketInformation();
-  }
-
-  private addProductToMap(product: Product): void {
-    if(this.productMap.get(product.productId)) {
-      this.productMap.set(product.productId, this.productMap.get(product.productId) + 1);
+  private fetchProductsAndUpdateObservables(productRequests: Observable<Product>[]): void {
+    if(productRequests.length == 0) {
+      this.updateObservables([]);
     }
     else {
-      this.productMap.set(product.productId, 1);
+      forkJoin(productRequests).subscribe(
+        (products: Product[]) =>
+          {
+            products = this.setProductQuantitiesToCorrectValues(products);
+            this.updateObservables(products);
+          }
+      );
     }
-    console.log(this.productMap);
-    this.saveProductMapToLocalStorage();
   }
 
-  public removeProduct(product: Product): void {
-    this.removeProductFromMap(product);
+  private setProductQuantitiesToCorrectValues(products :Product[]): Product[] {
+    for (var product of products) {
+      product.quantity = this.productIdToQuantity.get(product.productId);
+    }
+    return products;
+  }
+
+  public addProduct(productId: number): void {
+    this.incrementProductQuantity(productId);
+    console.log(this.productIdToQuantity);
     this.updateBasketInformation();
+    this.saveBasketToLocalStorage();
   }
 
-  private removeProductFromMap(product: Product): void {
-    if(this.productMap.get(product.productId) > 1) {
-      this.productMap.set(product.productId, this.productMap.get(product.productId) - 1);
+  private incrementProductQuantity(productId: number) {
+    if(this.productIdToQuantity.get(productId)) {
+      this.productIdToQuantity.set(productId, this.productIdToQuantity.get(productId) + 1);
     }
     else {
-      this.productMap.delete(product.productId);
+      this.productIdToQuantity.set(productId, 1);
     }
-    console.log(this.productMap);
-    this.saveProductMapToLocalStorage();
   }
 
-  private saveProductMapToLocalStorage(): void {
-    var string: string = JSON.stringify(Array.from(this.productMap));
-    localStorage.setItem('mape', string);
+  public removeProduct(productId: number): void {
+    this.decrementProductQuantity(productId);
+    console.log(this.productIdToQuantity);
+    this.updateBasketInformation();
+    this.saveBasketToLocalStorage();
   }
 
+  private decrementProductQuantity(productId: number) {
+    if(this.productIdToQuantity.get(productId) > 1) {
+      this.productIdToQuantity.set(productId, this.productIdToQuantity.get(productId) - 1);
+    }
+    else {
+      this.productIdToQuantity.delete(productId);
+    }
+  }
+
+  private saveBasketToLocalStorage(): void {
+    var string: string = JSON.stringify(Array.from(this.productIdToQuantity));
+    localStorage.setItem('basket', string);
+  }
 
   public getProducts$(): ReplaySubject<Product[]> {
     return this.products$;

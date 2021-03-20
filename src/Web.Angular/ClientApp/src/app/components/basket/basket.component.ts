@@ -24,7 +24,7 @@ export class BasketComponent implements OnInit {
 
   public removeFromBasket(product: Product) : void {
     console.log("Removing product '" + product.title + "' from basket.");
-    this.basketService.removeProduct(product);
+    this.basketService.removeProduct(product.productId);
   }
 
   public getProducts$(): Subject<Product[]> {
