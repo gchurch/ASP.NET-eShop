@@ -2,27 +2,22 @@
     font-size: 1em;
 }
 
-#product div .column {
+.productColumn {
     display: inline-block;
     vertical-align: top;
     padding: 1%;
 }
 
-
-/************** first column *****************/
-
-#product div .column:first-child {
+#productImage {
     width: 30%;
 }
 
-#product img {
+#productImage img {
     height: auto;
     max-width: 100%;
 }
 
-/************** second column *********************/
-
-#product div .column:nth-child(2) {
+#productInfo {
     width: 69%;
 }
 
@@ -31,23 +26,23 @@
     font-family: Arial;
 }
 
-#product #productTitle {
+#productTitle {
     font-size: 1.5em;
 }
 
-#product #productPrice {
+#productPrice {
     color: rgb(75, 75, 75);
 }
 
-#product #productPrice span {
+#productPrice span {
     color: rgb(182, 7, 7);
     font-size: 1.2em;
 }
 
-#product #productQuantity span {
+#productQuantity span {
     color: rgb(75, 75, 75);
 }
 
-#product #productDescription span {
+#productDescription span {
     font-weight: bold;
 }
