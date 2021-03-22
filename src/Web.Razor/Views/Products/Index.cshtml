@@ -16,26 +16,26 @@
     <ul>
         @foreach (var item in Model)
         {
-            <li>
-                <div>
-                    <a asp-action="Details" asp-route-id="@item.ProductId"><img src="images/@Html.DisplayFor(modelItem => item.ImageUrl)" /></a>
-                </div>
+        <li>
+            <div class="productDiv" id="productImage">
+                <a asp-action="Details" asp-route-id="@item.ProductId"><img src="images/@Html.DisplayFor(modelItem => item.ImageUrl)" /></a>
+            </div>
 
-                <div>
-                    <p id="productTitle">
-                        <a asp-action="Details" asp-route-id="@item.ProductId">
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </a>
-                    </p>
-                    <p id="productSeller">Seller: @Html.DisplayFor(modelItem => item.Seller)</p>
-                    <p id="productPrice">
-                        <a asp-action="Details" asp-route-id="@item.ProductId">
-                            £@Html.DisplayFor(modelItem => item.Price)
-                        </a>
-                    </p>
-                    <p id="productDelivery">FREE Delivery</p>
-                </div>
-            </li>
+            <div class="productDiv" id="productDetails">
+                <p id="productTitle">
+                    <a asp-action="Details" asp-route-id="@item.ProductId">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </a>
+                </p>
+                <p id="productSeller">Seller: @Html.DisplayFor(modelItem => item.Seller)</p>
+                <p id="productPrice">
+                    <a asp-action="Details" asp-route-id="@item.ProductId">
+                        £@Html.DisplayFor(modelItem => item.Price)
+                    </a>
+                </p>
+                <p id="productDelivery">FREE Delivery</p>
+            </div>
+        </li>
         }
     </ul>
 </div>
