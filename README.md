@@ -10,7 +10,7 @@ I have created an SPA front end with Angular. The code for this is in the Web.An
 
 The Angular app is deployed on Azure here: https://webangular20210218164157.azurewebsites.net/products
 
-The Angular app uses a back-end API created with ASP.NET Core MVC. The code for the Api is in the Api project.
+The Angular app uses a back-end API created with ASP.NET Core MVC. The code for the API is located in the Api project.
 
 The application has the following API:
 
@@ -28,7 +28,7 @@ To run the application locally, in a command prompt navigate to src\Web.Angular\
 
 ## Razor Front-end
 
-I have also created a separate front end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project. For this version of the application I have implemented authentication and authorization using Identity. Users must be registered and logged in to an account in order to create a product. Users can only edit and delete products that they have created themselves. The admin account can edit and delete any product.
+I have also created a separate front end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project. For this version of the application, I have implemented authentication and authorization using Identity. Users must be registered and logged in to an account in order to create a product. Users can only edit and delete products that they have created themselves. The admin account can edit and delete any product.
 
 The Razor app is deployed on azure here: https://webrazor20210219144828.azurewebsites.net/Products
 
