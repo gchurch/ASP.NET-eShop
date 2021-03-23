@@ -14,11 +14,6 @@
         Get a specific product.
       </summary><param name="productId">The ID of the product</param><returns>The requested product.</returns>
         </member>
-        <member name="M:Api.ProductsController.BuyProductByIdAsync(System.Int32)">
-            <summary>
-        Reduce the quantity of a specific product by 1.
-      </summary><param name="productId">The ID of the product.</param><returns>The requested product with its quantity reduced by 1.</returns>
-        </member>
         <member name="M:Api.ProductsController.AddProductAsync(ApplicationCore.Entities.Product)">
             <summary>
         Add a product to the list of products.

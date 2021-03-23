@@ -25,13 +25,6 @@ namespace ApplicationCore.Services
         {
             return await _productRepository.GetProductByIdAsync(productId);
         }
-       
-        public async Task BuyProductByIdAsync(int productId)
-        {
-            Product product = await GetProductByIdAsync(productId);
-            product.Quantity -= 1;
-            await _productRepository.UpdateProductAsync(product);
-        }
 
         public async Task AddProductAsync(Product product)
         {

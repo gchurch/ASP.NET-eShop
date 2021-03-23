@@ -51,25 +51,6 @@ namespace UnitTests.ApplicationCore.Services
         }
 
         [TestMethod]
-        public async Task BuyProductByIdAsync_ShouldCallUpdateProductAsyncInProductRepository()
-        {
-            // Arrange
-            var productRepositoryMock = new Mock<IProductRepository>();
-            productRepositoryMock.Setup(pr => pr.GetProductByIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(new Product());
-            productRepositoryMock.Setup(pr => pr.UpdateProductAsync(It.IsAny<Product>()))
-                .Verifiable();
-            var productService = new ProductService(productRepositoryMock.Object);
-            int productId = 0;
-
-            // Act
-            await productService.BuyProductByIdAsync(productId);
-
-            // Assert
-            productRepositoryMock.Verify(pr => pr.UpdateProductAsync(It.IsAny<Product>()), Times.Once());
-        }
-
-        [TestMethod]
         public async Task AddProductAsync_ShouldCallAddProductAsyncInProductRepository()
         {
             // Arrange

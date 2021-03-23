@@ -72,43 +72,6 @@ namespace UnitTests.Api
         }
 
         [TestMethod]
-        public async Task BuyProductByIdAsync_GivenProductIdThatExists_ShouldReturnOk()
-        {
-            // Arrange
-            var productServiceMock = new Mock<IProductService>();
-            int productIdThatExists = 0;
-            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatExists))
-                .ReturnsAsync(true);
-            productServiceMock.Setup(ps => ps.BuyProductByIdAsync(productIdThatExists));
-            productServiceMock.Setup(ps => ps.GetProductByIdAsync(productIdThatExists))
-                .ReturnsAsync(new Product());
-            var productsController = new ProductsController(productServiceMock.Object);
-
-            // Act
-            ActionResult<int> actionResult = await productsController.BuyProductByIdAsync(productIdThatExists);
-
-            // Assert
-            actionResult.Result.ShouldBeOfType<OkObjectResult>();
-        }
-
-        [TestMethod]
-        public async Task BuyProductByIdAsync_GivenProductIdThatDoesNotExist_ShouldReturnNotFound()
-        {
-            // Arrange
-            var productServiceMock = new Mock<IProductService>();
-            int productIdThatDoesNotExist = 0;
-            productServiceMock.Setup(ps => ps.DoesProductIdExist(productIdThatDoesNotExist))
-                .ReturnsAsync(false);
-            var productsController = new ProductsController(productServiceMock.Object);
-
-            // Act
-            ActionResult<int> actionResult = await productsController.BuyProductByIdAsync(productIdThatDoesNotExist);
-
-            // Assert
-            actionResult.Result.ShouldBeOfType<NotFoundResult>();
-        }
-
-        [TestMethod]
         public async Task AddProductAsync_GivenProduct_ShouldReturnCreated()
         {
             // Arrange

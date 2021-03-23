@@ -47,26 +47,6 @@ namespace Api
             }
         }
 
-        /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/BuyProductByIdAsync/*'/>
-        [HttpPost("buy")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<int>> BuyProductByIdAsync([FromBody] int productId)
-        {
-            bool doesProductIdExist = await _productService.DoesProductIdExist(productId);
-
-            if (doesProductIdExist == true)
-            {
-                await _productService.BuyProductByIdAsync(productId);
-                Product product = await _productService.GetProductByIdAsync(productId);
-                return Ok(product.Quantity);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/AddProductAsync/*'/>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]

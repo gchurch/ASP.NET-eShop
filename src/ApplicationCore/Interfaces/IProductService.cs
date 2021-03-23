@@ -10,8 +10,6 @@ namespace ApplicationCore.Interfaces
 
         Task<Product> GetProductByIdAsync(int id);
 
-        Task BuyProductByIdAsync(int id);
-
         Task AddProductAsync(Product product);
 
         Task DeleteProductByIdAsync(int id);
