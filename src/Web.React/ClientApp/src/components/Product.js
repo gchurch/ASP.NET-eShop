@@ -29,33 +29,21 @@ export class Product extends Component {
     }
 
     render () {
-        let editButtonText = this.state.editing ? "Stop editing" : "Edit";
-
-        let productImage = this.renderProductImage(this.state.product);
-
-        let productDetails = this.state.loading
-            ? <p><em>Loading...</em></p>
-            : this.renderProductDetails(this.state.product);
-        
-        let productUpdateForm = this.state.loading
-            ? <p><em>Loading...</em></p>
-            : this.renderProductUpdateForm();
-        
-        let productContentToDisplay = this.state.editing
-            ? productUpdateForm
-            : productDetails
-
         return (
             <div>
-                <button onClick={this.onEdit}>{editButtonText}</button>
+                <button onClick={this.onEdit}>{this.renderEditButtonText()}</button>
                 <div id="product">
-                    {productImage}
+                    {this.renderProductImage(this.state.product)}
                     <div id="productContent">
-                        {productContentToDisplay}
+                        {this.renderProductContentToDisplay()}
                     </div>
                 </div>
             </div>
         );
+    }
+
+    renderEditButtonText() {
+        return this.state.editing ? "Stop editing" : "Edit";
     }
 
     renderProductImage(product) {
@@ -104,22 +92,6 @@ export class Product extends Component {
         )
     }
 
-    handleChange(event) {
-
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-
-        this.setState(prevState => {
-            // creating copy of state variable formValues
-            let formValues = Object.assign({}, prevState.formValues);
-            // update the name property, assign a new value
-            formValues[name] = value;
-            // return new object formValues object
-            return { formValues };
-          })
-    }
-
     handleSubmit(event) {
         event.preventDefault();
         this.sendProduct();
@@ -142,6 +114,22 @@ export class Product extends Component {
         this.setState({editing: false});
     }
 
+    handleChange(event) {
+
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState(prevState => {
+            // creating copy of state variable formValues
+            let formValues = Object.assign({}, prevState.formValues);
+            // update the name property, assign a new value
+            formValues[name] = value;
+            // return new object formValues object
+            return { formValues };
+          })
+    }
+
     onEdit = async () => {
         this.setState({editing: !this.state.editing});
     }
@@ -153,4 +141,19 @@ export class Product extends Component {
         this.props.history.push("/products");
     }
 
+    renderProductContentToDisplay() {
+        let productDetails = this.state.loading
+            ? <p><em>Loading...</em></p>
+            : this.renderProductDetails(this.state.product);
+        
+        let productUpdateForm = this.state.loading
+            ? <p><em>Loading...</em></p>
+            : this.renderProductUpdateForm();
+        
+        let productContentToDisplay = this.state.editing
+            ? productUpdateForm
+            : productDetails
+        
+        return productContentToDisplay;
+    }
 }
