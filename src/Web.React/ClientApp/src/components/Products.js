@@ -22,42 +22,41 @@ export class Products extends Component {
   }
 
   render() {
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : this.renderProducts(this.state.products);
-
     return (
       <div>
         <h1 id="tabelLabel" >Products</h1>
-        <Link to={"add-product"}>
-          <p>Add a product</p>
-        </Link>
-        {contents}
+        <Link to={"add-product"}><p>Add a product</p></Link>
+        {this.renderProducts()}
       </div>
     );
   }
 
-  renderProducts(products) {
-    return (
-      <div id="products">
-        <ul>
-          {products.map(product =>
-            <li>
-              <div>
-                <Link to={"product/" + product.productId}>
-                  <img src={"images/" + product.imageUrl} alt=""/>
-                </Link>
+  renderProducts() {
+    if(this.state.loading) {
+      return <p><em>Loading...</em></p>
+    }
+    else {
+      return (
+        <div id="products">
+          <ul>
+            {this.state.products.map(product =>
+              <li>
+                <div>
+                  <Link to={"product/" + product.productId}>
+                    <img src={"images/" + product.imageUrl} alt=""/>
+                  </Link>
+                </div>
+                <div>             
+                  <p id="productTitle"><Link to={"product/" + product.productId}>{ product.title }</Link></p>
+                  <p id="productSeller">Seller: { product.seller }</p>
+                  <p id="productPrice"><Link to={"product/" + product.productId}>£{ product.price }</Link></p>
+                  <p id="productDelivery">FREE Delivery</p>
               </div>
-              <div>             
-                <p id="productTitle"><Link to={"product/" + product.productId}>{ product.title }</Link></p>
-                <p id="productSeller">Seller: { product.seller }</p>
-                <p id="productPrice"><Link to={"product/" + product.productId}>£{ product.price }</Link></p>
-                <p id="productDelivery">FREE Delivery</p>
-            </div>
-            </li>
-          )}
-        </ul>
-      </div>
-    );
+              </li>
+            )}
+          </ul>
+        </div>
+      );
+    }
   }
 }
