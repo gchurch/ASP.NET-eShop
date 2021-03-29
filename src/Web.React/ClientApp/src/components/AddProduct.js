@@ -21,43 +21,26 @@ export class AddProduct extends Component {
             <div>
                 <h1>Add a Product</h1>
                 <form onSubmit={this.handleSubmit}>
-
                     <div>
                         <p>Product Title: <input name="title" type="text" value={this.state.title} onChange={this.handleChange} /></p>
                     </div>
-    
                     <div>
                         <p>Price: £<input name="price" type="number" value={this.state.price} onChange={this.handleChange} /></p>
                     </div>
-
                     <div>
                         <p>Quantity: <input name="quantity" type="number" value={this.state.quantity} onChange={this.handleChange} /></p>
                     </div>
-
                     <div>
                         <p>Description: <input name="description" type="text" value={this.state.description} onChange={this.handleChange} /></p>
                     </div>
-
                     <div>
                         <p>Seller's Name: <input name="seller" type="text" value={this.state.seller} onChange={this.handleChange} /></p>
                     </div>
-
                     <input type="submit" value="Submit" disabled={this.isSubmitDisabled()} />
 
                 </form>
             </div>
         );
-    }
-
-    handleChange(event) {
-
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value 
-        });
     }
 
     handleSubmit(event) {
@@ -81,6 +64,15 @@ export class AddProduct extends Component {
         if(data.productId) {
             this.props.history.push("/product/" + data.productId);
         }
+    }
+
+    handleChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        this.setState({
+            [name]: value 
+        });
     }
 
     isSubmitDisabled() {
