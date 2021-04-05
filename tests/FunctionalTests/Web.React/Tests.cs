@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Web.Angular;
+using Web.React;
 
-namespace FunctionalTests.Web.Angular
+namespace FunctionalTests.Web.React
 {
     [TestClass]
     public class Tests : SpaTests<Startup>
