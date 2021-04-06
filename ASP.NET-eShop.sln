@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C67E55F3-0F3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{53FB42E7-0D9D-48CB-A01A-07C688C6289B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionalTests", "tests\FunctionalTests\FunctionalTests.csproj", "{ED9301E9-8629-4057-8CB5-AD5996E1EA85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "tests\IntegrationTests\IntegrationTests.csproj", "{ED9301E9-8629-4057-8CB5-AD5996E1EA85}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Razor", "src\Web.Razor\Web.Razor.csproj", "{01B5BBC5-CDC0-4A5E-840D-E04C366CE009}"
 EndProject
