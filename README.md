@@ -2,7 +2,7 @@
 
 ![.NET](https://github.com/gchurch/ASP.NET-eShop/workflows/.NET/badge.svg)
 
-I have created a CRUD application in the style of an E-commerce website using ASP.NET Core 5.0. I have created a few different versions of the front end using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the different front ends being easily substitutable for one another. I have also created unit tests and functional tests for the application. The application is deployed on Azure for demonstration.
+I have created a CRUD application in the style of an E-commerce website using ASP.NET Core 5.0. I have created a few different versions of the front end using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the different front ends being easily substitutable for one another. I have also created some unit tests and integration tests for the application. The application is deployed on Azure for demonstration.
 
 ## Angular Front-end
 
@@ -54,10 +54,6 @@ The Clean Architecture separates the application into three layers with each lay
 
 An SQL Server database is used to store the application data. Entity Framework Core is used for data access. LINQ is used to query data.
 
-## Unit Tests
+## Testing
 
-Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework. I have tried to follow best practice when it comes to unit testing.
-
-## Functional Tests
-
-The WebApplicationFactory class is used to perform functional end to end tests. A test server is created and an in-memory test database is used.
+Tests that I have created for the application can be found in the tests folder. I have created some unit tests for the application. Unit testing is performed with MSTest using the Shouldly assertion framework and the Moq mocking framework. I have tried to follow good practice when it comes to unit testing. I have also created some integration tests for the application. I create a test server and make requests to it and test the responses. To do this I make use of the WebApplicationFactory class and use an in-memory test database.
