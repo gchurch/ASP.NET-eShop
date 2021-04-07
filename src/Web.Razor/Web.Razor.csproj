@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp5.0</TargetFramework>
     <UserSecretsId>474c8230-b545-4fbf-a53b-f73b06c377a1</UserSecretsId>
+    <RootNamespace>Web.Razor</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
