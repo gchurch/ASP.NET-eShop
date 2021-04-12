@@ -34,13 +34,11 @@ namespace Api
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Product>> GetProductByIdAsync(int productId)
         {
-            Task<Product> productTask = _productService.GetProductByIdAsync(productId);
-            Task<bool> doesProductIdExistTask = _productService.DoesProductIdExist(productId);
-            bool doesProductIdExist = await doesProductIdExistTask;
+            bool doesProductIdExist = await _productService.DoesProductIdExist(productId);
 
             if (doesProductIdExist == true)
             {
-                Product product = await productTask;
+                Product product = await _productService.GetProductByIdAsync(productId);
                 return Ok(product);
             }
             else
