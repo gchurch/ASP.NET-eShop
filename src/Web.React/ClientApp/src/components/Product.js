@@ -31,7 +31,7 @@ export class Product extends Component {
     render () {
         return (
             <div>
-                <button onClick={this.onEdit}>{this.renderEditButtonText()}</button>
+                <button id="editButton" onClick={this.onEdit}>{this.renderEditButtonText()}</button>
                 <div id="product">
                     {this.renderProductImage(this.state.product)}
                     <div id="productContent">
@@ -85,9 +85,9 @@ export class Product extends Component {
                     <div>
                         <p>Seller's Name: <input name="seller" type="text" value={this.state.formValues.seller} onChange={this.handleChange} /></p>
                     </div>
-                    <input type="submit" value="Update" />
+                    <button id="updateButton" type="submit">Update</button>
+                    <button id="deleteButton" onClick={this.onDelete}>Delete</button>
                 </form>
-                <button onClick={this.onDelete}>Delete</button>
             </div>
         )
     }

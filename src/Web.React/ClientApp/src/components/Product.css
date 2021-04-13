@@ -1,3 +1,40 @@
+#editButton {
+    background-color:rgb(162, 162, 255);
+    border: none;
+    padding: 1% 5% 1% 5%;
+    border-radius: 15px;
+    width: 20%;
+}
+
+#editButton:hover {
+    background-color: rgb(139, 139, 255);
+}
+
+#updateButton {
+    background-color: rgb(0, 207, 0);
+    margin-right: 10%;
+    display: inline-block;
+    border: none;
+    padding: 1% 5% 1% 5%;
+    border-radius: 15px;
+}
+
+#updateButton:hover {
+    background-color: rgb(0, 175, 0);
+}
+
+#deleteButton {
+    background-color: rgb(255, 108, 108);
+    display: inline-block;
+    border: none;
+    padding: 1% 5% 1% 5%;
+    border-radius: 15px;
+}
+
+#deleteButton:hover {
+    background-color: red;
+}
+
 #product #image {
     display: inline-block;
     vertical-align: top;
