@@ -23,11 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.React", "src\Web.React\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Api\Api.csproj", "{2FA4E727-9C82-416C-AE2F-93195048312D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Blazor.Server", "Web.Blazor\Server\Web.Blazor.Server.csproj", "{97422FD5-5D74-435C-985E-AC19B4B4DC4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Blazor.Server", "src\Web.Blazor\Server\Web.Blazor.Server.csproj", "{97422FD5-5D74-435C-985E-AC19B4B4DC4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Blazor.Client", "Web.Blazor\Client\Web.Blazor.Client.csproj", "{933FF100-7B82-4DB8-8C9A-B5C0C4922D0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Blazor.Client", "src\Web.Blazor\Client\Web.Blazor.Client.csproj", "{933FF100-7B82-4DB8-8C9A-B5C0C4922D0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Blazor.Shared", "Web.Blazor\Shared\Web.Blazor.Shared.csproj", "{CC0AA6AD-DE00-47A4-BBCE-7ED30B0CF76E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Blazor.Shared", "src\Web.Blazor\Shared\Web.Blazor.Shared.csproj", "{CC0AA6AD-DE00-47A4-BBCE-7ED30B0CF76E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
