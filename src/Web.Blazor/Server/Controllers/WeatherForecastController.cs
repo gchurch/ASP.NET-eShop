@@ -17,11 +17,11 @@ namespace Web.Blazor.Server.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> logger;
+        private readonly ILogger<WeatherForecastController> _logger;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
-            this.logger = logger;
+            _logger = logger;
         }
 
         [HttpGet]
