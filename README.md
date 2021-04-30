@@ -40,7 +40,11 @@ I have created another SPA front end, this time using React. This is similar to 
 
 The React app is deployed on Azure here: https://webreact20210218165252.azurewebsites.net/products
 
-To run the application locally, in a command prompt navigate to src\Web.React\ClientApp and run the command "npm start". Then in Visual Studio set the Web.React project as the startup project and then start. 
+To run the application locally, in a command prompt navigate to src\Web.React\ClientApp and run the command "npm start". Then in Visual Studio set the Web.React project as the startup project and then start.
+
+## Blazor Front-end
+
+The Blazor front-end is currently a work in progress.
 
 ## Clean Architecture
 
