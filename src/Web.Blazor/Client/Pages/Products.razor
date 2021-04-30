@@ -1,0 +1,32 @@
+﻿@page "/products"
+@using ApplicationCore.Entities;
+@inject HttpClient Http
+
+<h3>Products</h3>
+
+@if (products == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var product in products)
+    {
+        <div>
+            <h4>@product.Title</h4>
+            <p>@product.Description</p>
+            <p>Sold by @product.Seller</p>
+            <p>£@product.Price</p>
+            <p>@product.Quantity in stock.</p>
+        </div>
+    }
+}
+
+@code {
+    private Product[] products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await Http.GetFromJsonAsync<Product[]>("api/products");
+    }
+}
