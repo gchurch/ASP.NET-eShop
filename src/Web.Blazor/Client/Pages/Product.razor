@@ -1,0 +1,28 @@
+﻿@page "/products/{ProductId:int}"
+@inject HttpClient Http
+
+@if(_product == null) {
+    <p><em>Loading...</em></p>
+}
+else {
+    <div>
+        <p>Product ID: @_product.ProductId</p>
+        <h3>@_product.Title</h3>
+        <p>@_product.Description</p>
+        <p>Sold by @_product.Seller</p>
+        <p>£@_product.Price</p>
+        <p>@_product.Quantity in stock.</p>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    private ApplicationCore.Entities.Product _product;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _product = await Http.GetFromJsonAsync<ApplicationCore.Entities.Product>("api/products/" + ProductId);
+    }
+}
