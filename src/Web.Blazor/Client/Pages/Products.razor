@@ -1,5 +1,4 @@
 ﻿@page "/products"
-@using ApplicationCore.Entities;
 @inject HttpClient Http
 
 <h3>Products</h3>
@@ -10,7 +9,7 @@
 }
 else
 {
-    @foreach (var product in products)
+    @foreach (ApplicationCore.Entities.Product product in products)
     {
         <div>
             <h4>@product.Title</h4>
@@ -23,10 +22,10 @@ else
 }
 
 @code {
-    private Product[] products;
+    private ApplicationCore.Entities.Product[] products;
 
     protected override async Task OnInitializedAsync()
     {
-        products = await Http.GetFromJsonAsync<Product[]>("api/products");
+        products = await Http.GetFromJsonAsync<ApplicationCore.Entities.Product[]>("api/products");
     }
 }
