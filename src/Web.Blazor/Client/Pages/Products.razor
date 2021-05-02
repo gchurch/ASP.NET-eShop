@@ -9,16 +9,22 @@
 }
 else
 {
-    @foreach (ApplicationCore.Entities.Product product in products)
-    {
-        <div>
-            <h4>@product.Title</h4>
-            <p>@product.Description</p>
-            <p>Sold by @product.Seller</p>
-            <p>£@product.Price</p>
-            <p>@product.Quantity in stock.</p>
-        </div>
-    }
+    <ul>
+        @foreach (ApplicationCore.Entities.Product product in products)
+        {
+        <li>
+            <div>
+                <NavLink href="@($"/products/{(int)product.ProductId}")"><img src="@($"/assets/{@product.ImageUrl}")" /></NavLink>
+            </div>
+            <div>
+                <p id="productTitle"><NavLink href="@($"/products/{(int)product.ProductId}")">@product.Title</NavLink></p>
+                <p id="productSeller">Seller: @product.Seller</p>
+                <p id="productPrice"><NavLink href="@($"/products/{(int)product.ProductId}")">£@product.Price</NavLink></p>
+                <p id="productDelivery">FREE Delivery</p>
+            </div>
+        </li>
+        }
+    </ul>
 }
 
 @code {
