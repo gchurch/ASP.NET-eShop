@@ -14,7 +14,7 @@ else
         {
         <li>
             <div>
-                <NavLink href="@($"/products/{(int)product.ProductId}")"><img src="@($"/assets/{@product.ImageUrl}")" /></NavLink>
+                <NavLink href="@($"/products/{(int)product.ProductId}")"><img src="@($"/images/{@product.ImageUrl}")" /></NavLink>
             </div>
             <div>
                 <p id="productTitle"><NavLink href="@($"/products/{(int)product.ProductId}")">@product.Title</NavLink></p>
