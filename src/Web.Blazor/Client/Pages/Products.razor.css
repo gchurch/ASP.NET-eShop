@@ -1,0 +1,52 @@
+﻿ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+li {
+    border-top: 2px solid rgb(201, 201, 201);
+    margin: 0px;
+    padding: 0px;
+}
+
+li div {
+    display: inline-block;
+    height: 100%;
+    vertical-align: top;
+    padding: 1%;
+}
+
+li div:first-child {
+    width: 20%;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+li img {
+    width: 100%;
+    height: auto;
+}
+
+#productTitle a {
+    font-size: 1.5em;
+    color: black;
+}
+
+#productTitle a:hover {
+    color: orange;
+    text-decoration: none;
+}
+
+#productPrice a {
+    font-size: 1.5em;
+    color: black;
+}
+
+#productPrice a:hover {
+    text-decoration: none;
+}
+
+#productDelivery {
+    color: grey;
+}
