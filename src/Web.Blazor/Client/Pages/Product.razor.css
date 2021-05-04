@@ -1,0 +1,48 @@
+﻿body {
+    font-size: 1em;
+}
+
+.productColumn {
+    display: inline-block;
+    vertical-align: top;
+    padding: 1%;
+}
+
+#productImage {
+    width: 30%;
+}
+
+    #productImage img {
+        height: auto;
+        max-width: 100%;
+    }
+
+#productInfo {
+    width: 69%;
+}
+
+#product p {
+    border-bottom: 1px solid rgb(201, 201, 201);
+    font-family: Arial;
+}
+
+#productTitle {
+    font-size: 1.5em;
+}
+
+#productPrice {
+    color: rgb(75, 75, 75);
+}
+
+    #productPrice span {
+        color: rgb(182, 7, 7);
+        font-size: 1.2em;
+    }
+
+#productQuantity span {
+    color: rgb(75, 75, 75);
+}
+
+#productDescription span {
+    font-weight: bold;
+}

@@ -5,14 +5,35 @@
     <p><em>Loading...</em></p>
 }
 else {
+<div id="product">
     <div>
-        <p>Product ID: @_product.ProductId</p>
-        <h3>@_product.Title</h3>
-        <p>@_product.Description</p>
-        <p>Sold by @_product.Seller</p>
-        <p>£@_product.Price</p>
-        <p>@_product.Quantity in stock.</p>
+        <div class="productColumn" id="productImage">
+            <img src="@($"/images/{@_product.ImageUrl}")" />
+        </div>
+        <div class="productColumn" id="productInfo">
+            <p id="productTitle">
+                @_product.Title
+            </p>
+
+            <p id="productPrice">
+                Price: <span>£@_product.Price</span>
+            </p>
+
+            <p id="productQuantity">
+                @_product.Quantity <span>in stock</span>
+            </p>
+
+            <p id="productDescription">
+                <span>About this product</span><br />
+                @_product.Description
+            </p>
+
+            <p id="productSeller">
+                Seller: <span>@_product.Seller</span>
+            </p>
+        </div>
     </div>
+</div>
 }
 
 @code {
