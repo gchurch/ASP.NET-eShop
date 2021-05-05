@@ -28,22 +28,22 @@ li img {
     height: auto;
 }
 
-#productTitle a {
+::deep #productTitle a {
     font-size: 1.5em;
     color: black;
 }
 
-#productTitle a:hover {
+::deep #productTitle a:hover {
     color: orange;
     text-decoration: none;
 }
 
-#productPrice a {
+::deep #productPrice a {
     font-size: 1.5em;
     color: black;
 }
 
-#productPrice a:hover {
+::deep #productPrice a:hover {
     text-decoration: none;
 }
 
