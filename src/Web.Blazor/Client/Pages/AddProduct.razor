@@ -1,7 +1,37 @@
 ﻿@page "/add-product"
+@inject HttpClient Http
 
 <h3>AddProduct</h3>
 
-@code {
+<EditForm Model="@product" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
+    <div>
+        Title: <InputText id="productTitle" @bind-Value="product.Title" />
+    </div>
+    <div>
+        Description: <InputText id="productDescription" @bind-Value="product.Description" /></div>
+    <div>
+        Seller Name: <InputText id="productSeller" @bind-Value="product.Seller" />
+    </div>
+    <div>
+        Price: £<InputNumber id="productPrice" @bind-Value="product.Price" />
+    </div>
+    <div>
+        Quantity: <InputNumber id="productQuantity" @bind-Value="product.Quantity" />
+    </div>
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    private ApplicationCore.Entities.Product product = new();
+
+    private async Task HandleValidSubmit()
+    {
+        HttpResponseMessage response = await Http.PostAsJsonAsync<ApplicationCore.Entities.Product>("api/products", product);
+        Console.WriteLine("Product submitted");
+        Console.WriteLine(await response.Content.ReadAsStringAsync());
+    }
 }
