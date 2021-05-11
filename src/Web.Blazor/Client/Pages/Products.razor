@@ -11,7 +11,7 @@ else
 {
     <p><NavLink href="/add-product">Add a product</NavLink></p>
     <ul>
-        @foreach (ApplicationCore.Entities.Product product in products)
+        @foreach (ApplicationCore.Models.Product product in products)
         {
         <li>
             <div>
@@ -29,10 +29,10 @@ else
 }
 
 @code {
-    private ApplicationCore.Entities.Product[] products;
+    private ApplicationCore.Models.Product[] products;
 
     protected override async Task OnInitializedAsync()
     {
-        products = await Http.GetFromJsonAsync<ApplicationCore.Entities.Product[]>("api/products");
+        products = await Http.GetFromJsonAsync<ApplicationCore.Models.Product[]>("api/products");
     }
 }

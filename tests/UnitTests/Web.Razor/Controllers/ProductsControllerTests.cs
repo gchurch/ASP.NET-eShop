@@ -1,4 +1,4 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Models;
 using ApplicationCore.Interfaces;
 using Web.Razor.Controllers;
 using Microsoft.AspNetCore.Mvc;

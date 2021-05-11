@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
 using System.Threading.Tasks;
 using System.Net;
-using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;

@@ -1,5 +1,5 @@
 ﻿using Api;
-using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

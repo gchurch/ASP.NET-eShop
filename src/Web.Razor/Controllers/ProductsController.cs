@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Web.Razor.Authorization;

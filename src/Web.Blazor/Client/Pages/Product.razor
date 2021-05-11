@@ -40,10 +40,10 @@ else {
     [Parameter]
     public int ProductId { get; set; }
 
-    private ApplicationCore.Entities.Product _product;
+    private ApplicationCore.Models.Product _product;
 
     protected override async Task OnParametersSetAsync()
     {
-        _product = await Http.GetFromJsonAsync<ApplicationCore.Entities.Product>("api/products/" + ProductId);
+        _product = await Http.GetFromJsonAsync<ApplicationCore.Models.Product>("api/products/" + ProductId);
     }
 }

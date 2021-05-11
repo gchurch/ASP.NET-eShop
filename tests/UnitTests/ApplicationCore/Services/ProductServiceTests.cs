@@ -1,4 +1,4 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Models;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Services;
 using Infrastructure.Data;

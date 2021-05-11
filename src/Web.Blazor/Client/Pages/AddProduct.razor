@@ -26,11 +26,11 @@
 </EditForm>
 
 @code {
-    private ApplicationCore.Entities.Product product = new();
+    private ApplicationCore.Models.Product product = new();
 
     private async Task HandleValidSubmit()
     {
-        HttpResponseMessage response = await Http.PostAsJsonAsync<ApplicationCore.Entities.Product>("api/products", product);
+        HttpResponseMessage response = await Http.PostAsJsonAsync<ApplicationCore.Models.Product>("api/products", product);
         Console.WriteLine("Product submitted");
         Console.WriteLine(await response.Content.ReadAsStringAsync());
     }
