@@ -4,7 +4,7 @@
 
 I have created a CRUD application in the style of an E-commerce website using ASP.NET Core. I have created a few different versions of the front end using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the different front ends being easily substitutable for one another. I have also created some unit tests and integration tests for the application. The application is deployed on Azure for demonstration.
 
-The purpose of this project is to develop my software development skills and try out some front-end technogolies rather than to create a flashy application.
+The purpose of this project is to develop my software development skills rather than to create a flashy application.
 
 ## Angular Front-end
 
