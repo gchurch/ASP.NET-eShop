@@ -5,45 +5,57 @@
     <p><em>Loading...</em></p>
 }
 else {
-<div id="product">
-    <div>
-        <div class="productColumn" id="productImage">
-            <img src="@($"/images/{@_product.ImageUrl}")" />
+    <button @onclick="ToggleEditing">Toggle Editing</button>
+
+    @if (_editing == false)
+    {
+        <div id="product">
+            <div>
+                <div class="productColumn" id="productImage">
+                    <img src="@($"/images/{@_product.ImageUrl}")" />
+                </div>
+                <div class="productColumn" id="productInfo">
+                    <p id="productTitle">
+                        @_product.Title
+                    </p>
+
+                    <p id="productPrice">
+                        Price: <span>£@_product.Price</span>
+                    </p>
+
+                    <p id="productQuantity">
+                        @_product.Quantity <span>in stock</span>
+                    </p>
+
+                    <p id="productDescription">
+                        <span>About this product</span><br />
+                        @_product.Description
+                    </p>
+
+                    <p id="productSeller">
+                        Seller: <span>@_product.Seller</span>
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="productColumn" id="productInfo">
-            <p id="productTitle">
-                @_product.Title
-            </p>
-
-            <p id="productPrice">
-                Price: <span>£@_product.Price</span>
-            </p>
-
-            <p id="productQuantity">
-                @_product.Quantity <span>in stock</span>
-            </p>
-
-            <p id="productDescription">
-                <span>About this product</span><br />
-                @_product.Description
-            </p>
-
-            <p id="productSeller">
-                Seller: <span>@_product.Seller</span>
-            </p>
-        </div>
-    </div>
-</div>
+    }
 }
 
 @code {
     [Parameter]
     public int ProductId { get; set; }
 
+    private Boolean _editing = false;
+
     private ApplicationCore.Models.Product _product;
 
     protected override async Task OnParametersSetAsync()
     {
         _product = await Http.GetFromJsonAsync<ApplicationCore.Models.Product>("api/products/" + ProductId);
+    }
+
+    private void ToggleEditing()
+    {
+        _editing = !_editing;
     }
 }
