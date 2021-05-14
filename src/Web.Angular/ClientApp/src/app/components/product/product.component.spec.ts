@@ -1,9 +1,14 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { InjectionToken, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ProductService } from 'src/app/services/product.service';
+import { ProductInfoComponent } from '../product-info/product-info.component';
 
 import { ProductComponent } from './product.component';
+
+export const BASE_URL = new InjectionToken<string>('BASE_URL');
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
@@ -11,15 +16,19 @@ describe('ProductComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductComponent ],
-      imports: [ 
+      declarations: [ 
+        ProductComponent,
+        ProductInfoComponent
+      ],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forRoot([]),
         HttpClientModule
       ],
       providers: [
-        { provide: BASE_URL, useValue: 'http://localhost' }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
+        ProductService,
+      ]
     })
     .compileComponents();
   }));
