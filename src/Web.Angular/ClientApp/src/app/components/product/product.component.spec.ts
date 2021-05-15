@@ -11,8 +11,6 @@ import { ProductInfoComponent } from '../product-info/product-info.component';
 
 import { ProductComponent } from './product.component';
 
-export const BASE_URL = new InjectionToken<string>('BASE_URL');
-
 describe('ProductComponent', () => {
   let component: ProductComponent;
   let fixture: ComponentFixture<ProductComponent>;
