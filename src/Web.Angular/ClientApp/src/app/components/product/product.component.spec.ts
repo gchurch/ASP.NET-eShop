@@ -3,7 +3,9 @@ import { InjectionToken, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ProductMockService } from 'src/app/services/product-mock.service';
+import { BasketService } from 'src/app/services/basket.service';
+import { BasketServiceMock } from 'src/app/services/mock.basket.service';
+import { ProductServiceMock } from 'src/app/services/mock.product.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ProductInfoComponent } from '../product-info/product-info.component';
 
@@ -28,7 +30,8 @@ describe('ProductComponent', () => {
         HttpClientModule
       ],
       providers: [
-        { provide: ProductService, useClass: ProductMockService }
+        { provide: ProductService, useClass: ProductServiceMock },
+        { provide: BasketService, useClass: BasketServiceMock  }
       ]
     })
     .compileComponents();
