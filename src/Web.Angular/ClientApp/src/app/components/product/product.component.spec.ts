@@ -3,6 +3,7 @@ import { InjectionToken, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ProductMockService } from 'src/app/services/product-mock.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ProductInfoComponent } from '../product-info/product-info.component';
 
@@ -27,7 +28,7 @@ describe('ProductComponent', () => {
         HttpClientModule
       ],
       providers: [
-        ProductService,
+        { provide: ProductService, useClass: ProductMockService }
       ]
     })
     .compileComponents();
