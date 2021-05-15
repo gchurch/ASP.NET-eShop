@@ -4,8 +4,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BasketService } from 'src/app/services/basket.service';
-import { BasketServiceMock } from 'src/app/services/mock.basket.service';
-import { ProductServiceMock } from 'src/app/services/mock.product.service';
+import { BasketServiceMock } from 'src/app/services/mocks/mock.basket.service';
+import { ProductServiceMock } from 'src/app/services/mocks/mock.product.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ProductInfoComponent } from '../product-info/product-info.component';
 

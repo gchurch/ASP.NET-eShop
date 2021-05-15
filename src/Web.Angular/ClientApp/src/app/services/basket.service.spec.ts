@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
 import { BasketService } from './basket.service';
-import { ProductServiceMock } from './mock.product.service';
+import { ProductServiceMock } from './mocks/mock.product.service';
 import { ProductService } from './product.service';
 
 describe('BasketService', () => {

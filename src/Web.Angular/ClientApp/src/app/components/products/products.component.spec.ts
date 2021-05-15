@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
-import { ProductServiceMock } from 'src/app/services/mock.product.service';
+import { ProductServiceMock } from 'src/app/services/mocks/mock.product.service';
 import { ProductService } from 'src/app/services/product.service';
 
 import { ProductsComponent } from './products.component';
