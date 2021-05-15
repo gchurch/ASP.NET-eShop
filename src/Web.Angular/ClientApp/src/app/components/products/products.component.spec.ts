@@ -1,4 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
+import { ProductServiceMock } from 'src/app/services/mock.product.service';
+import { ProductService } from 'src/app/services/product.service';
 
 import { ProductsComponent } from './products.component';
 
@@ -8,7 +12,16 @@ describe('ProductsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductsComponent ]
+      declarations: [ 
+        ProductsComponent 
+      ],
+      imports: [
+        RouterModule.forRoot([]),
+        HttpClientModule
+      ],
+      providers: [
+        { provide: ProductService, useClass: ProductServiceMock }
+      ]
     })
     .compileComponents();
   }));
