@@ -143,4 +143,8 @@ export class BasketService {
   public getNumberOfProducts$(): ReplaySubject<number> {
     return this.totalNumberOfProducts$;
   }
+
+  public isEven(number: number): boolean {
+    return (number % 2 == 0);
+  }
 }
