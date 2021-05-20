@@ -101,19 +101,6 @@ export class ProductComponent implements OnInit, OnDestroy {
     console.log("Product updated.");
   }
 
-  private cloneProduct(originalProduct: Product): Product {
-    var clonedProduct: Product = {
-      productId: originalProduct.productId,
-      title: originalProduct.title,
-      description: originalProduct.description,
-      seller: originalProduct.seller,
-      price: originalProduct.price,
-      quantity: originalProduct.quantity,
-      imageUrl: originalProduct.imageUrl
-    };
-    return clonedProduct;
-  }
-
   public addProductToBasket(product: Product): void {
     console.log("Adding product '" + product.title + "' to the basket.");
     this.basketService.addProduct(product.productId);
