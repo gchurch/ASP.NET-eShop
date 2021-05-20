@@ -78,13 +78,17 @@ export class BasketService {
       this.updateObservables([]);
     }
     else {
-      forkJoin(productRequests).subscribe(
-        (products: Product[]) =>
-          {
-            products = this.setProductQuantitiesToCorrectValues(products);
-            this.updateObservables(products);
-          }
-      );
+      var self = this;
+      forkJoin(productRequests).subscribe({
+        next(products: Product[]) {
+          products = self.setProductQuantitiesToCorrectValues(products);
+          self.updateObservables(products);
+        },
+        error(msg) {
+          self.productIdToQuantity.clear();
+          self.updateObservables([]);
+        }
+      });
     }
   }
 
