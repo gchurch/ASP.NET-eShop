@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { Product } from '../../product';
 import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnDestroy {
 
   public product$: Observable<Product>;
   public productUpdateForm: FormGroup;
@@ -28,6 +28,8 @@ export class ProductComponent implements OnInit {
     quantity: 0,
     imageUrl: ""
   };
+
+  private deletionSubscription: Subscription;
 
   public constructor(
     private route: ActivatedRoute, 
@@ -61,7 +63,7 @@ export class ProductComponent implements OnInit {
   public onDelete(id: number) : void {
     console.log("Deleting product " + id);
     var self = this;
-    this.productService.deleteProductById(id).subscribe({
+    this.deletionSubscription = this.productService.deleteProductById(id).subscribe({
       next(response) {
         console.log(response);
         self.router.navigate(['/products']);
@@ -119,5 +121,10 @@ export class ProductComponent implements OnInit {
 
   public toggleEdit(): void {
     this.editingProduct = !this.editingProduct;
+  }
+
+  public ngOnDestroy(): void {
+    console.log("Product component destroyed");
+    this.deletionSubscription?.unsubscribe();
   }
 }
