@@ -60,10 +60,11 @@ export class ProductComponent implements OnInit {
 
   public onDelete(id: number) : void {
     console.log("Deleting product " + id);
+    var self = this;
     this.productService.deleteProductById(id).subscribe({
       next(response) {
         console.log(response);
-        this.router.navigate(['/products']);
+        self.router.navigate(['/products']);
       },
       error(msg) {
         console.log(msg);
