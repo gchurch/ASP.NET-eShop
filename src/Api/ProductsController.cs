@@ -53,7 +53,7 @@ namespace Api
         public async Task<ActionResult<Product>> AddProductAsync([FromBody] Product product)
         {
             await _productService.AddProductAsync(product);
-            return CreatedAtAction("GetProductById", new { productId = product.ProductId }, product);
+            return CreatedAtAction(nameof(GetProductByIdAsync), new { productId = product.ProductId }, product);
         }
 
         /// <include file='ApiDoc.xml' path='docs/members[@name="ProductsController"]/DeleteProductByIdAsync/*'/>
