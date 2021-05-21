@@ -185,7 +185,7 @@ namespace FunctionalTests
 
             // Assert
             getResponseBeforeDeletion.StatusCode.ShouldBe(HttpStatusCode.OK);
-            deletionResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+            deletionResponse.StatusCode.ShouldBe(HttpStatusCode.NoContent);
             getResponseAfterDeletion.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
     }

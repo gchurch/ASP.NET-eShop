@@ -67,7 +67,7 @@ namespace Api
             if (doesProductIdExist == true)
             {
                 await _productService.DeleteProductByIdAsync(productId);
-                return Ok();
+                return NoContent();
             }
             else
             {

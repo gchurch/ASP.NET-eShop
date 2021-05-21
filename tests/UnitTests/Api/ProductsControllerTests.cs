@@ -87,7 +87,7 @@ namespace UnitTests.Api
         }
 
         [TestMethod]
-        public async Task DeleteProductByIdAsync_GivenProductIdThatExists_ShouldReturnOk()
+        public async Task DeleteProductByIdAsync_GivenProductIdThatExists_ShouldReturnNoContent()
         {
             // Arrange
             var productServiceMock = new Mock<IProductService>();
@@ -101,7 +101,7 @@ namespace UnitTests.Api
             ActionResult actionResult = await productsController.DeleteProductByIdAsync(productIdThatExists);
 
             // Assert
-            actionResult.ShouldBeOfType<OkResult>();
+            actionResult.ShouldBeOfType<NoContentResult>();
         }
 
         [TestMethod]
