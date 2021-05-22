@@ -44,10 +44,11 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   private createProductObservable(): void {
-    this.product$ = this.route.paramMap
-    .pipe(mergeMap(params => this.productService.getProductById(+params.get('id'))))
-    .pipe(catchError(err => of(this.productNotFound)))
-    .pipe(tap(product => this.productUpdateForm.patchValue(product)));
+    this.product$ = this.route.paramMap.pipe(
+      mergeMap(params => this.productService.getProductById(+params.get('id'))),
+      catchError(err => of(this.productNotFound)),
+      tap(product => this.productUpdateForm.patchValue(product))
+    );
   }
 
   private createProductUpdateForm(): void {
@@ -95,9 +96,10 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   private updateProduct(product: Product): void {
-    this.product$ = this.productService.updateProduct(product)
-        .pipe(catchError(err => of(this.productNotFound)))
-        .pipe(tap(product => this.productUpdateForm.patchValue(product)));
+    this.product$ = this.productService.updateProduct(product).pipe(
+        catchError(err => of(this.productNotFound)),
+        tap(product => this.productUpdateForm.patchValue(product))
+    );
     console.log("Product updated.");
   }
 
