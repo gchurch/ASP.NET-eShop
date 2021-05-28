@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 // The repository pattern: https://deviq.com/repository-pattern/
 
@@ -34,7 +35,8 @@ namespace Infrastructure.Data
 
         public async Task<IEnumerable<Product>> TryToGetAllProductsAsync()
         {
-            return await _context.Products.ToListAsync();
+            var query = from product in _context.Products select product;
+            return await query.AsNoTracking().ToListAsync();
         }
 
         public async Task<Product> GetProductByIdAsync(int id)
@@ -57,7 +59,8 @@ namespace Infrastructure.Data
 
         public async Task<Product> TryToGetProductByIdAsync(int id)
         {
-            return await _context.Products.AsNoTracking().SingleAsync(x => x.ProductId == id);
+            var query = from product in _context.Products where product.ProductId == id select product;
+            return await query.AsNoTracking().SingleAsync();
         }
 
         public async Task AddProductAsync(Product product)
