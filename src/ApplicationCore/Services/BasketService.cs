@@ -1,5 +1,4 @@
 ﻿using ApplicationCore.Interfaces;
-using ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +10,11 @@ namespace ApplicationCore.Services
     public class BasketService : IBasketService
     {
 
-        private readonly IBasketRepository _basketRepository;
+        private readonly IProductRepository _productRepository;
 
-        public BasketService(IBasketRepository basketRepository)
+        public BasketService(IProductRepository productRepository)
         {
-            _basketRepository = basketRepository;
+            _productRepository = productRepository;
         }
 
         public void AddProductToBasket()
