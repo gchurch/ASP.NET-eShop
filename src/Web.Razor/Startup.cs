@@ -30,6 +30,7 @@ namespace Web.Razor
             // Registering services and repositories
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IBasketService, BasketService>();
 
             // Register the database context
             services.AddDbContext<ProductDbContext>(options =>
