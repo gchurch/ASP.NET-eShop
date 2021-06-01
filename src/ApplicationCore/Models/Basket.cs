@@ -9,7 +9,7 @@ namespace ApplicationCore.Models
     public class Basket
     {
         public int BasketId { get; set; }
-        public int OwnerId { get; set; }
+        public string OwnerID { get; set; }
         public List<BasketItem> BasketItems { get; set; }
     }
 }
