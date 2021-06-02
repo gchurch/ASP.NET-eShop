@@ -137,6 +137,42 @@ namespace UnitTests.Infrastructure.Data
         }
 
         [TestMethod]
+        public void GetBasketByOwnerId_GivenThatTheBasketExists_ShouldReturnTheProductObjectOfEachBasketItem()
+        {
+            // Arrange
+            InMemoryProductDbContext ctx = CreateTestDatabase();
+            BasketRepository basketRepository = new BasketRepository(ctx);
+
+            // Act
+            List<Product> productsToAdd = new List<Product>() {
+                new Product()
+                {
+                    Title = "Product 1"
+                }
+            };
+            foreach (var product in productsToAdd)
+            {
+                ctx.Products.Add(product);
+            }
+            ctx.SaveChanges();
+
+            // Add new basket to database
+            string ownerId = "george";
+            basketRepository.CreateBasket(ownerId);
+
+            // Add products to basket
+            Basket basket = basketRepository.GetBasketByOwnerId(ownerId);
+            foreach (var product in productsToAdd)
+            {
+                basketRepository.AddProductToBasket(product.ProductId, basket.OwnerID);
+            }
+            basket = basketRepository.GetBasketByOwnerId(ownerId);
+
+            // Assert
+            Assert.AreNotEqual(null, basket.BasketItems[0].Product);
+        }
+
+        [TestMethod]
         public void AddProductToBasket_GivenProductAndBasketExist_ShouldAddTheProductToTheBasket()
         {
             // Arrange

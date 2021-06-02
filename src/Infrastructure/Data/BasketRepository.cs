@@ -46,14 +46,14 @@ namespace Infrastructure.Data
         public Basket GetBasketByOwnerId(string ownerId)
         {
             var query = from basket in _context.Baskets where basket.OwnerID == ownerId select basket;
-            Basket retrievedBasket = query.AsNoTracking().Include(b => b.BasketItems).FirstOrDefault();
+            Basket retrievedBasket = query.AsNoTracking().Include(b => b.BasketItems).ThenInclude(b => b.Product).FirstOrDefault();
             return retrievedBasket;
         }
 
         public Basket GetBasketByOwnerIdTracked(string ownerId)
         {
             var query = from basket in _context.Baskets where basket.OwnerID == ownerId select basket;
-            Basket retrievedBasket = query.Include(b => b.BasketItems).FirstOrDefault();
+            Basket retrievedBasket = query.Include(b => b.BasketItems).ThenInclude(b => b.Product).FirstOrDefault();
             return retrievedBasket;
         }
 
