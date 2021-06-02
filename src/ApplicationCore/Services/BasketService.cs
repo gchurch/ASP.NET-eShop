@@ -20,7 +20,7 @@ namespace ApplicationCore.Services
 
         public Basket GetBasket(string ownerId)
         {
-            if (_basketRepository.DoesBasketExist(ownerId) != true)
+            if (_basketRepository.DoesBasketExist(ownerId) == false)
             {
                 _basketRepository.CreateBasket(ownerId);
             }
@@ -29,7 +29,19 @@ namespace ApplicationCore.Services
 
         public void AddProductToBasket(int productId, string ownerId)
         {
-            _basketRepository.AddProductToBasket(productId, ownerId);
+            if(_basketRepository.DoesBasketExist(ownerId) == false)
+            {
+                _basketRepository.CreateBasket(ownerId);
+            }
+
+            if (_basketRepository.IsProductInBasket(productId, ownerId) == false)
+            {
+                _basketRepository.AddProductToBasket(productId, ownerId);
+            }
+            else
+            {
+                _basketRepository.IncrementProductQuantityInBasket(productId, ownerId);
+            }
         }
     }
 }

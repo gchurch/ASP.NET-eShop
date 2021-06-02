@@ -18,5 +18,9 @@ namespace ApplicationCore.Interfaces
         public void AddTestProductToBasket(string OwnerId);
 
         public void AddProductToBasket(int productId, string ownerId);
+
+        public void IncrementProductQuantityInBasket(int productId, string ownerId);
+
+        public bool IsProductInBasket(int productId, string ownerId);
     }
 }

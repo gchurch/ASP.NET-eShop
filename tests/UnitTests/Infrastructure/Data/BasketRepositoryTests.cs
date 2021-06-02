@@ -248,6 +248,64 @@ namespace UnitTests.Infrastructure.Data
             Assert.AreEqual(1, basket.BasketItems[0].ProductQuantity);
             Assert.AreEqual(2, basket.BasketItems[1].ProductQuantity);
         }
+
+        [TestMethod]
+        public void IsProductInBasket_GivenProductIsInBasket_ShouldReturnTrue()
+        {
+            // Arrange
+            InMemoryProductDbContext ctx = CreateTestDatabase();
+            BasketRepository basketRepository = new BasketRepository(ctx);
+
+            // Act
+            string ownerId = "george";
+            basketRepository.CreateBasket(ownerId);
+            Basket basket = basketRepository.GetBasketByOwnerIdTracked(ownerId);
+            basket.BasketItems.Add(new BasketItem()
+            {
+                ProductId = 1,
+                ProductQuantity = 1
+            });
+            basket.BasketItems.Add(new BasketItem()
+            {
+                ProductId = 2,
+                ProductQuantity = 1
+            });
+            ctx.SaveChanges();
+            int productIdToSearchFor = 1;
+            bool isProductInBasket = basketRepository.IsProductInBasket(productIdToSearchFor, ownerId);
+
+            // Assert
+            Assert.AreEqual(true, isProductInBasket);
+        }
+
+        [TestMethod]
+        public void IsProductInBasket_GivenProductIsNotInBasket_ShouldReturnFalse()
+        {
+            // Arrange
+            InMemoryProductDbContext ctx = CreateTestDatabase();
+            BasketRepository basketRepository = new BasketRepository(ctx);
+
+            // Act
+            string ownerId = "george";
+            basketRepository.CreateBasket(ownerId);
+            Basket basket = basketRepository.GetBasketByOwnerIdTracked(ownerId);
+            basket.BasketItems.Add(new BasketItem()
+            {
+                ProductId = 1,
+                ProductQuantity = 1
+            });
+            basket.BasketItems.Add(new BasketItem()
+            {
+                ProductId = 2,
+                ProductQuantity = 1
+            });
+            ctx.SaveChanges();
+            int productIdToSearchFor = 3;
+            bool isProductInBasket = basketRepository.IsProductInBasket(productIdToSearchFor, ownerId);
+
+            // Assert
+            Assert.AreEqual(false, isProductInBasket);
+        }
     }
 
     public class InMemoryProductDbContext : ProductDbContext

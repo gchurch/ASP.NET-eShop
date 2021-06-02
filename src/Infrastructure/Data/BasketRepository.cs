@@ -112,5 +112,13 @@ namespace Infrastructure.Data
                 _context.SaveChanges();
             }
         }
+
+        public bool IsProductInBasket(int productId, string ownerId)
+        {
+            Basket basket = GetBasketByOwnerId(ownerId);
+            var query = from basketItem in basket.BasketItems where basketItem.ProductId == productId select basketItem;
+            bool isProductInBasket = query.Any();
+            return isProductInBasket;
+        }
     }
 }
