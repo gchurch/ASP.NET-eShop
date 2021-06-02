@@ -111,29 +111,33 @@ namespace UnitTests.Infrastructure.Data
             BasketRepository basketRepository = new BasketRepository(ctx);
 
             // Act
-            string ownerId = "george";
-            Basket basketToAdd = new Basket()
-            {
-                OwnerID = ownerId,
-                BasketItems = new List<BasketItem>()
+            List<Product> productsToAdd = new List<Product>() {
+                new Product()
                 {
-                    new BasketItem()
-                    {
-                        ProductId = 1,
-                        ProductQuantity = 1,
-                        BasketId = 1
-                    }
+                    Title = "Product 1"
                 }
             };
-            ctx.Baskets.Add(basketToAdd);
+            foreach (var product in productsToAdd)
+            {
+                ctx.Products.Add(product);
+            }
             ctx.SaveChanges();
+
+            // Add new basket to database
+            string ownerId = "george";
+            basketRepository.CreateBasket(ownerId);
+
+            // Add products to basket
+            Basket basket = basketRepository.GetBasketByOwnerId(ownerId);
+            foreach (var product in productsToAdd)
+            {
+                basketRepository.AddProductToBasket(product.ProductId, basket.OwnerID);
+            }
             Basket retrievedBasket = basketRepository.GetBasketByOwnerId(ownerId);
 
             // Assert
             Assert.AreEqual(1, retrievedBasket.BasketItems.Count);
             Assert.AreEqual(1, retrievedBasket.BasketItems[0].ProductId);
-            Assert.AreEqual(1, retrievedBasket.BasketItems[0].ProductQuantity);
-            Assert.AreEqual(1, retrievedBasket.BasketItems[0].BasketId);
         }
 
         [TestMethod]
@@ -263,20 +267,33 @@ namespace UnitTests.Infrastructure.Data
             BasketRepository basketRepository = new BasketRepository(ctx);
 
             // Act
+            List<Product> productsToAdd = new List<Product>() {
+                new Product()
+                {
+                    Title = "Product 1"
+                },
+                new Product()
+                {
+                    Title = "Product 2"
+                }
+            };
+            foreach (var product in productsToAdd)
+            {
+                ctx.Products.Add(product);
+            }
+            ctx.SaveChanges();
+
+            // Add new basket to database
             string ownerId = "george";
             basketRepository.CreateBasket(ownerId);
-            Basket basket = basketRepository.GetBasketByOwnerIdTracked(ownerId);
-            basket.BasketItems.Add(new BasketItem()
+
+            // Add products to basket
+            Basket basket = basketRepository.GetBasketByOwnerId(ownerId);
+            foreach (var product in productsToAdd)
             {
-                ProductId = 1,
-                ProductQuantity = 1
-            });
-            basket.BasketItems.Add(new BasketItem()
-            {
-                ProductId = 2,
-                ProductQuantity = 1
-            });
-            ctx.SaveChanges();
+                basketRepository.AddProductToBasket(product.ProductId, basket.OwnerID);
+            }
+
             basketRepository.IncrementProductQuantityInBasket(2, ownerId);
             basket = basketRepository.GetBasketByOwnerId(ownerId);
 
@@ -293,20 +310,32 @@ namespace UnitTests.Infrastructure.Data
             BasketRepository basketRepository = new BasketRepository(ctx);
 
             // Act
+            List<Product> productsToAdd = new List<Product>() {
+                new Product()
+                {
+                    Title = "Product 1"
+                },
+                new Product()
+                {
+                    Title = "Product 2"
+                }
+            };
+            foreach (var product in productsToAdd)
+            {
+                ctx.Products.Add(product);
+            }
+            ctx.SaveChanges();
+
+            // Add new basket to database
             string ownerId = "george";
             basketRepository.CreateBasket(ownerId);
-            Basket basket = basketRepository.GetBasketByOwnerIdTracked(ownerId);
-            basket.BasketItems.Add(new BasketItem()
+
+            // Add products to basket
+            Basket basket = basketRepository.GetBasketByOwnerId(ownerId);
+            foreach (var product in productsToAdd)
             {
-                ProductId = 1,
-                ProductQuantity = 1
-            });
-            basket.BasketItems.Add(new BasketItem()
-            {
-                ProductId = 2,
-                ProductQuantity = 1
-            });
-            ctx.SaveChanges();
+                basketRepository.AddProductToBasket(product.ProductId, basket.OwnerID);
+            }
             int productIdToSearchFor = 1;
             bool isProductInBasket = basketRepository.IsProductInBasket(productIdToSearchFor, ownerId);
 
@@ -322,20 +351,33 @@ namespace UnitTests.Infrastructure.Data
             BasketRepository basketRepository = new BasketRepository(ctx);
 
             // Act
+            List<Product> productsToAdd = new List<Product>() {
+                new Product()
+                {
+                    Title = "Product 1"
+                },
+                new Product()
+                {
+                    Title = "Product 2"
+                }
+            };
+            foreach (var product in productsToAdd)
+            {
+                ctx.Products.Add(product);
+            }
+            ctx.SaveChanges();
+
+            // Add new basket to database
             string ownerId = "george";
             basketRepository.CreateBasket(ownerId);
-            Basket basket = basketRepository.GetBasketByOwnerIdTracked(ownerId);
-            basket.BasketItems.Add(new BasketItem()
+
+            // Add products to basket
+            Basket basket = basketRepository.GetBasketByOwnerId(ownerId);
+            foreach (var product in productsToAdd)
             {
-                ProductId = 1,
-                ProductQuantity = 1
-            });
-            basket.BasketItems.Add(new BasketItem()
-            {
-                ProductId = 2,
-                ProductQuantity = 1
-            });
-            ctx.SaveChanges();
+                basketRepository.AddProductToBasket(product.ProductId, basket.OwnerID);
+            }
+
             int productIdToSearchFor = 3;
             bool isProductInBasket = basketRepository.IsProductInBasket(productIdToSearchFor, ownerId);
 
