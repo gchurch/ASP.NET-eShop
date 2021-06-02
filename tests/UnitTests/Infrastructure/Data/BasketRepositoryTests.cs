@@ -142,9 +142,9 @@ namespace UnitTests.Infrastructure.Data
             // Arrange
             InMemoryProductDbContext ctx = CreateTestDatabase();
             BasketRepository basketRepository = new BasketRepository(ctx);
-            ProductRepository productRepository = new ProductRepository(ctx);
 
             // Act
+            // Add new product to database
             Product productToAdd = new Product()
             {
                 Title = "New Product"
@@ -152,10 +152,12 @@ namespace UnitTests.Infrastructure.Data
             ctx.Products.Add(productToAdd);
             ctx.SaveChanges();
 
+            // Add new basket to database
             string ownerId = "george";
             basketRepository.CreateBasket(ownerId);
-            Basket basket = basketRepository.GetBasketByOwnerId(ownerId);
 
+            // Add product to basket
+            Basket basket = basketRepository.GetBasketByOwnerId(ownerId);
             basketRepository.AddProductToBasket(productToAdd.ProductId, basket.OwnerID);
             basket = basketRepository.GetBasketByOwnerId(ownerId);
 
@@ -164,6 +166,57 @@ namespace UnitTests.Infrastructure.Data
             Assert.AreEqual(1, basket.BasketItems[0].ProductQuantity);
             Assert.AreEqual(productToAdd.ProductId, basket.BasketItems[0].ProductId);
             Assert.AreEqual(basket.BasketId, basket.BasketItems[0].BasketId);
+        }
+
+
+        [TestMethod]
+        public void RemoveProductFromBasket_GivenProductAndBasketExist_ShouldRemoveTheProductToTheBasket()
+        {
+            // Arrange
+            InMemoryProductDbContext ctx = CreateTestDatabase();
+            BasketRepository basketRepository = new BasketRepository(ctx);
+
+            // Act
+            // Add new product to database
+            List<Product> productsToAdd = new List<Product>() {
+                new Product()
+                {
+                    Title = "Product 1"
+                },
+                new Product()
+                {
+                    Title = "Product 2"
+                },
+                new Product()
+                {
+                    Title = "Product 3"
+                }
+            };
+            foreach (var product in productsToAdd)
+            {
+                ctx.Products.Add(product);
+            }
+            ctx.SaveChanges();
+
+            // Add new basket to database
+            string ownerId = "george";
+            basketRepository.CreateBasket(ownerId);
+
+            // Add products to basket
+            Basket basket = basketRepository.GetBasketByOwnerId(ownerId);
+            foreach (var product in productsToAdd)
+            {
+                basketRepository.AddProductToBasket(product.ProductId, basket.OwnerID);
+            }
+
+            // Delete product from basket
+            basketRepository.RemoveProductFromBasket(productsToAdd[1].ProductId, ownerId);
+            basket = basketRepository.GetBasketByOwnerId(ownerId);
+
+            // Assert
+            Assert.AreEqual(2, basket.BasketItems.Count);
+            Assert.AreEqual(1, basket.BasketItems[0].ProductId);
+            Assert.AreEqual(3, basket.BasketItems[1].ProductId);
         }
     }
 

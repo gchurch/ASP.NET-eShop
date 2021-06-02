@@ -50,6 +50,13 @@ namespace Infrastructure.Data
             return retrievedBasket;
         }
 
+        public Basket GetBasketByOwnerIdTracked(string ownerId)
+        {
+            var query = from basket in _context.Baskets where basket.OwnerID == ownerId select basket;
+            Basket retrievedBasket = query.Include(b => b.BasketItems).FirstOrDefault();
+            return retrievedBasket;
+        }
+
         public void AddTestProductToBasket(string OwnerId)
         {
             var query = from product in _context.Products select product;
@@ -62,10 +69,8 @@ namespace Infrastructure.Data
 
         public void AddProductToBasket(int productId, string ownerId)
         {
-            var basketQuery = from basket in _context.Baskets where basket.OwnerID == ownerId select basket;
-            Basket retrievedBasket = basketQuery.FirstOrDefault();
-            var productQuery = from product in _context.Products where product.ProductId == productId select product;
-            Product retrievedProduct = productQuery.FirstOrDefault();
+            Basket retrievedBasket = GetBasketByOwnerIdTracked(ownerId);
+            Product retrievedProduct = GetProductByProductId(productId);
             BasketItem basketItem = new BasketItem()
             {
                 Product = retrievedProduct,
@@ -73,6 +78,26 @@ namespace Infrastructure.Data
                 basket = retrievedBasket
             };
             retrievedBasket.BasketItems.Add(basketItem);
+            _context.SaveChanges();
+        }
+
+        private Product GetProductByProductId(int productId)
+        {
+            var productQuery = from product in _context.Products where product.ProductId == productId select product;
+            Product retrievedProduct = productQuery.FirstOrDefault();
+            return retrievedProduct;
+        }
+
+        public void RemoveProductFromBasket(int productId, string ownerId)
+        {
+            Basket basket = GetBasketByOwnerIdTracked(ownerId);
+            for(var i = 0; i < basket.BasketItems.Count; i++)
+            {
+                if(basket.BasketItems[i].ProductId == productId)
+                {
+                    basket.BasketItems.RemoveAt(i);
+                }
+            }
             _context.SaveChanges();
         }
     }
