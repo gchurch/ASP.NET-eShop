@@ -1,4 +1,5 @@
-﻿
+﻿@model ApplicationCore.Models.Basket
+
 @{
     ViewData["Title"] = "Basket";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,3 +7,16 @@
 
 <h1>Basket</h1>
 
+<p>Basket Id: @Model.BasketId</p>
+
+<p>Owner Id: @Model.OwnerID</p>
+
+<p>Items in basket:</p>
+
+<ul>
+    @foreach(var basketItem in Model.BasketItems)
+    {
+        <li>Product ID: @basketItem.ProductId</li>
+        <li>Product Quantity: @basketItem.ProductQuantity</li>
+    }
+</ul>
