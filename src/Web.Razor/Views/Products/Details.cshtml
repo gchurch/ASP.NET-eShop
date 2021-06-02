@@ -46,3 +46,8 @@
 {
     <p><a asp-action="Delete" asp-route-id="@Model.ProductId">Delete</a></p>
 }
+
+@if (User.Identity.IsAuthenticated)
+{
+    <button type="button" onclick="AddProductToBasket(@Model.ProductId)">Add to basket.</button>
+}
