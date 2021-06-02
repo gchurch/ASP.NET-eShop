@@ -218,6 +218,36 @@ namespace UnitTests.Infrastructure.Data
             Assert.AreEqual(1, basket.BasketItems[0].ProductId);
             Assert.AreEqual(3, basket.BasketItems[1].ProductId);
         }
+
+        [TestMethod]
+        public void IncrementProductQuantityInBasket_GivenProductExistsInBasket_ShouldIncrementProductQuantity()
+        {
+            // Arrange
+            InMemoryProductDbContext ctx = CreateTestDatabase();
+            BasketRepository basketRepository = new BasketRepository(ctx);
+
+            // Act
+            string ownerId = "george";
+            basketRepository.CreateBasket(ownerId);
+            Basket basket = basketRepository.GetBasketByOwnerIdTracked(ownerId);
+            basket.BasketItems.Add(new BasketItem()
+            {
+                ProductId = 1,
+                ProductQuantity = 1
+            });
+            basket.BasketItems.Add(new BasketItem()
+            {
+                ProductId = 2,
+                ProductQuantity = 1
+            });
+            ctx.SaveChanges();
+            basketRepository.IncrementProductQuantityInBasket(2, ownerId);
+            basket = basketRepository.GetBasketByOwnerId(ownerId);
+
+            // Assert
+            Assert.AreEqual(1, basket.BasketItems[0].ProductQuantity);
+            Assert.AreEqual(2, basket.BasketItems[1].ProductQuantity);
+        }
     }
 
     public class InMemoryProductDbContext : ProductDbContext

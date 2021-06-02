@@ -100,5 +100,17 @@ namespace Infrastructure.Data
             }
             _context.SaveChanges();
         }
+
+        public void IncrementProductQuantityInBasket(int productId, string ownerId)
+        {
+            Basket basket = GetBasketByOwnerIdTracked(ownerId);
+            var query = from basketItem in basket.BasketItems where basketItem.ProductId == productId select basketItem;
+            BasketItem matchingBasketItem = query.FirstOrDefault();
+            if (matchingBasketItem != null)
+            {
+                matchingBasketItem.ProductQuantity += 1;
+                _context.SaveChanges();
+            }
+        }
     }
 }
