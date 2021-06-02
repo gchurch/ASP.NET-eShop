@@ -33,6 +33,7 @@ namespace FunctionalTests.Web.Razor
         [DataRow("Products/Details/3")]
         [DataRow("Products/Edit/3")]
         [DataRow("Products/Delete/3")]
+        [DataRow("Basket")]
         public async Task GetRequestOfExistingProducts_ShouldGiveOkResponse(string url)
         {
             // Arrange
