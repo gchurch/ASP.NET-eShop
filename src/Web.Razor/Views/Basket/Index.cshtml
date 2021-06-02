@@ -5,18 +5,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Style {
+    <link rel="stylesheet" href="/css/basket.css" />
+}
+
 <h1>Basket</h1>
 
-<p>Basket Id: @Model.BasketId</p>
-
-<p>Owner Id: @Model.OwnerID</p>
-
-<p>Items in basket:</p>
-
-<ul>
-    @foreach(var basketItem in Model.BasketItems)
-    {
-        <li>Product ID: @basketItem.ProductId</li>
-        <li>Product Quantity: @basketItem.ProductQuantity</li>
-    }
-</ul>
+<div>
+    <p id="priceHeading">Price</p>
+    <div id="basket">
+        @foreach (var b in Model.BasketItems)
+        {
+            <div class="basketItem">
+                <div>
+                    <img src="images/@b.Product.ImageUrl" />
+                </div>
+                <div>
+                    <p id="productTitle"><a href="/Products/Details/@b.Product.ProductId">@b.Product.Title</a></p>
+                    <p id="productSeller">Sold by: @b.Product.Seller</p>
+                    <p id="productQuantity">Quantity in basket: @b.ProductQuantity</p>
+                    <button>Remove</button>
+                </div>
+                <div>
+                    <p id="productPrice">£@b.Product.Price</p>
+                </div>
+            </div>
+        }
+    </div>
+    <p id="summary">Subtotal (x items): <span>£</span>y</p>
+</div>

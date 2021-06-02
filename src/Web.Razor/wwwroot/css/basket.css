@@ -1,0 +1,60 @@
+﻿body {
+    font-size: 1em;
+}
+
+#priceHeading {
+    text-align: right;
+    color: rgb(75, 75, 75);
+    font-size: 1.5em;
+}
+
+.basketItem {
+    border-top: 1px solid grey;
+    padding: 1%;
+}
+
+#basket div div {
+    display: inline-block;
+    vertical-align: top;
+    padding: 1%;
+}
+
+#basket div div:nth-child(1) {
+    width: 20%;
+}
+        
+#basket div div:nth-child(1) img {
+    width: 100%;
+    height: auto;
+}
+
+.basketItem div:nth-child(2) {
+    width: 60%;
+}
+
+.basketItem div:nth-child(2) #productTitle {
+    font-size: 1.5em;
+}
+
+.basketItem div:nth-child(2) #productTitle a {
+    color: black;
+    text-decoration: none;
+}
+
+.basketItem div:nth-child(3) {
+    text-align: right;
+    width: 19%;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+#summary {
+    text-align: right;
+    font-size: 1.5em;
+    border-top: 1px solid grey;
+    margin-bottom: 5%;
+}
+
+#summary span {
+    font-weight: bold;
+}
