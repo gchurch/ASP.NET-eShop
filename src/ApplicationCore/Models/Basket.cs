@@ -29,5 +29,25 @@ namespace ApplicationCore.Models
             }
             return str;
         }
+
+        public int CalculateTotalCost()
+        {
+            int sum = 0;
+            foreach(var basketItem in BasketItems)
+            {
+                sum += basketItem.ProductQuantity * basketItem.Product.Price;
+            }
+            return sum;
+        }
+
+        public int CalculateTotalNumberOfProducts()
+        {
+            int sum = 0;
+            foreach(var basketItem in BasketItems)
+            {
+                sum += basketItem.ProductQuantity;
+            }
+            return sum;
+        }
     }
 }
