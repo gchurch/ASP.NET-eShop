@@ -2,13 +2,11 @@
 
 ![.NET](https://github.com/gchurch/ASP.NET-eShop/workflows/.NET/badge.svg)
 
-I have created a CRUD application in the style of an E-commerce website using ASP.NET Core. I have created a few different versions of the front end using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the different front ends being easily substitutable for one another. I have also created some unit tests and integration tests for the application. The application is deployed on Azure for demonstration.
-
-The purpose of this project is to develop my software development skills rather than to create a flashy application.
+I have created an simple application in the style of an E-commerce website using ASP.NET Core. I have created a few different versions of the front end using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the different front ends being easily substitutable for one another. I have also created some unit tests and integration tests for the application. The application is deployed on Azure for demonstration.
 
 ## Angular Front-end
 
-I have created an SPA front end with Angular. The code for this is in the Web.Angular project.
+I have created an SPA front end version with Angular. I have implemented basket functionality with data stored locally. This version of the application has no authentication or authorization. The code for this is in the Web.Angular project.
 
 The Angular app is deployed on Azure here: https://webangular20210218164157.azurewebsites.net/products
 
@@ -30,7 +28,7 @@ To run the application locally, in a command prompt navigate to src\Web.Angular\
 
 ## Razor Front-end
 
-I have also created a separate front end using ASP.NET Core MVC and Razor. The code for this is in the Web.Razor project. For this version of the application, I have implemented authentication and authorization using Identity. Users must be registered and logged in to an account in order to create a product. Users can only edit and delete products that they have created themselves. The admin account can edit and delete any product.
+I have also created a separate front end using ASP.NET Core MVC and Razor. For this version of the application, I have implemented authentication and authorization using Identity. Users must be registered and logged in to an account in order to create a product. Users can only edit and delete products that they have created themselves. The admin account can edit and delete any product. I have also implemented basket functionality with data stored in the database. At the time of writing you can only add items to the basket. The code for this is in the Web.Razor project.
 
 The Razor app is deployed on azure here: https://webrazor20210219144828.azurewebsites.net/Products
 
