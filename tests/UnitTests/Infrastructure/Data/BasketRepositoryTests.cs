@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTests.Infrastructure
+namespace UnitTests.Infrastructure.Data
 {
     [TestClass]
     class BasketRepositoryTests
     {
+
     }
 }

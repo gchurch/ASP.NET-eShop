@@ -18,24 +18,14 @@ namespace ApplicationCore.Services
             _basketRepository = basketRepository;
         }
 
-        public void AddProductToBasket()
+        public Basket GetBasket(string OwnerId)
         {
-            throw new NotImplementedException();
+            return _basketRepository.GetBasket(OwnerId);
         }
 
-        public void CreateBasket()
+        public void AddProductToBasket(int productId, string ownerId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Dictionary<int, int> GetBasketInfo()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveProductFromBasket()
-        {
-            throw new NotImplementedException();
+            _basketRepository.AddProductToBasket(productId, ownerId);
         }
     }
 }

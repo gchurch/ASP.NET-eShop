@@ -147,5 +147,53 @@ namespace FunctionalTests.Web.Razor
             // Assert
             getResponse.StatusCode.ShouldBe(HttpStatusCode.NotFound);
         }
+
+        [TestMethod]
+        public async Task BasketControllerTest()
+        {
+            // Arrange
+            HttpClient client = CreateAuthorizedTestHttpClient();
+
+            // Act
+            HttpResponseMessage response = await client.GetAsync("api/basket/test");
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        }
+        /*
+        [TestMethod]
+        public async Task BasketControllerTest2()
+        {
+            // Arrange
+            HttpClient client = CreateAuthorizedTestHttpClient();
+            int idSent = 5;
+
+            // Act
+            HttpResponseMessage response = await client.GetAsync("api/basket/test2/" + idSent);
+            int idReceived = await DeserializeResponse<int>(response);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+            idReceived.ShouldBe(5);
+        }
+
+        [TestMethod]
+        public async Task GettingBasket()
+        {
+            // Arrange
+            HttpClient client = CreateAuthorizedTestHttpClient();
+
+            string ownerId = "george";
+
+            // Act
+            HttpResponseMessage response = await client.GetAsync("api/basket/" + ownerId);
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            Basket basket = await DeserializeResponse<Basket>(response);
+            Console.WriteLine(basket);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        }
+        */
     }
 }

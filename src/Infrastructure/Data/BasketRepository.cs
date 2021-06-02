@@ -18,7 +18,30 @@ namespace Infrastructure.Data
             _context = context;
         }
 
-        public void CreateBasket(string OwnerId)
+        public Basket GetBasket(string ownerId)
+        {
+            if(DoesBasketExist(ownerId) != true)
+            {
+                CreateBasket(ownerId);
+            }
+            return GetBasketByOwnerId(ownerId);
+        }
+
+        private bool DoesBasketExist(string OwnerId)
+        {
+            var query = from basket in _context.Baskets where basket.OwnerID == OwnerId select basket;
+            Basket retrievedBasket = query.AsNoTracking().FirstOrDefault();
+            if (retrievedBasket != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void CreateBasket(string OwnerId)
         {
             Basket newBasket = new Basket()
             {
@@ -29,7 +52,7 @@ namespace Infrastructure.Data
             _context.SaveChanges();
         }
 
-        public void AddTestProductToBasket(string OwnerId)
+        private void AddTestProductToBasket(string OwnerId)
         {
             var query = from product in _context.Products select product;
             Product firstProduct = query.AsNoTracking().FirstOrDefault();
@@ -37,6 +60,13 @@ namespace Infrastructure.Data
             {
                 AddProductToBasket(firstProduct.ProductId, OwnerId);
             }
+        }
+
+        private Basket GetBasketByOwnerId(string ownerId)
+        {
+            var query = from basket in _context.Baskets where basket.OwnerID == ownerId select basket;
+            Basket retrievedBasket = query.AsNoTracking().Include(b => b.BasketItems).Single();
+            return retrievedBasket;
         }
 
         public void AddProductToBasket(int productId, string ownerId)
@@ -53,27 +83,6 @@ namespace Infrastructure.Data
             };
             retrievedBasket.BasketItems.Add(basketItem);
             _context.SaveChanges();
-        }
-
-        public bool DoesBasketExist(string OwnerId)
-        {
-            var query = from basket in _context.Baskets where basket.OwnerID == OwnerId select basket;
-            Basket retrievedBasket = query.AsNoTracking().FirstOrDefault();
-            if(retrievedBasket != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public Basket GetBasketByOwnerId(string ownerId)
-        {
-            var query = from basket in _context.Baskets where basket.OwnerID == ownerId select basket;
-            Basket retrievedBasket = query.AsNoTracking().Include(b => b.BasketItems).Single();
-            return retrievedBasket;
         }
     }
 }

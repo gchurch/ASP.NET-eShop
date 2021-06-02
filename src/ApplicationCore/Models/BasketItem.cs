@@ -17,5 +17,10 @@ namespace ApplicationCore.Models
 
         public int BasketId { get; set; }
         public Basket basket { get; set; }
+
+        public override string ToString()
+        {
+            return "{ BasketItemId: " + BasketItemId + ", ProductId: " + ProductId + ", BasketId: " + BasketId + " }";
+        }
     }
 }

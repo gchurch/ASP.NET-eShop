@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationCore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,8 @@ namespace ApplicationCore.Interfaces
 {
     public interface IBasketService
     {
-        public void CreateBasket();
+        public Basket GetBasket(string OwnerId);
 
-        public void AddProductToBasket();
-
-        public void RemoveProductFromBasket();
-
-        public Dictionary<int, int> GetBasketInfo();
+        public void AddProductToBasket(int productId, string ownerId);
     }
 }

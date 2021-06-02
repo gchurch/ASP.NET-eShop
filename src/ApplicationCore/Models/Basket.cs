@@ -11,5 +11,23 @@ namespace ApplicationCore.Models
         public int BasketId { get; set; }
         public string OwnerID { get; set; }
         public List<BasketItem> BasketItems { get; set; }
+
+        public override string ToString()
+        {
+            return "{ BasketId: " + BasketId + ", OwnerId: " + OwnerID + ", BasketItems: " + PostsToString() + " }";
+        }
+
+        private string PostsToString()
+        {
+            string str = "";
+            if (BasketItems != null)
+            {
+                foreach (var post in BasketItems)
+                {
+                    str += post.ToString();
+                }
+            }
+            return str;
+        }
     }
 }
