@@ -18,9 +18,13 @@ namespace ApplicationCore.Services
             _basketRepository = basketRepository;
         }
 
-        public Basket GetBasket(string OwnerId)
+        public Basket GetBasket(string ownerId)
         {
-            return _basketRepository.GetBasket(OwnerId);
+            if (_basketRepository.DoesBasketExist(ownerId) != true)
+            {
+                _basketRepository.CreateBasket(ownerId);
+            }
+            return _basketRepository.GetBasketByOwnerId(ownerId);
         }
 
         public void AddProductToBasket(int productId, string ownerId)

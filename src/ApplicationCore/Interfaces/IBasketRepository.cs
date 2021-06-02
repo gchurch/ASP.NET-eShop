@@ -9,7 +9,14 @@ namespace ApplicationCore.Interfaces
 {
     public interface IBasketRepository
     {
-        public Basket GetBasket(string ownerId);
+        public bool DoesBasketExist(string ownerId);
+
+        public void CreateBasket(string OwnerId);
+
+        public Basket GetBasketByOwnerId(string ownerId);
+
+        public void AddTestProductToBasket(string OwnerId);
+
         public void AddProductToBasket(int productId, string ownerId);
     }
 }
