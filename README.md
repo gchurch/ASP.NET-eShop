@@ -2,11 +2,11 @@
 
 ![.NET](https://github.com/gchurch/ASP.NET-eShop/workflows/.NET/badge.svg)
 
-I have created an application in the style of an E-commerce website using ASP.NET Core. I have created a few different versions of the front end using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the different front ends being easily substitutable for one another. I have also created some unit tests and integration tests for the application. The application is deployed on Azure for demonstration.
+I have created a mock online store using ASP.NET Core. I have created a few different versions of the front end using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the different front ends being easily substitutable for one another. I make use of Entity Framework Core to work with an SQL Server database. I have also created some unit tests and integration tests for the application. The application is deployed on Azure for demonstration.
 
 ## Angular Front End
 
-I have created an SPA front end version with Angular. I have implemented basket functionality with data stored locally. This version of the application has no authentication or authorization. The code for this is in the Web.Angular project.
+I have created an SPA front end version with Angular. I have implemented basket functionality with data stored locally. This version of the application has no authentication or authorization. The code for this can be found in the Web.Angular project.
 
 The Angular app is deployed on Azure here: https://webangular20210218164157.azurewebsites.net/products
 
@@ -54,7 +54,7 @@ The Clean Architecture separates the application into three layers with each lay
 
 ## Database
 
-The application data is stored in an SQL Server database. Entity Framework Core is used to work with the database.
+The application data is stored in an SQL Server database. Entity Framework Core is used to work with the database. I have used migrations to update the database schema. LINQ is used to make queries to the database. Products that are created on the site are stored in the database. The Razor front end application stores the basket information for each user in the database.
 
 ## Testing
 
