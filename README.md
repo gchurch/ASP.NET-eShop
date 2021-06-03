@@ -6,7 +6,7 @@ I have created a mock online store using ASP.NET Core. I have created a few diff
 
 ## Angular Front End
 
-I have created an SPA front end version with Angular. I have implemented basket functionality with data stored locally. This version of the application has no authentication or authorization. The code for this can be found in the Web.Angular project.
+I have created an SPA front end version with Angular. I have implemented basket functionality with data stored locally. This version of the application has no authentication or authorization. The code for this version of the application can be found in the Web.Angular project.
 
 The Angular app is deployed on Azure here: https://webangular20210218164157.azurewebsites.net/products
 
@@ -28,7 +28,7 @@ To run the application locally, in a command prompt navigate to src\Web.Angular\
 
 ## Razor Front End
 
-I have also created a separate front end using ASP.NET Core MVC and Razor. For this version of the application, I have implemented authentication and authorization using Identity. Users must be registered and logged in to an account in order to create a product. Users can only edit and delete products that they have created themselves. The admin account can edit and delete any product. I have also implemented basket functionality with data stored in the database. At the time of writing you can only add items to the basket. The code for this is in the Web.Razor project.
+I have also created a separate front end using ASP.NET Core MVC and Razor. For this version of the application, I have implemented authentication and authorization using Identity. Users must be registered and logged in to an account in order to create a product. Users can only edit and delete products that they have created themselves. The admin account can edit and delete any product. I have also implemented basket functionality with data stored in the database. At the time of writing you can only add items to the basket. The code for this version of the application can be found in the Web.Razor project.
 
 The Razor app is deployed on azure here: https://webrazor20210219144828.azurewebsites.net/Products
 
@@ -36,7 +36,7 @@ To run the application locally, set the Web.Razor project as the startup project
 
 ## React Front End
 
-I have created another SPA front end, this time using React. This is similar to the Angular app and uses the same back-end API. The code for this is in the Web.React project.
+I have created another SPA front end, this time using React. This is similar to the Angular app and uses the same back-end API. The code for this version of the application can be found in the Web.React project.
 
 The React app is deployed on Azure here: https://webreact20210218165252.azurewebsites.net/products
 
