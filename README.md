@@ -54,7 +54,7 @@ The Clean Architecture separates the application into three layers with each lay
 
 ## Database
 
-An SQL Server database is used to store the application data. Entity Framework Core is used for data access. LINQ is used to query data.
+The application data is stored in an SQL Server database. Entity Framework Core is used to work with the database.
 
 ## Testing
 
