@@ -40,6 +40,11 @@ function RemoveProductFromBasket(productId) {
                 response.json().then(function (data) {
                     console.log(data);
                     updateProductQuantities(data);
+                    if (isProductIdInProductQuantitiesList(productId, data) == false) {
+                        console.log("Product " + productId + " no longer in basket");
+                        var productElement = document.getElementById("basketProduct" + productId);
+                        productElement.remove();
+                    }
                 });
             }
         )
@@ -51,7 +56,17 @@ function RemoveProductFromBasket(productId) {
 function updateProductQuantities(productQuantitiesList) {
     console.log("Updating product quantities in basket.");
     for (var i = 0; i < productQuantitiesList.length; i++) {
-        var element = document.getElementById("basketProduct" + productQuantitiesList[i].productId);
-        element.innerHTML = productQuantitiesList[i].quantity;
+        var quantityElement = document.getElementById("basketProduct" + productQuantitiesList[i].productId + "Quantity");
+        quantityElement.innerHTML = productQuantitiesList[i].quantity;
     }
+}
+
+function isProductIdInProductQuantitiesList(productId, productQuantitiesList) {
+    console.log(productQuantitiesList);
+    for (var i = 0; i < productQuantitiesList.length; i++) {
+        if (productQuantitiesList[i].productId == productId) {
+            return true;
+        }
+    }
+    return false;
 }

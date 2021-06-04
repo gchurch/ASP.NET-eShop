@@ -16,14 +16,14 @@
     <div id="basket">
         @foreach (var b in Model.BasketItems)
         {
-            <div class="basketItem">
+            <div class="basketItem" id="basketProduct@(b.ProductId)">
                 <div>
                     <img src="images/@b.Product.ImageUrl" />
                 </div>
                 <div>
                     <p class="productTitle"><a href="/Products/Details/@b.Product.ProductId">@b.Product.Title</a></p>
                     <p class="productSeller">Sold by: @b.Product.Seller</p>
-                    <p class="productQuantity">Quantity in basket: <span id="basketProduct@(b.Product.ProductId)">@b.ProductQuantity</span></p>
+                    <p class="productQuantity">Quantity in basket: <span id="basketProduct@(b.Product.ProductId)Quantity">@b.ProductQuantity</span></p>
                     <button type="button" onclick="RemoveProductFromBasket(@b.ProductId)">Remove</button>
                 </div>
                 <div>
