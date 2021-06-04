@@ -2,11 +2,11 @@
 
 ![.NET](https://github.com/gchurch/ASP.NET-eShop/workflows/.NET/badge.svg)
 
-I have created an application in the style of an E-commerce website using ASP.NET Core. I have created a few different versions of the front end using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the different front ends being easily substitutable for one another. I have also created some unit tests and integration tests for the application. The application is deployed on Azure for demonstration.
+I have created a mock online store using ASP.NET Core. I have created a few different versions of the front end using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the different front ends being easily substitutable for one another. I make use of Entity Framework Core to work with an SQL Server database. I have also created some unit tests and integration tests for the application. The application is deployed on Azure for demonstration.
 
 ## Angular Front End
 
-I have created an SPA front end version with Angular. I have implemented basket functionality with data stored locally. This version of the application has no authentication or authorization. The code for this is in the Web.Angular project.
+I have created an SPA front end version with Angular. I have implemented basket functionality with data stored locally. This version of the application has no authentication or authorization. The code for this version of the application can be found in the Web.Angular project.
 
 The Angular app is deployed on Azure here: https://webangular20210218164157.azurewebsites.net/products
 
@@ -28,7 +28,7 @@ To run the application locally, in a command prompt navigate to src\Web.Angular\
 
 ## Razor Front End
 
-I have also created a separate front end using ASP.NET Core MVC and Razor. For this version of the application, I have implemented authentication and authorization using Identity. Users must be registered and logged in to an account in order to create a product. Users can only edit and delete products that they have created themselves. The admin account can edit and delete any product. I have also implemented basket functionality with data stored in the database. At the time of writing you can only add items to the basket. The code for this is in the Web.Razor project.
+I have also created a separate front end using ASP.NET Core MVC and Razor. For this version of the application, I have implemented authentication and authorization using Identity. Users must be registered and logged in to an account in order to create a product. Users can only edit and delete products that they have created themselves. The admin account can edit and delete any product. I have also implemented basket functionality with data stored in the database. At the time of writing you can only add items to the basket. The code for this version of the application can be found in the Web.Razor project.
 
 The Razor app is deployed on azure here: https://webrazor20210219144828.azurewebsites.net/Products
 
@@ -36,7 +36,7 @@ To run the application locally, set the Web.Razor project as the startup project
 
 ## React Front End
 
-I have created another SPA front end, this time using React. This is similar to the Angular app and uses the same back-end API. The code for this is in the Web.React project.
+I have created another SPA front end, this time using React. This is similar to the Angular app and uses the same back-end API. The code for this version of the application can be found in the Web.React project.
 
 The React app is deployed on Azure here: https://webreact20210218165252.azurewebsites.net/products
 
@@ -54,7 +54,7 @@ The Clean Architecture separates the application into three layers with each lay
 
 ## Database
 
-An SQL Server database is used to store the application data. Entity Framework Core is used for data access. LINQ is used to query data.
+The application data is stored in an SQL Server database. Entity Framework Core is used to work with the database. I have used migrations to update the database schema. LINQ is used to make queries to the database. Products that are created on the site are stored in the database. The Razor front end application stores the basket information for each user in the database.
 
 ## Testing
 
