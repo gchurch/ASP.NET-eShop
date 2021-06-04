@@ -56,5 +56,10 @@ namespace ApplicationCore.Services
                 _basketRepository.DecrementProductQuantityInBasket(productId, ownerId);
             }
         }
+
+        public string GetProductQuantitiesInBasketAsJsonString(string ownerId)
+        {
+            return _basketRepository.GetProductQuantitiesInBasketAsAJsonString(ownerId);
+        }
     }
 }

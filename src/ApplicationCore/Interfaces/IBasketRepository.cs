@@ -15,6 +15,8 @@ namespace ApplicationCore.Interfaces
 
         public Basket GetBasketByOwnerId(string ownerId);
 
+        public string GetProductQuantitiesInBasketAsAJsonString(string ownerId);
+
         public void AddTestProductToBasket(string OwnerId);
 
         public void AddProductToBasket(int productId, string ownerId);

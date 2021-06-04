@@ -14,5 +14,7 @@ namespace ApplicationCore.Interfaces
         public void AddProductToBasket(int productId, string ownerId);
 
         public void RemoveProductFromBasket(int productId, string ownerId);
+
+        public string GetProductQuantitiesInBasketAsJsonString(string ownerId);
     }
 }

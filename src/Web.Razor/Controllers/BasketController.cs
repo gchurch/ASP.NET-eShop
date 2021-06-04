@@ -47,7 +47,8 @@ namespace Web.Razor.Controllers
             {
                 string userId = _userManager.GetUserId(User);
                 _basketService.AddProductToBasket(id, userId);
-                return Ok();
+                string productQuantitiesInBasket = _basketService.GetProductQuantitiesInBasketAsJsonString(userId);
+                return Ok(productQuantitiesInBasket);
             }
             else
             {
@@ -64,7 +65,8 @@ namespace Web.Razor.Controllers
             {
                 string userId = _userManager.GetUserId(User);
                 _basketService.RemoveProductFromBasket(id, userId);
-                return Ok();
+                string productQuantitiesInBasket = _basketService.GetProductQuantitiesInBasketAsJsonString(userId);
+                return Ok(productQuantitiesInBasket);
             }
             else
             {
