@@ -32,11 +32,11 @@
     width: 60%;
 }
 
-.basketItem div:nth-child(2) #productTitle {
+.basketItem div:nth-child(2) .productTitle {
     font-size: 1.5em;
 }
 
-.basketItem div:nth-child(2) #productTitle a {
+.basketItem div:nth-child(2) .productTitle a {
     color: black;
     text-decoration: none;
 }

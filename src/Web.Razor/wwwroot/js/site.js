@@ -39,10 +39,19 @@ function RemoveProductFromBasket(productId) {
                 // Examine the text in the response
                 response.json().then(function (data) {
                     console.log(data);
+                    updateProductQuantities(data);
                 });
             }
         )
         .catch(function (err) {
             console.log('Fetch Error :-S', err);
         });
+}
+
+function updateProductQuantities(productQuantitiesList) {
+    console.log("Updating product quantities in basket.");
+    for (var i = 0; i < productQuantitiesList.length; i++) {
+        var element = document.getElementById("basketProduct" + productQuantitiesList[i].productId);
+        element.innerHTML = productQuantitiesList[i].quantity;
+    }
 }
