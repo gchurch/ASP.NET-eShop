@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Interfaces;
 using ApplicationCore.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,16 @@ namespace Infrastructure.Data
             Basket retrievedBasket = query.Include(b => b.BasketItems).ThenInclude(b => b.Product).FirstOrDefault();
             return retrievedBasket;
         }
+
+        public string GetProductQuantitiesInBasketAsAJsonString(string ownerId)
+        {
+            var basketItemsQuery = from basket in _context.Baskets where basket.OwnerID == ownerId select basket.BasketItems;
+            var productQuantitiesQuery = from basketItem in basketItemsQuery.AsNoTracking().FirstOrDefault() 
+                         select new { productId = basketItem.ProductId, quantity = basketItem.ProductQuantity };
+            var productsList = productQuantitiesQuery.ToList();
+            return JsonConvert.SerializeObject(productsList);
+        }
+
 
         public void AddTestProductToBasket(string OwnerId)
         {

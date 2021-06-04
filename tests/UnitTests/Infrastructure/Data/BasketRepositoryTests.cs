@@ -430,6 +430,49 @@ namespace UnitTests.Infrastructure.Data
             Assert.AreEqual(2, basket.BasketItems[1].ProductId);
             Assert.AreEqual(0, basket.BasketItems[1].ProductQuantity);
         }
+
+        [TestMethod]
+        public void GetProductQuantitiesInBasketAsAJsonString()
+        {
+            // Arrange
+            InMemoryProductDbContext ctx = CreateTestDatabase();
+            BasketRepository basketRepository = new BasketRepository(ctx);
+
+            // Act
+            List<Product> productsToAdd = new List<Product>() {
+                new Product()
+                {
+                    Title = "Product 1",
+                    Quantity = 2
+                },
+                new Product()
+                {
+                    Title = "Product 2",
+                    Quantity = 5
+                }
+            };
+            foreach (var product in productsToAdd)
+            {
+                ctx.Products.Add(product);
+            }
+            ctx.SaveChanges();
+
+            // Add new basket to database
+            string ownerId = "george";
+            basketRepository.CreateBasket(ownerId);
+
+            // Add products to basket
+            Basket basket = basketRepository.GetBasketByOwnerId(ownerId);
+            foreach (var product in productsToAdd)
+            {
+                basketRepository.AddProductToBasket(product.ProductId, basket.OwnerID);
+            }
+            string productQuantitiesString = basketRepository.GetProductQuantitiesInBasketAsAJsonString(ownerId);
+
+            //Assert
+            string expectedString = @"[{""productId"":1,""quantity"":1},{""productId"":2,""quantity"":1}]";
+            Assert.AreEqual(expectedString, productQuantitiesString);
+        }
     }
 
     public class InMemoryProductDbContext : ProductDbContext
