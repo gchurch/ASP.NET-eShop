@@ -45,6 +45,8 @@ function RemoveProductFromBasket(productId) {
                         var productElement = document.getElementById("basketProduct" + productId);
                         productElement.remove();
                     }
+                    updateTotalCost(data);
+                    updateTotalNumberOfProductsInBasket(data);
                 });
             }
         )
@@ -69,4 +71,24 @@ function isProductIdInProductQuantitiesList(productId, productQuantitiesList) {
         }
     }
     return false;
+}
+
+function updateTotalCost(productQuantitiesList) {
+    var totalCost = 0;
+    for (var i = 0; i < productQuantitiesList.length; i++) {
+        totalCost += productQuantitiesList[i].quantity * productQuantitiesList[i].product.Price;
+    }
+    console.log("new total cost: " + totalCost);
+    var totalCostElement = document.getElementById("basketTotalPrice");
+    totalCostElement.innerHTML = "£" + totalCost;
+}
+
+function updateTotalNumberOfProductsInBasket(productQuantitiesList) {
+    var total = 0;
+    for (var i = 0; i < productQuantitiesList.length; i++) {
+        total += productQuantitiesList[i].quantity;
+    }
+    console.log("new total number of products in basket: " + total);
+    var totalNumberOfProductsElement = document.getElementById("basketTotalNumberOfProducts");
+    totalNumberOfProductsElement.innerHTML = total;
 }

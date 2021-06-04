@@ -60,9 +60,10 @@ namespace Infrastructure.Data
 
         public string GetProductQuantitiesInBasketAsAJsonString(string ownerId)
         {
-            var basketItemsQuery = from basket in _context.Baskets where basket.OwnerID == ownerId select basket.BasketItems;
-            var productQuantitiesQuery = from basketItem in basketItemsQuery.AsNoTracking().FirstOrDefault() 
-                         select new { productId = basketItem.ProductId, quantity = basketItem.ProductQuantity };
+            var basketItemsQuery = from basket in _context.Baskets where basket.OwnerID == ownerId select basket;
+            var basketItems = basketItemsQuery.Include(b => b.BasketItems).ThenInclude(b => b.Product).AsNoTracking().FirstOrDefault().BasketItems;
+            var productQuantitiesQuery = from basketItem in basketItems
+                                         select new { productId = basketItem.ProductId, quantity = basketItem.ProductQuantity, product = basketItem.Product };
             var productsList = productQuantitiesQuery.ToList();
             return JsonConvert.SerializeObject(productsList);
         }
