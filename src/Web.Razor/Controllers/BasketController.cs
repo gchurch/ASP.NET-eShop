@@ -54,5 +54,22 @@ namespace Web.Razor.Controllers
                 return NotFound();
             }
         }
+
+        // GET: /Basket/Remove/1
+        [HttpGet]
+        public async Task<ActionResult> Remove(int id)
+        {
+            Console.WriteLine("Adding product with ID: " + id + " to basket");
+            if (await _productService.DoesProductIdExist(id))
+            {
+                string userId = _userManager.GetUserId(User);
+                _basketService.RemoveProductFromBasket(id, userId);
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }

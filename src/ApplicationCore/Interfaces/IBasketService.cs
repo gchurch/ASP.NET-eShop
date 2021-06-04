@@ -12,5 +12,7 @@ namespace ApplicationCore.Interfaces
         public Basket GetBasket(string OwnerId);
 
         public void AddProductToBasket(int productId, string ownerId);
+
+        public void RemoveProductFromBasket(int productId, string ownerId);
     }
 }

@@ -24,7 +24,7 @@
                     <p id="productTitle"><a href="/Products/Details/@b.Product.ProductId">@b.Product.Title</a></p>
                     <p id="productSeller">Sold by: @b.Product.Seller</p>
                     <p id="productQuantity">Quantity in basket: @b.ProductQuantity</p>
-                    <button>Remove</button>
+                    <button type="button" onclick="RemoveProductFromBasket(@b.ProductId)">Remove</button>
                 </div>
                 <div>
                     <p id="productPrice">£@b.Product.Price</p>

@@ -22,5 +22,7 @@ namespace ApplicationCore.Interfaces
         public void IncrementProductQuantityInBasket(int productId, string ownerId);
 
         public bool IsProductInBasket(int productId, string ownerId);
+
+        public void DecrementProductQuantityInBasket(int productId, string ownerId);
     }
 }

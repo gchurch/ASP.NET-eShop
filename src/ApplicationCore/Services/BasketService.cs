@@ -43,5 +43,18 @@ namespace ApplicationCore.Services
                 _basketRepository.IncrementProductQuantityInBasket(productId, ownerId);
             }
         }
+
+        public void RemoveProductFromBasket(int productId, string ownerId)
+        {
+            if (_basketRepository.DoesBasketExist(ownerId) == false)
+            {
+                _basketRepository.CreateBasket(ownerId);
+            }
+
+            if (_basketRepository.IsProductInBasket(productId, ownerId) == true)
+            {
+                _basketRepository.DecrementProductQuantityInBasket(productId, ownerId);
+            }
+        }
     }
 }
