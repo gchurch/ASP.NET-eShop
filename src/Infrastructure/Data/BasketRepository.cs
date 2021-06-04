@@ -120,5 +120,17 @@ namespace Infrastructure.Data
             bool isProductInBasket = query.Any();
             return isProductInBasket;
         }
+
+        public void DecrementProductQuantityInBasket(int productId, string ownerId)
+        {
+            Basket basket = GetBasketByOwnerIdTracked(ownerId);
+            var query = from basketItem in basket.BasketItems where basketItem.ProductId == productId select basketItem;
+            BasketItem matchingBasketItem = query.FirstOrDefault();
+            if (matchingBasketItem != null)
+            {
+                matchingBasketItem.ProductQuantity -= 1;
+                _context.SaveChanges();
+            }
+        }
     }
 }

@@ -384,6 +384,52 @@ namespace UnitTests.Infrastructure.Data
             // Assert
             Assert.AreEqual(false, isProductInBasket);
         }
+
+        [TestMethod]
+        public void DecrementProductQuantityInBasket_GivenProductExistsInBasket_ShouldDecrementProductQuantity()
+        {
+            // Arrange
+            InMemoryProductDbContext ctx = CreateTestDatabase();
+            BasketRepository basketRepository = new BasketRepository(ctx);
+
+            // Act
+            List<Product> productsToAdd = new List<Product>() {
+                new Product()
+                {
+                    Title = "Product 1"
+                },
+                new Product()
+                {
+                    Title = "Product 2"
+                }
+            };
+            foreach (var product in productsToAdd)
+            {
+                ctx.Products.Add(product);
+            }
+            ctx.SaveChanges();
+
+            // Add new basket to database
+            string ownerId = "george";
+            basketRepository.CreateBasket(ownerId);
+
+            // Add products to basket
+            Basket basket = basketRepository.GetBasketByOwnerId(ownerId);
+            foreach (var product in productsToAdd)
+            {
+                basketRepository.AddProductToBasket(product.ProductId, basket.OwnerID);
+            }
+
+            int idOfProductToDecrement = 2;
+            basketRepository.DecrementProductQuantityInBasket(idOfProductToDecrement, ownerId);
+            basket = basketRepository.GetBasketByOwnerId(ownerId);
+
+            // Assert
+            Assert.AreEqual(1, basket.BasketItems[0].ProductId);
+            Assert.AreEqual(1, basket.BasketItems[0].ProductQuantity);
+            Assert.AreEqual(2, basket.BasketItems[1].ProductId);
+            Assert.AreEqual(0, basket.BasketItems[1].ProductQuantity);
+        }
     }
 
     public class InMemoryProductDbContext : ProductDbContext
