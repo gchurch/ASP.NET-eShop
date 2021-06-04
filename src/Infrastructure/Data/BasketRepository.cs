@@ -143,5 +143,13 @@ namespace Infrastructure.Data
                 _context.SaveChanges();
             }
         }
+
+        public int GetProductQuantityInBasket(int productId, string ownerId)
+        {
+            Basket basket = GetBasketByOwnerId(ownerId);
+            var query = from basketItem in basket.BasketItems where basketItem.ProductId == productId select basketItem.ProductQuantity;
+            int quantity = query.FirstOrDefault();
+            return quantity;
+        }
     }
 }

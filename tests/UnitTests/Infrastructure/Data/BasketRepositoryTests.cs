@@ -473,6 +473,50 @@ namespace UnitTests.Infrastructure.Data
             string expectedString = @"[{""productId"":1,""quantity"":1},{""productId"":2,""quantity"":1}]";
             Assert.AreEqual(expectedString, productQuantitiesString);
         }
+
+        [TestMethod]
+        public void GetProductQuantityInBasket_GivenProductExistsInBasket_ShouldReturnCorrectQuantity()
+        {
+            // Arrange
+            InMemoryProductDbContext ctx = CreateTestDatabase();
+            BasketRepository basketRepository = new BasketRepository(ctx);
+
+            // Act
+            List<Product> productsToAdd = new List<Product>() {
+                new Product()
+                {
+                    Title = "Product 1",
+                    Quantity = 2
+                },
+                new Product()
+                {
+                    Title = "Product 2",
+                    Quantity = 5
+                }
+            };
+            foreach (var product in productsToAdd)
+            {
+                ctx.Products.Add(product);
+            }
+            ctx.SaveChanges();
+
+            // Add new basket to database
+            string ownerId = "george";
+            basketRepository.CreateBasket(ownerId);
+
+            // Add products to basket
+            Basket basket = basketRepository.GetBasketByOwnerId(ownerId);
+            foreach (var product in productsToAdd)
+            {
+                basketRepository.AddProductToBasket(product.ProductId, basket.OwnerID);
+            }
+            int productId = 1;
+            int quantityOfProductInBasket = basketRepository.GetProductQuantityInBasket(productId, ownerId);
+
+            // Assert
+            int expectedQuantity = 1;
+            Assert.AreEqual(expectedQuantity, quantityOfProductInBasket);
+        }
     }
 
     public class InMemoryProductDbContext : ProductDbContext

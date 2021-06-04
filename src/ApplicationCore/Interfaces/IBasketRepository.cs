@@ -21,10 +21,14 @@ namespace ApplicationCore.Interfaces
 
         public void AddProductToBasket(int productId, string ownerId);
 
+        public void RemoveProductFromBasket(int productId, string ownerId);
+
         public void IncrementProductQuantityInBasket(int productId, string ownerId);
 
         public bool IsProductInBasket(int productId, string ownerId);
 
         public void DecrementProductQuantityInBasket(int productId, string ownerId);
+
+        public int GetProductQuantityInBasket(int productId, string ownerId);
     }
 }
