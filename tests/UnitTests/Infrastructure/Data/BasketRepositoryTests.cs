@@ -444,11 +444,6 @@ namespace UnitTests.Infrastructure.Data
                 {
                     Title = "Product 1",
                     Quantity = 2
-                },
-                new Product()
-                {
-                    Title = "Product 2",
-                    Quantity = 5
                 }
             };
             foreach (var product in productsToAdd)
@@ -470,7 +465,7 @@ namespace UnitTests.Infrastructure.Data
             string productQuantitiesString = basketRepository.GetProductQuantitiesInBasketAsAJsonString(ownerId);
 
             //Assert
-            string expectedString = @"[{""productId"":1,""quantity"":1},{""productId"":2,""quantity"":1}]";
+            string expectedString = "[{\"productId\":1,\"quantity\":1,\"product\":{\"ProductId\":1,\"OwnerID\":null,\"Title\":\"Product 1\",\"Description\":null,\"Seller\":null,\"Price\":0,\"Quantity\":2,\"ImageUrl\":null}}]";
             Assert.AreEqual(expectedString, productQuantitiesString);
         }
 
