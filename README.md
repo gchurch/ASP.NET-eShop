@@ -2,7 +2,7 @@
 
 ![.NET](https://github.com/gchurch/ASP.NET-eShop/workflows/.NET/badge.svg)
 
-I have created a mock online store using ASP.NET Core. I have created a few different versions of the front end using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the different front ends being easily substitutable for one another. I make use of Entity Framework Core to work with an SQL Server database. I have also created some unit tests and integration tests for the application. The application is deployed on Azure for demonstration.
+I have created a mock online marketplace using ASP.NET Core. I have created a few different versions of the front end using different technologies. The front-end technologies I have used are Angular, Razor and React. The solution uses a clean architecture which results in the different front ends being easily substitutable for one another. I make use of Entity Framework Core to work with an SQL Server database. I have also created some unit tests and integration tests for the application. The application is deployed on Azure for demonstration.
 
 ## Angular Front End
 
