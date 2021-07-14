@@ -20,7 +20,7 @@ namespace ApplicationCore.Models
 
         public override string ToString()
         {
-            return "{ BasketItemId: " + BasketItemId + ", ProductId: " + ProductId + ", BasketId: " + BasketId + " }";
+            return $"{{ BasketItemId: {BasketItemId}, ProductId: {ProductId}, BasketId: {BasketId} }}";
         }
     }
 }

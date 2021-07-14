@@ -14,7 +14,7 @@ namespace ApplicationCore.Models
 
         public override string ToString()
         {
-            return "{ BasketId: " + BasketId + ", OwnerId: " + OwnerID + ", BasketItems: " + PostsToString() + " }";
+            return $"{{ BasketId: {BasketId}, OwnerId: {OwnerID}, BasketItems: {PostsToString()} }}";
         }
 
         private string PostsToString()
