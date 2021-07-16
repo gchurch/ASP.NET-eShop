@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System;
 using System.IO;
+using Web.Angular.Middleware;
 
 namespace Web.Angular
 {
@@ -100,12 +101,8 @@ namespace Web.Angular
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-
-            app.Use(async (context, next) =>
-            {
-                Console.WriteLine("Hello World! from custom middleware.");
-                await next.Invoke();
-            });
+            // Here I am adding my own custom middleware to the pipeline
+            app.UseCustomMiddleware();
 
             app.UseEndpoints(endpoints =>
             {
