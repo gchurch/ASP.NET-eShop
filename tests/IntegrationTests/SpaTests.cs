@@ -35,6 +35,20 @@ namespace FunctionalTests
         }
 
         [TestMethod]
+        public async Task GetRequestsOfSwaggerEndpoint_ShouldGiveOkResponse()
+        {
+            // Arrange
+            HttpClient client = _factory.CreateClient();
+            string url = "/swagger/index.html";
+
+            // Act
+            HttpResponseMessage response = await client.GetAsync(url);
+
+            // Assert
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        }
+
+        [TestMethod]
         public async Task GettingAllProductsWithAGetRequest_ShouldReturnOkStatusCodeAndAllTheProducts()
         {
             // Arrange
