@@ -100,6 +100,13 @@ namespace Web.Angular
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
+
+            app.Use(async (context, next) =>
+            {
+                Console.WriteLine("Hello World! from custom middleware.");
+                await next.Invoke();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
