@@ -32,7 +32,9 @@ namespace Infrastructure.Data
 
         public bool DoesBasketExist(string ownerId)
         {
-            var query = from basket in _context.Baskets where basket.OwnerID == ownerId select basket;
+            var query = from basket in _context.Baskets 
+                        where basket.OwnerID == ownerId 
+                        select basket;
             Basket retrievedBasket = query.AsNoTracking().FirstOrDefault();
             if (retrievedBasket == null)
             {
@@ -46,24 +48,46 @@ namespace Infrastructure.Data
 
         public Basket GetBasketByOwnerId(string ownerId)
         {
-            var query = from basket in _context.Baskets where basket.OwnerID == ownerId select basket;
-            Basket retrievedBasket = query.AsNoTracking().Include(b => b.BasketItems).ThenInclude(b => b.Product).FirstOrDefault();
+            var query = from basket in _context.Baskets 
+                        where basket.OwnerID == ownerId 
+                        select basket;
+            Basket retrievedBasket = query
+                .AsNoTracking()
+                .Include(b => b.BasketItems)
+                .ThenInclude(b => b.Product)
+                .FirstOrDefault();
             return retrievedBasket;
         }
 
         public Basket GetBasketByOwnerIdTracked(string ownerId)
         {
-            var query = from basket in _context.Baskets where basket.OwnerID == ownerId select basket;
-            Basket retrievedBasket = query.Include(b => b.BasketItems).ThenInclude(b => b.Product).FirstOrDefault();
+            var query = from basket in _context.Baskets 
+                        where basket.OwnerID == ownerId 
+                        select basket;
+            Basket retrievedBasket = query
+                .Include(b => b.BasketItems)
+                .ThenInclude(b => b.Product)
+                .FirstOrDefault();
             return retrievedBasket;
         }
 
         public string GetProductQuantitiesInBasketAsAJsonString(string ownerId)
         {
-            var basketItemsQuery = from basket in _context.Baskets where basket.OwnerID == ownerId select basket;
-            var basketItems = basketItemsQuery.Include(b => b.BasketItems).ThenInclude(b => b.Product).AsNoTracking().FirstOrDefault().BasketItems;
+            var basketItemsQuery = from basket in _context.Baskets 
+                                   where basket.OwnerID == ownerId 
+                                   select basket;
+            var basketItems = basketItemsQuery
+                .Include(b => b.BasketItems)
+                .ThenInclude(b => b.Product)
+                .AsNoTracking()
+                .FirstOrDefault()
+                .BasketItems;
             var productQuantitiesQuery = from basketItem in basketItems
-                                         select new { productId = basketItem.ProductId, quantity = basketItem.ProductQuantity, product = basketItem.Product };
+                                         select new { 
+                                             productId = basketItem.ProductId, 
+                                             quantity = basketItem.ProductQuantity, 
+                                             product = basketItem.Product 
+                                         };
             var productsList = productQuantitiesQuery.ToList();
             return JsonConvert.SerializeObject(productsList);
         }
@@ -95,7 +119,9 @@ namespace Infrastructure.Data
 
         private Product GetProductByProductId(int productId)
         {
-            var productQuery = from product in _context.Products where product.ProductId == productId select product;
+            var productQuery = from product in _context.Products 
+                               where product.ProductId == productId 
+                               select product;
             Product retrievedProduct = productQuery.FirstOrDefault();
             return retrievedProduct;
         }
@@ -116,7 +142,9 @@ namespace Infrastructure.Data
         public void IncrementProductQuantityInBasket(int productId, string ownerId)
         {
             Basket basket = GetBasketByOwnerIdTracked(ownerId);
-            var query = from basketItem in basket.BasketItems where basketItem.ProductId == productId select basketItem;
+            var query = from basketItem in basket.BasketItems 
+                        where basketItem.ProductId == productId 
+                        select basketItem;
             BasketItem matchingBasketItem = query.FirstOrDefault();
             if (matchingBasketItem != null)
             {
@@ -128,7 +156,9 @@ namespace Infrastructure.Data
         public bool IsProductInBasket(int productId, string ownerId)
         {
             Basket basket = GetBasketByOwnerId(ownerId);
-            var query = from basketItem in basket.BasketItems where basketItem.ProductId == productId select basketItem;
+            var query = from basketItem in basket.BasketItems 
+                        where basketItem.ProductId == productId 
+                        select basketItem;
             bool isProductInBasket = query.Any();
             return isProductInBasket;
         }
@@ -136,7 +166,9 @@ namespace Infrastructure.Data
         public void DecrementProductQuantityInBasket(int productId, string ownerId)
         {
             Basket basket = GetBasketByOwnerIdTracked(ownerId);
-            var query = from basketItem in basket.BasketItems where basketItem.ProductId == productId select basketItem;
+            var query = from basketItem in basket.BasketItems 
+                        where basketItem.ProductId == productId 
+                        select basketItem;
             BasketItem matchingBasketItem = query.FirstOrDefault();
             if (matchingBasketItem != null)
             {
@@ -148,7 +180,9 @@ namespace Infrastructure.Data
         public int GetProductQuantityInBasket(int productId, string ownerId)
         {
             Basket basket = GetBasketByOwnerId(ownerId);
-            var query = from basketItem in basket.BasketItems where basketItem.ProductId == productId select basketItem.ProductQuantity;
+            var query = from basketItem in basket.BasketItems 
+                        where basketItem.ProductId == productId 
+                        select basketItem.ProductQuantity;
             int quantity = query.FirstOrDefault();
             return quantity;
         }
