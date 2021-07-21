@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Models
 {
+    //Principal entity
     public class Basket
     {
+        //Principal key
         public int BasketId { get; set; }
+        //Foreign key
         public string OwnerID { get; set; }
+        //Collection navigation property:
         public List<BasketItem> BasketItems { get; set; }
 
         public override string ToString()
